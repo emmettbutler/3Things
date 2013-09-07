@@ -10,6 +10,7 @@
 		AAC2242117DBA9D400E7F1D7 /* DayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242017DBA9D400E7F1D7 /* DayListViewController.m */; };
 		AAC2242717DBB70600E7F1D7 /* FriendsDayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242617DBB70600E7F1D7 /* FriendsDayListViewController.m */; };
 		AAC2242A17DBBB0B00E7F1D7 /* My3ThingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242917DBBB0B00E7F1D7 /* My3ThingsViewController.m */; };
+		AAC2242D17DBBE8500E7F1D7 /* EditThingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242C17DBBE8500E7F1D7 /* EditThingViewController.m */; };
 		AAF28C5017DAA90A0067FD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C4F17DAA90A0067FD79 /* UIKit.framework */; };
 		AAF28C5217DAA90A0067FD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C5117DAA90A0067FD79 /* Foundation.framework */; };
 		AAF28C5417DAA90A0067FD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C5317DAA90A0067FD79 /* CoreGraphics.framework */; };
@@ -30,6 +31,8 @@
 		AAC2242617DBB70600E7F1D7 /* FriendsDayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsDayListViewController.m; sourceTree = "<group>"; };
 		AAC2242817DBBB0B00E7F1D7 /* My3ThingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = My3ThingsViewController.h; sourceTree = "<group>"; };
 		AAC2242917DBBB0B00E7F1D7 /* My3ThingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = My3ThingsViewController.m; sourceTree = "<group>"; };
+		AAC2242B17DBBE8500E7F1D7 /* EditThingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditThingViewController.h; sourceTree = "<group>"; };
+		AAC2242C17DBBE8500E7F1D7 /* EditThingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditThingViewController.m; sourceTree = "<group>"; };
 		AAF28C4C17DAA90A0067FD79 /* 3Things.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Things.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF28C4F17DAA90A0067FD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AAF28C5117DAA90A0067FD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -103,6 +106,8 @@
 				AAC2242617DBB70600E7F1D7 /* FriendsDayListViewController.m */,
 				AAC2242817DBBB0B00E7F1D7 /* My3ThingsViewController.h */,
 				AAC2242917DBBB0B00E7F1D7 /* My3ThingsViewController.m */,
+				AAC2242B17DBBE8500E7F1D7 /* EditThingViewController.h */,
+				AAC2242C17DBBE8500E7F1D7 /* EditThingViewController.m */,
 				AAF28C6F17DAB5520067FD79 /* SignupCodeViewController.h */,
 				AAF28C7017DAB5520067FD79 /* SignupCodeViewController.m */,
 				AAF28C5617DAA90A0067FD79 /* Supporting Files */,
@@ -192,6 +197,7 @@
 				AAC2242A17DBBB0B00E7F1D7 /* My3ThingsViewController.m in Sources */,
 				AAF28C5C17DAA90A0067FD79 /* main.m in Sources */,
 				AAC2242117DBA9D400E7F1D7 /* DayListViewController.m in Sources */,
+				AAC2242D17DBBE8500E7F1D7 /* EditThingViewController.m in Sources */,
 				AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */,
 				AAC2242717DBB70600E7F1D7 /* FriendsDayListViewController.m in Sources */,
 				AAF28C6E17DAAF8D0067FD79 /* SplashViewController.m in Sources */,

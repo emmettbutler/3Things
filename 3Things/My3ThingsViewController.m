@@ -7,6 +7,7 @@
 //
 
 #import "My3ThingsViewController.h"
+#import "EditThingViewController.h"
 
 @interface My3ThingsViewController ()
 
@@ -96,9 +97,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    /*UIViewController *friendsView = [[FriendsDayListViewController alloc] init];
-     [[self navigationController] addChildViewController:friendsView];
-     [[self navigationController] setView:friendsView.view];*/
+    UIViewController *editView = [[EditThingViewController alloc] init];
+    [[self navigationController] pushViewController:editView animated:YES];
+}
+
+- (void)backWasTouched {
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
