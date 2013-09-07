@@ -1,0 +1,318 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AAC2242117DBA9D400E7F1D7 /* DayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242017DBA9D400E7F1D7 /* DayListViewController.m */; };
+		AAC2242717DBB70600E7F1D7 /* FriendsDayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242617DBB70600E7F1D7 /* FriendsDayListViewController.m */; };
+		AAC2242A17DBBB0B00E7F1D7 /* My3ThingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242917DBBB0B00E7F1D7 /* My3ThingsViewController.m */; };
+		AAF28C5017DAA90A0067FD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C4F17DAA90A0067FD79 /* UIKit.framework */; };
+		AAF28C5217DAA90A0067FD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C5117DAA90A0067FD79 /* Foundation.framework */; };
+		AAF28C5417DAA90A0067FD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C5317DAA90A0067FD79 /* CoreGraphics.framework */; };
+		AAF28C5A17DAA90A0067FD79 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAF28C5817DAA90A0067FD79 /* InfoPlist.strings */; };
+		AAF28C5C17DAA90A0067FD79 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF28C5B17DAA90A0067FD79 /* main.m */; };
+		AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF28C5F17DAA90A0067FD79 /* AppDelegate.m */; };
+		AAF28C6217DAA90A0067FD79 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF28C6117DAA90A0067FD79 /* Default.png */; };
+		AAF28C6417DAA90A0067FD79 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF28C6317DAA90A0067FD79 /* Default@2x.png */; };
+		AAF28C6617DAA90A0067FD79 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF28C6517DAA90A0067FD79 /* Default-568h@2x.png */; };
+		AAF28C6E17DAAF8D0067FD79 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF28C6D17DAAF8D0067FD79 /* SplashViewController.m */; };
+		AAF28C7117DAB5530067FD79 /* SignupCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF28C7017DAB5520067FD79 /* SignupCodeViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AAC2241F17DBA9D400E7F1D7 /* DayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayListViewController.h; sourceTree = "<group>"; };
+		AAC2242017DBA9D400E7F1D7 /* DayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayListViewController.m; sourceTree = "<group>"; };
+		AAC2242517DBB70600E7F1D7 /* FriendsDayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsDayListViewController.h; sourceTree = "<group>"; };
+		AAC2242617DBB70600E7F1D7 /* FriendsDayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsDayListViewController.m; sourceTree = "<group>"; };
+		AAC2242817DBBB0B00E7F1D7 /* My3ThingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = My3ThingsViewController.h; sourceTree = "<group>"; };
+		AAC2242917DBBB0B00E7F1D7 /* My3ThingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = My3ThingsViewController.m; sourceTree = "<group>"; };
+		AAF28C4C17DAA90A0067FD79 /* 3Things.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Things.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAF28C4F17DAA90A0067FD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AAF28C5117DAA90A0067FD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AAF28C5317DAA90A0067FD79 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		AAF28C5717DAA90A0067FD79 /* 3Things-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "3Things-Info.plist"; sourceTree = "<group>"; };
+		AAF28C5917DAA90A0067FD79 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AAF28C5B17DAA90A0067FD79 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AAF28C5D17DAA90A0067FD79 /* 3Things-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "3Things-Prefix.pch"; sourceTree = "<group>"; };
+		AAF28C5E17DAA90A0067FD79 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AAF28C5F17DAA90A0067FD79 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AAF28C6117DAA90A0067FD79 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		AAF28C6317DAA90A0067FD79 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		AAF28C6517DAA90A0067FD79 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		AAF28C6C17DAAF8D0067FD79 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
+		AAF28C6D17DAAF8D0067FD79 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
+		AAF28C6F17DAB5520067FD79 /* SignupCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupCodeViewController.h; sourceTree = "<group>"; };
+		AAF28C7017DAB5520067FD79 /* SignupCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupCodeViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AAF28C4917DAA90A0067FD79 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAF28C5017DAA90A0067FD79 /* UIKit.framework in Frameworks */,
+				AAF28C5217DAA90A0067FD79 /* Foundation.framework in Frameworks */,
+				AAF28C5417DAA90A0067FD79 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AAF28C4317DAA90A0067FD79 = {
+			isa = PBXGroup;
+			children = (
+				AAF28C5517DAA90A0067FD79 /* 3Things */,
+				AAF28C4E17DAA90A0067FD79 /* Frameworks */,
+				AAF28C4D17DAA90A0067FD79 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AAF28C4D17DAA90A0067FD79 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAF28C4C17DAA90A0067FD79 /* 3Things.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AAF28C4E17DAA90A0067FD79 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AAF28C4F17DAA90A0067FD79 /* UIKit.framework */,
+				AAF28C5117DAA90A0067FD79 /* Foundation.framework */,
+				AAF28C5317DAA90A0067FD79 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AAF28C5517DAA90A0067FD79 /* 3Things */ = {
+			isa = PBXGroup;
+			children = (
+				AAF28C5E17DAA90A0067FD79 /* AppDelegate.h */,
+				AAF28C5F17DAA90A0067FD79 /* AppDelegate.m */,
+				AAF28C6C17DAAF8D0067FD79 /* SplashViewController.h */,
+				AAF28C6D17DAAF8D0067FD79 /* SplashViewController.m */,
+				AAC2241F17DBA9D400E7F1D7 /* DayListViewController.h */,
+				AAC2242017DBA9D400E7F1D7 /* DayListViewController.m */,
+				AAC2242517DBB70600E7F1D7 /* FriendsDayListViewController.h */,
+				AAC2242617DBB70600E7F1D7 /* FriendsDayListViewController.m */,
+				AAC2242817DBBB0B00E7F1D7 /* My3ThingsViewController.h */,
+				AAC2242917DBBB0B00E7F1D7 /* My3ThingsViewController.m */,
+				AAF28C6F17DAB5520067FD79 /* SignupCodeViewController.h */,
+				AAF28C7017DAB5520067FD79 /* SignupCodeViewController.m */,
+				AAF28C5617DAA90A0067FD79 /* Supporting Files */,
+			);
+			path = 3Things;
+			sourceTree = "<group>";
+		};
+		AAF28C5617DAA90A0067FD79 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AAF28C5717DAA90A0067FD79 /* 3Things-Info.plist */,
+				AAF28C5817DAA90A0067FD79 /* InfoPlist.strings */,
+				AAF28C5B17DAA90A0067FD79 /* main.m */,
+				AAF28C5D17DAA90A0067FD79 /* 3Things-Prefix.pch */,
+				AAF28C6117DAA90A0067FD79 /* Default.png */,
+				AAF28C6317DAA90A0067FD79 /* Default@2x.png */,
+				AAF28C6517DAA90A0067FD79 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AAF28C4B17DAA90A0067FD79 /* 3Things */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAF28C6917DAA90A0067FD79 /* Build configuration list for PBXNativeTarget "3Things" */;
+			buildPhases = (
+				AAF28C4817DAA90A0067FD79 /* Sources */,
+				AAF28C4917DAA90A0067FD79 /* Frameworks */,
+				AAF28C4A17DAA90A0067FD79 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = 3Things;
+			productName = 3Things;
+			productReference = AAF28C4C17DAA90A0067FD79 /* 3Things.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AAF28C4417DAA90A0067FD79 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Emmett Butler";
+			};
+			buildConfigurationList = AAF28C4717DAA90A0067FD79 /* Build configuration list for PBXProject "3Things" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AAF28C4317DAA90A0067FD79;
+			productRefGroup = AAF28C4D17DAA90A0067FD79 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AAF28C4B17DAA90A0067FD79 /* 3Things */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AAF28C4A17DAA90A0067FD79 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAF28C5A17DAA90A0067FD79 /* InfoPlist.strings in Resources */,
+				AAF28C6217DAA90A0067FD79 /* Default.png in Resources */,
+				AAF28C6417DAA90A0067FD79 /* Default@2x.png in Resources */,
+				AAF28C6617DAA90A0067FD79 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AAF28C4817DAA90A0067FD79 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAC2242A17DBBB0B00E7F1D7 /* My3ThingsViewController.m in Sources */,
+				AAF28C5C17DAA90A0067FD79 /* main.m in Sources */,
+				AAC2242117DBA9D400E7F1D7 /* DayListViewController.m in Sources */,
+				AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */,
+				AAC2242717DBB70600E7F1D7 /* FriendsDayListViewController.m in Sources */,
+				AAF28C6E17DAAF8D0067FD79 /* SplashViewController.m in Sources */,
+				AAF28C7117DAB5530067FD79 /* SignupCodeViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AAF28C5817DAA90A0067FD79 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AAF28C5917DAA90A0067FD79 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AAF28C6717DAA90A0067FD79 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AAF28C6817DAA90A0067FD79 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AAF28C6A17DAA90A0067FD79 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "3Things/3Things-Prefix.pch";
+				INFOPLIST_FILE = "3Things/3Things-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AAF28C6B17DAA90A0067FD79 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "3Things/3Things-Prefix.pch";
+				INFOPLIST_FILE = "3Things/3Things-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAF28C4717DAA90A0067FD79 /* Build configuration list for PBXProject "3Things" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAF28C6717DAA90A0067FD79 /* Debug */,
+				AAF28C6817DAA90A0067FD79 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAF28C6917DAA90A0067FD79 /* Build configuration list for PBXNativeTarget "3Things" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAF28C6A17DAA90A0067FD79 /* Debug */,
+				AAF28C6B17DAA90A0067FD79 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AAF28C4417DAA90A0067FD79 /* Project object */;
+}
