@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTSharesAccessor.h"
 
 @interface My3ThingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
 }
 
+@property (nonatomic, retain) TTSharesAccessor *accessor;
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic, retain) NSNumber *tableHeight;
 

@@ -8,6 +8,7 @@
 
 #import "My3ThingsViewController.h"
 #import "EditThingViewController.h"
+#import "TTShareDay.h"
 
 @interface My3ThingsViewController ()
 
@@ -27,6 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.accessor = [[TTSharesAccessor alloc] init];
 	
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
@@ -81,7 +84,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 42.0;
+    return 44.0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -95,7 +98,7 @@
     text.text = @"Header Smith";
     [header addSubview:text];
     
-    UITextView *text2 = [[UITextView alloc] initWithFrame:CGRectMake(0, 20, frame.size.width, 20)];
+    UITextView *text2 = [[UITextView alloc] initWithFrame:CGRectMake(0, 20, frame.size.width, 23)];
     text2.textAlignment = NSTextAlignmentCenter;
     text2.text = @"Today";
     [header addSubview:text2];
@@ -115,7 +118,10 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"Thing %d", indexPath.row];
+    
+    TTShareDay *shares = [self.accessor getFriendSharesForDate:NULL andUserName:@"heather"];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", [[shares.theThings objectAtIndex:indexPath.row] text]];
     // add images for friends
     //[cell addSubview:[[UIImageView alloc] initWithImage: ]];
     return cell;
