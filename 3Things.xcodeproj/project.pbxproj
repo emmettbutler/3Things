@@ -8,13 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		AABB2EA2180063D800EEA446 /* prof_pic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AABB2EA1180063D800EEA446 /* prof_pic.jpg */; };
-		AABB2EA51800698400EEA446 /* TTSharesAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EA41800698400EEA446 /* TTSharesAccessor.m */; };
-		AABB2EA8180069D000EEA446 /* TTShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EA7180069D000EEA446 /* TTShareDay.m */; };
-		AABB2EAB18006BEF00EEA446 /* TTThing.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EAA18006BEF00EEA446 /* TTThing.m */; };
-		AAC2242117DBA9D400E7F1D7 /* DayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242017DBA9D400E7F1D7 /* DayListViewController.m */; };
-		AAC2242717DBB70600E7F1D7 /* FriendsDayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242617DBB70600E7F1D7 /* FriendsDayListViewController.m */; };
-		AAC2242A17DBBB0B00E7F1D7 /* My3ThingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242917DBBB0B00E7F1D7 /* My3ThingsViewController.m */; };
-		AAC2242D17DBBE8500E7F1D7 /* EditThingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242C17DBBE8500E7F1D7 /* EditThingViewController.m */; };
+		AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EAE18006FD600EEA446 /* DayListViewController.m */; };
+		AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB018006FD600EEA446 /* EditThingViewController.m */; };
+		AABB2EC218006FD600EEA446 /* FriendsDayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB218006FD600EEA446 /* FriendsDayListViewController.m */; };
+		AABB2EC318006FD600EEA446 /* My3ThingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB418006FD600EEA446 /* My3ThingsViewController.m */; };
+		AABB2EC418006FD600EEA446 /* SignupCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB618006FD600EEA446 /* SignupCodeViewController.m */; };
+		AABB2EC518006FD600EEA446 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB818006FD600EEA446 /* SplashViewController.m */; };
+		AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EBB18006FD600EEA446 /* TTShareDay.m */; };
+		AABB2EC718006FD600EEA446 /* TTSharesAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EBD18006FD600EEA446 /* TTSharesAccessor.m */; };
+		AABB2EC818006FD600EEA446 /* TTThing.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EBF18006FD600EEA446 /* TTThing.m */; };
 		AAF28C5017DAA90A0067FD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C4F17DAA90A0067FD79 /* UIKit.framework */; };
 		AAF28C5217DAA90A0067FD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C5117DAA90A0067FD79 /* Foundation.framework */; };
 		AAF28C5417DAA90A0067FD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C5317DAA90A0067FD79 /* CoreGraphics.framework */; };
@@ -24,26 +26,28 @@
 		AAF28C6217DAA90A0067FD79 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF28C6117DAA90A0067FD79 /* Default.png */; };
 		AAF28C6417DAA90A0067FD79 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF28C6317DAA90A0067FD79 /* Default@2x.png */; };
 		AAF28C6617DAA90A0067FD79 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF28C6517DAA90A0067FD79 /* Default-568h@2x.png */; };
-		AAF28C6E17DAAF8D0067FD79 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF28C6D17DAAF8D0067FD79 /* SplashViewController.m */; };
-		AAF28C7117DAB5530067FD79 /* SignupCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF28C7017DAB5520067FD79 /* SignupCodeViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AABB2EA1180063D800EEA446 /* prof_pic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = prof_pic.jpg; path = ../../../../3things/designs/prof_pic.jpg; sourceTree = "<group>"; };
-		AABB2EA31800698400EEA446 /* TTSharesAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSharesAccessor.h; sourceTree = "<group>"; };
-		AABB2EA41800698400EEA446 /* TTSharesAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSharesAccessor.m; sourceTree = "<group>"; };
-		AABB2EA6180069D000EEA446 /* TTShareDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTShareDay.h; sourceTree = "<group>"; };
-		AABB2EA7180069D000EEA446 /* TTShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTShareDay.m; sourceTree = "<group>"; };
-		AABB2EA918006BEF00EEA446 /* TTThing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTThing.h; sourceTree = "<group>"; };
-		AABB2EAA18006BEF00EEA446 /* TTThing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTThing.m; sourceTree = "<group>"; };
-		AAC2241F17DBA9D400E7F1D7 /* DayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayListViewController.h; sourceTree = "<group>"; };
-		AAC2242017DBA9D400E7F1D7 /* DayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayListViewController.m; sourceTree = "<group>"; };
-		AAC2242517DBB70600E7F1D7 /* FriendsDayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsDayListViewController.h; sourceTree = "<group>"; };
-		AAC2242617DBB70600E7F1D7 /* FriendsDayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsDayListViewController.m; sourceTree = "<group>"; };
-		AAC2242817DBBB0B00E7F1D7 /* My3ThingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = My3ThingsViewController.h; sourceTree = "<group>"; };
-		AAC2242917DBBB0B00E7F1D7 /* My3ThingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = My3ThingsViewController.m; sourceTree = "<group>"; };
-		AAC2242B17DBBE8500E7F1D7 /* EditThingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditThingViewController.h; sourceTree = "<group>"; };
-		AAC2242C17DBBE8500E7F1D7 /* EditThingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditThingViewController.m; sourceTree = "<group>"; };
+		AABB2EAD18006FD600EEA446 /* DayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayListViewController.h; sourceTree = "<group>"; };
+		AABB2EAE18006FD600EEA446 /* DayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayListViewController.m; sourceTree = "<group>"; };
+		AABB2EAF18006FD600EEA446 /* EditThingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditThingViewController.h; sourceTree = "<group>"; };
+		AABB2EB018006FD600EEA446 /* EditThingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditThingViewController.m; sourceTree = "<group>"; };
+		AABB2EB118006FD600EEA446 /* FriendsDayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsDayListViewController.h; sourceTree = "<group>"; };
+		AABB2EB218006FD600EEA446 /* FriendsDayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsDayListViewController.m; sourceTree = "<group>"; };
+		AABB2EB318006FD600EEA446 /* My3ThingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = My3ThingsViewController.h; sourceTree = "<group>"; };
+		AABB2EB418006FD600EEA446 /* My3ThingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = My3ThingsViewController.m; sourceTree = "<group>"; };
+		AABB2EB518006FD600EEA446 /* SignupCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupCodeViewController.h; sourceTree = "<group>"; };
+		AABB2EB618006FD600EEA446 /* SignupCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupCodeViewController.m; sourceTree = "<group>"; };
+		AABB2EB718006FD600EEA446 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
+		AABB2EB818006FD600EEA446 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
+		AABB2EBA18006FD600EEA446 /* TTShareDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTShareDay.h; sourceTree = "<group>"; };
+		AABB2EBB18006FD600EEA446 /* TTShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTShareDay.m; sourceTree = "<group>"; };
+		AABB2EBC18006FD600EEA446 /* TTSharesAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSharesAccessor.h; sourceTree = "<group>"; };
+		AABB2EBD18006FD600EEA446 /* TTSharesAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSharesAccessor.m; sourceTree = "<group>"; };
+		AABB2EBE18006FD600EEA446 /* TTThing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTThing.h; sourceTree = "<group>"; };
+		AABB2EBF18006FD600EEA446 /* TTThing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTThing.m; sourceTree = "<group>"; };
 		AAF28C4C17DAA90A0067FD79 /* 3Things.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Things.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF28C4F17DAA90A0067FD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AAF28C5117DAA90A0067FD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -57,10 +61,6 @@
 		AAF28C6117DAA90A0067FD79 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		AAF28C6317DAA90A0067FD79 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		AAF28C6517DAA90A0067FD79 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		AAF28C6C17DAAF8D0067FD79 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
-		AAF28C6D17DAAF8D0067FD79 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
-		AAF28C6F17DAB5520067FD79 /* SignupCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupCodeViewController.h; sourceTree = "<group>"; };
-		AAF28C7017DAB5520067FD79 /* SignupCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupCodeViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +77,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AABB2EAC18006FD600EEA446 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				AABB2EAD18006FD600EEA446 /* DayListViewController.h */,
+				AABB2EAE18006FD600EEA446 /* DayListViewController.m */,
+				AABB2EAF18006FD600EEA446 /* EditThingViewController.h */,
+				AABB2EB018006FD600EEA446 /* EditThingViewController.m */,
+				AABB2EB118006FD600EEA446 /* FriendsDayListViewController.h */,
+				AABB2EB218006FD600EEA446 /* FriendsDayListViewController.m */,
+				AABB2EB318006FD600EEA446 /* My3ThingsViewController.h */,
+				AABB2EB418006FD600EEA446 /* My3ThingsViewController.m */,
+				AABB2EB518006FD600EEA446 /* SignupCodeViewController.h */,
+				AABB2EB618006FD600EEA446 /* SignupCodeViewController.m */,
+				AABB2EB718006FD600EEA446 /* SplashViewController.h */,
+				AABB2EB818006FD600EEA446 /* SplashViewController.m */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		AABB2EB918006FD600EEA446 /* objects */ = {
+			isa = PBXGroup;
+			children = (
+				AABB2EBA18006FD600EEA446 /* TTShareDay.h */,
+				AABB2EBB18006FD600EEA446 /* TTShareDay.m */,
+				AABB2EBC18006FD600EEA446 /* TTSharesAccessor.h */,
+				AABB2EBD18006FD600EEA446 /* TTSharesAccessor.m */,
+				AABB2EBE18006FD600EEA446 /* TTThing.h */,
+				AABB2EBF18006FD600EEA446 /* TTThing.m */,
+			);
+			path = objects;
+			sourceTree = "<group>";
+		};
 		AAF28C4317DAA90A0067FD79 = {
 			isa = PBXGroup;
 			children = (
@@ -107,26 +139,10 @@
 		AAF28C5517DAA90A0067FD79 /* 3Things */ = {
 			isa = PBXGroup;
 			children = (
+				AABB2EAC18006FD600EEA446 /* views */,
+				AABB2EB918006FD600EEA446 /* objects */,
 				AAF28C5E17DAA90A0067FD79 /* AppDelegate.h */,
 				AAF28C5F17DAA90A0067FD79 /* AppDelegate.m */,
-				AAF28C6C17DAAF8D0067FD79 /* SplashViewController.h */,
-				AAF28C6D17DAAF8D0067FD79 /* SplashViewController.m */,
-				AAC2241F17DBA9D400E7F1D7 /* DayListViewController.h */,
-				AAC2242017DBA9D400E7F1D7 /* DayListViewController.m */,
-				AAC2242517DBB70600E7F1D7 /* FriendsDayListViewController.h */,
-				AAC2242617DBB70600E7F1D7 /* FriendsDayListViewController.m */,
-				AAC2242817DBBB0B00E7F1D7 /* My3ThingsViewController.h */,
-				AAC2242917DBBB0B00E7F1D7 /* My3ThingsViewController.m */,
-				AABB2EA31800698400EEA446 /* TTSharesAccessor.h */,
-				AABB2EA41800698400EEA446 /* TTSharesAccessor.m */,
-				AABB2EA6180069D000EEA446 /* TTShareDay.h */,
-				AABB2EA7180069D000EEA446 /* TTShareDay.m */,
-				AABB2EA918006BEF00EEA446 /* TTThing.h */,
-				AABB2EAA18006BEF00EEA446 /* TTThing.m */,
-				AAC2242B17DBBE8500E7F1D7 /* EditThingViewController.h */,
-				AAC2242C17DBBE8500E7F1D7 /* EditThingViewController.m */,
-				AAF28C6F17DAB5520067FD79 /* SignupCodeViewController.h */,
-				AAF28C7017DAB5520067FD79 /* SignupCodeViewController.m */,
 				AAF28C5617DAA90A0067FD79 /* Supporting Files */,
 			);
 			path = 3Things;
@@ -213,17 +229,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAC2242A17DBBB0B00E7F1D7 /* My3ThingsViewController.m in Sources */,
+				AABB2EC718006FD600EEA446 /* TTSharesAccessor.m in Sources */,
 				AAF28C5C17DAA90A0067FD79 /* main.m in Sources */,
-				AABB2EA8180069D000EEA446 /* TTShareDay.m in Sources */,
-				AABB2EAB18006BEF00EEA446 /* TTThing.m in Sources */,
-				AAC2242117DBA9D400E7F1D7 /* DayListViewController.m in Sources */,
-				AAC2242D17DBBE8500E7F1D7 /* EditThingViewController.m in Sources */,
 				AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */,
-				AABB2EA51800698400EEA446 /* TTSharesAccessor.m in Sources */,
-				AAC2242717DBB70600E7F1D7 /* FriendsDayListViewController.m in Sources */,
-				AAF28C6E17DAAF8D0067FD79 /* SplashViewController.m in Sources */,
-				AAF28C7117DAB5530067FD79 /* SignupCodeViewController.m in Sources */,
+				AABB2EC818006FD600EEA446 /* TTThing.m in Sources */,
+				AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */,
+				AABB2EC518006FD600EEA446 /* SplashViewController.m in Sources */,
+				AABB2EC218006FD600EEA446 /* FriendsDayListViewController.m in Sources */,
+				AABB2EC418006FD600EEA446 /* SignupCodeViewController.m in Sources */,
+				AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */,
+				AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */,
+				AABB2EC318006FD600EEA446 /* My3ThingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
