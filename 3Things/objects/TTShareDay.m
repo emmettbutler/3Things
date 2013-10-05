@@ -8,6 +8,7 @@
 
 #import "TTShareDay.h"
 #import "TTThing.h"
+#import "Thing.h"
 
 @implementation TTShareDay
 
@@ -50,10 +51,16 @@
 
 + (TTShareDay *)shareDayWithShareObject:(ShareDay *)shares {
     TTShareDay *ret = [[TTShareDay alloc] init];
-    [ret.theThings addObject:shares.thing1];
-    [ret.theThings addObject:shares.thing2];
-    [ret.theThings addObject:shares.thing3];
-    [ret setDate:[NSDate date]];
+    if (shares.thing1 != NULL) {
+        [ret.theThings addObject:shares.thing1.text];
+    }
+    if (shares.thing2 != NULL) {
+        [ret.theThings addObject:shares.thing2.text];
+    }
+    if (shares.thing3 != NULL) {
+        [ret.theThings addObject:shares.thing3.text];
+    }
+    [ret setDate:shares.date];
     return ret;
 }
 

@@ -113,7 +113,6 @@
 
 - (void)nextWasTouched {
     [self.shares.theThings addObject:self.textField.text];
-    NSLog(@"Current memory things: %@", self.shares.theThings);
     
     [[self navigationController] pushViewController:
      [[EditThingViewController alloc] initWithThingIndex:
@@ -124,7 +123,7 @@
     [self.shares.theThings addObject:self.textField.text];
     [self savePartialDay];
     [[self navigationController] pushViewController:
-     [[My3ThingsViewController alloc] init] animated:YES];
+     [[My3ThingsViewController alloc] initWithIsCurrent:[NSNumber numberWithBool:YES]] animated:YES];
 }
 
 - (void)shareWasTouched {
@@ -156,12 +155,36 @@
 }
 
 - (void)savePartialDay{
+    NSLog(@"In edit view, in save partial: %@", self.shares.theThings);
+    ShareDayStore *dayStore = [[ShareDayStore alloc] init];
+    ShareDay *item = [dayStore getToday];
+    if (item == NULL){
+        item = [dayStore createShareDay];
+    }
+    ThingStore *thingStore = [[ThingStore alloc] init];
     
+    if (self.shares.theThings.count > 0) {
+        item.thing1 = [thingStore createThing];
+        item.thing1.text = [self.shares.theThings objectAtIndex:0];
+    }
+    if (self.shares.theThings.count > 1) {
+        item.thing2 = [thingStore createThing];
+        item.thing2.text = [self.shares.theThings objectAtIndex:1];
+    }
+    if (self.shares.theThings.count > 2) {
+        item.thing3 = [thingStore createThing];
+        item.thing3.text = [self.shares.theThings objectAtIndex:2];
+    }
+    item.date = [dayStore getDateOnly];
+    NSLog(@"item date: %@", item.date);
 }
 
 - (void)saveDay{
     ShareDayStore *dayStore = [[ShareDayStore alloc] init];
-    ShareDay *item = [dayStore createShareDay];
+    ShareDay *item = [dayStore getToday];
+    if (item == NULL){
+        item = [dayStore createShareDay];
+    }
     ThingStore *thingStore = [[ThingStore alloc] init];
     item.thing1 = [thingStore createThing];
     item.thing1.text = [self.shares.theThings objectAtIndex:0];
@@ -169,15 +192,7 @@
     item.thing2.text = [self.shares.theThings objectAtIndex:1];
     item.thing3 = [thingStore createThing];
     item.thing3.text = [self.shares.theThings objectAtIndex:2];
-    
-    NSDate *date = [NSDate date];
-    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
-    NSCalendar* calendar = [NSCalendar currentCalendar];
-    
-    NSDateComponents* components = [calendar components:flags fromDate:date];
-    
-    NSDate* dateOnly = [calendar dateFromComponents:components];
-    item.date = dateOnly;
+    item.date = [dayStore getDateOnly];
 }
 
 - (void)didReceiveMemoryWarning

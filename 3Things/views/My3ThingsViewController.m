@@ -44,10 +44,13 @@
         ShareDayStore *itemStore = [[ShareDayStore alloc] init];
         ShareDay *today = [itemStore getToday];
         if (today == NULL) {
+            NSLog(@"Found nothing");
             self.shares = [[TTShareDay alloc] init];
         } else {
+            NSLog(@"Found an entry");
             self.shares = [TTShareDay shareDayWithShareObject:today];
         }
+        NSLog(@"Entering 3things view: %@", self.shares.theThings);
     }
     return self;
 }
@@ -87,7 +90,7 @@
     tableView.dataSource = self;
     [tableView reloadData];
     
-    if (self.isCurrent && [self hasEnteredAllThings]){
+    if (self.isCurrent /*&& [self hasEnteredAllThings]*/){
         UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [shareButton addTarget:self
                         action:@selector(shareWasTouched)
@@ -151,7 +154,11 @@
     if (self.shares == NULL || self.shares.theThings.count == 0) {
         text = @"Share something...";
     } else {
-        text = [[self.shares.theThings objectAtIndex:indexPath.row] text];
+        if (indexPath.row < self.shares.theThings.count) {
+            text = [self.shares.theThings objectAtIndex:indexPath.row];
+        } else {
+            text = @"Share something...";
+        }
     }
     cell.textLabel.text = [NSString stringWithFormat:@"%@", text];
     return cell;
@@ -159,6 +166,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"Entering editor: %@", self.shares.theThings);
     if (self.isCurrent) {
         UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andShares:self.shares];
         [[self navigationController] pushViewController:editView animated:YES];

@@ -17,6 +17,7 @@
 
 - (NSManagedObject *)createItem:(NSString *)entityType;
 - (void)saveChanges;
+- (NSDate *)getDateOnly;
 - (NSArray *)allItems:(NSString *)entityType withSort:(NSString *)_sort andPredicate:(NSPredicate *)predicate;
 
 @end

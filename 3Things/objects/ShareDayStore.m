@@ -33,7 +33,6 @@
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(date = %@)", dateOnly];
     NSArray *result = [self allItems:@"ShareDay" withSort:@"date" andPredicate:predicate];
-    NSLog(@"Today: %@", result);
     return result.count == 0 ? NULL : [result objectAtIndex:0];
 }
 

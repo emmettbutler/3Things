@@ -68,4 +68,13 @@
     }
 }
 
+- (NSDate *)getDateOnly {
+    NSDate *date = [NSDate date];
+    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    NSDateComponents* components = [calendar components:flags fromDate:date];
+    NSDate* dateOnly = [calendar dateFromComponents:components];
+    return dateOnly;
+}
+
 @end
