@@ -79,13 +79,15 @@
     tableView.dataSource = self;
     [tableView reloadData];
     
-    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [shareButton addTarget:self
-                    action:@selector(shareWasTouched)
-          forControlEvents:UIControlEventTouchDown];
-    [shareButton setTitle:@"Share" forState:UIControlStateNormal];
-    shareButton.frame = CGRectMake(80.0, self.screenFrame.size.height-50, 160.0, 40.0);
-    [self.view addSubview:shareButton];
+    if (self.isCurrent && [self hasEnteredAllThings]){
+        UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [shareButton addTarget:self
+                        action:@selector(shareWasTouched)
+              forControlEvents:UIControlEventTouchDown];
+        [shareButton setTitle:@"Share" forState:UIControlStateNormal];
+        shareButton.frame = CGRectMake(80.0, self.screenFrame.size.height-50, 160.0, 40.0);
+        [self.view addSubview:shareButton];
+    }
     
     [self.view addSubview:tableView];
     
@@ -98,14 +100,10 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Number of rows is the number of time zones in the region for the specified section.
     return 3;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 44.0;
 }
 
@@ -152,7 +150,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.isCurrent) {
-        UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andText:[[self.shares.theThings objectAtIndex:indexPath.row] text]];
+        UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andShares:self.shares];
         [[self navigationController] pushViewController:editView animated:YES];
     }
 }
@@ -164,6 +162,15 @@
 - (void)shareWasTouched {
     [[self navigationController] pushViewController:
      [[UserHistoryViewController alloc] init] animated:YES];
+}
+
+- (BOOL)hasEnteredAllThings {
+    for (int i = 0; i < 3; i++){
+        if ([self.shares.theThings objectAtIndex:i] == NULL) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning

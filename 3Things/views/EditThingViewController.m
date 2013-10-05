@@ -8,8 +8,11 @@
 
 #import "EditThingViewController.h"
 #import "UserHistoryViewController.h"
+#import "My3ThingsViewController.h"
 #import "TTSharesAccessor.h"
 #import "TTThing.h"
+#import "ShareDay.h"
+#import "ShareDayStore.h"
 
 @interface EditThingViewController ()
 
@@ -26,14 +29,15 @@
     return self;
 }
 
-- (id)initWithThingIndex:(NSNumber *)thingIndex andText:(NSString *)text
+- (id)initWithThingIndex:(NSNumber *)thingIndex andShares:(TTShareDay *)shares
 {
     self = [super init];
     if (self) {
+        self.shares = shares;
         self.thingIndex = thingIndex;
-        NSLog(@"Loading thing index %d",  self.thingIndex.intValue);
         self.firstEdit = YES;
         self.thingText = @"Share something...";
+        NSString *text = [[shares.theThings objectAtIndex:[thingIndex intValue]] text];
         if (text) {
             self.firstEdit = NO;
             self.thingText = text;
@@ -107,15 +111,17 @@
 - (void)nextWasTouched {
     TTSharesAccessor *accessor = [[TTSharesAccessor alloc] init];
     TTShareDay *shares = [accessor getFriendSharesForDate:NULL];
-    TTThing *nextThing = [shares.theThings objectAtIndex:self.thingIndex.intValue+1];
+    
+    [self addItem];
 
     [[self navigationController] pushViewController:
      [[EditThingViewController alloc] initWithThingIndex:
-      [NSNumber numberWithInt:self.thingIndex.intValue + 1] andText:nextThing.text] animated:YES];
+      [NSNumber numberWithInt:self.thingIndex.intValue + 1] andShares:self.shares] animated:YES];
 }
 
 - (void)saveWasTouched {
-    
+    [[self navigationController] pushViewController:
+     [[My3ThingsViewController alloc] init] animated:YES];
 }
 
 - (void)shareWasTouched {
@@ -141,6 +147,15 @@
         default:
             return @"fifteenth";
     }
+}
+
+- (void)addItem
+{
+    ShareDayStore *itemStore = [[ShareDayStore alloc] init];
+    ShareDay *item = [itemStore createShareDay];
+    item.date = [NSDate date];
+    NSArray *items = [itemStore allItems];
+    NSLog(@"items: %@", items);
 }
 
 - (void)didReceiveMemoryWarning

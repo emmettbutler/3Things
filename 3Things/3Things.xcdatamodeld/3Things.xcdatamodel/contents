@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3394" systemVersion="12F37" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="ShareDay" representedClassName="ShareDay" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="thing1" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" syncable="YES"/>
+        <relationship name="thing2" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" syncable="YES"/>
+        <relationship name="thing3" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" syncable="YES"/>
+    </entity>
+    <entity name="Thing" representedClassName="Thing" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ShareDay" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Thing" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>

@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTShareDay.h"
 
 @interface EditThingViewController : UIViewController <UITextViewDelegate>
 
-- (id) initWithThingIndex:(NSNumber *)thingIndex andText:(NSString *)text;
+- (id) initWithThingIndex:(NSNumber *)thingIndex andShares:(TTShareDay *)shares;
 - (NSString *)getNumberWord;
 
+@property (nonatomic) TTShareDay *shares;
 @property (nonatomic) NSNumber *thingIndex;
 @property (nonatomic) NSString *thingText;
 @property (nonatomic) BOOL firstEdit;
