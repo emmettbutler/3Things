@@ -10,9 +10,11 @@
 
 @interface EditThingViewController : UIViewController <UITextViewDelegate>
 
-- (id) initWithThingIndex:(NSNumber *)thingIndex;
+- (id) initWithThingIndex:(NSNumber *)thingIndex andText:(NSString *)text;
 - (NSString *)getNumberWord;
 
 @property (nonatomic) NSNumber *thingIndex;
+@property (nonatomic) NSString *thingText;
+@property (nonatomic) BOOL firstEdit;
 
 @end

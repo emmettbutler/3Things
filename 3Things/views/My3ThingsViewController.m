@@ -35,6 +35,7 @@
     
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
 	[[self navigationItem] setLeftBarButtonItem:button];
+    [[self navigationItem] setTitle:@"Review your three things"];
     
 	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
@@ -130,7 +131,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row + 1]];
+    TTShareDay *shares = [self.accessor getFriendSharesForDate:NULL andUserName:@"heather"];
+    UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andText:[[shares.theThings objectAtIndex:indexPath.row] text]];
     [[self navigationController] pushViewController:editView animated:YES];
 }
 
