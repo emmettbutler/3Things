@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AABB2EA2180063D800EEA446 /* prof_pic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AABB2EA1180063D800EEA446 /* prof_pic.jpg */; };
 		AAC2242117DBA9D400E7F1D7 /* DayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242017DBA9D400E7F1D7 /* DayListViewController.m */; };
 		AAC2242717DBB70600E7F1D7 /* FriendsDayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242617DBB70600E7F1D7 /* FriendsDayListViewController.m */; };
 		AAC2242A17DBBB0B00E7F1D7 /* My3ThingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2242917DBBB0B00E7F1D7 /* My3ThingsViewController.m */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AABB2EA1180063D800EEA446 /* prof_pic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = prof_pic.jpg; path = ../../../../3things/designs/prof_pic.jpg; sourceTree = "<group>"; };
 		AAC2241F17DBA9D400E7F1D7 /* DayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayListViewController.h; sourceTree = "<group>"; };
 		AAC2242017DBA9D400E7F1D7 /* DayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayListViewController.m; sourceTree = "<group>"; };
 		AAC2242517DBB70600E7F1D7 /* FriendsDayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsDayListViewController.h; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 		AAF28C5617DAA90A0067FD79 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AABB2EA1180063D800EEA446 /* prof_pic.jpg */,
 				AAF28C5717DAA90A0067FD79 /* 3Things-Info.plist */,
 				AAF28C5817DAA90A0067FD79 /* InfoPlist.strings */,
 				AAF28C5B17DAA90A0067FD79 /* main.m */,
@@ -180,6 +183,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AABB2EA2180063D800EEA446 /* prof_pic.jpg in Resources */,
 				AAF28C5A17DAA90A0067FD79 /* InfoPlist.strings in Resources */,
 				AAF28C6217DAA90A0067FD79 /* Default.png in Resources */,
 				AAF28C6417DAA90A0067FD79 /* Default@2x.png in Resources */,

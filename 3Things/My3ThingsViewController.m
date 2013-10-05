@@ -33,11 +33,11 @@
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
 	[[self navigationItem] setLeftBarButtonItem:button];
     
-	CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
+	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
-	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:screenFrame];
+	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:self.screenFrame];
 	CGRect frame = CGRectMake(0, 0, 0, 0);
-    frame.size = CGSizeMake(screenFrame.size.width, 60);
+    frame.size = CGSizeMake(self.screenFrame.size.width, 60);
 	[navBar setFrame:frame];
 	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
@@ -45,12 +45,8 @@
 	[self.view addSubview:navBar];
     
     float mainButtonHeight = 120;
-    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, frame.size.height+mainButtonHeight/2, frame.size.width, frame.size.height)];
-    text.textAlignment = NSTextAlignmentCenter;
-    text.text = @"User Photo Here";
-    [self.view addSubview:text];
     
-    CGRect scrollFrame = CGRectMake(0, frame.size.height+mainButtonHeight, frame.size.width, screenFrame.size.height-frame.size.height-mainButtonHeight);
+    CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-50);
     self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
     UITableView *tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
@@ -58,7 +54,20 @@
     tableView.dataSource = self;
     [tableView reloadData];
     
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [shareButton addTarget:self
+                    action:@selector(shareWasTouched)
+          forControlEvents:UIControlEventTouchDown];
+    [shareButton setTitle:@"Share" forState:UIControlStateNormal];
+    shareButton.frame = CGRectMake(80.0, self.screenFrame.size.height-50, 160.0, 40.0);
+    [self.view addSubview:shareButton];
+    
     [self.view addSubview:tableView];
+    
+    int imgWidth = 40;
+    UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+80, imgWidth, 50)];
+    profilePicView.image = [UIImage imageNamed:@"prof_pic.jpg"];
+    [self.view addSubview:profilePicView];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -70,10 +79,28 @@
     return 3;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 42.0;
+}
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    // The header for the section is the region name -- get this from the region at the section index.
-    return @"My Things";
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = [[UITableViewHeaderFooterView alloc] init];
+    
+    CGRect frame = CGRectMake(0, 0, 0, 0);
+    frame.size = CGSizeMake(self.screenFrame.size.width*.9, 60);
+    
+    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 20)];
+    text.textAlignment = NSTextAlignmentCenter;
+    text.text = @"Header Smith";
+    [header addSubview:text];
+    
+    UITextView *text2 = [[UITextView alloc] initWithFrame:CGRectMake(0, 20, frame.size.width, 20)];
+    text2.textAlignment = NSTextAlignmentCenter;
+    text2.text = @"Today";
+    [header addSubview:text2];
+    
+    return header;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -97,7 +124,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    UIViewController *editView = [[EditThingViewController alloc] init];
+    UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row + 1]];
     [[self navigationController] pushViewController:editView animated:YES];
 }
 

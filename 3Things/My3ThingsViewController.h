@@ -12,6 +12,7 @@
 {
 }
 
+@property (nonatomic) CGRect screenFrame;
 @property (nonatomic, retain) NSNumber *tableHeight;
 
 @end

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>09A30164-5431-4996-BB9D-10C87083CCB0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>3Things</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F8C49EEC-E1FD-4711-A82B-BB202033D024</key>
+		<string>https://github.com/emmett9001/3Things.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>3Things.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F8C49EEC-E1FD-4711-A82B-BB202033D024</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/emmett9001/3Things.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F8C49EEC-E1FD-4711-A82B-BB202033D024</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F8C49EEC-E1FD-4711-A82B-BB202033D024</string>
+			<key>IDESourceControlWCCName</key>
+			<string>3Things</string>
+		</dict>
+	</array>
+</dict>
+</plist>
