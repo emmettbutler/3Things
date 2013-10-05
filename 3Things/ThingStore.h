@@ -1,5 +1,5 @@
 //
-//  ShareDayStore.h
+//  ThingStore.h
 //  3Things
 //
 //  Created by Emmett Butler on 10/5/13.
@@ -7,15 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
-#import "ShareDay.h"
 #import "TTDataStore.h"
+#import "Thing.h"
 
-@interface ShareDayStore : TTDataStore
-{
-}
+@interface ThingStore : TTDataStore
 
-- (ShareDay *)createShareDay;
+- (Thing *)createThing;
 - (NSArray *)allItems;
 
 @end

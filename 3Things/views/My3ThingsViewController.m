@@ -139,9 +139,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
     }
     
-    NSString *text = [[self.shares.theThings objectAtIndex:indexPath.row] text];
-    if (self.shares == NULL) {
+    NSString *text;
+    if (self.shares == NULL || self.shares.theThings.count == 0) {
         text = @"Share something...";
+    } else {
+        text = [[self.shares.theThings objectAtIndex:indexPath.row] text];
     }
     cell.textLabel.text = [NSString stringWithFormat:@"%@", text];
     return cell;
@@ -165,6 +167,7 @@
 }
 
 - (BOOL)hasEnteredAllThings {
+    if (self.shares.theThings.count == 0) return NO;
     for (int i = 0; i < 3; i++){
         if ([self.shares.theThings objectAtIndex:i] == NULL) {
             return NO;

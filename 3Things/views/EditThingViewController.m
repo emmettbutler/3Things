@@ -11,7 +11,7 @@
 #import "My3ThingsViewController.h"
 #import "TTSharesAccessor.h"
 #import "TTThing.h"
-#import "ShareDay.h"
+#import "ThingStore.h"
 #import "ShareDayStore.h"
 
 @interface EditThingViewController ()
@@ -37,7 +37,10 @@
         self.thingIndex = thingIndex;
         self.firstEdit = YES;
         self.thingText = @"Share something...";
-        NSString *text = [[shares.theThings objectAtIndex:[thingIndex intValue]] text];
+        NSString *text;
+        if (thingIndex.intValue < self.shares.theThings.count){
+            text = [[shares.theThings objectAtIndex:[thingIndex intValue]] text];
+        }
         if (text) {
             self.firstEdit = NO;
             self.thingText = text;
@@ -68,16 +71,16 @@
 	[self.view addSubview:navBar];
     
     CGRect textFieldFrame = CGRectMake(screenFrame.size.width*.05, frame.size.height+50, screenFrame.size.width*.9, 120.0f);
-    UITextView *textField = [[UITextView alloc] initWithFrame:textFieldFrame];
-    textField.textAlignment = NSTextAlignmentLeft;
-    textField.editable = YES;
-    textField.delegate = self;
-    textField.layer.borderWidth = 1.0f;
-    textField.layer.borderColor = [[UIColor grayColor] CGColor];
-    textField.layer.cornerRadius = 10.0f;
-    [textField becomeFirstResponder];
-    [textField setText:self.thingText];
-    [self.view addSubview:textField];
+    _textField = [[UITextView alloc] initWithFrame:textFieldFrame];
+    _textField.textAlignment = NSTextAlignmentLeft;
+    _textField.editable = YES;
+    _textField.delegate = self;
+    _textField.layer.borderWidth = 1.0f;
+    _textField.layer.borderColor = [[UIColor grayColor] CGColor];
+    _textField.layer.cornerRadius = 10.0f;
+    [_textField becomeFirstResponder];
+    [_textField setText:self.thingText];
+    [self.view addSubview:_textField];
     
     UIButton *imgButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [imgButton addTarget:self
@@ -109,11 +112,9 @@
 }
 
 - (void)nextWasTouched {
-    TTSharesAccessor *accessor = [[TTSharesAccessor alloc] init];
-    TTShareDay *shares = [accessor getFriendSharesForDate:NULL];
+    [self.shares.theThings addObject:self.textField.text];
+    NSLog(@"Current memory things: %@", self.shares.theThings);
     
-    [self addItem];
-
     [[self navigationController] pushViewController:
      [[EditThingViewController alloc] initWithThingIndex:
       [NSNumber numberWithInt:self.thingIndex.intValue + 1] andShares:self.shares] animated:YES];
@@ -125,6 +126,9 @@
 }
 
 - (void)shareWasTouched {
+    [self.shares.theThings addObject:self.textField.text];
+    [self saveDay];
+    
     [[self navigationController] pushViewController:
      [[UserHistoryViewController alloc] init] animated:YES];
 }
@@ -149,13 +153,17 @@
     }
 }
 
-- (void)addItem
-{
-    ShareDayStore *itemStore = [[ShareDayStore alloc] init];
-    ShareDay *item = [itemStore createShareDay];
+- (void)saveDay{
+    ShareDayStore *dayStore = [[ShareDayStore alloc] init];
+    ShareDay *item = [dayStore createShareDay];
+    ThingStore *thingStore = [[ThingStore alloc] init];
+    item.thing1 = [thingStore createThing];
+    item.thing1.text = [self.shares.theThings objectAtIndex:0];
+    item.thing2 = [thingStore createThing];
+    item.thing2.text = [self.shares.theThings objectAtIndex:1];
+    item.thing3 = [thingStore createThing];
+    item.thing3.text = [self.shares.theThings objectAtIndex:2];
     item.date = [NSDate date];
-    NSArray *items = [itemStore allItems];
-    NSLog(@"items: %@", items);
 }
 
 - (void)didReceiveMemoryWarning

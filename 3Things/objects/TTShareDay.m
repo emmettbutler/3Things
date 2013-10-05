@@ -42,7 +42,7 @@
                           @"Went to an awesome concert",
                           nil];
         for (int i = 0; i < texts.count; i++) {
-            [self.theThings addObject:[[TTThing alloc] initWithText:[texts objectAtIndex:arc4random() % texts.count]]];
+            //[self.theThings addObject:[[TTThing alloc] initWithText:[texts objectAtIndex:arc4random() % texts.count]]];
         }
     }
     return self;

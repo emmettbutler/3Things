@@ -8,6 +8,8 @@
 
 #import "UserHistoryViewController.h"
 #import "My3ThingsViewController.h"
+#import "ShareDayStore.h"
+#import "Thing.h"
 
 @implementation UserHistoryViewController
 
@@ -24,8 +26,8 @@
 {
     [super viewDidLoad];
     
-    self.accessor = [[TTSharesAccessor alloc] init];
-    self.userHistory = [self.accessor getHistoryForUser:@"heather"];
+    ShareDayStore *store = [[ShareDayStore alloc] init];
+    self.userHistory = [store allItems];
 	
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
@@ -102,11 +104,22 @@
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     
-    TTShareDay *shares = [self.userHistory objectAtIndex:indexPath.row];
     for (int j = 0; j < 3; j++) {
         UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, j*20, frame.size.width, 20)];
         text.textAlignment = NSTextAlignmentLeft;
-        text.text = [NSString stringWithFormat:@"%d. %@", j+1, [[shares.theThings objectAtIndex:j] text]];
+        NSString *thingString;
+        switch (j) {
+            case 0:
+                thingString = [[[self.userHistory objectAtIndex:indexPath.row] thing1] text];
+                break;
+            case 1:
+                thingString = [[[self.userHistory objectAtIndex:indexPath.row] thing2] text];
+                break;
+            case 2:
+                thingString = [[[self.userHistory objectAtIndex:indexPath.row] thing3] text];
+                break;
+        }
+        text.text = [NSString stringWithFormat:@"%d. %@", j+1, thingString];
         text.allowsEditingTextAttributes = NO;
         text.editable = NO;
         [container addSubview:text];

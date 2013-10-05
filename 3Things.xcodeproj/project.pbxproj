@@ -23,6 +23,8 @@
 		AABB2F171800ADC100EEA446 /* Thing.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2F161800ADC100EEA446 /* Thing.m */; };
 		AABB2F1A1800ADC200EEA446 /* ShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2F191800ADC200EEA446 /* ShareDay.m */; };
 		AABB2F1D1800B0F600EEA446 /* ShareDayStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2F1C1800B0F600EEA446 /* ShareDayStore.m */; };
+		AABB2F201800BB2F00EEA446 /* ThingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2F1F1800BB2F00EEA446 /* ThingStore.m */; };
+		AABB2F231800BB5800EEA446 /* TTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2F221800BB5800EEA446 /* TTDataStore.m */; };
 		AAF28C5017DAA90A0067FD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C4F17DAA90A0067FD79 /* UIKit.framework */; };
 		AAF28C5217DAA90A0067FD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C5117DAA90A0067FD79 /* Foundation.framework */; };
 		AAF28C5417DAA90A0067FD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C5317DAA90A0067FD79 /* CoreGraphics.framework */; };
@@ -58,12 +60,16 @@
 		AABB2ECA18007A3500EEA446 /* UserHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHistoryViewController.m; sourceTree = "<group>"; };
 		AABB2F101800A43600EEA446 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		AABB2F131800ADA000EEA446 /* 3Things.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 3Things.xcdatamodel; sourceTree = "<group>"; };
-		AABB2F151800ADC100EEA446 /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thing.h; sourceTree = "<group>"; };
-		AABB2F161800ADC100EEA446 /* Thing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Thing.m; sourceTree = "<group>"; };
-		AABB2F181800ADC200EEA446 /* ShareDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDay.h; sourceTree = "<group>"; };
-		AABB2F191800ADC200EEA446 /* ShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDay.m; sourceTree = "<group>"; };
-		AABB2F1B1800B0F600EEA446 /* ShareDayStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareDayStore.h; path = objects/ShareDayStore.h; sourceTree = "<group>"; };
-		AABB2F1C1800B0F600EEA446 /* ShareDayStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareDayStore.m; path = objects/ShareDayStore.m; sourceTree = "<group>"; };
+		AABB2F151800ADC100EEA446 /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Thing.h; path = ../Thing.h; sourceTree = "<group>"; };
+		AABB2F161800ADC100EEA446 /* Thing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Thing.m; path = ../Thing.m; sourceTree = "<group>"; };
+		AABB2F181800ADC200EEA446 /* ShareDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareDay.h; path = ../ShareDay.h; sourceTree = "<group>"; };
+		AABB2F191800ADC200EEA446 /* ShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareDay.m; path = ../ShareDay.m; sourceTree = "<group>"; };
+		AABB2F1B1800B0F600EEA446 /* ShareDayStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDayStore.h; sourceTree = "<group>"; };
+		AABB2F1C1800B0F600EEA446 /* ShareDayStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDayStore.m; sourceTree = "<group>"; };
+		AABB2F1E1800BB2F00EEA446 /* ThingStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThingStore.h; path = ../ThingStore.h; sourceTree = "<group>"; };
+		AABB2F1F1800BB2F00EEA446 /* ThingStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThingStore.m; path = ../ThingStore.m; sourceTree = "<group>"; };
+		AABB2F211800BB5800EEA446 /* TTDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDataStore.h; path = ../TTDataStore.h; sourceTree = "<group>"; };
+		AABB2F221800BB5800EEA446 /* TTDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTDataStore.m; path = ../TTDataStore.m; sourceTree = "<group>"; };
 		AAF28C4C17DAA90A0067FD79 /* 3Things.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Things.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF28C4F17DAA90A0067FD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AAF28C5117DAA90A0067FD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -118,6 +124,16 @@
 		AABB2EB918006FD600EEA446 /* objects */ = {
 			isa = PBXGroup;
 			children = (
+				AABB2F181800ADC200EEA446 /* ShareDay.h */,
+				AABB2F191800ADC200EEA446 /* ShareDay.m */,
+				AABB2F151800ADC100EEA446 /* Thing.h */,
+				AABB2F161800ADC100EEA446 /* Thing.m */,
+				AABB2F1B1800B0F600EEA446 /* ShareDayStore.h */,
+				AABB2F1C1800B0F600EEA446 /* ShareDayStore.m */,
+				AABB2F1E1800BB2F00EEA446 /* ThingStore.h */,
+				AABB2F1F1800BB2F00EEA446 /* ThingStore.m */,
+				AABB2F211800BB5800EEA446 /* TTDataStore.h */,
+				AABB2F221800BB5800EEA446 /* TTDataStore.m */,
 				AABB2EBA18006FD600EEA446 /* TTShareDay.h */,
 				AABB2EBB18006FD600EEA446 /* TTShareDay.m */,
 				AABB2EBC18006FD600EEA446 /* TTSharesAccessor.h */,
@@ -160,12 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				AABB2F121800ADA000EEA446 /* 3Things.xcdatamodeld */,
-				AABB2F181800ADC200EEA446 /* ShareDay.h */,
-				AABB2F191800ADC200EEA446 /* ShareDay.m */,
-				AABB2F151800ADC100EEA446 /* Thing.h */,
-				AABB2F161800ADC100EEA446 /* Thing.m */,
-				AABB2F1B1800B0F600EEA446 /* ShareDayStore.h */,
-				AABB2F1C1800B0F600EEA446 /* ShareDayStore.m */,
 				AABB2EAC18006FD600EEA446 /* views */,
 				AABB2EB918006FD600EEA446 /* objects */,
 				AAF28C5E17DAA90A0067FD79 /* AppDelegate.h */,
@@ -269,7 +279,9 @@
 				AABB2EC418006FD600EEA446 /* SignupCodeViewController.m in Sources */,
 				AABB2F141800ADA000EEA446 /* 3Things.xcdatamodeld in Sources */,
 				AABB2F171800ADC100EEA446 /* Thing.m in Sources */,
+				AABB2F201800BB2F00EEA446 /* ThingStore.m in Sources */,
 				AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */,
+				AABB2F231800BB5800EEA446 /* TTDataStore.m in Sources */,
 				AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */,
 				AABB2EC318006FD600EEA446 /* My3ThingsViewController.m in Sources */,
 			);
