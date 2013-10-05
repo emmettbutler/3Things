@@ -22,4 +22,16 @@
     return shares;
 }
 
+- (NSArray *)getHistoryForUser:(NSString *)userName
+{
+    NSMutableArray *history = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < 20; i++) {
+        TTShareDay *shares = [[TTShareDay alloc] init];
+        [history addObject:shares];
+    }
+    
+    return history;
+}
+
 @end

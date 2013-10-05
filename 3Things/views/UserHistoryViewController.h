@@ -11,6 +11,7 @@
 
 @interface UserHistoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, retain) NSArray *userHistory;
 @property (nonatomic, retain) TTSharesAccessor *accessor;
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic, retain) NSNumber *tableHeight;

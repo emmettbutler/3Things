@@ -124,8 +124,6 @@
     TTShareDay *shares = [self.accessor getFriendSharesForDate:NULL andUserName:@"heather"];
     
     cell.textLabel.text = [NSString stringWithFormat:@"%@", [[shares.theThings objectAtIndex:indexPath.row] text]];
-    // add images for friends
-    //[cell addSubview:[[UIImageView alloc] initWithImage: ]];
     return cell;
 }
 

@@ -14,5 +14,6 @@
 
 - (TTShareDay *)getFriendSharesForDate:(NSDate *)date;
 - (TTShareDay *)getFriendSharesForDate:(NSDate *)date andUserName:(NSString *)name;
+- (NSArray *)getHistoryForUser:(NSString *)userName;
 
 @end

@@ -25,6 +25,7 @@
     [super viewDidLoad];
     
     self.accessor = [[TTSharesAccessor alloc] init];
+    self.userHistory = [self.accessor getHistoryForUser:@"heather"];
 	
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
@@ -55,21 +56,13 @@
     text.text = @"Heather Smith";
     [self.view addSubview:text];
     
-    CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+topSectionHeight, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-topSectionHeight-80);
+    CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+topSectionHeight, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-topSectionHeight);
     self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
     UITableView *tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     tableView.delegate = self;
     tableView.dataSource = self;
     [tableView reloadData];
-    
-    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [shareButton addTarget:self
-                    action:@selector(shareWasTouched)
-          forControlEvents:UIControlEventTouchDown];
-    [shareButton setTitle:@"Share" forState:UIControlStateNormal];
-    shareButton.frame = CGRectMake(80.0, self.screenFrame.size.height-50, 160.0, 40.0);
-    [self.view addSubview:shareButton];
     
     [self.view addSubview:tableView];
 }
@@ -80,7 +73,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Number of rows is the number of time zones in the region for the specified section.
-    return 3;
+    return self.userHistory.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -95,7 +88,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.tableHeight.floatValue/3;
+    return 80;
 }
 
 
@@ -109,11 +102,11 @@
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     
-    TTShareDay *shares = [self.accessor getFriendSharesForDate:NULL andUserName:@"heather"];
-    for (int i = 0; i < 3; i++) {
-        UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, i*20, frame.size.width, 20)];
+    TTShareDay *shares = [self.userHistory objectAtIndex:indexPath.row];
+    for (int j = 0; j < 3; j++) {
+        UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, j*20, frame.size.width, 20)];
         text.textAlignment = NSTextAlignmentLeft;
-        text.text = [NSString stringWithFormat:@"%d. %@", i+1, [[shares.theThings objectAtIndex:i] text]];
+        text.text = [NSString stringWithFormat:@"%d. %@", j+1, [[shares.theThings objectAtIndex:j] text]];
         text.allowsEditingTextAttributes = NO;
         text.editable = NO;
         [container addSubview:text];
@@ -126,6 +119,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [[self navigationController] pushViewController:[[My3ThingsViewController alloc] init] animated:YES];
+}
+
+- (void)backWasTouched {
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
