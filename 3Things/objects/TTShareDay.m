@@ -21,7 +21,7 @@
         NSCalendar* myCalendar = [NSCalendar currentCalendar];
         NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
                                                      fromDate:[NSDate date]];
-        [components setHour: 20];
+        [components setHour: 0];
         [components setMinute: 0];
         [components setSecond: 0];
         self.date = [myCalendar dateFromComponents:components];
@@ -46,6 +46,15 @@
         }
     }
     return self;
+}
+
++ (TTShareDay *)shareDayWithShareObject:(ShareDay *)shares {
+    TTShareDay *ret = [[TTShareDay alloc] init];
+    [ret.theThings addObject:shares.thing1];
+    [ret.theThings addObject:shares.thing2];
+    [ret.theThings addObject:shares.thing3];
+    [ret setDate:[NSDate date]];
+    return ret;
 }
 
 @end

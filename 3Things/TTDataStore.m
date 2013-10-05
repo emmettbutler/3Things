@@ -31,7 +31,7 @@
     return newItem;
 }
 
-- (NSArray *)allItems:(NSString *)entityType withSort:(NSString *)_sort
+- (NSArray *)allItems:(NSString *)entityType withSort:(NSString *)_sort andPredicate:(NSPredicate *)predicate
 {
     if (_sort == NULL) {
         _sort = @"id";
@@ -39,6 +39,8 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *description = [[model entitiesByName] objectForKey:entityType];
     [request setEntity:description];
+
+    [request setPredicate:predicate];
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:_sort ascending:YES];
     [request setSortDescriptors:[NSArray arrayWithObject:sort]];

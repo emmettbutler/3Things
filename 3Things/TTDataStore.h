@@ -17,6 +17,6 @@
 
 - (NSManagedObject *)createItem:(NSString *)entityType;
 - (void)saveChanges;
-- (NSArray *)allItems:(NSString *)entityType withSort:(NSString *)_sort;
+- (NSArray *)allItems:(NSString *)entityType withSort:(NSString *)_sort andPredicate:(NSPredicate *)predicate;
 
 @end

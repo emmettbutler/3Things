@@ -132,7 +132,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [[self navigationController] pushViewController:
-     [[My3ThingsViewController alloc] initWithShareDay:[self.userHistory objectAtIndex:indexPath.row]
+     [[My3ThingsViewController alloc] initWithShareDay:[TTShareDay shareDayWithShareObject:(ShareDay *)[self.userHistory objectAtIndex:indexPath.row]]
                                           andIsCurrent:[NSNumber numberWithBool:NO]]
       animated:YES];
 }

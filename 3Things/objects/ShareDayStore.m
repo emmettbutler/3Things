@@ -19,8 +19,22 @@
 
 - (NSArray *)allItems
 {
-    NSArray *result = [self allItems:@"ShareDay" withSort:@"date"];
+    NSArray *result = [self allItems:@"ShareDay" withSort:@"date" andPredicate:NULL];
     return result;
+}
+
+- (ShareDay *)getToday
+{
+    NSDate *date = [NSDate date];
+    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    NSDateComponents* components = [calendar components:flags fromDate:date];
+    NSDate* dateOnly = [calendar dateFromComponents:components];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(date = %@)", dateOnly];
+    NSArray *result = [self allItems:@"ShareDay" withSort:@"date" andPredicate:predicate];
+    NSLog(@"Today: %@", result);
+    return result.count == 0 ? NULL : [result objectAtIndex:0];
 }
 
 @end

@@ -19,7 +19,7 @@
 
 - (NSArray *)allItems
 {
-    NSArray *result = [self allItems:@"Thing" withSort:@"date"];
+    NSArray *result = [self allItems:@"Thing" withSort:@"date" andPredicate:NULL];
     return result;
 }
 

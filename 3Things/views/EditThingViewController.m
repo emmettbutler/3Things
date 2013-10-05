@@ -121,6 +121,8 @@
 }
 
 - (void)saveWasTouched {
+    [self.shares.theThings addObject:self.textField.text];
+    [self savePartialDay];
     [[self navigationController] pushViewController:
      [[My3ThingsViewController alloc] init] animated:YES];
 }
@@ -153,6 +155,10 @@
     }
 }
 
+- (void)savePartialDay{
+    
+}
+
 - (void)saveDay{
     ShareDayStore *dayStore = [[ShareDayStore alloc] init];
     ShareDay *item = [dayStore createShareDay];
@@ -163,7 +169,15 @@
     item.thing2.text = [self.shares.theThings objectAtIndex:1];
     item.thing3 = [thingStore createThing];
     item.thing3.text = [self.shares.theThings objectAtIndex:2];
-    item.date = [NSDate date];
+    
+    NSDate *date = [NSDate date];
+    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents* components = [calendar components:flags fromDate:date];
+    
+    NSDate* dateOnly = [calendar dateFromComponents:components];
+    item.date = dateOnly;
 }
 
 - (void)didReceiveMemoryWarning

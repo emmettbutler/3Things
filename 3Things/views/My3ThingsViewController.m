@@ -9,6 +9,7 @@
 #import "My3ThingsViewController.h"
 #import "EditThingViewController.h"
 #import "TTShareDay.h"
+#import "ShareDayStore.h"
 #import "UserHistoryViewController.h"
 
 @interface My3ThingsViewController ()
@@ -39,7 +40,14 @@
     self = [super init];
     if (self) {
         self.isCurrent = [isCurrent boolValue];
-        self.shares = shares;
+        
+        ShareDayStore *itemStore = [[ShareDayStore alloc] init];
+        ShareDay *today = [itemStore getToday];
+        if (today == NULL) {
+            self.shares = [[TTShareDay alloc] init];
+        } else {
+            self.shares = [TTShareDay shareDayWithShareObject:today];
+        }
     }
     return self;
 }
