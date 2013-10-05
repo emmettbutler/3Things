@@ -7,6 +7,7 @@
 //
 
 #import "EditThingViewController.h"
+#import "UserHistoryViewController.h"
 #import "TTSharesAccessor.h"
 #import "TTThing.h"
 
@@ -47,7 +48,7 @@
 	
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelWasTouched)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelWasTouched)];
 	[[self navigationItem] setLeftBarButtonItem:button];
     [[self navigationItem] setTitle:[NSString stringWithFormat:@"Share your %@ thing", [self getNumberWord]]];
     
@@ -84,7 +85,7 @@
     
     UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [saveButton addTarget:self
-                   action:@selector(nextWasTouched)
+                   action:@selector(saveWasTouched)
          forControlEvents:UIControlEventTouchDown];
     [saveButton setTitle:@"Save" forState:UIControlStateNormal];
     saveButton.frame = CGRectMake(screenFrame.size.width*.55, textFieldFrame.origin.y+textFieldFrame.size.height+8, 50, 40.0);
@@ -107,14 +108,19 @@
     TTSharesAccessor *accessor = [[TTSharesAccessor alloc] init];
     TTShareDay *shares = [accessor getFriendSharesForDate:NULL];
     TTThing *nextThing = [shares.theThings objectAtIndex:self.thingIndex.intValue+1];
-    
+
     [[self navigationController] pushViewController:
      [[EditThingViewController alloc] initWithThingIndex:
       [NSNumber numberWithInt:self.thingIndex.intValue + 1] andText:nextThing.text] animated:YES];
 }
 
-- (void)shareWasTouched {
+- (void)saveWasTouched {
     
+}
+
+- (void)shareWasTouched {
+    [[self navigationController] pushViewController:
+     [[UserHistoryViewController alloc] init] animated:YES];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {

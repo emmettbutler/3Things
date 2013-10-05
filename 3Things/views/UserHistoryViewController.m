@@ -1,21 +1,15 @@
 //
-//  My3ThingsViewController.m
+//  UserHistoryViewController.m
 //  3Things
 //
-//  Created by Emmett Butler on 9/7/13.
+//  Created by Emmett Butler on 10/5/13.
 //  Copyright (c) 2013 Emmett Butler. All rights reserved.
 //
 
-#import "My3ThingsViewController.h"
-#import "EditThingViewController.h"
-#import "TTShareDay.h"
 #import "UserHistoryViewController.h"
+#import "My3ThingsViewController.h"
 
-@interface My3ThingsViewController ()
-
-@end
-
-@implementation My3ThingsViewController
+@implementation UserHistoryViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,7 +30,7 @@
     
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
 	[[self navigationItem] setLeftBarButtonItem:button];
-    [[self navigationItem] setTitle:@"Review your three things"];
+    [[self navigationItem] setTitle:@"User History"];
     
 	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
@@ -49,9 +43,19 @@
     
 	[self.view addSubview:navBar];
     
-    float mainButtonHeight = 120;
+    float topSectionHeight = 120;
     
-    CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-50);
+    int imgWidth = 60;
+    UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+30, imgWidth, 70)];
+    profilePicView.image = [UIImage imageNamed:@"prof_pic.jpg"];
+    [self.view addSubview:profilePicView];
+    
+    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, frame.size.height+(topSectionHeight-30), frame.size.width, frame.size.height)];
+    text.textAlignment = NSTextAlignmentCenter;
+    text.text = @"Heather Smith";
+    [self.view addSubview:text];
+    
+    CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+topSectionHeight, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-topSectionHeight-80);
     self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
     UITableView *tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
@@ -68,11 +72,6 @@
     [self.view addSubview:shareButton];
     
     [self.view addSubview:tableView];
-    
-    int imgWidth = 40;
-    UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+80, imgWidth, 50)];
-    profilePicView.image = [UIImage imageNamed:@"prof_pic.jpg"];
-    [self.view addSubview:profilePicView];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -86,25 +85,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 44.0;
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = [[UITableViewHeaderFooterView alloc] init];
-    
-    CGRect frame = CGRectMake(0, 0, 0, 0);
-    frame.size = CGSizeMake(self.screenFrame.size.width*.9, 60);
-    
-    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 20)];
-    text.textAlignment = NSTextAlignmentCenter;
-    text.text = @"Header Smith";
-    [header addSubview:text];
-    
-    UITextView *text2 = [[UITextView alloc] initWithFrame:CGRectMake(0, 20, frame.size.width, 23)];
-    text2.textAlignment = NSTextAlignmentCenter;
-    text2.text = @"Today";
-    [header addSubview:text2];
-    
     return header;
 }
 
@@ -118,32 +103,29 @@
     static NSString *MyIdentifier = @"MyReuseIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
     }
     
-    TTShareDay *shares = [self.accessor getFriendSharesForDate:NULL andUserName:@"heather"];
+    CGRect frame = cell.bounds;
+    UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", [[shares.theThings objectAtIndex:indexPath.row] text]];
-    // add images for friends
-    //[cell addSubview:[[UIImageView alloc] initWithImage: ]];
+    TTShareDay *shares = [self.accessor getFriendSharesForDate:NULL andUserName:@"heather"];
+    for (int i = 0; i < 3; i++) {
+        UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, i*20, frame.size.width, 20)];
+        text.textAlignment = NSTextAlignmentLeft;
+        text.text = [NSString stringWithFormat:@"%d. %@", i+1, [[shares.theThings objectAtIndex:i] text]];
+        text.allowsEditingTextAttributes = NO;
+        text.editable = NO;
+        [container addSubview:text];
+    }
+    cell.backgroundView = container;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    TTShareDay *shares = [self.accessor getFriendSharesForDate:NULL andUserName:@"heather"];
-    UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andText:[[shares.theThings objectAtIndex:indexPath.row] text]];
-    [[self navigationController] pushViewController:editView animated:YES];
-}
-
-- (void)backWasTouched {
-    [[self navigationController] popViewControllerAnimated:YES];
-}
-
-- (void)shareWasTouched {
-    [[self navigationController] pushViewController:
-     [[UserHistoryViewController alloc] init] animated:YES];
+    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] init] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
