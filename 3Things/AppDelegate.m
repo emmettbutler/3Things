@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "SplashViewController.h"
+#import "DayListViewController.h"
 
 @implementation AppDelegate
 
@@ -15,8 +16,15 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    self.viewController = [[SplashViewController alloc] init];
-    self.window.rootViewController = self.viewController;
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"user_token"] != NULL) {
+        self.viewController = [[DayListViewController alloc] init];
+        UIViewController *viewController = self.viewController;
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        self.window.rootViewController = navController;
+    } else {
+        self.viewController = [[SplashViewController alloc] init];
+        self.window.rootViewController = self.viewController;
+    }
     
     [self.window makeKeyAndVisible];
     return YES;

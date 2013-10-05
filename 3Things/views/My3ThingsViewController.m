@@ -141,7 +141,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", [[self.shares.theThings objectAtIndex:indexPath.row] text]];
+    NSString *text = [[self.shares.theThings objectAtIndex:indexPath.row] text];
+    if (self.shares == NULL) {
+        text = @"Share something...";
+    }
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", text];
     return cell;
 }
 

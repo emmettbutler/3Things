@@ -40,6 +40,8 @@
 }
 
 - (void)confirmWasTouched {
+    [[NSUserDefaults standardUserDefaults] setObject:@"aowe7faboisuebf" forKey:@"user_token"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [self setModalPresentationStyle:UIModalPresentationPageSheet];
     UIViewController *viewController = [[DayListViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
