@@ -26,6 +26,24 @@
     return self;
 }
 
+- (id)initWithIsCurrent:(NSNumber *)isCurrent {
+    return [self initWithShareDay:NULL andIsCurrent:isCurrent];
+}
+
+- (id)initWithShareDay:(TTShareDay *)shares {
+    return [self initWithShareDay:shares andIsCurrent:[NSNumber numberWithBool:NO]];
+}
+
+-(id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent
+{
+    self = [super init];
+    if (self) {
+        self.isCurrent = [isCurrent boolValue];
+        self.shares = shares;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -36,7 +54,9 @@
     
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
 	[[self navigationItem] setLeftBarButtonItem:button];
-    [[self navigationItem] setTitle:@"Review your three things"];
+    if (self.isCurrent) {
+        [[self navigationItem] setTitle:@"Review your three things"];
+    }
     
 	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
@@ -121,18 +141,16 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
     }
     
-    TTShareDay *shares = [self.accessor getFriendSharesForDate:NULL andUserName:@"heather"];
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", [[shares.theThings objectAtIndex:indexPath.row] text]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", [[self.shares.theThings objectAtIndex:indexPath.row] text]];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    TTShareDay *shares = [self.accessor getFriendSharesForDate:NULL andUserName:@"heather"];
-    UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andText:[[shares.theThings objectAtIndex:indexPath.row] text]];
-    [[self navigationController] pushViewController:editView animated:YES];
+    if (self.isCurrent) {
+        UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andText:[[self.shares.theThings objectAtIndex:indexPath.row] text]];
+        [[self navigationController] pushViewController:editView animated:YES];
+    }
 }
 
 - (void)backWasTouched {

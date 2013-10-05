@@ -118,7 +118,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] init] animated:YES];
+    [[self navigationController] pushViewController:
+     [[My3ThingsViewController alloc] initWithShareDay:[self.userHistory objectAtIndex:indexPath.row]
+                                          andIsCurrent:[NSNumber numberWithBool:NO]]
+      animated:YES];
 }
 
 - (void)backWasTouched {

@@ -100,7 +100,7 @@
 }
 
 -(void) shareWasTouched {
-    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] init] animated:YES];
+    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:NULL andIsCurrent:[NSNumber numberWithBool:YES]] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
