@@ -130,11 +130,16 @@
     NSLog(@"Got callback for image prompt");
     [self.view endEditing:YES];
     PhotoPromptViewController *promptViewController = [[PhotoPromptViewController alloc] init];
+    promptViewController.promptDelegate = self;
     [self addChildViewController:promptViewController];
     [self.view addSubview:promptViewController.view];
     promptViewController.view.frame = CGRectMake(0, screenFrame.size.height-180, screenFrame.size.width, 200);
     [promptViewController didMoveToParentViewController:self];
     self.photoPromptIsHidden = YES;
+}
+
+- (void)photoWasSelected:(UIImage *)selectedImage {
+    NSLog(@"got image: %@", selectedImage);
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {

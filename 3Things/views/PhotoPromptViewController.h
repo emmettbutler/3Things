@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PhotoPromptViewController : UIViewController
+@class PhotoPromptViewController;
+@protocol PhotoPromptViewControllerDelegate <NSObject>
+@optional
+- (void) photoWasSelected:(UIImage *)selectedImage;
+@end
+
+id <PhotoPromptViewControllerDelegate> promptDelegate;
+
+@interface PhotoPromptViewController : UIViewController <UIImagePickerControllerDelegate>
+
+@property (nonatomic, assign) id <PhotoPromptViewControllerDelegate> promptDelegate;
 
 @end

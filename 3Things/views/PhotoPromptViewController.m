@@ -7,12 +7,14 @@
 //
 
 #import "PhotoPromptViewController.h"
+#import "EditThingViewController.h"
 
 @interface PhotoPromptViewController ()
 
 @end
 
 @implementation PhotoPromptViewController
+@synthesize promptDelegate;
 
 - (void)viewDidLoad
 {
@@ -50,20 +52,36 @@
 
 - (void)takeWasTouched
 {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
+    [self presentViewController:picker animated:YES completion:NULL];
 }
 
 - (void)chooseWasTouched
 {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
+    [self presentViewController:picker animated:YES completion:NULL];
 }
 
 - (void)cancelWasTouched
 {
-    NSLog(@"Parent: %@", self.parentViewController);
     [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [self.promptDelegate photoWasSelected:chosenImage];
+    [self cancelWasTouched];
 }
 
 - (void)didReceiveMemoryWarning

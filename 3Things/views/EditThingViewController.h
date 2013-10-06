@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "TTShareDay.h"
+#import "PhotoPromptViewController.h"
 
-@interface EditThingViewController : UIViewController <UITextViewDelegate>
+@interface EditThingViewController : UIViewController <UITextViewDelegate, PhotoPromptViewControllerDelegate>
 {
     CGRect screenFrame;
 }
 
 - (id) initWithThingIndex:(NSNumber *)thingIndex andShares:(TTShareDay *)shares;
 - (NSString *)getNumberWord;
-- (void)dismissPhotoPrompt;
 
 @property (nonatomic) UITextView *textField;
 @property (nonatomic) TTShareDay *shares;
