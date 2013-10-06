@@ -42,8 +42,8 @@
                           @"Played a sport",
                           @"Went to an awesome concert",
                           nil];
-        for (int i = 0; i < texts.count; i++) {
-            //[self.theThings addObject:[[TTThing alloc] initWithText:[texts objectAtIndex:arc4random() % texts.count]]];
+        for (int i = 0; i < 3; i++) {
+            [self.theThings addObject:@"Share something..."];
         }
     }
     return self;
@@ -52,13 +52,13 @@
 + (TTShareDay *)shareDayWithShareObject:(ShareDay *)shares {
     TTShareDay *ret = [[TTShareDay alloc] init];
     if (shares.thing1 != NULL) {
-        [ret.theThings addObject:shares.thing1.text];
+        [ret.theThings replaceObjectAtIndex:0 withObject:shares.thing1.text];
     }
     if (shares.thing2 != NULL) {
-        [ret.theThings addObject:shares.thing2.text];
+        [ret.theThings replaceObjectAtIndex:1 withObject:shares.thing2.text];
     }
     if (shares.thing3 != NULL) {
-        [ret.theThings addObject:shares.thing3.text];
+        [ret.theThings replaceObjectAtIndex:2 withObject:shares.thing3.text];
     }
     [ret setDate:shares.date];
     return ret;

@@ -42,7 +42,7 @@
 
     [request setPredicate:predicate];
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:_sort ascending:YES];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:_sort ascending:NO];
     [request setSortDescriptors:[NSArray arrayWithObject:sort]];
     
     NSError *error = nil;
