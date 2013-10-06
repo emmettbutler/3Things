@@ -20,15 +20,6 @@
 
 @implementation EditThingViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (id)initWithThingIndex:(NSNumber *)thingIndex andShares:(TTShareDay *)shares
 {
     self = [super init];
