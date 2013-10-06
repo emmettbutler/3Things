@@ -27,7 +27,7 @@
         [components setSecond: 0];
         self.date = [myCalendar dateFromComponents:components];
         
-        self.theThings = [[NSMutableArray alloc] init];
+        self.theThings = [[NSMutableArray alloc] initWithCapacity:3];
         
         NSArray *texts = [[NSArray alloc] initWithObjects:
                           @"Ran a personal best in the shamrock shuffle",

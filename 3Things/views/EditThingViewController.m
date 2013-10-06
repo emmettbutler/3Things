@@ -39,7 +39,7 @@
         self.thingText = @"Share something...";
         NSString *text;
         if (thingIndex.intValue < self.shares.theThings.count){
-            text = [[shares.theThings objectAtIndex:[thingIndex intValue]] text];
+            text = [shares.theThings objectAtIndex:[thingIndex intValue]];
         }
         if (text) {
             self.firstEdit = NO;
@@ -112,7 +112,7 @@
 }
 
 - (void)nextWasTouched {
-    [self.shares.theThings addObject:self.textField.text];
+    [self.shares.theThings replaceObjectAtIndex:self.thingIndex.intValue withObject:self.textField.text];
     
     [[self navigationController] pushViewController:
      [[EditThingViewController alloc] initWithThingIndex:
@@ -120,14 +120,14 @@
 }
 
 - (void)saveWasTouched {
-    [self.shares.theThings addObject:self.textField.text];
+    [self.shares.theThings replaceObjectAtIndex:self.thingIndex.intValue withObject:self.textField.text];
     [self savePartialDay];
     [[self navigationController] pushViewController:
      [[My3ThingsViewController alloc] initWithIsCurrent:[NSNumber numberWithBool:YES]] animated:YES];
 }
 
 - (void)shareWasTouched {
-    [self.shares.theThings addObject:self.textField.text];
+    [self.shares.theThings replaceObjectAtIndex:self.thingIndex.intValue withObject:self.textField.text];
     [self saveDay];
     
     [[self navigationController] pushViewController:
@@ -163,15 +163,15 @@
     }
     ThingStore *thingStore = [[ThingStore alloc] init];
     
-    if (self.shares.theThings.count > 0) {
+    if ([self.shares.theThings objectAtIndex:0] != NULL) {
         item.thing1 = [thingStore createThing];
         item.thing1.text = [self.shares.theThings objectAtIndex:0];
     }
-    if (self.shares.theThings.count > 1) {
+    if ([self.shares.theThings objectAtIndex:1] != NULL) {
         item.thing2 = [thingStore createThing];
         item.thing2.text = [self.shares.theThings objectAtIndex:1];
     }
-    if (self.shares.theThings.count > 2) {
+    if ([self.shares.theThings objectAtIndex:2] != NULL) {
         item.thing3 = [thingStore createThing];
         item.thing3.text = [self.shares.theThings objectAtIndex:2];
     }
@@ -193,6 +193,7 @@
     item.thing3 = [thingStore createThing];
     item.thing3.text = [self.shares.theThings objectAtIndex:2];
     item.date = [dayStore getDateOnly];
+    [dayStore saveChanges];
 }
 
 - (void)didReceiveMemoryWarning
