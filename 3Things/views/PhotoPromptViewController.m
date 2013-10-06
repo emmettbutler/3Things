@@ -79,7 +79,6 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    NSLog(@"info: %@", info);
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     [picker dismissViewControllerAnimated:YES completion:NULL];
     
@@ -90,9 +89,11 @@
             if (error) {
                 NSLog(@"error saving image");
             } else {
-                NSLog(@"url %@", assetURL);
+                [self.promptDelegate photoWasSaved:[assetURL absoluteString]];
             }  
         }];
+    } else {
+        [self.promptDelegate photoWasSaved:[info objectForKey:UIImagePickerControllerReferenceURL]];
     }
     
     [self.promptDelegate photoWasSelected:chosenImage];

@@ -142,6 +142,9 @@
 - (void)photoWasSelected:(UIImage *)selectedImage {
     NSLog(@"got image: %@", selectedImage);
 }
+- (void)photoWasSaved:(NSString *)savedPhotoURL {
+    NSLog(@"got image url: %@", savedPhotoURL);
+}
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     NSLog(@"is first edit? %@", [NSNumber numberWithBool:self.firstEdit]);
