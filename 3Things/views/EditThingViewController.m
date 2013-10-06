@@ -32,8 +32,8 @@
         self.thingText = @"Share something...";
         self.photoPromptIsHidden = NO;
         NSString *text;
-        if (![[self.shares.theThings objectAtIndex:[thingIndex intValue]] isEqualToString:@"Share something..."]){
-            text = [shares.theThings objectAtIndex:[thingIndex intValue]];
+        if (![[[self.shares.theThings objectAtIndex:[thingIndex intValue]] objectForKey:@"text"] isEqualToString:@"Share something..."]){
+            text = [[shares.theThings objectAtIndex:[thingIndex intValue]] objectForKey:@"text"];
             self.firstEdit = NO;
             self.thingText = text;
         }
@@ -105,7 +105,7 @@
 }
 
 - (void)nextWasTouched {
-    [self.shares.theThings replaceObjectAtIndex:self.thingIndex.intValue withObject:self.textField.text];
+    [self registerCurrentThing];
     
     [[self navigationController] pushViewController:
      [[EditThingViewController alloc] initWithThingIndex:
@@ -113,14 +113,14 @@
 }
 
 - (void)saveWasTouched {
-    [self.shares.theThings replaceObjectAtIndex:self.thingIndex.intValue withObject:self.textField.text];
+    [self registerCurrentThing];
     [self savePartialDay];
     [[self navigationController] pushViewController:
      [[My3ThingsViewController alloc] initWithIsCurrent:[NSNumber numberWithBool:YES]] animated:YES];
 }
 
 - (void)shareWasTouched {
-    [self.shares.theThings replaceObjectAtIndex:self.thingIndex.intValue withObject:self.textField.text];
+    [self registerCurrentThing];
     [self saveDay];
     
     [[self navigationController] pushViewController:
@@ -192,19 +192,14 @@
     if (item == NULL){
         item = [dayStore createShareDay];
     }
-    ThingStore *thingStore = [[ThingStore alloc] init];
-    
     if ([self.shares.theThings objectAtIndex:0] != NULL) {
-        item.thing1 = [thingStore createThing];
-        item.thing1.text = [self.shares.theThings objectAtIndex:0];
+        item.thing1 = [self saveThingWithIndex:[NSNumber numberWithInt:0]];
     }
     if ([self.shares.theThings objectAtIndex:1] != NULL) {
-        item.thing2 = [thingStore createThing];
-        item.thing2.text = [self.shares.theThings objectAtIndex:1];
+        item.thing2 = [self saveThingWithIndex:[NSNumber numberWithInt:1]];
     }
     if ([self.shares.theThings objectAtIndex:2] != NULL) {
-        item.thing3 = [thingStore createThing];
-        item.thing3.text = [self.shares.theThings objectAtIndex:2];
+        item.thing3 = [self saveThingWithIndex:[NSNumber numberWithInt:2]];
     }
     item.date = [dayStore getDateOnly];
     UserStore *userStore = [[UserStore alloc] init];
@@ -218,17 +213,26 @@
     if (item == NULL){
         item = [dayStore createShareDay];
     }
-    ThingStore *thingStore = [[ThingStore alloc] init];
-    item.thing1 = [thingStore createThing];
-    item.thing1.text = [self.shares.theThings objectAtIndex:0];
-    item.thing2 = [thingStore createThing];
-    item.thing2.text = [self.shares.theThings objectAtIndex:1];
-    item.thing3 = [thingStore createThing];
-    item.thing3.text = [self.shares.theThings objectAtIndex:2];
+    item.thing1 = [self saveThingWithIndex:[NSNumber numberWithInt:0]];
+    item.thing2 = [self saveThingWithIndex:[NSNumber numberWithInt:1]];
+    item.thing3 = [self saveThingWithIndex:[NSNumber numberWithInt:2]];
     item.date = [dayStore getDateOnly];
     UserStore *userStore = [[UserStore alloc] init];
     item.user = [userStore getAuthenticatedUser];
     [dayStore saveChanges];
+}
+
+- (Thing *)saveThingWithIndex:(NSNumber *)index {
+    ThingStore *thingStore = [[ThingStore alloc] init];
+    Thing *thing = [thingStore createThing];
+    thing.text = [[self.shares.theThings objectAtIndex:[index intValue]] objectForKey:@"text"];
+    thing.localImageURL = [[self.shares.theThings objectAtIndex:[index intValue]] objectForKey:@"localImageURL"];
+    return thing;
+}
+
+- (void) registerCurrentThing {
+    [self.shares.theThings replaceObjectAtIndex:self.thingIndex.intValue
+                                     withObject:@{@"text": self.textField.text, @"localImageURL": @"DUMMY"}];
 }
 
 - (void)didReceiveMemoryWarning

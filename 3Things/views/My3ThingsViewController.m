@@ -44,7 +44,7 @@
             NSLog(@"Found nothing");
             self.shares = [[TTShareDay alloc] init];
         } else {
-            NSLog(@"Found an entry");
+            NSLog(@"Found an entry: %@", today);
             self.shares = [TTShareDay shareDayWithShareObject:today];
         }
         NSLog(@"Entering 3things view: %@", self.shares.theThings);
@@ -160,7 +160,7 @@
         text = @"Share something...";
     } else {
         if (indexPath.row < self.shares.theThings.count) {
-            text = [self.shares.theThings objectAtIndex:indexPath.row];
+            text = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"text"];
         } else {
             text = @"Share something...";
         }

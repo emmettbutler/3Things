@@ -17,6 +17,8 @@
 
 - (id) initWithThingIndex:(NSNumber *)thingIndex andShares:(TTShareDay *)shares;
 - (NSString *)getNumberWord;
+- (Thing *)saveThingWithIndex:(NSNumber *)index;
+- (void) registerCurrentThing;
 
 @property (nonatomic) UITextView *textField;
 @property (nonatomic) TTShareDay *shares;
