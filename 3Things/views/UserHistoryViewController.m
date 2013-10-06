@@ -19,7 +19,8 @@
     [super viewDidLoad];
     
     ShareDayStore *store = [[ShareDayStore alloc] init];
-    self.userHistory = [store allItems];
+    UserStore *userStore = [[UserStore alloc] init];
+    self.userHistory = [store allItemsForUser:[userStore getAuthenticatedUser]];
 	
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
@@ -47,7 +48,6 @@
     
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, frame.size.height+(topSectionHeight-30), frame.size.width, frame.size.height)];
     text.textAlignment = NSTextAlignmentCenter;
-    UserStore *userStore = [[UserStore alloc] init];
     text.text = [[userStore getAuthenticatedUser] name];
     [self.view addSubview:text];
     

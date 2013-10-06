@@ -42,6 +42,7 @@
 
 - (void)confirmWasTouched {
     UserStore *userStore = [[UserStore alloc] init];
+    // use actual entered user data here
     [userStore createUser:[NSNumber numberWithInt:123456] withName:@"Heather Smith"];
     [[NSUserDefaults standardUserDefaults] setObject:@"123456" forKey:@"auth_user_id"];
     [[NSUserDefaults standardUserDefaults] setObject:@"aowe7faboisuebf" forKey:@"user_token"];

@@ -13,6 +13,7 @@
 #import "TTThing.h"
 #import "ThingStore.h"
 #import "ShareDayStore.h"
+#import "UserStore.h"
 
 @interface EditThingViewController ()
 
@@ -167,6 +168,8 @@
         item.thing3.text = [self.shares.theThings objectAtIndex:2];
     }
     item.date = [dayStore getDateOnly];
+    UserStore *userStore = [[UserStore alloc] init];
+    item.user = [userStore getAuthenticatedUser];
     NSLog(@"item date: %@", item.date);
 }
 
@@ -184,6 +187,8 @@
     item.thing3 = [thingStore createThing];
     item.thing3.text = [self.shares.theThings objectAtIndex:2];
     item.date = [dayStore getDateOnly];
+    UserStore *userStore = [[UserStore alloc] init];
+    item.user = [userStore getAuthenticatedUser];
     [dayStore saveChanges];
 }
 

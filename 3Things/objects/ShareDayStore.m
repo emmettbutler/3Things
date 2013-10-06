@@ -17,9 +17,10 @@
     return (ShareDay *)newItem;
 }
 
-- (NSArray *)allItems
+- (NSArray *)allItemsForUser:(User *)user
 {
-    NSArray *result = [self allItems:@"ShareDay" withSort:@"date" andPredicate:NULL];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(user.identifier = %@)", user.identifier];
+    NSArray *result = [self allItems:@"ShareDay" withSort:@"date" andPredicate:predicate];
     return result;
 }
 
