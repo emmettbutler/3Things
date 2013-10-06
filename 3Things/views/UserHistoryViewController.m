@@ -42,8 +42,10 @@
     float topSectionHeight = 120;
     
     int imgWidth = 60;
+    NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
+    UIImage *image = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
     UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+30, imgWidth, 70)];
-    profilePicView.image = [UIImage imageNamed:@"prof_pic.jpg"];
+    profilePicView.image = image;
     [self.view addSubview:profilePicView];
     
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, frame.size.height+(topSectionHeight-30), frame.size.width, frame.size.height)];

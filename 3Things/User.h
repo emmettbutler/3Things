@@ -14,5 +14,6 @@
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * identifier;
+@property (nonatomic, retain) NSString * profileImageURL;
 
 @end

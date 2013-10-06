@@ -55,6 +55,8 @@
     [super viewDidLoad];
     
     self.accessor = [[TTSharesAccessor alloc] init];
+    
+    UserStore *userStore = [[UserStore alloc] init];
 	
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
@@ -98,8 +100,10 @@
     [self.view addSubview:tableView];
     
     int imgWidth = 40;
+    NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
+    UIImage *image = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
     UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+80, imgWidth, 50)];
-    profilePicView.image = [UIImage imageNamed:@"prof_pic.jpg"];
+    profilePicView.image = image;
     [self.view addSubview:profilePicView];
 }
 
