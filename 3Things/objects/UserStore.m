@@ -19,7 +19,7 @@
         NSManagedObject *newItem = [self createItem:@"User"];
         ((User *)newItem).identifier = identifier;
         ((User *)newItem).name = name;
-        ((User *)newItem).profileImageURL = @"http://studio757photography.files.wordpress.com/2008/03/copy-of-3617-500x300.jpg";
+        ((User *)newItem).profileImageURL = @"http://www.modernestudio.com/biz-1.jpg";
         NSLog(@"Found no user, created %@", (User *)newItem);
         [self saveChanges];
         return (User *)newItem;

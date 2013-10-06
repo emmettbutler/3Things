@@ -30,10 +30,8 @@
         self.firstEdit = YES;
         self.thingText = @"Share something...";
         NSString *text;
-        if (thingIndex.intValue < self.shares.theThings.count){
+        if (![[self.shares.theThings objectAtIndex:[thingIndex intValue]] isEqualToString:@"Share something..."]){
             text = [shares.theThings objectAtIndex:[thingIndex intValue]];
-        }
-        if (text) {
             self.firstEdit = NO;
             self.thingText = text;
         }
@@ -127,6 +125,7 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
+    NSLog(@"is first edit? %@", [NSNumber numberWithBool:self.firstEdit]);
     if (self.firstEdit) {
         textView.text = @"";
     }
