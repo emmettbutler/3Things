@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Emmett Butler. All rights reserved.
 //
 
+#import <SDWebImage/UIImageView+WebCache.h>
+
 #import "My3ThingsViewController.h"
 #import "EditThingViewController.h"
 #import "TTShareDay.h"
@@ -101,9 +103,9 @@
     
     int imgWidth = 40;
     NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
-    UIImage *image = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
     UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+80, imgWidth, 50)];
-    profilePicView.image = image;
+    [profilePicView setImageWithURL:url
+                   placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     [self.view addSubview:profilePicView];
 }
 

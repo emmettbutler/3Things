@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Emmett Butler. All rights reserved.
 //
 
+#import <SDWebImage/UIImageView+WebCache.h>
+
 #import "UserHistoryViewController.h"
 #import "My3ThingsViewController.h"
 #import "ShareDayStore.h"
@@ -43,9 +45,9 @@
     
     int imgWidth = 60;
     NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
-    UIImage *image = [UIImage imageWithData: [NSData dataWithContentsOfURL:url]];
     UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+30, imgWidth, 70)];
-    profilePicView.image = image;
+    [profilePicView setImageWithURL:url
+                   placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     [self.view addSubview:profilePicView];
     
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, frame.size.height+(topSectionHeight-30), frame.size.width, frame.size.height)];

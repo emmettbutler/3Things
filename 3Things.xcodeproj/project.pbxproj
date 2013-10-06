@@ -10,6 +10,9 @@
 		AA09105C1801BA1200F9D8B8 /* ShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AA09105B1801BA1200F9D8B8 /* ShareDay.m */; };
 		AA0910621801BDA100F9D8B8 /* UserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910611801BDA100F9D8B8 /* UserStore.m */; };
 		AA0910681801C5BA00F9D8B8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910671801C5BA00F9D8B8 /* User.m */; };
+		AA09109B1801CB6F00F9D8B8 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA09109A1801CB6F00F9D8B8 /* SDWebImage.framework */; };
+		AA09109D1801CB9300F9D8B8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA09109C1801CB9300F9D8B8 /* ImageIO.framework */; };
+		AA09109F1801CC2D00F9D8B8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = AA09109E1801CC2D00F9D8B8 /* placeholder.png */; };
 		AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EAE18006FD600EEA446 /* DayListViewController.m */; };
 		AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB018006FD600EEA446 /* EditThingViewController.m */; };
 		AABB2EC218006FD600EEA446 /* FriendsDayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB218006FD600EEA446 /* FriendsDayListViewController.m */; };
@@ -44,6 +47,9 @@
 		AA0910611801BDA100F9D8B8 /* UserStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserStore.m; sourceTree = "<group>"; };
 		AA0910661801C5BA00F9D8B8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = ../User.h; sourceTree = "<group>"; };
 		AA0910671801C5BA00F9D8B8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = ../User.m; sourceTree = "<group>"; };
+		AA09109A1801CB6F00F9D8B8 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
+		AA09109C1801CB9300F9D8B8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		AA09109E1801CC2D00F9D8B8 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		AABB2EAD18006FD600EEA446 /* DayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayListViewController.h; sourceTree = "<group>"; };
 		AABB2EAE18006FD600EEA446 /* DayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayListViewController.m; sourceTree = "<group>"; };
 		AABB2EAF18006FD600EEA446 /* EditThingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditThingViewController.h; sourceTree = "<group>"; };
@@ -94,6 +100,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA09109D1801CB9300F9D8B8 /* ImageIO.framework in Frameworks */,
+				AA09109B1801CB6F00F9D8B8 /* SDWebImage.framework in Frameworks */,
 				AABB2F111800A43600EEA446 /* CoreData.framework in Frameworks */,
 				AAF28C5017DAA90A0067FD79 /* UIKit.framework in Frameworks */,
 				AAF28C5217DAA90A0067FD79 /* Foundation.framework in Frameworks */,
@@ -172,6 +180,8 @@
 		AAF28C4E17DAA90A0067FD79 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA09109C1801CB9300F9D8B8 /* ImageIO.framework */,
+				AA09109A1801CB6F00F9D8B8 /* SDWebImage.framework */,
 				AABB2F101800A43600EEA446 /* CoreData.framework */,
 				AAF28C4F17DAA90A0067FD79 /* UIKit.framework */,
 				AAF28C5117DAA90A0067FD79 /* Foundation.framework */,
@@ -196,6 +206,7 @@
 		AAF28C5617DAA90A0067FD79 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AA09109E1801CC2D00F9D8B8 /* placeholder.png */,
 				AAF28C5717DAA90A0067FD79 /* 3Things-Info.plist */,
 				AAF28C5817DAA90A0067FD79 /* InfoPlist.strings */,
 				AAF28C5B17DAA90A0067FD79 /* main.m */,
@@ -261,6 +272,7 @@
 				AAF28C5A17DAA90A0067FD79 /* InfoPlist.strings in Resources */,
 				AAF28C6217DAA90A0067FD79 /* Default.png in Resources */,
 				AAF28C6417DAA90A0067FD79 /* Default@2x.png in Resources */,
+				AA09109F1801CC2D00F9D8B8 /* placeholder.png in Resources */,
 				AAF28C6617DAA90A0067FD79 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -368,9 +380,15 @@
 		AAF28C6A17DAA90A0067FD79 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/emmettbutler/Downloads,
+					/Users/emmettbutler/Documents/Programming/iOS/3Things,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "3Things/3Things-Prefix.pch";
 				INFOPLIST_FILE = "3Things/3Things-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -379,9 +397,15 @@
 		AAF28C6B17DAA90A0067FD79 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/emmettbutler/Downloads,
+					/Users/emmettbutler/Documents/Programming/iOS/3Things,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "3Things/3Things-Prefix.pch";
 				INFOPLIST_FILE = "3Things/3Things-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
