@@ -104,8 +104,17 @@
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     
+    UITextView *dateView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 20)];
+    dateView.textAlignment = NSTextAlignmentLeft;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM/dd"];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    dateView.text = [formatter stringFromDate:[[self.userHistory objectAtIndex:indexPath.row] date]];
+    dateView.editable = NO;
+    [container addSubview:dateView];
+    
     for (int j = 0; j < 3; j++) {
-        UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, j*20, frame.size.width, 20)];
+        UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(40, j*20, frame.size.width, 20)];
         text.textAlignment = NSTextAlignmentLeft;
         NSString *thingString;
         switch (j) {
