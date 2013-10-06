@@ -8,6 +8,7 @@
 
 #import "PhotoPromptViewController.h"
 #import "EditThingViewController.h"
+#import "AssetsLibrary/AssetsLibrary.h"
 
 @interface PhotoPromptViewController ()
 
@@ -78,8 +79,22 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSLog(@"info: %@", info);
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     [picker dismissViewControllerAnimated:YES completion:NULL];
+    
+    if ([info objectForKey:UIImagePickerControllerReferenceURL] == nil) {
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        // Request to save the image to camera roll
+        [library writeImageToSavedPhotosAlbum:[chosenImage CGImage] orientation:(ALAssetOrientation)[chosenImage imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+            if (error) {
+                NSLog(@"error saving image");
+            } else {
+                NSLog(@"url %@", assetURL);
+            }  
+        }];
+    }
+    
     [self.promptDelegate photoWasSelected:chosenImage];
     [self cancelWasTouched];
 }
