@@ -62,7 +62,7 @@
     
 	[self.view addSubview:navBar];
     
-    CGRect textFieldFrame = CGRectMake(screenFrame.size.width*.05, frame.size.height+50, screenFrame.size.width*.9, 120.0f);
+    CGRect textFieldFrame = CGRectMake(screenFrame.size.width*.025, frame.size.height+10, screenFrame.size.width*.95, screenFrame.size.height-300);
     _textField = [[UITextView alloc] initWithFrame:textFieldFrame];
     _textField.textAlignment = NSTextAlignmentLeft;
     _textField.editable = YES;
@@ -71,6 +71,7 @@
     _textField.layer.borderColor = [[UIColor grayColor] CGColor];
     _textField.layer.cornerRadius = 10.0f;
     [_textField becomeFirstResponder];
+    [_textField setFont:[UIFont systemFontOfSize:15]];
     [_textField setText:self.thingText];
     [self.view addSubview:_textField];
     
@@ -79,7 +80,7 @@
                action:@selector(imgButtonWasTouched)
      forControlEvents:UIControlEventTouchDown];
     [imgButton setTitle:@"Photo" forState:UIControlStateNormal];
-    imgButton.frame = CGRectMake(screenFrame.size.width*.05, textFieldFrame.origin.y+textFieldFrame.size.height+8, 50, 40.0);
+    imgButton.frame = CGRectMake(screenFrame.size.width*.05, textFieldFrame.origin.y+textFieldFrame.size.height-4, 50, 40.0);
     [self.view addSubview:imgButton];
     
     UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -87,7 +88,7 @@
                    action:@selector(saveWasTouched)
          forControlEvents:UIControlEventTouchDown];
     [saveButton setTitle:@"Save" forState:UIControlStateNormal];
-    saveButton.frame = CGRectMake(screenFrame.size.width*.55, textFieldFrame.origin.y+textFieldFrame.size.height+8, 50, 40.0);
+    saveButton.frame = CGRectMake(screenFrame.size.width*.55, textFieldFrame.origin.y+textFieldFrame.size.height-4, 50, 40.0);
     [self.view addSubview:saveButton];
     
     UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -95,7 +96,7 @@
                    action:(self.thingIndex.intValue != 2) ? @selector(nextWasTouched) : @selector(shareWasTouched)
         forControlEvents:UIControlEventTouchDown];
     [nextButton setTitle:(self.thingIndex.intValue != 2) ? @"Next" : @"Share" forState:UIControlStateNormal];
-    nextButton.frame = CGRectMake(screenFrame.size.width*.75, textFieldFrame.origin.y+textFieldFrame.size.height+8, 50, 40.0);
+    nextButton.frame = CGRectMake(screenFrame.size.width*.75, textFieldFrame.origin.y+textFieldFrame.size.height-4, 50, 40.0);
     [self.view addSubview:nextButton];
 }
 

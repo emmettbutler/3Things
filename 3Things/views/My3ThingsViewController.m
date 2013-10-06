@@ -79,7 +79,7 @@
     
 	[self.view addSubview:navBar];
     
-    float mainButtonHeight = 120;
+    float mainButtonHeight = 65;
     
     CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-50);
     self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
@@ -95,7 +95,7 @@
                         action:@selector(shareWasTouched)
               forControlEvents:UIControlEventTouchDown];
         [shareButton setTitle:@"Share" forState:UIControlStateNormal];
-        shareButton.frame = CGRectMake(80.0, self.screenFrame.size.height-50, 160.0, 40.0);
+        shareButton.frame = CGRectMake(80.0, self.screenFrame.size.height-40, 160.0, 40.0);
         [self.view addSubview:shareButton];
     }
     
@@ -103,7 +103,7 @@
     
     int imgWidth = 40;
     NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
-    UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+80, imgWidth, 50)];
+    UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+25, imgWidth, 50)];
     [profilePicView setImageWithURL:url
                    placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     [self.view addSubview:profilePicView];
@@ -144,7 +144,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.tableHeight.floatValue/3;
+    return (self.tableHeight.floatValue-44)/3;
 }
 
 
