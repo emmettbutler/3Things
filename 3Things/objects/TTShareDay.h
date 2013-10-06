@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "ShareDay.h"
+#import "User.h"
 
 @interface TTShareDay : NSObject
 
 @property (nonatomic) NSDate *date;
-@property (nonatomic) NSString *userName;
-@property (nonatomic) NSString *userFullName;
+@property (nonatomic) User *user;
 @property (nonatomic) NSMutableArray *theThings;
 
 + (TTShareDay *)shareDayWithShareObject:(ShareDay *)shares;

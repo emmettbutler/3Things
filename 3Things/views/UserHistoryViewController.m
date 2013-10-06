@@ -10,6 +10,7 @@
 #import "My3ThingsViewController.h"
 #import "ShareDayStore.h"
 #import "Thing.h"
+#import "UserStore.h"
 
 @implementation UserHistoryViewController
 
@@ -55,7 +56,8 @@
     
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, frame.size.height+(topSectionHeight-30), frame.size.width, frame.size.height)];
     text.textAlignment = NSTextAlignmentCenter;
-    text.text = @"Heather Smith";
+    UserStore *userStore = [[UserStore alloc] init];
+    text.text = [[userStore getAuthenticatedUser] name];
     [self.view addSubview:text];
     
     CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+topSectionHeight, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-topSectionHeight);

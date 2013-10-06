@@ -8,6 +8,7 @@
 
 #import "SignupCodeViewController.h"
 #import "DayListViewController.h"
+#import "UserStore.h"
 
 @interface SignupCodeViewController ()
 
@@ -40,6 +41,9 @@
 }
 
 - (void)confirmWasTouched {
+    UserStore *userStore = [[UserStore alloc] init];
+    [userStore createUser:[NSNumber numberWithInt:123456] withName:@"Heather Smith"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"123456" forKey:@"auth_user_id"];
     [[NSUserDefaults standardUserDefaults] setObject:@"aowe7faboisuebf" forKey:@"user_token"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self setModalPresentationStyle:UIModalPresentationPageSheet];

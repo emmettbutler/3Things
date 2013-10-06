@@ -11,6 +11,7 @@
 #import "TTShareDay.h"
 #import "ShareDayStore.h"
 #import "UserHistoryViewController.h"
+#import "UserStore.h"
 
 @interface My3ThingsViewController ()
 
@@ -129,12 +130,16 @@
     
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 20)];
     text.textAlignment = NSTextAlignmentCenter;
-    text.text = @"Header Smith";
+    UserStore *userStore = [[UserStore alloc] init];
+    text.text = [[userStore getAuthenticatedUser] name];
     [header addSubview:text];
     
     UITextView *text2 = [[UITextView alloc] initWithFrame:CGRectMake(0, 20, frame.size.width, 23)];
     text2.textAlignment = NSTextAlignmentCenter;
-    text2.text = @"Today";
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM/dd"];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    text2.text = [formatter stringFromDate:self.shares.date];
     [header addSubview:text2];
     
     return header;

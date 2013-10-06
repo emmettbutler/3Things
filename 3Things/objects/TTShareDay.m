@@ -16,9 +16,6 @@
 {
     self = [super init];
     if (self) {
-        self.userFullName = @"Heather Smith";
-        self.userName = @"heather";
-        
         NSCalendar* myCalendar = [NSCalendar currentCalendar];
         NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
                                                      fromDate:[NSDate date]];
@@ -61,6 +58,7 @@
         [ret.theThings replaceObjectAtIndex:2 withObject:shares.thing3.text];
     }
     [ret setDate:shares.date];
+    ret.user = shares.user;
     return ret;
 }
 

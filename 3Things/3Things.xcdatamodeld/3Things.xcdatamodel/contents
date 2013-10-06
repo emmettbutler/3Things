@@ -5,13 +5,19 @@
         <relationship name="thing1" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" syncable="YES"/>
         <relationship name="thing2" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" syncable="YES"/>
         <relationship name="thing3" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" syncable="YES"/>
     </entity>
     <entity name="Thing" representedClassName="Thing" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="ShareDay" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Thing" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

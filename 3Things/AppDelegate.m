@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "SplashViewController.h"
 #import "DayListViewController.h"
+#import "UserStore.h"
+#import "User.h"
 
 @implementation AppDelegate
 
