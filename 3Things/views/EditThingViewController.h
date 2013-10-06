@@ -12,7 +12,7 @@
 
 @interface EditThingViewController : UIViewController <UITextViewDelegate, PhotoPromptViewControllerDelegate>
 {
-    CGRect screenFrame;
+    CGRect screenFrame, textFieldFrame;
 }
 
 - (id) initWithThingIndex:(NSNumber *)thingIndex andShares:(TTShareDay *)shares;

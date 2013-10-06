@@ -62,7 +62,7 @@
     
 	[self.view addSubview:navBar];
     
-    CGRect textFieldFrame = CGRectMake(screenFrame.size.width*.025, frame.size.height+10, screenFrame.size.width*.95, screenFrame.size.height-300);
+    textFieldFrame = CGRectMake(screenFrame.size.width*.025, frame.size.height+10, screenFrame.size.width*.95, screenFrame.size.height-320);
     _textField = [[UITextView alloc] initWithFrame:textFieldFrame];
     _textField.textAlignment = NSTextAlignmentLeft;
     _textField.editable = YES;
@@ -141,6 +141,10 @@
 
 - (void)photoWasSelected:(UIImage *)selectedImage {
     NSLog(@"got image: %@", selectedImage);
+    int imgWidth = 40;
+    UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(100, textFieldFrame.origin.y+textFieldFrame.size.height+8, imgWidth, imgWidth)];
+    picView.image = selectedImage;
+    [self.view addSubview:picView];
 }
 - (void)photoWasSaved:(NSString *)savedPhotoURL {
     NSLog(@"got image url: %@", savedPhotoURL);
