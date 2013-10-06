@@ -16,8 +16,8 @@
 		AA0910AB1801EC2500F9D8B8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A31801EC2500F9D8B8 /* User.m */; };
 		AA0910AC1801EC2500F9D8B8 /* TTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A51801EC2500F9D8B8 /* TTDataStore.m */; };
 		AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A71801EC2500F9D8B8 /* ThingStore.m */; };
-		AA0910AE1801EC2500F9D8B8 /* Thing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A91801EC2500F9D8B8 /* Thing.m */; };
 		AA0910B21801EEFB00F9D8B8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */; };
+		AA0910B81801F4B100F9D8B8 /* Thing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910B71801F4B100F9D8B8 /* Thing.m */; };
 		AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EAE18006FD600EEA446 /* DayListViewController.m */; };
 		AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB018006FD600EEA446 /* EditThingViewController.m */; };
 		AABB2EC218006FD600EEA446 /* FriendsDayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB218006FD600EEA446 /* FriendsDayListViewController.m */; };
@@ -58,10 +58,10 @@
 		AA0910A61801EC2500F9D8B8 /* TTDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDataStore.h; sourceTree = "<group>"; };
 		AA0910A71801EC2500F9D8B8 /* ThingStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThingStore.m; sourceTree = "<group>"; };
 		AA0910A81801EC2500F9D8B8 /* ThingStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingStore.h; sourceTree = "<group>"; };
-		AA0910A91801EC2500F9D8B8 /* Thing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Thing.m; sourceTree = "<group>"; };
-		AA0910AA1801EC2500F9D8B8 /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thing.h; sourceTree = "<group>"; };
 		AA0910AF1801EDAF00F9D8B8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		AA0910B61801F4B100F9D8B8 /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Thing.h; path = ../../Thing.h; sourceTree = "<group>"; };
+		AA0910B71801F4B100F9D8B8 /* Thing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Thing.m; path = ../../Thing.m; sourceTree = "<group>"; };
 		AABB2EAD18006FD600EEA446 /* DayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayListViewController.h; sourceTree = "<group>"; };
 		AABB2EAE18006FD600EEA446 /* DayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayListViewController.m; sourceTree = "<group>"; };
 		AABB2EAF18006FD600EEA446 /* EditThingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditThingViewController.h; sourceTree = "<group>"; };
@@ -145,14 +145,14 @@
 		AABB2EB918006FD600EEA446 /* objects */ = {
 			isa = PBXGroup;
 			children = (
+				AA0910B61801F4B100F9D8B8 /* Thing.h */,
+				AA0910B71801F4B100F9D8B8 /* Thing.m */,
 				AA0910A31801EC2500F9D8B8 /* User.m */,
 				AA0910A41801EC2500F9D8B8 /* User.h */,
 				AA0910A51801EC2500F9D8B8 /* TTDataStore.m */,
 				AA0910A61801EC2500F9D8B8 /* TTDataStore.h */,
 				AA0910A71801EC2500F9D8B8 /* ThingStore.m */,
 				AA0910A81801EC2500F9D8B8 /* ThingStore.h */,
-				AA0910A91801EC2500F9D8B8 /* Thing.m */,
-				AA0910AA1801EC2500F9D8B8 /* Thing.h */,
 				AA09105A1801BA1200F9D8B8 /* ShareDay.h */,
 				AA09105B1801BA1200F9D8B8 /* ShareDay.m */,
 				AABB2F1B1800B0F600EEA446 /* ShareDayStore.h */,
@@ -298,7 +298,7 @@
 				AABB2EC718006FD600EEA446 /* TTSharesAccessor.m in Sources */,
 				AAF28C5C17DAA90A0067FD79 /* main.m in Sources */,
 				AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */,
-				AA0910AE1801EC2500F9D8B8 /* Thing.m in Sources */,
+				AA0910B81801F4B100F9D8B8 /* Thing.m in Sources */,
 				AA0910AB1801EC2500F9D8B8 /* User.m in Sources */,
 				AABB2ECB18007A3500EEA446 /* UserHistoryViewController.m in Sources */,
 				AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */,
