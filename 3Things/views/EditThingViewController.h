@@ -10,14 +10,19 @@
 #import "TTShareDay.h"
 
 @interface EditThingViewController : UIViewController <UITextViewDelegate>
+{
+    CGRect screenFrame;
+}
 
 - (id) initWithThingIndex:(NSNumber *)thingIndex andShares:(TTShareDay *)shares;
 - (NSString *)getNumberWord;
+- (void)dismissPhotoPrompt;
 
 @property (nonatomic) UITextView *textField;
 @property (nonatomic) TTShareDay *shares;
 @property (nonatomic) NSNumber *thingIndex;
 @property (nonatomic) NSString *thingText;
 @property (nonatomic) BOOL firstEdit;
+@property (nonatomic) BOOL photoPromptIsHidden;
 
 @end

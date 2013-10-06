@@ -14,6 +14,7 @@
 #import "ThingStore.h"
 #import "ShareDayStore.h"
 #import "UserStore.h"
+#import "PhotoPromptViewController.h"
 
 @interface EditThingViewController ()
 
@@ -29,6 +30,7 @@
         self.thingIndex = thingIndex;
         self.firstEdit = YES;
         self.thingText = @"Share something...";
+        self.photoPromptIsHidden = NO;
         NSString *text;
         if (![[self.shares.theThings objectAtIndex:[thingIndex intValue]] isEqualToString:@"Share something..."]){
             text = [shares.theThings objectAtIndex:[thingIndex intValue]];
@@ -49,7 +51,7 @@
 	[[self navigationItem] setLeftBarButtonItem:button];
     [[self navigationItem] setTitle:[NSString stringWithFormat:@"Share your %@ thing", [self getNumberWord]]];
     
-	CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
+	screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
 	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:screenFrame];
 	CGRect frame = CGRectMake(0, 0, 0, 0);
@@ -124,10 +126,35 @@
      [[UserHistoryViewController alloc] init] animated:YES];
 }
 
+- (void)imgButtonWasTouched {
+    NSLog(@"Got callback for image prompt");
+    [self.view endEditing:YES];
+    PhotoPromptViewController *promptViewController = [[PhotoPromptViewController alloc] init];
+    [self addChildViewController:promptViewController];
+    [self.view addSubview:promptViewController.view];
+    promptViewController.view.frame = CGRectMake(0, screenFrame.size.height-180, screenFrame.size.width, 200);
+    [promptViewController didMoveToParentViewController:self];
+    self.photoPromptIsHidden = YES;
+}
+
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     NSLog(@"is first edit? %@", [NSNumber numberWithBool:self.firstEdit]);
     if (self.firstEdit) {
         textView.text = @"";
+    }
+}
+
+- (void)viewWillLayoutSubviews {
+    if (self.photoPromptIsHidden) {
+        self.photoPromptIsHidden = NO;
+    } else {
+        self.photoPromptIsHidden = YES;
+    }
+}
+
+- (void)viewDidLayoutSubviews {
+    if (self.photoPromptIsHidden) {
+        [_textField becomeFirstResponder];
     }
 }
 
