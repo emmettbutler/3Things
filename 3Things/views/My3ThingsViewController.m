@@ -43,7 +43,10 @@
         
         ShareDayStore *itemStore = [[ShareDayStore alloc] init];
         ShareDay *today = [itemStore getToday];
-        if (today == NULL) {
+        if (!self.isCurrent) {
+            NSLog(@"Got sent a day in the past");
+            self.shares = shares;
+        } else if (today == NULL) {
             NSLog(@"Found nothing");
             self.shares = [[TTShareDay alloc] init];
         } else {
