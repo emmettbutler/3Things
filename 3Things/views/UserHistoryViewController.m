@@ -12,6 +12,7 @@
 #import "My3ThingsViewController.h"
 #import "ShareDayStore.h"
 #import "Thing.h"
+#import "BottomNavViewController.h"
 #import "UserStore.h"
 
 @implementation UserHistoryViewController
@@ -67,6 +68,13 @@
     [tableView reloadData];
     
     [self.view addSubview:tableView];
+    
+    BottomNavViewController *navViewController = [[BottomNavViewController alloc] init];
+    navViewController.navDelegate = self;
+    [self addChildViewController:navViewController];
+    [self.view addSubview:navViewController.view];
+    navViewController.view.frame = CGRectMake(0, self.screenFrame.size.height-30, self.screenFrame.size.width, 50);
+    [navViewController didMoveToParentViewController:self];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -148,6 +156,11 @@
 
 - (void)backWasTouched {
     [[self navigationController] popViewControllerAnimated:YES];
+}
+
+- (void)reviewWasTouched {
+    NSLog(@"User history screen got review callback");
+    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

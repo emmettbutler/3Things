@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TTSharesAccessor.h"
+#import "BottomNavViewController.h"
 
-@interface UserHistoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface UserHistoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, BottomNavViewControllerDelegate>
 
 @property (nonatomic, retain) NSArray *userHistory;
 @property (nonatomic, retain) TTSharesAccessor *accessor;
