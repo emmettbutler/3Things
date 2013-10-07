@@ -71,6 +71,7 @@
 }
 
 - (void)imageTapped:(UIGestureRecognizer *)gestureRecognizer {
+    self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
