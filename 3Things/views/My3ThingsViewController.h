@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "TTSharesAccessor.h"
 #import "TTShareDay.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+
+typedef void (^ALAssetsLibraryAssetForURLResultBlock)(ALAsset *asset);
+typedef void (^ALAssetsLibraryAccessFailureBlock)(NSError *error);
 
 @interface My3ThingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

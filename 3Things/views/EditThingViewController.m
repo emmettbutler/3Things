@@ -101,6 +101,22 @@
     [nextButton setTitle:(self.thingIndex.intValue != 2) ? @"Next" : @"Share" forState:UIControlStateNormal];
     nextButton.frame = CGRectMake(screenFrame.size.width*.75, textFieldFrame.origin.y+textFieldFrame.size.height-4, 50, 40.0);
     [self.view addSubview:nextButton];
+    
+    NSString *imgURL = [[self.shares.theThings objectAtIndex:[self.thingIndex intValue]] objectForKey:@"localImageURL"];
+    if (![imgURL isEqualToString:@""]){
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
+         {
+            NSLog(@"we have our ALAsset!");
+            UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(100, textFieldFrame.origin.y+textFieldFrame.size.height+8, 40, 40)];
+            picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
+            [self.view addSubview:picView];
+         }
+                failureBlock:^(NSError *error )
+         {
+             NSLog(@"Error loading asset");
+         }];
+    }
 }
 
 - (void)cancelWasTouched {
@@ -244,7 +260,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

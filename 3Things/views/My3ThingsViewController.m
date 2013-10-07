@@ -155,17 +155,31 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
     }
     
-    NSString *text;
-    if (self.shares == NULL || self.shares.theThings.count == 0) {
-        text = @"Share something...";
-    } else {
-        if (indexPath.row < self.shares.theThings.count) {
-            text = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"text"];
-        } else {
-            text = @"Share something...";
-        }
+    CGRect frame = cell.bounds;
+    UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
+    
+    NSString *text = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"text"];
+    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
+    [thingTextView setText:text];
+    [thingTextView setFont:[UIFont systemFontOfSize:20]];
+    [container addSubview:thingTextView];
+    
+    NSString *imgURL = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"localImageURL"];
+    if (![imgURL isEqualToString:@""]){
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
+         {
+             NSLog(@"we have our ALAsset!");
+             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(200, 0, 40, 40)];
+             picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
+             [container addSubview:picView];
+         }
+        failureBlock:^(NSError *error )
+         {
+             NSLog(@"Error loading asset");
+         }];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", text];
+    cell.backgroundView = container;
     return cell;
 }
 
