@@ -32,10 +32,7 @@
         self.thingText = @"Share something...";
         self.photoPromptIsHidden = NO;
         NSString *text;
-        // TODO - this is pretty stupid
-        // check here for empty string (which the initializer should be changed to include)
-        // when writing to screen, check for empty string and draw "share something" if it's found
-        if (![[[self.shares.theThings objectAtIndex:[thingIndex intValue]] objectForKey:@"text"] isEqualToString:@"Share something..."]){
+        if (![[[self.shares.theThings objectAtIndex:[thingIndex intValue]] objectForKey:@"text"] isEqualToString:@""]){
             text = [[shares.theThings objectAtIndex:[thingIndex intValue]] objectForKey:@"text"];
             self.firstEdit = NO;
             self.thingText = text;

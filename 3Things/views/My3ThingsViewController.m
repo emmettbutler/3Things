@@ -159,6 +159,9 @@
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     
     NSString *text = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"text"];
+    if ([text isEqualToString:@""]) {
+        text = @"Share something...";
+    }
     UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
     [thingTextView setText:text];
     [thingTextView setFont:[UIFont systemFontOfSize:20]];

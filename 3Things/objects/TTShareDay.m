@@ -25,7 +25,7 @@
         self.date = [myCalendar dateFromComponents:components];
         self.theThings = [[NSMutableArray alloc] initWithCapacity:3];
         for (int i = 0; i < 3; i++) {
-            [self.theThings addObject:@{@"text": @"Share something...", @"localImageURL": @""}];
+            [self.theThings addObject:@{@"text": @"", @"localImageURL": @""}];
         }
     }
     return self;
