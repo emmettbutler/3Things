@@ -32,6 +32,9 @@
         self.thingText = @"Share something...";
         self.photoPromptIsHidden = NO;
         NSString *text;
+        // TODO - this is pretty stupid
+        // check here for empty string (which the initializer should be changed to include)
+        // when writing to screen, check for empty string and draw "share something" if it's found
         if (![[[self.shares.theThings objectAtIndex:[thingIndex intValue]] objectForKey:@"text"] isEqualToString:@"Share something..."]){
             text = [[shares.theThings objectAtIndex:[thingIndex intValue]] objectForKey:@"text"];
             self.firstEdit = NO;
@@ -146,8 +149,9 @@
     picView.image = selectedImage;
     [self.view addSubview:picView];
 }
-- (void)photoWasSaved:(NSString *)savedPhotoURL {
+- (void)photoWasSaved:(NSURL *)savedPhotoURL {
     NSLog(@"got image url: %@", savedPhotoURL);
+    self.thingLocalImageURL = [savedPhotoURL absoluteString];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
@@ -232,7 +236,8 @@
 
 - (void) registerCurrentThing {
     [self.shares.theThings replaceObjectAtIndex:self.thingIndex.intValue
-                                     withObject:@{@"text": self.textField.text, @"localImageURL": @"DUMMY"}];
+                                     withObject:@{@"text": self.textField.text,
+                                         @"localImageURL": (self.thingLocalImageURL == nil) ? @"" : self.thingLocalImageURL}];
 }
 
 - (void)didReceiveMemoryWarning

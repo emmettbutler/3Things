@@ -23,24 +23,9 @@
         [components setMinute: 0];
         [components setSecond: 0];
         self.date = [myCalendar dateFromComponents:components];
-        
         self.theThings = [[NSMutableArray alloc] initWithCapacity:3];
-        
-        NSArray *texts = [[NSArray alloc] initWithObjects:
-                          @"Ran a personal best in the shamrock shuffle",
-                          @"A new french bakery opened",
-                          @"Two more days til the weekend",
-                          @"Good day at work",
-                          @"Good day at school",
-                          @"Made a friend",
-                          @"Petted some dogs",
-                          @"Cookies",
-                          @"Visiting friends",
-                          @"Played a sport",
-                          @"Went to an awesome concert",
-                          nil];
         for (int i = 0; i < 3; i++) {
-            [self.theThings addObject:@"Share something..."];
+            [self.theThings addObject:@{@"text": @"Share something...", @"localImageURL": @""}];
         }
     }
     return self;

@@ -24,6 +24,7 @@
 @property (nonatomic) TTShareDay *shares;
 @property (nonatomic) NSNumber *thingIndex;
 @property (nonatomic) NSString *thingText;
+@property (nonatomic) NSString *thingLocalImageURL;
 @property (nonatomic) BOOL firstEdit;
 @property (nonatomic) BOOL photoPromptIsHidden;
 

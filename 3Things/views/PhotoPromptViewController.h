@@ -12,7 +12,7 @@
 @protocol PhotoPromptViewControllerDelegate <NSObject>
 @optional
 - (void) photoWasSelected:(UIImage *)selectedImage;
-- (void) photoWasSaved:(NSString *)savedPhotoURL;
+- (void) photoWasSaved:(NSURL *)savedPhotoURL;
 @end
 
 id <PhotoPromptViewControllerDelegate> promptDelegate;

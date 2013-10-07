@@ -89,7 +89,7 @@
             if (error) {
                 NSLog(@"error saving image");
             } else {
-                [self.promptDelegate photoWasSaved:[assetURL absoluteString]];
+                [self.promptDelegate photoWasSaved:assetURL];
             }  
         }];
     } else {

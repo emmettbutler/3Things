@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"entered userhistory controller");
     [super viewDidLoad];
     
     ShareDayStore *store = [[ShareDayStore alloc] init];
