@@ -18,6 +18,7 @@
 		AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A71801EC2500F9D8B8 /* ThingStore.m */; };
 		AA0910B21801EEFB00F9D8B8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */; };
 		AA0910B81801F4B100F9D8B8 /* Thing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910B71801F4B100F9D8B8 /* Thing.m */; };
+		AA9A8535180331D00071FD38 /* ThingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9A8534180331D00071FD38 /* ThingDetailViewController.m */; };
 		AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EAE18006FD600EEA446 /* DayListViewController.m */; };
 		AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB018006FD600EEA446 /* EditThingViewController.m */; };
 		AABB2EC218006FD600EEA446 /* FriendsDayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB218006FD600EEA446 /* FriendsDayListViewController.m */; };
@@ -26,7 +27,6 @@
 		AABB2EC518006FD600EEA446 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB818006FD600EEA446 /* SplashViewController.m */; };
 		AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EBB18006FD600EEA446 /* TTShareDay.m */; };
 		AABB2EC718006FD600EEA446 /* TTSharesAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EBD18006FD600EEA446 /* TTSharesAccessor.m */; };
-		AABB2EC818006FD600EEA446 /* TTThing.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EBF18006FD600EEA446 /* TTThing.m */; };
 		AABB2ECB18007A3500EEA446 /* UserHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2ECA18007A3500EEA446 /* UserHistoryViewController.m */; };
 		AABB2F111800A43600EEA446 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABB2F101800A43600EEA446 /* CoreData.framework */; };
 		AABB2F141800ADA000EEA446 /* 3Things.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AABB2F121800ADA000EEA446 /* 3Things.xcdatamodeld */; };
@@ -62,6 +62,8 @@
 		AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		AA0910B61801F4B100F9D8B8 /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Thing.h; path = ../../Thing.h; sourceTree = "<group>"; };
 		AA0910B71801F4B100F9D8B8 /* Thing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Thing.m; path = ../../Thing.m; sourceTree = "<group>"; };
+		AA9A8533180331D00071FD38 /* ThingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingDetailViewController.h; sourceTree = "<group>"; };
+		AA9A8534180331D00071FD38 /* ThingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThingDetailViewController.m; sourceTree = "<group>"; };
 		AABB2EAD18006FD600EEA446 /* DayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayListViewController.h; sourceTree = "<group>"; };
 		AABB2EAE18006FD600EEA446 /* DayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayListViewController.m; sourceTree = "<group>"; };
 		AABB2EAF18006FD600EEA446 /* EditThingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditThingViewController.h; sourceTree = "<group>"; };
@@ -78,8 +80,6 @@
 		AABB2EBB18006FD600EEA446 /* TTShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTShareDay.m; sourceTree = "<group>"; };
 		AABB2EBC18006FD600EEA446 /* TTSharesAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSharesAccessor.h; sourceTree = "<group>"; };
 		AABB2EBD18006FD600EEA446 /* TTSharesAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSharesAccessor.m; sourceTree = "<group>"; };
-		AABB2EBE18006FD600EEA446 /* TTThing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTThing.h; sourceTree = "<group>"; };
-		AABB2EBF18006FD600EEA446 /* TTThing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTThing.m; sourceTree = "<group>"; };
 		AABB2EC918007A3500EEA446 /* UserHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHistoryViewController.h; sourceTree = "<group>"; };
 		AABB2ECA18007A3500EEA446 /* UserHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHistoryViewController.m; sourceTree = "<group>"; };
 		AABB2F101800A43600EEA446 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -128,6 +128,8 @@
 				AABB2ECA18007A3500EEA446 /* UserHistoryViewController.m */,
 				AABB2EAF18006FD600EEA446 /* EditThingViewController.h */,
 				AABB2EB018006FD600EEA446 /* EditThingViewController.m */,
+				AA9A8533180331D00071FD38 /* ThingDetailViewController.h */,
+				AA9A8534180331D00071FD38 /* ThingDetailViewController.m */,
 				AA0910A01801D2C700F9D8B8 /* PhotoPromptViewController.h */,
 				AA0910A11801D2C700F9D8B8 /* PhotoPromptViewController.m */,
 				AABB2EB118006FD600EEA446 /* FriendsDayListViewController.h */,
@@ -163,8 +165,6 @@
 				AABB2EBB18006FD600EEA446 /* TTShareDay.m */,
 				AABB2EBC18006FD600EEA446 /* TTSharesAccessor.h */,
 				AABB2EBD18006FD600EEA446 /* TTSharesAccessor.m */,
-				AABB2EBE18006FD600EEA446 /* TTThing.h */,
-				AABB2EBF18006FD600EEA446 /* TTThing.m */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -295,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA9A8535180331D00071FD38 /* ThingDetailViewController.m in Sources */,
 				AABB2EC718006FD600EEA446 /* TTSharesAccessor.m in Sources */,
 				AAF28C5C17DAA90A0067FD79 /* main.m in Sources */,
 				AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */,
@@ -302,7 +303,6 @@
 				AA0910AB1801EC2500F9D8B8 /* User.m in Sources */,
 				AABB2ECB18007A3500EEA446 /* UserHistoryViewController.m in Sources */,
 				AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */,
-				AABB2EC818006FD600EEA446 /* TTThing.m in Sources */,
 				AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */,
 				AABB2EC518006FD600EEA446 /* SplashViewController.m in Sources */,
 				AABB2F1D1800B0F600EEA446 /* ShareDayStore.m in Sources */,

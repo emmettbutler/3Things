@@ -10,7 +10,6 @@
 #import "UserHistoryViewController.h"
 #import "My3ThingsViewController.h"
 #import "TTSharesAccessor.h"
-#import "TTThing.h"
 #import "ThingStore.h"
 #import "ShareDayStore.h"
 #import "UserStore.h"
@@ -26,6 +25,7 @@
 {
     self = [super init];
     if (self) {
+        // TODO - thing detail view versus thing edit view - when to go to each?
         self.shares = shares;
         self.thingIndex = thingIndex;
         self.firstEdit = YES;

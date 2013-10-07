@@ -14,6 +14,7 @@
 #import "ShareDayStore.h"
 #import "UserHistoryViewController.h"
 #import "UserStore.h"
+#import "ThingDetailViewController.h"
 
 @interface My3ThingsViewController ()
 
@@ -61,9 +62,7 @@
     UserStore *userStore = [[UserStore alloc] init];
 	
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
-    
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
-	[[self navigationItem] setLeftBarButtonItem:button];
+
     if (self.isCurrent) {
         [[self navigationItem] setTitle:@"Review your three things"];
     }
@@ -192,6 +191,9 @@
     if (self.isCurrent) {
         UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andShares:self.shares];
         [[self navigationController] pushViewController:editView animated:YES];
+    } else {
+        ThingDetailViewController *detailView = [[ThingDetailViewController alloc] initWithThing:[self.shares.theThings objectAtIndex:indexPath.row]];
+        [[self navigationController] pushViewController:detailView animated:YES];
     }
 }
 

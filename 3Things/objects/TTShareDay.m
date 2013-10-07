@@ -7,7 +7,6 @@
 //
 
 #import "TTShareDay.h"
-#import "TTThing.h"
 #import "Thing.h"
 
 @implementation TTShareDay
