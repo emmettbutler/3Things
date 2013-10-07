@@ -61,8 +61,11 @@
     
     UserStore *userStore = [[UserStore alloc] init];
 	
+    self.navigationController.navigationBarHidden = NO;
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
 
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
+	[[self navigationItem] setLeftBarButtonItem:button];
     if (self.isCurrent) {
         [[self navigationItem] setTitle:@"Review your three things"];
     }

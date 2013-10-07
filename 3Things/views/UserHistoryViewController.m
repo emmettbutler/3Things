@@ -21,6 +21,8 @@
     NSLog(@"entered userhistory controller");
     [super viewDidLoad];
     
+    self.navigationController.navigationBarHidden = NO;
+    
     ShareDayStore *store = [[ShareDayStore alloc] init];
     UserStore *userStore = [[UserStore alloc] init];
     self.userHistory = [store allItemsForUser:[userStore getAuthenticatedUser]];
