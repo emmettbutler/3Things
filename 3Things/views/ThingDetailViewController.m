@@ -31,18 +31,47 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [library assetForURL:[NSURL URLWithString:[self.thing objectForKey:@"localImageURL"]] resultBlock:^(ALAsset *asset )
-     {
-         NSLog(@"we have our ALAsset!");
-         UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 10, self.screenFrame.size.width, 300)];
-         picView.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-         [self.view addSubview:picView];
-     }
-            failureBlock:^(NSError *error )
-     {
-         NSLog(@"Error loading asset");
-     }];
+    BOOL hasImage = NO;
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
+    singleTap.numberOfTapsRequired = 1;
+    singleTap.numberOfTouchesRequired = 1;
+    
+    NSString *imgURL = [self.thing objectForKey:@"localImageURL"];
+    if (![imgURL isEqualToString:@""]){
+        hasImage = YES;
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
+         {
+             NSLog(@"we have our ALAsset!");
+             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, self.screenFrame.size.width, 300)];
+             picView.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+             [self.view addSubview:picView];
+             
+             [picView addGestureRecognizer:singleTap];
+             [picView setUserInteractionEnabled:YES];
+         }
+                failureBlock:^(NSError *error )
+         {
+             NSLog(@"Error loading asset");
+         }];
+    }
+    
+    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, hasImage ? 320 : 30, self.screenFrame.size.width, 80)];
+    text.textAlignment = NSTextAlignmentCenter;
+    text.font = [UIFont systemFontOfSize:18];
+    text.editable = NO;
+    text.text = [self.thing objectForKey:@"text"];
+    [text setTextColor:[UIColor whiteColor]];
+    [text setBackgroundColor:[UIColor blackColor]];
+    [self.view addSubview:text];
+
+    [text addGestureRecognizer:singleTap];
+    [text setUserInteractionEnabled:YES];
+}
+
+- (void)imageTapped:(UIGestureRecognizer *)gestureRecognizer {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
