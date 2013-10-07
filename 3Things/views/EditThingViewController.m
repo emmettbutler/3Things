@@ -158,6 +158,7 @@
     NSLog(@"is first edit? %@", [NSNumber numberWithBool:self.firstEdit]);
     if (self.firstEdit) {
         textView.text = @"";
+        self.firstEdit = NO;
     }
 }
 
