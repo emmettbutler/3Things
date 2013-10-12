@@ -59,6 +59,7 @@
 }
 
 - (BOOL)codeIsValid {
+    // TODO - get this from web
     NSString *enteredCode = [codeField text];
     if ([enteredCode isEqualToString:@""]) {
         return NO;

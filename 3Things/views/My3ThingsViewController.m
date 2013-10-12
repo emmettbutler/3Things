@@ -15,7 +15,7 @@
 #import "UserHistoryViewController.h"
 #import "UserStore.h"
 #import "ThingDetailViewController.h"
-#import "ShareErrorViewController.h"
+#import "ErrorPromptViewController.h"
 
 @interface My3ThingsViewController ()
 
@@ -36,7 +36,6 @@
     self = [super init];
     if (self) {
         self.isCurrent = [isCurrent boolValue];
-        self.errViewIsShown = NO;
         self.completedThings = [NSNumber numberWithInt:self.isCurrent ? 0 : 3];
         
         ShareDayStore *itemStore = [[ShareDayStore alloc] init];
@@ -220,7 +219,7 @@
         if (!self.errViewIsShown){
             self.errViewIsShown = YES;
             NSLog(@"Error: 3 things not completed for the day. Must complete 3 things before sharing.");
-            ShareErrorViewController *errViewController = [[ShareErrorViewController alloc] init];
+            ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"Enter your 3 things before sharing"];
             [self addChildViewController:errViewController];
             [self.view addSubview:errViewController.view];
             errViewController.errDelegate = self;
@@ -228,10 +227,6 @@
             [errViewController didMoveToParentViewController:self];
         }
     }
-}
-
-- (void)dismissWasTouched {
-    self.errViewIsShown = NO;
 }
 
 - (BOOL)hasEnteredAllThings {

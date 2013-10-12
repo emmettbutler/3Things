@@ -1,19 +1,26 @@
 //
-//  ShareErrorViewController.m
+//  ErrorPromptViewController.m
 //  3Things
 //
 //  Created by Emmett Butler on 10/12/13.
 //  Copyright (c) 2013 Emmett Butler. All rights reserved.
 //
 
-#import "ShareErrorViewController.h"
+#import "ErrorPromptViewController.h"
 
-@interface ShareErrorViewController ()
+@interface ErrorPromptViewController ()
 
 @end
 
-@implementation ShareErrorViewController
+@implementation ErrorPromptViewController
 @synthesize errDelegate;
+
+- (id)initWithPromptText:(NSString *)promptText {
+    if (self = [super init]){
+        self.promptText = promptText;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -26,7 +33,7 @@
     
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, popupFrame.size.width, 60)];
     text.textAlignment = NSTextAlignmentCenter;
-    text.text = @"Enter your 3 things before sharing";
+    text.text = self.promptText;
     text.textColor = [UIColor whiteColor];
     text.font = [UIFont systemFontOfSize:18];
     text.backgroundColor = self.view.backgroundColor;

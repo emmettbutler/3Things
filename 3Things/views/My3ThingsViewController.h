@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "TTSharesAccessor.h"
 #import "TTShareDay.h"
-#import "ShareErrorViewController.h"
+#import "ErrorPromptViewController.h"
+#import "ErrorThrowingViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 typedef void (^ALAssetsLibraryAssetForURLResultBlock)(ALAsset *asset);
 typedef void (^ALAssetsLibraryAccessFailureBlock)(NSError *error);
 
-@interface My3ThingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ShareErrorViewControllerDelegate>
+@interface My3ThingsViewController : ErrorThrowingViewController <UITableViewDataSource, UITableViewDelegate, ErrorPromptViewControllerDelegate>
 
 - (id)initWithIsCurrent:(NSNumber *)isCurrent;
 - (id)initWithShareDay:(TTShareDay *)shares;
@@ -27,6 +28,5 @@ typedef void (^ALAssetsLibraryAccessFailureBlock)(NSError *error);
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic, retain) NSNumber *tableHeight;
 @property (nonatomic) NSNumber *completedThings;
-@property (nonatomic) BOOL errViewIsShown;
 
 @end

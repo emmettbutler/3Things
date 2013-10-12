@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ErrorThrowingViewController.h"
 
 @class SignupCodeViewController;
 
-@interface SplashViewController : UIViewController <UITextFieldDelegate>
+@interface SplashViewController : ErrorThrowingViewController <UITextFieldDelegate>
 {
     SignupCodeViewController *signupCodeViewController;
+    UITextField *firstNameField, *lastNameField, *emailField;
 }
+
+-(BOOL) fieldsAreValid;
 
 @end
