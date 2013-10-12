@@ -15,6 +15,7 @@
 #import "UserHistoryViewController.h"
 #import "UserStore.h"
 #import "ThingDetailViewController.h"
+#import "ShareErrorViewController.h"
 
 @interface My3ThingsViewController ()
 
@@ -35,6 +36,8 @@
     self = [super init];
     if (self) {
         self.isCurrent = [isCurrent boolValue];
+        self.errViewIsShown = NO;
+        self.completedThings = [NSNumber numberWithInt:self.isCurrent ? 0 : 3];
         
         ShareDayStore *itemStore = [[ShareDayStore alloc] init];
         ShareDay *today = [itemStore getToday];
@@ -163,6 +166,8 @@
     NSString *text = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"text"];
     if ([text isEqualToString:@""]) {
         text = @"Share something...";
+    } else {
+        self.completedThings = [NSNumber numberWithInt:[self.completedThings intValue] + 1];
     }
     UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
     [thingTextView setText:text];
@@ -189,6 +194,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.errViewIsShown) return;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSLog(@"Entering editor: %@", self.shares.theThings);
     if (self.isCurrent) {
@@ -201,12 +207,32 @@
 }
 
 - (void)backWasTouched {
-    [[self navigationController] popViewControllerAnimated:YES];
+    if (!self.errViewIsShown){
+        [[self navigationController] popViewControllerAnimated:YES];
+    }
 }
 
 - (void)shareWasTouched {
-    [[self navigationController] pushViewController:
-     [[UserHistoryViewController alloc] init] animated:YES];
+    // TODO - only do this if the three things have been entered for today
+    if ([self.completedThings intValue] == 3) {
+        [[self navigationController] pushViewController:
+         [[UserHistoryViewController alloc] init] animated:YES];
+    } else {
+        if (!self.errViewIsShown){
+            self.errViewIsShown = YES;
+            NSLog(@"Error: 3 things not completed for the day. Must complete 3 things before sharing.");
+            ShareErrorViewController *errViewController = [[ShareErrorViewController alloc] init];
+            [self addChildViewController:errViewController];
+            [self.view addSubview:errViewController.view];
+            errViewController.errDelegate = self;
+            errViewController.view.frame = errViewController.frame;
+            [errViewController didMoveToParentViewController:self];
+        }
+    }
+}
+
+- (void)dismissWasTouched {
+    self.errViewIsShown = NO;
 }
 
 - (BOOL)hasEnteredAllThings {

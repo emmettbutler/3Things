@@ -223,6 +223,7 @@
     item.date = [dayStore getDateOnly];
     UserStore *userStore = [[UserStore alloc] init];
     item.user = [userStore getAuthenticatedUser];
+    [dayStore saveChanges];
     NSLog(@"item date: %@", item.date);
 }
 
