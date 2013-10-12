@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface SignupCodeViewController : UIViewController
+{
+    UITextField *codeField;
+}
+
+- (BOOL)codeIsValid;
+
+@property (nonatomic) CGRect frame;
 
 @end

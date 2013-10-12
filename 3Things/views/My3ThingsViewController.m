@@ -213,7 +213,6 @@
 }
 
 - (void)shareWasTouched {
-    // TODO - only do this if the three things have been entered for today
     if ([self.completedThings intValue] == 3) {
         [[self navigationController] pushViewController:
          [[UserHistoryViewController alloc] init] animated:YES];

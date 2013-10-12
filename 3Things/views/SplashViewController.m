@@ -55,14 +55,14 @@
 
 - (void)loginWasTouched
 {
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    
     [self setModalPresentationStyle:UIModalPresentationCurrentContext];
     
     if(self.presentedViewController == nil){
-        UIViewController *viewController = [[SignupCodeViewController alloc] init];
-        [self presentViewController:viewController animated:YES completion:NULL];
-        viewController.view.frame = CGRectMake(screenRect.size.width/2, screenRect.size.height/2, screenRect.size.width*.8, screenRect.size.height/3);
+        SignupCodeViewController *viewController = [[SignupCodeViewController alloc] init];
+        [self addChildViewController:viewController];
+        [self.view addSubview:viewController.view];
+        viewController.view.frame = viewController.frame;
+        [viewController didMoveToParentViewController:self];
     }
 }
 

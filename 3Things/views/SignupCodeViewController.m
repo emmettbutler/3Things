@@ -22,7 +22,8 @@
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
-    self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:.3 green:.3 blue:.3 alpha:1];
+    self.frame = CGRectMake((screenRect.size.width/2)-150, (screenRect.size.height/2)-100, 300, 200);
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button addTarget:self
@@ -33,7 +34,7 @@
     [self.view addSubview:button];
     
     CGRect codeFieldFrame = CGRectMake(50.0f, screenRect.size.height/6-50, 160.0f, 31.0f);
-    UITextField *codeField = [[UITextField alloc] initWithFrame:codeFieldFrame];
+    codeField = [[UITextField alloc] initWithFrame:codeFieldFrame];
     codeField.placeholder = @"123456";
     codeField.borderStyle = UITextBorderStyleRoundedRect;
     codeField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -41,6 +42,10 @@
 }
 
 - (void)confirmWasTouched {
+    if (![self codeIsValid]) {
+        NSLog(@"Invalid signup code");
+        return;
+    }
     UserStore *userStore = [[UserStore alloc] init];
     // use actual entered user data here
     [userStore createUser:[NSNumber numberWithInt:123456] withName:@"Heather Smith"];
@@ -51,6 +56,14 @@
     UIViewController *viewController = [[DayListViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self presentViewController:navController animated:YES completion:NULL];
+}
+
+- (BOOL)codeIsValid {
+    NSString *enteredCode = [codeField text];
+    if ([enteredCode isEqualToString:@""]) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning
