@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "SplashViewController.h"
+#import "LoginTypePickerViewController.h"
+#import "My3ThingsViewController.h"
 #import "DayListViewController.h"
 #import "UserStore.h"
 #import "User.h"
@@ -23,12 +24,17 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"user_token"] != NULL) {
-        self.viewController = [[DayListViewController alloc] init];
+        [UserStore initCurrentUser];
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
+            self.viewController = [[DayListViewController alloc] init];
+        } else {
+            self.viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];
+        }
         UIViewController *viewController = self.viewController;
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
         self.window.rootViewController = navController;
     } else {
-        self.viewController = [[SplashViewController alloc] init];
+        self.viewController = [[LoginTypePickerViewController alloc] init];
         self.window.rootViewController = self.viewController;
     }
     

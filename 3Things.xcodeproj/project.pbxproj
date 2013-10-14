@@ -43,6 +43,8 @@
 		AAF28C6217DAA90A0067FD79 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF28C6117DAA90A0067FD79 /* Default.png */; };
 		AAF28C6417DAA90A0067FD79 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF28C6317DAA90A0067FD79 /* Default@2x.png */; };
 		AAF28C6617DAA90A0067FD79 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF28C6517DAA90A0067FD79 /* Default-568h@2x.png */; };
+		AAF46B43180C97A300FE79A9 /* LoginTypePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF46B42180C97A300FE79A9 /* LoginTypePickerViewController.m */; };
+		AAF46B46180CA19C00FE79A9 /* LoginEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF46B45180CA19C00FE79A9 /* LoginEmailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +110,10 @@
 		AAF28C6117DAA90A0067FD79 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		AAF28C6317DAA90A0067FD79 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		AAF28C6517DAA90A0067FD79 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		AAF46B41180C97A200FE79A9 /* LoginTypePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTypePickerViewController.h; sourceTree = "<group>"; };
+		AAF46B42180C97A300FE79A9 /* LoginTypePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTypePickerViewController.m; sourceTree = "<group>"; };
+		AAF46B44180CA19C00FE79A9 /* LoginEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginEmailViewController.h; sourceTree = "<group>"; };
+		AAF46B45180CA19C00FE79A9 /* LoginEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginEmailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +161,10 @@
 				AABB2EB618006FD600EEA446 /* SignupCodeViewController.m */,
 				AABB2EB718006FD600EEA446 /* SplashViewController.h */,
 				AABB2EB818006FD600EEA446 /* SplashViewController.m */,
+				AAF46B41180C97A200FE79A9 /* LoginTypePickerViewController.h */,
+				AAF46B42180C97A300FE79A9 /* LoginTypePickerViewController.m */,
+				AAF46B44180CA19C00FE79A9 /* LoginEmailViewController.h */,
+				AAF46B45180CA19C00FE79A9 /* LoginEmailViewController.m */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -329,9 +339,11 @@
 				AA0910621801BDA100F9D8B8 /* UserStore.m in Sources */,
 				AA0910A21801D2C700F9D8B8 /* PhotoPromptViewController.m in Sources */,
 				AABB2F141800ADA000EEA446 /* 3Things.xcdatamodeld in Sources */,
+				AAF46B43180C97A300FE79A9 /* LoginTypePickerViewController.m in Sources */,
 				AA09105C1801BA1200F9D8B8 /* ShareDay.m in Sources */,
 				AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */,
 				AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */,
+				AAF46B46180CA19C00FE79A9 /* LoginEmailViewController.m in Sources */,
 				AA0910AC1801EC2500F9D8B8 /* TTDataStore.m in Sources */,
 				AABB2EC318006FD600EEA446 /* My3ThingsViewController.m in Sources */,
 			);

@@ -14,5 +14,6 @@
 - (NSArray *)allUsers;
 - (User *)createUser:(NSNumber *)identifier withName:(NSString *)name;
 - (User *)getAuthenticatedUser;
++ (void)initCurrentUser;
 
 @end

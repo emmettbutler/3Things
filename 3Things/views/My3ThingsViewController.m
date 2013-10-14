@@ -111,6 +111,13 @@
     [profilePicView setImageWithURL:url
                    placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     [self.view addSubview:profilePicView];
+    
+    if([self.completedThings intValue] == 3) {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"day_complete"];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"day_complete"];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

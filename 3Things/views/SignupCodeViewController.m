@@ -8,6 +8,7 @@
 
 #import "SignupCodeViewController.h"
 #import "DayListViewController.h"
+#import "My3ThingsViewController.h"
 #import "UserStore.h"
 
 @interface SignupCodeViewController ()
@@ -46,14 +47,14 @@
         NSLog(@"Invalid signup code");
         return;
     }
-    UserStore *userStore = [[UserStore alloc] init];
-    // use actual entered user data here
-    [userStore createUser:[NSNumber numberWithInt:123456] withName:@"Heather Smith"];
-    [[NSUserDefaults standardUserDefaults] setObject:@"123456" forKey:@"auth_user_id"];
-    [[NSUserDefaults standardUserDefaults] setObject:@"aowe7faboisuebf" forKey:@"user_token"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [UserStore initCurrentUser];
     [self setModalPresentationStyle:UIModalPresentationPageSheet];
-    UIViewController *viewController = [[DayListViewController alloc] init];
+    UIViewController *viewController;
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
+        viewController = [[DayListViewController alloc] init];
+    } else {
+        viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];
+    }
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self presentViewController:navController animated:YES completion:NULL];
 }
