@@ -17,6 +17,10 @@ class RegistrationHandler(tornado.web.RequestHandler):
 
     def _register_user(self, identifier, fname, lname):
         db = self.application.dbclient.three_things
+
+        existing_users = db.users.find({'username': identifier})
+        if existing_users.count() != 0:
+            raise tornado.web.HTTPError(400, 'User with ID %s already exists!', identifier)
         db.users.insert({'username': identifier, 'first_name': fname, 'last_name': lname})
 
     def _generate_confirmation_code(self, identifier):
