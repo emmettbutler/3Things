@@ -1,12 +1,15 @@
 import tornado.ioloop
 import tornado.web
+from pymongo import MongoClient
 
 from controllers import controllers_main
 
 
 application = tornado.web.Application([
-    (r"/", controllers_main.MainHandler),
+    (r"/register", controllers_main.RegistrationHandler),
 ])
+
+application.dbclient = MongoClient('localhost', 27017)
 
 if __name__ == "__main__":
     application.listen(8888)
