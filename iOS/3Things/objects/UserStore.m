@@ -49,6 +49,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"123456" forKey:@"auth_user_id"];
     [[NSUserDefaults standardUserDefaults] setObject:@"aowe7faboisuebf" forKey:@"user_token"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    // publish to web
 }
 
 @end
