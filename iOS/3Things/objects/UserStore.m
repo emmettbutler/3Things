@@ -10,7 +10,7 @@
 
 @implementation UserStore
 
-- (User *)createUser:(NSNumber *)identifier withName:(NSString *)name
+- (User *)createUser:(NSNumber *)identifier withName:(NSString *)name andLocalImgURL:(NSString *)localProfImgURL
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(identifier = %@)", identifier];
     NSArray *result = [self allItems:@"User" withSort:@"identifier" andPredicate:predicate];
@@ -19,6 +19,7 @@
         NSManagedObject *newItem = [self createItem:@"User"];
         ((User *)newItem).identifier = identifier;
         ((User *)newItem).name = name;
+        ((User *)newItem).profileImageLocalURL = localProfImgURL;
         ((User *)newItem).profileImageURL = @"http://www.modernestudio.com/biz-1.jpg";
         NSLog(@"Found no user, created %@", (User *)newItem);
         [self saveChanges];
@@ -43,9 +44,17 @@
 }
 
 +(void) initCurrentUser {
+    [UserStore initCurrentUserWithImage:NULL];
+}
+
++(void) initCurrentUserWithImage:(NSString *)imageURL {
     UserStore *userStore = [[UserStore alloc] init];
+    NSLog(@"image url: %@", imageURL);
     // use actual entered user data here - this should eventually take arguments
-    [userStore createUser:[NSNumber numberWithInt:123456] withName:@"Heather Smith"];
+    [userStore createUser:[NSNumber numberWithInt:123456] withName:@"Heather Smith" andLocalImgURL:imageURL];
+    if (imageURL != NULL) {
+        [[NSUserDefaults standardUserDefaults] setObject:imageURL forKey:@"cur_user_prof_pic"];
+    }
     [[NSUserDefaults standardUserDefaults] setObject:@"123456" forKey:@"auth_user_id"];
     [[NSUserDefaults standardUserDefaults] setObject:@"aowe7faboisuebf" forKey:@"user_token"];
     [[NSUserDefaults standardUserDefaults] synchronize];

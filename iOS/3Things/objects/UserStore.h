@@ -12,8 +12,9 @@
 @interface UserStore : TTDataStore
 
 - (NSArray *)allUsers;
-- (User *)createUser:(NSNumber *)identifier withName:(NSString *)name;
+- (User *)createUser:(NSNumber *)identifier withName:(NSString *)name andLocalImgURL:(NSString *)localProfImgURL;
 - (User *)getAuthenticatedUser;
 + (void)initCurrentUser;
++ (void)initCurrentUserWithImage:(NSString *)imageURL;
 
 @end

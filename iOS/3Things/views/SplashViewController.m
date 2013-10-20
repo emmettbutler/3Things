@@ -8,6 +8,9 @@
 
 #import "SplashViewController.h"
 #import "SignupCodeViewController.h"
+#import "DayListViewController.h"
+#import "UserStore.h"
+#import "My3ThingsViewController.h"
 
 @interface SplashViewController ()
 
@@ -19,6 +22,8 @@
 {
     [super viewDidLoad];
     
+    self.profLocalImageURL = nil;
+    self.didSelectImage = NO;
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -28,7 +33,7 @@
                action:@selector(loginWasTouched)
      forControlEvents:UIControlEventTouchDown];
     [button setTitle:@"Login" forState:UIControlStateNormal];
-    button.frame = CGRectMake(80.0, 50.0, 160.0, 40.0);
+    button.frame = CGRectMake(80.0, 30.0, 160.0, 40.0);
     [self.view addSubview:button];
     
     CGRect firstNameFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-170, 280.0f, 31.0f);
@@ -87,12 +92,33 @@
     } else {
         NSLog(@"Signup information received:\n    fname: %@\n    lname: %@\n    email: %@",
               firstNameField.text, lastNameField.text, emailField.text);
-        SignupCodeViewController *viewController = [[SignupCodeViewController alloc] init];
-        [self addChildViewController:viewController];
-        [self.view addSubview:viewController.view];
-        viewController.view.frame = viewController.frame;
-        [viewController didMoveToParentViewController:self];
+        signupCodeController = [[SignupCodeViewController alloc] init];
+        [self addChildViewController:signupCodeController];
+        [self.view addSubview:signupCodeController.view];
+        signupCodeController.view.frame = signupCodeController.frame;
+        [signupCodeController didMoveToParentViewController:self];
+        self.didSelectImage = YES;
     }
+}
+
+- (void)photoWasSelected:(UIImage *)selectedImage {
+    NSLog(@"got image: %@", selectedImage);
+}
+- (void)photoWasSaved:(NSURL *)savedPhotoURL {
+    NSLog(@"got image url: %@", savedPhotoURL);
+    self.profLocalImageURL = [savedPhotoURL absoluteString];
+}
+
+- (void)continueWasTouched {
+    [UserStore initCurrentUserWithImage:self.profLocalImageURL];
+    UIViewController *viewController;
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
+        viewController = [[DayListViewController alloc] init];
+    } else {
+        viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];
+    }
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self presentViewController:navController animated:YES completion:NULL];
 }
 
 - (BOOL) fieldsAreValid {

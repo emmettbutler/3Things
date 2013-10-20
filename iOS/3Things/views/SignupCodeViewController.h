@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PhotoPromptViewController.h"
 
-@interface SignupCodeViewController : UIViewController
+@interface SignupCodeViewController : UIViewController <PhotoPromptViewControllerDelegate>
 {
     UITextField *codeField;
 }
@@ -16,5 +17,6 @@
 - (BOOL)codeIsValid;
 
 @property (nonatomic) CGRect frame;
+@property (nonatomic) BOOL photoPromptIsHidden;
 
 @end

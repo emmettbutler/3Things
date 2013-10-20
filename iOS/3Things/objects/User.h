@@ -2,7 +2,7 @@
 //  User.h
 //  3Things
 //
-//  Created by Emmett Butler on 10/6/13.
+//  Created by Emmett Butler on 10/20/13.
 //  Copyright (c) 2013 Emmett Butler. All rights reserved.
 //
 
@@ -12,8 +12,9 @@
 
 @interface User : NSManagedObject
 
-@property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * identifier;
+@property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * profileImageURL;
+@property (nonatomic, retain) NSString * profileImageLocalURL;
 
 @end

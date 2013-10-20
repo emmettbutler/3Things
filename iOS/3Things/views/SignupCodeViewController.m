@@ -10,6 +10,7 @@
 #import "DayListViewController.h"
 #import "My3ThingsViewController.h"
 #import "UserStore.h"
+#import "SplashViewController.h"
 
 @interface SignupCodeViewController ()
 
@@ -30,7 +31,7 @@
     [button addTarget:self
                action:@selector(confirmWasTouched)
      forControlEvents:UIControlEventTouchDown];
-    [button setTitle:@"Start Sharing" forState:UIControlStateNormal];
+    [button setTitle:@"Choose profile photo" forState:UIControlStateNormal];
     button.frame = CGRectMake(50, screenRect.size.height/6, 160.0, 40.0);
     [self.view addSubview:button];
     
@@ -42,21 +43,30 @@
     [self.view addSubview:codeField];
 }
 
+- (void)continueWasTouched {
+    [(SplashViewController*)self.parentViewController continueWasTouched];
+}
+
 - (void)confirmWasTouched {
     if (![self codeIsValid]) {
         NSLog(@"Invalid signup code");
         return;
     }
-    [UserStore initCurrentUser];
-    [self setModalPresentationStyle:UIModalPresentationPageSheet];
-    UIViewController *viewController;
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
-        viewController = [[DayListViewController alloc] init];
-    } else {
-        viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];
-    }
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    [self presentViewController:navController animated:YES completion:NULL];
+    [self.view endEditing:YES];
+    PhotoPromptViewController *promptViewController = [[PhotoPromptViewController alloc] init];
+    promptViewController.promptDelegate = (SplashViewController*)self.parentViewController;
+    [self.parentViewController addChildViewController:promptViewController];
+    [self.parentViewController.view addSubview:promptViewController.view];
+    promptViewController.view.frame = CGRectMake(0, self.frame.size.height, self.frame.size.width+20, 200);
+    [promptViewController didMoveToParentViewController:self];
+    
+    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button2 addTarget:self
+                action:@selector(continueWasTouched)
+      forControlEvents:UIControlEventTouchDown];
+    [button2 setTitle:@"Continue" forState:UIControlStateNormal];
+    button2.frame = CGRectMake(50, self.frame.size.height/6+100, 160.0, 40.0);
+    [self.view addSubview:button2];
 }
 
 - (BOOL)codeIsValid {
