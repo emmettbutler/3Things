@@ -20,7 +20,7 @@
         ((User *)newItem).identifier = identifier;
         ((User *)newItem).name = name;
         ((User *)newItem).profileImageLocalURL = localProfImgURL;
-        ((User *)newItem).profileImageURL = @"http://www.modernestudio.com/biz-1.jpg";
+        ((User *)newItem).profileImageURL = @"";
         NSLog(@"Found no user, created %@", (User *)newItem);
         [self saveChanges];
         return (User *)newItem;
@@ -44,18 +44,20 @@
 }
 
 +(void) initCurrentUser {
-    [UserStore initCurrentUserWithImage:NULL];
+    [UserStore initCurrentUserWithImage:NULL andEmail:nil andUserName:nil andPassword:nil];
 }
 
-+(void) initCurrentUserWithImage:(NSString *)imageURL {
++(void) initCurrentUserWithImage:(NSString *)imageURL andEmail:(NSString *)email andUserName:(NSString *)uname andPassword:(NSString *)pw {
     UserStore *userStore = [[UserStore alloc] init];
     NSLog(@"image url: %@", imageURL);
     // use actual entered user data here - this should eventually take arguments
-    [userStore createUser:[NSNumber numberWithInt:123456] withName:@"Heather Smith" andLocalImgURL:imageURL];
+    [userStore createUser:[NSNumber numberWithInt:123456] withName:uname andLocalImgURL:imageURL];
     if (imageURL != NULL) {
         [[NSUserDefaults standardUserDefaults] setObject:imageURL forKey:@"cur_user_prof_pic"];
     }
     [[NSUserDefaults standardUserDefaults] setObject:@"123456" forKey:@"auth_user_id"];
+    [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"cur_user_email"];
+    [[NSUserDefaults standardUserDefaults] setObject:uname forKey:@"cur_user_uname"];
     [[NSUserDefaults standardUserDefaults] setObject:@"aowe7faboisuebf" forKey:@"user_token"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     // publish to web

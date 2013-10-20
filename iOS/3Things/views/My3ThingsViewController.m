@@ -108,8 +108,24 @@
     int imgWidth = 40;
     NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
     UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+25, imgWidth, 50)];
-    [profilePicView setImageWithURL:url
-                   placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    if ([[url absoluteString] isEqualToString:@""]) {
+        NSString *imgURL = [[userStore getAuthenticatedUser] profileImageLocalURL];
+        if (![imgURL isEqualToString:@""]){
+            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+            [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
+             {
+                 NSLog(@"we have our ALAsset!");
+                 profilePicView.image = [UIImage imageWithCGImage:[asset thumbnail]];
+             }
+                    failureBlock:^(NSError *error )
+             {
+                 NSLog(@"Error loading asset");
+             }];
+        }
+    } else {
+        [profilePicView setImageWithURL:url
+                       placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    }
     [self.view addSubview:profilePicView];
     
     if([self.completedThings intValue] == 3) {

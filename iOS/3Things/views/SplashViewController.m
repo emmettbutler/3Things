@@ -110,7 +110,7 @@
 }
 
 - (void)continueWasTouched {
-    [UserStore initCurrentUserWithImage:self.profLocalImageURL];
+    [UserStore initCurrentUserWithImage:self.profLocalImageURL andEmail:emailField.text andUserName:firstNameField.text andPassword:pwField.text];
     UIViewController *viewController;
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
         viewController = [[DayListViewController alloc] init];

@@ -15,6 +15,6 @@
 - (User *)createUser:(NSNumber *)identifier withName:(NSString *)name andLocalImgURL:(NSString *)localProfImgURL;
 - (User *)getAuthenticatedUser;
 + (void)initCurrentUser;
-+ (void)initCurrentUserWithImage:(NSString *)imageURL;
++ (void)initCurrentUserWithImage:(NSString *)imageURL andEmail:(NSString *)email andUserName:(NSString *)uname andPassword:(NSString *)pw;
 
 @end
