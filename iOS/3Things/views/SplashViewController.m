@@ -110,15 +110,17 @@
 }
 
 - (void)continueWasTouched {
-    [UserStore initCurrentUserWithImage:self.profLocalImageURL andEmail:emailField.text andUserName:firstNameField.text andPassword:pwField.text];
-    UIViewController *viewController;
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
-        viewController = [[DayListViewController alloc] init];
-    } else {
-        viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];
+    if (self.profLocalImageURL != nil){
+        [UserStore initCurrentUserWithImage:self.profLocalImageURL andEmail:emailField.text andUserName:firstNameField.text andPassword:pwField.text];
+        UIViewController *viewController;
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
+            viewController = [[DayListViewController alloc] init];
+        } else {
+            viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];
+        }
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [self presentViewController:navController animated:YES completion:NULL];
     }
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    [self presentViewController:navController animated:YES completion:NULL];
 }
 
 - (BOOL) fieldsAreValid {
