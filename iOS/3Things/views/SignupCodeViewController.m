@@ -57,7 +57,7 @@
     promptViewController.promptDelegate = (SplashViewController*)self.parentViewController;
     [self.parentViewController addChildViewController:promptViewController];
     [self.parentViewController.view addSubview:promptViewController.view];
-    promptViewController.view.frame = CGRectMake(0, self.frame.size.height, self.frame.size.width+20, 200);
+    promptViewController.view.frame = CGRectMake(0, self.frame.size.height+180, self.frame.size.width+20, 200);
     [promptViewController didMoveToParentViewController:self];
     
     UIButton *button2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
