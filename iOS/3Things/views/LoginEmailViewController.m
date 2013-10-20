@@ -29,23 +29,50 @@
     [loginButton addTarget:self
                          action:@selector(loginWasTouched)
                forControlEvents:UIControlEventTouchDown];
-    [loginButton setTitle:@"Enter details and login" forState:UIControlStateNormal];
-    loginButton.frame = CGRectMake(0, 290, screenFrame.size.width, 40.0);
+    [loginButton setTitle:@"Login" forState:UIControlStateNormal];
+    loginButton.frame = CGRectMake(0, 70, screenFrame.size.width, 40.0);
     [self.view addSubview:loginButton];
+    
+    CGRect idFieldFrame = CGRectMake(20.0f, screenFrame.size.height/2-100, 280.0f, 31.0f);
+    idField = [[UITextField alloc] initWithFrame:idFieldFrame];
+    idField.placeholder = @"Username or email";
+    idField.borderStyle = UITextBorderStyleRoundedRect;
+    idField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [self.view addSubview:idField];
+    
+    CGRect pwFieldFrame = CGRectMake(20.0f, screenFrame.size.height/2-50, 280.0f, 31.0f);
+    pwField = [[UITextField alloc] initWithFrame:pwFieldFrame];
+    pwField.placeholder = @"Password";
+    pwField.secureTextEntry = YES;
+    pwField.borderStyle = UITextBorderStyleRoundedRect;
+    pwField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [self.view addSubview:pwField];
 }
 
 - (void)loginWasTouched {
     NSLog(@"Login selected");
-    [UserStore initCurrentUser];
-    [self setModalPresentationStyle:UIModalPresentationPageSheet];
-    UIViewController *viewController;
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
-        viewController = [[DayListViewController alloc] init];
-    } else {
-        viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];
+    if ([self loginIsValid]){
+        [UserStore initCurrentUser];
+        [self setModalPresentationStyle:UIModalPresentationPageSheet];
+        UIViewController *viewController;
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
+            viewController = [[DayListViewController alloc] init];
+        } else {
+            viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];
+        }
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [self presentViewController:navController animated:YES completion:NULL];
     }
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    [self presentViewController:navController animated:YES completion:NULL];
+}
+
+-(BOOL) loginIsValid {
+    if ([pwField.text isEqualToString:@""]){
+        return NO;
+    }
+    if ([idField.text isEqualToString:@""]){
+        return NO;
+    }
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning

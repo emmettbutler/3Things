@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AA09105C1801BA1200F9D8B8 /* ShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AA09105B1801BA1200F9D8B8 /* ShareDay.m */; };
 		AA0910621801BDA100F9D8B8 /* UserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910611801BDA100F9D8B8 /* UserStore.m */; };
-		AA09109B1801CB6F00F9D8B8 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA09109A1801CB6F00F9D8B8 /* SDWebImage.framework */; };
 		AA09109D1801CB9300F9D8B8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA09109C1801CB9300F9D8B8 /* ImageIO.framework */; };
 		AA09109F1801CC2D00F9D8B8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = AA09109E1801CC2D00F9D8B8 /* placeholder.png */; };
 		AA0910A21801D2C700F9D8B8 /* PhotoPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A11801D2C700F9D8B8 /* PhotoPromptViewController.m */; };
@@ -22,6 +21,7 @@
 		AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */; };
 		AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E13661803579B00D65980 /* BottomNavViewController.m */; };
 		AA9A8535180331D00071FD38 /* ThingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9A8534180331D00071FD38 /* ThingDetailViewController.m */; };
+		AABAA1F018144437004547EE /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABAA1EF18144437004547EE /* SDWebImage.framework */; };
 		AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EAE18006FD600EEA446 /* DayListViewController.m */; };
 		AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB018006FD600EEA446 /* EditThingViewController.m */; };
 		AABB2EC218006FD600EEA446 /* FriendsDayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB218006FD600EEA446 /* FriendsDayListViewController.m */; };
@@ -52,7 +52,6 @@
 		AA09105B1801BA1200F9D8B8 /* ShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDay.m; sourceTree = "<group>"; };
 		AA0910601801BDA100F9D8B8 /* UserStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserStore.h; sourceTree = "<group>"; };
 		AA0910611801BDA100F9D8B8 /* UserStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserStore.m; sourceTree = "<group>"; };
-		AA09109A1801CB6F00F9D8B8 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
 		AA09109C1801CB9300F9D8B8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		AA09109E1801CC2D00F9D8B8 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		AA0910A01801D2C700F9D8B8 /* PhotoPromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoPromptViewController.h; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 		AA4E13661803579B00D65980 /* BottomNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomNavViewController.m; sourceTree = "<group>"; };
 		AA9A8533180331D00071FD38 /* ThingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingDetailViewController.h; sourceTree = "<group>"; };
 		AA9A8534180331D00071FD38 /* ThingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThingDetailViewController.m; sourceTree = "<group>"; };
+		AABAA1EF18144437004547EE /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
 		AABB2EAD18006FD600EEA446 /* DayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayListViewController.h; sourceTree = "<group>"; };
 		AABB2EAE18006FD600EEA446 /* DayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayListViewController.m; sourceTree = "<group>"; };
 		AABB2EAF18006FD600EEA446 /* EditThingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditThingViewController.h; sourceTree = "<group>"; };
@@ -123,9 +123,9 @@
 			files = (
 				AA0910B21801EEFB00F9D8B8 /* AssetsLibrary.framework in Frameworks */,
 				AA09109D1801CB9300F9D8B8 /* ImageIO.framework in Frameworks */,
-				AA09109B1801CB6F00F9D8B8 /* SDWebImage.framework in Frameworks */,
 				AABB2F111800A43600EEA446 /* CoreData.framework in Frameworks */,
 				AAF28C5017DAA90A0067FD79 /* UIKit.framework in Frameworks */,
+				AABAA1F018144437004547EE /* SDWebImage.framework in Frameworks */,
 				AAF28C5217DAA90A0067FD79 /* Foundation.framework in Frameworks */,
 				AAF28C5417DAA90A0067FD79 /* CoreGraphics.framework in Frameworks */,
 			);
@@ -214,10 +214,10 @@
 		AAF28C4E17DAA90A0067FD79 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AABAA1EF18144437004547EE /* SDWebImage.framework */,
 				AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */,
 				AA0910AF1801EDAF00F9D8B8 /* AVFoundation.framework */,
 				AA09109C1801CB9300F9D8B8 /* ImageIO.framework */,
-				AA09109A1801CB6F00F9D8B8 /* SDWebImage.framework */,
 				AABB2F101800A43600EEA446 /* CoreData.framework */,
 				AAF28C4F17DAA90A0067FD79 /* UIKit.framework */,
 				AAF28C5117DAA90A0067FD79 /* Foundation.framework */,
@@ -426,6 +426,7 @@
 					"$(inherited)",
 					/Users/emmettbutler/Downloads,
 					/Users/emmettbutler/Documents/Programming/iOS/3Things,
+					/Users/emmettbutler/Documents/Programming/iOS/3Things/iOS,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "3Things/3Things-Prefix.pch";
@@ -444,6 +445,7 @@
 					"$(inherited)",
 					/Users/emmettbutler/Downloads,
 					/Users/emmettbutler/Documents/Programming/iOS/3Things,
+					/Users/emmettbutler/Documents/Programming/iOS/3Things/iOS,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "3Things/3Things-Prefix.pch";

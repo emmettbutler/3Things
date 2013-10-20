@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface LoginEmailViewController : UIViewController
+{
+    UITextField *idField, *pwField;
+}
+
+-(BOOL) loginIsValid;
 
 @end

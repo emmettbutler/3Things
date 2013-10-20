@@ -14,7 +14,7 @@
 @interface SplashViewController : ErrorThrowingViewController <UITextFieldDelegate>
 {
     SignupCodeViewController *signupCodeViewController;
-    UITextField *firstNameField, *lastNameField, *emailField;
+    UITextField *firstNameField, *lastNameField, *emailField, *pwField, *pwConfirmField;
 }
 
 -(BOOL) fieldsAreValid;

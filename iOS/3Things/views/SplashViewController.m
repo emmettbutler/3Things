@@ -28,29 +28,45 @@
                action:@selector(loginWasTouched)
      forControlEvents:UIControlEventTouchDown];
     [button setTitle:@"Login" forState:UIControlStateNormal];
-    button.frame = CGRectMake(80.0, 110.0, 160.0, 40.0);
+    button.frame = CGRectMake(80.0, 50.0, 160.0, 40.0);
     [self.view addSubview:button];
     
-    CGRect firstNameFieldFrame = CGRectMake(20.0f, screenRect.size.height/2, 280.0f, 31.0f);
+    CGRect firstNameFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-170, 280.0f, 31.0f);
     firstNameField = [[UITextField alloc] initWithFrame:firstNameFieldFrame];
     firstNameField.placeholder = @"First Name";
     firstNameField.borderStyle = UITextBorderStyleRoundedRect;
     firstNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:firstNameField];
     
-    CGRect lastNameFieldFrame = CGRectMake(20.0f, screenRect.size.height/2+50, 280.0f, 31.0f);
+    CGRect lastNameFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-120, 280.0f, 31.0f);
     lastNameField = [[UITextField alloc] initWithFrame:lastNameFieldFrame];
     lastNameField.placeholder = @"Last Name";
     lastNameField.borderStyle = UITextBorderStyleRoundedRect;
     lastNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:lastNameField];
     
-    CGRect emailFieldFrame = CGRectMake(20.0f, screenRect.size.height/2+100, 280.0f, 31.0f);
+    CGRect emailFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-70, 280.0f, 31.0f);
     emailField = [[UITextField alloc] initWithFrame:emailFieldFrame];
     emailField.placeholder = @"Email";
     emailField.borderStyle = UITextBorderStyleRoundedRect;
     emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:emailField];
+    
+    CGRect pwFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-20, 280.0f, 31.0f);
+    pwField = [[UITextField alloc] initWithFrame:pwFieldFrame];
+    pwField.placeholder = @"Password";
+    pwField.secureTextEntry = YES;
+    pwField.borderStyle = UITextBorderStyleRoundedRect;
+    pwField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [self.view addSubview:pwField];
+    
+    CGRect pwConfirmFieldFrame = CGRectMake(20.0f, screenRect.size.height/2+30, 280.0f, 31.0f);
+    pwConfirmField = [[UITextField alloc] initWithFrame:pwConfirmFieldFrame];
+    pwConfirmField.placeholder = @"Confirm Password";
+    pwConfirmField.secureTextEntry = YES;
+    pwConfirmField.borderStyle = UITextBorderStyleRoundedRect;
+    pwConfirmField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [self.view addSubview:pwConfirmField];
 }
 
 - (void)loginWasTouched
