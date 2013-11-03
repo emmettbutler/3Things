@@ -15,7 +15,7 @@ from utils import ThreeThingsResponse, EncryptionManager
 def authenticated(func):
     def inner(self):
         self._authenticate()
-        func(self)
+        return func(self)
     return inner
 
 
@@ -158,11 +158,10 @@ class DayController(Base3ThingsHandler):
     @coroutine
     @authenticated
     def post(self):
-        sent_day = self.get_argument("day", "")
-        sent_day = json.loads(sent_day)
-
-        if not sent_day:
-            raise tornado.web.HTTPError(400, "Missing 'day' parameter")
+        try:
+            sent_day = json.loads(self.request.body)
+        except:
+            raise tornado.web.HTTPError(400, "Could not decode request body as JSON")
 
         date = datetime.fromtimestamp(int(sent_day['time'])).date()
         date = datetime.combine(date, datetime.min.time())
@@ -183,4 +182,4 @@ class DayController(Base3ThingsHandler):
             days = db.days.insert(record)
             raise Return(days)
         else:
-            raise tornado.web.HTTPError(400, "Record for day already exists")
+            self.set_status(304)
