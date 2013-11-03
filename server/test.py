@@ -45,7 +45,7 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
             self.stop()
         self.http_client.fetch(
             self.get_url("/login?") + urllib.urlencode(
-                {'email': 'emmett.butler612@gmail.co', 'pw': 'butts'}
+                {'email': 'emmett.butler612@gmail.co', 'pw': 'buts'}
             ),
             handle_login
         )
