@@ -9,7 +9,13 @@ import tornado.web
 from utils import ThreeThingsResponse, EncryptionManager
 
 
-class RegistrationHandler(tornado.web.RequestHandler):
+class Base3ThingsHandler(tornado.web.RequestHandler):
+    def _send_response(self, response):
+        self.set_header('Content-Type', "application/json")
+        self.write(ThreeThingsResponse(response).write_out())
+
+
+class RegistrationHandler(Base3ThingsHandler):
     def get(self):
         email = self.get_argument("identifier", default="")
         fname = self.get_argument("name", default="")
@@ -33,8 +39,7 @@ class RegistrationHandler(tornado.web.RequestHandler):
         code = self._generate_confirmation_code(email)
         ret = {"conf_code": code, "uid": email, "name": fname}
         self.set_status(201)
-        self.set_header('Content-Type', "application/json")
-        self.write(ThreeThingsResponse(ret).write_out())
+        self._send_response(ret)
 
     def _validate_email(self, email):
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
@@ -50,7 +55,6 @@ class RegistrationHandler(tornado.web.RequestHandler):
 
     def _register_user(self, identifier, fname, pw):
         db = self.application.dbclient.three_things
-
         existing_users = db.users.find({'email': identifier})
         if existing_users.count() != 0:
             return False
@@ -69,7 +73,7 @@ class RegistrationHandler(tornado.web.RequestHandler):
         return '%s$%s$%s' % (algo, salt, hsh)
 
 
-class LoginHandler(tornado.web.RequestHandler):
+class LoginHandler(Base3ThingsHandler):
     def get(self):
         email = self.get_argument("email", default="")
         pw = self.get_argument("pw", default="")
@@ -84,8 +88,7 @@ class LoginHandler(tornado.web.RequestHandler):
 
         self.set_status(200)
         ret = {"access_token": "6969696969"}
-        self.set_header('Content-Type', "application/json")
-        self.write(ThreeThingsResponse(ret).write_out())
+        self._send_response(ret)
 
     def _login_user(self, email, pw):
         db = self.application.dbclient.three_things
@@ -110,3 +113,14 @@ class LoginHandler(tornado.web.RequestHandler):
         algo, salt, hsh = enc_password.split('$')
         manager = EncryptionManager()
         return hsh == manager.get_hexdigest(algo, salt, _raw_password)
+
+
+class DayController(Base3ThingsHandler):
+    def post(self):
+        sent_day = self.get_argument("day", "")
+        sent_day = json.loads(sent_day)
+
+        if not sent_day:
+            raise tornado.web.HTTPError(400, "Missing 'day' parameter")
+
+        self.finish()
