@@ -3,6 +3,7 @@ import json
 import re
 import random
 import hashlib
+import uuid
 from datetime import datetime
 from bson.objectid import ObjectId
 
@@ -139,7 +140,7 @@ class LoginHandler(Base3ThingsHandler):
 
     @coroutine
     def _generate_token(self, user):
-        token = "69"
+        token = str(uuid.uuid4()).replace('-', '')
         db = self.application.dbclient.three_things
         db.access_tokens.insert({'user': user['_id'], 'token': token})
         raise Return(token)

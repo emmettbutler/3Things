@@ -4,4 +4,4 @@
 [x] batch post 3 things for day
 [] images for things
 [] get user info
-[] get user history
+[x] get user history
