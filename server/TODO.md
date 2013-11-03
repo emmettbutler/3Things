@@ -1,6 +1,7 @@
 [x] create new user
 [x] login existing user
 [] photo for new user
-[] batch post 3 things for day (including images)
+[x] batch post 3 things for day
+[] images for things
 [] get user info
 [] get user history

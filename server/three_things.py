@@ -9,7 +9,8 @@ def get_app():
     application = tornado.web.Application([
         (r"/register", controllers_main.RegistrationHandler),
         (r"/login", controllers_main.LoginHandler),
-        (r"/days", controllers_main.DayController),
+        (r"/users/([^\/]+)", controllers_main.UserController),
+        (r"/users/([^\/]+)/days", controllers_main.DayController),
     ])
     application.dbclient = MongoClient('localhost', 27017)
     return application

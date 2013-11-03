@@ -4,6 +4,7 @@ import re
 import random
 import hashlib
 from datetime import datetime
+from bson.objectid import ObjectId
 
 import tornado.web
 import tornado.gen
@@ -13,9 +14,9 @@ from utils import ThreeThingsResponse, EncryptionManager
 
 
 def authenticated(func):
-    def inner(self):
+    def inner(self, *args, **kwargs):
         self._authenticate()
-        return func(self)
+        return func(self, *args, **kwargs)
     return inner
 
 
@@ -157,7 +158,20 @@ class LoginHandler(Base3ThingsHandler):
 class DayController(Base3ThingsHandler):
     @coroutine
     @authenticated
-    def post(self):
+    def get(self, user_id):
+        history = yield self._get_user_history(user_id)
+        for item in history:
+            item.pop('user')
+        ret = {"history": history, "user": user_id}
+        self.set_status(200)
+        self._send_response(ret)
+
+    @coroutine
+    @authenticated
+    def post(self, user_id):
+        if str(self.cur_user['_id']) != user_id:
+            raise tornado.web.HTTPError(403, "Not allowed to post days for other user")
+
         try:
             sent_day = json.loads(self.request.body)
         except:
@@ -169,6 +183,14 @@ class DayController(Base3ThingsHandler):
         day = yield self._insert_day(date, sent_day)
 
         self.finish()
+
+    @coroutine
+    def _get_user_history(self, user_id):
+        db = self.application.dbclient.three_things
+        history = db.days.find({'user': ObjectId(user_id)})
+        if history.count() == 0:
+            raise tornado.web.HTTPError(404, "No history found for user %s" % user_id)
+        raise Return(list(history))
 
     @coroutine
     def _insert_day(self, date, sent_day):
@@ -184,3 +206,8 @@ class DayController(Base3ThingsHandler):
             raise Return(days)
         else:
             self.set_status(304)
+
+
+class UserController(Base3ThingsHandler):
+    def get(self, user_id):
+        self.write(user_id)
