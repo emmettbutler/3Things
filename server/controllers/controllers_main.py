@@ -6,6 +6,8 @@ import hashlib
 from datetime import datetime
 
 import tornado.web
+import tornado.gen
+from tornado.gen import Return, coroutine
 
 from utils import ThreeThingsResponse, EncryptionManager
 
@@ -39,6 +41,7 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
 
 
 class RegistrationHandler(Base3ThingsHandler):
+    @coroutine
     def get(self):
         email = self.get_argument("identifier", default="")
         fname = self.get_argument("name", default="")
@@ -54,7 +57,8 @@ class RegistrationHandler(Base3ThingsHandler):
         if not self._validate_email(email):
             raise tornado.web.HTTPError(400, "Email is invalid")
 
-        if not self._register_user(email, fname, pw):
+        user_registered = yield self._register_user(email, fname, pw)
+        if not user_registered:
             self.set_status(304)
             self.finish()
             return
@@ -76,14 +80,15 @@ class RegistrationHandler(Base3ThingsHandler):
             return False
         return True
 
-    def _register_user(self, identifier, fname, pw):
+    @coroutine
+    def _register_user(self, identifier, fname, pw, callback=None):
         db = self.application.dbclient.three_things
         existing_users = db.users.find({'email': identifier})
         if existing_users.count() != 0:
-            return False
+            raise Return(False)
         encrypted = self._set_password(pw)
         db.users.insert({'email': identifier, 'name': fname, 'password': encrypted})
-        return True
+        raise Return(True)
 
     def _generate_confirmation_code(self, identifier):
         return str(uuid.uuid4()).replace('-', '')[:7]
@@ -97,6 +102,7 @@ class RegistrationHandler(Base3ThingsHandler):
 
 
 class LoginHandler(Base3ThingsHandler):
+    @coroutine
     def get(self):
         email = self.get_argument("email", default="")
         pw = self.get_argument("pw", default="")
@@ -106,34 +112,36 @@ class LoginHandler(Base3ThingsHandler):
         if not pw:
             raise tornado.web.HTTPError(400, "Missing 'pw' query parameter")
 
-        user = self._login_user(email, pw)
+        user = yield self._login_user(email, pw)
         if not user:
             raise tornado.web.HTTPError(403, "Email or password is incorrect")
 
         self.set_status(200)
-        token = self._generate_token(user)
+        token = yield self._generate_token(user)
         ret = {"access_token": token}
         self._send_response(ret)
 
+    @coroutine
     def _login_user(self, email, pw):
         db = self.application.dbclient.three_things
         users = db.users.find({'email': email})
         try:
             user = users.next()
             if user['email'] != email:
-                return
+                raise Return(None)
             if not self._check_password(pw, user['password']):
-                return
-            return user
+                raise Return(None)
+            raise Return(user)
         except StopIteration:
-            return
-        return
+            raise Return(None)
+        raise Return(None)
 
+    @coroutine
     def _generate_token(self, user):
         token = "69"
         db = self.application.dbclient.three_things
         db.access_tokens.insert({'user': user['_id'], 'token': token})
-        return token
+        raise Return(token)
 
     def _check_password(self, _raw_password, enc_password):
         """
@@ -147,6 +155,7 @@ class LoginHandler(Base3ThingsHandler):
 
 
 class DayController(Base3ThingsHandler):
+    @coroutine
     @authenticated
     def post(self):
         sent_day = self.get_argument("day", "")
@@ -158,6 +167,12 @@ class DayController(Base3ThingsHandler):
         date = datetime.fromtimestamp(int(sent_day['time'])).date()
         date = datetime.combine(date, datetime.min.time())
 
+        day = yield self._insert_day(date)
+
+        self.finish()
+
+    @coroutine
+    def _insert_day(self, date):
         record = {'user': self.cur_user['_id'], 'date': date}
 
         db = self.application.dbclient.three_things
@@ -166,7 +181,6 @@ class DayController(Base3ThingsHandler):
             existing_day = existing_day.next()
         except StopIteration:
             days = db.days.insert(record)
+            raise Return(days)
         else:
             raise tornado.web.HTTPError(400, "Record for day already exists")
-
-        self.finish()
