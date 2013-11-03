@@ -166,12 +166,12 @@ class DayController(Base3ThingsHandler):
         date = datetime.fromtimestamp(int(sent_day['time'])).date()
         date = datetime.combine(date, datetime.min.time())
 
-        day = yield self._insert_day(date)
+        day = yield self._insert_day(date, sent_day)
 
         self.finish()
 
     @coroutine
-    def _insert_day(self, date):
+    def _insert_day(self, date, sent_day):
         record = {'user': self.cur_user['_id'], 'date': date}
 
         db = self.application.dbclient.three_things
@@ -179,6 +179,7 @@ class DayController(Base3ThingsHandler):
         try:
             existing_day = existing_day.next()
         except StopIteration:
+            record = dict(record.items() + sent_day.items())
             days = db.days.insert(record)
             raise Return(days)
         else:
