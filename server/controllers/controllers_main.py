@@ -3,16 +3,39 @@ import json
 import re
 import random
 import hashlib
+from datetime import datetime
 
 import tornado.web
 
 from utils import ThreeThingsResponse, EncryptionManager
 
 
+def authenticated(func):
+    def inner(self):
+        self._authenticate()
+        func(self)
+    return inner
+
+
 class Base3ThingsHandler(tornado.web.RequestHandler):
     def _send_response(self, response):
         self.set_header('Content-Type', "application/json")
         self.write(ThreeThingsResponse(response).write_out())
+
+    def _authenticate(self):
+        token = self.request.headers.get("Authorization")
+        if token.split()[0] == "bearer":
+            db = self.application.dbclient.three_things
+            stored_token = db.access_tokens.find({'token': token.split()[1]})
+            try:
+                stored_token = stored_token.next()
+                existing_users = db.users.find({'_id': stored_token['user']})
+                try:
+                    self.cur_user = existing_users.next()
+                except StopIteration:
+                    raise tornado.web.HTTPError(401, "Invalid access token")
+            except StopIteration:
+                raise tornado.web.HTTPError(401, "Invalid access token")
 
 
 class RegistrationHandler(Base3ThingsHandler):
@@ -83,11 +106,13 @@ class LoginHandler(Base3ThingsHandler):
         if not pw:
             raise tornado.web.HTTPError(400, "Missing 'pw' query parameter")
 
-        if not self._login_user(email, pw):
+        user = self._login_user(email, pw)
+        if not user:
             raise tornado.web.HTTPError(403, "Email or password is incorrect")
 
         self.set_status(200)
-        ret = {"access_token": "6969696969"}
+        token = self._generate_token(user)
+        ret = {"access_token": token}
         self._send_response(ret)
 
     def _login_user(self, email, pw):
@@ -96,13 +121,19 @@ class LoginHandler(Base3ThingsHandler):
         try:
             user = users.next()
             if user['email'] != email:
-                return False
+                return
             if not self._check_password(pw, user['password']):
-                return False
-            return True
+                return
+            return user
         except StopIteration:
-            return False
-        return False
+            return
+        return
+
+    def _generate_token(self, user):
+        token = "69"
+        db = self.application.dbclient.three_things
+        db.access_tokens.insert({'user': user['_id'], 'token': token})
+        return token
 
     def _check_password(self, _raw_password, enc_password):
         """
@@ -116,11 +147,26 @@ class LoginHandler(Base3ThingsHandler):
 
 
 class DayController(Base3ThingsHandler):
+    @authenticated
     def post(self):
         sent_day = self.get_argument("day", "")
         sent_day = json.loads(sent_day)
 
         if not sent_day:
             raise tornado.web.HTTPError(400, "Missing 'day' parameter")
+
+        date = datetime.fromtimestamp(int(sent_day['time'])).date()
+        date = datetime.combine(date, datetime.min.time())
+
+        record = {'user': self.cur_user['_id'], 'date': date}
+
+        db = self.application.dbclient.three_things
+        existing_day = db.days.find(record)
+        try:
+            existing_day = existing_day.next()
+        except StopIteration:
+            days = db.days.insert(record)
+        else:
+            raise tornado.web.HTTPError(400, "Record for day already exists")
 
         self.finish()
