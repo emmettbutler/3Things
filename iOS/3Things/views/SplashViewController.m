@@ -92,12 +92,33 @@
     } else {
         NSLog(@"Signup information received:\n    fname: %@\n    lname: %@\n    email: %@",
               firstNameField.text, lastNameField.text, emailField.text);
-        signupCodeController = [[SignupCodeViewController alloc] init];
-        [self addChildViewController:signupCodeController];
-        [self.view addSubview:signupCodeController.view];
-        signupCodeController.view.frame = signupCodeController.frame;
-        [signupCodeController didMoveToParentViewController:self];
-        self.didSelectImage = YES;
+        [TTNetManager sharedInstance].netDelegate = self;
+        [[TTNetManager sharedInstance] registerUser:emailField.text
+                                           withName:firstNameField.text
+                                        andPassword:pwField.text
+                                    andPasswordConf:pwConfirmField.text];
+    }
+}
+
+- (void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error {
+    if (error == NULL) {
+        if([((NSHTTPURLResponse *)res) statusCode] != 304){
+            NSError *jsonError = nil;
+            NSDictionary *json = [NSJSONSerialization
+                                  JSONObjectWithData:data
+                                  options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
+                                  error:&jsonError];
+            NSLog(@"json response: %@", json);
+            
+            NSString *confCode = [[json objectForKey:@"data"] objectForKey:@"conf_code"];
+            
+            signupCodeController = [[SignupCodeViewController alloc] initWithConfirmationCode:confCode];
+            [self addChildViewController:signupCodeController];
+            [self.view addSubview:signupCodeController.view];
+            signupCodeController.view.frame = signupCodeController.frame;
+            [signupCodeController didMoveToParentViewController:self];
+            self.didSelectImage = YES;
+        }
     }
 }
 

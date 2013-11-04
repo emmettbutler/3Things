@@ -18,6 +18,13 @@
 
 @implementation SignupCodeViewController
 
+-(id)initWithConfirmationCode:(NSString *)confCode{
+    if (self = [super init]){
+        confirmationCode = confCode;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -37,7 +44,8 @@
     
     CGRect codeFieldFrame = CGRectMake(50.0f, screenRect.size.height/6-50, 160.0f, 31.0f);
     codeField = [[UITextField alloc] initWithFrame:codeFieldFrame];
-    codeField.placeholder = @"123456";
+    codeField.placeholder = @"######";
+    codeField.autocorrectionType = UITextAutocorrectionTypeNo;
     codeField.borderStyle = UITextBorderStyleRoundedRect;
     codeField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:codeField];
@@ -70,12 +78,12 @@
 }
 
 - (BOOL)codeIsValid {
-    // TODO - get this from web
     NSString *enteredCode = [codeField text];
-    if ([enteredCode isEqualToString:@""]) {
-        return NO;
+    NSLog(@"Expected signup code: %@", confirmationCode);
+    if ([enteredCode isEqualToString:confirmationCode]) {
+        return YES;
     }
-    return YES;
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning

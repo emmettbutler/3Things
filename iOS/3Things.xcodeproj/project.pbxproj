@@ -19,6 +19,7 @@
 		AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */; };
 		AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */; };
 		AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E13661803579B00D65980 /* BottomNavViewController.m */; };
+		AA98E1C4182851E80045F827 /* TTNetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA98E1C3182851E80045F827 /* TTNetManager.m */; };
 		AA9A8535180331D00071FD38 /* ThingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9A8534180331D00071FD38 /* ThingDetailViewController.m */; };
 		AABAA1F018144437004547EE /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABAA1EF18144437004547EE /* SDWebImage.framework */; };
 		AABAA1F318145298004547EE /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AABAA1F218145298004547EE /* User.m */; };
@@ -70,6 +71,8 @@
 		AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorThrowingViewController.m; sourceTree = "<group>"; };
 		AA4E13651803579B00D65980 /* BottomNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomNavViewController.h; sourceTree = "<group>"; };
 		AA4E13661803579B00D65980 /* BottomNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomNavViewController.m; sourceTree = "<group>"; };
+		AA98E1C2182851E80045F827 /* TTNetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetManager.h; sourceTree = "<group>"; };
+		AA98E1C3182851E80045F827 /* TTNetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNetManager.m; sourceTree = "<group>"; };
 		AA9A8533180331D00071FD38 /* ThingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingDetailViewController.h; sourceTree = "<group>"; };
 		AA9A8534180331D00071FD38 /* ThingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThingDetailViewController.m; sourceTree = "<group>"; };
 		AABAA1EF18144437004547EE /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
@@ -134,6 +137,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA98E1C1182851AD0045F827 /* classes */ = {
+			isa = PBXGroup;
+			children = (
+				AA98E1C3182851E80045F827 /* TTNetManager.m */,
+				AA98E1C2182851E80045F827 /* TTNetManager.h */,
+			);
+			path = classes;
+			sourceTree = "<group>";
+		};
 		AABB2EAC18006FD600EEA446 /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +241,7 @@
 		AAF28C5517DAA90A0067FD79 /* 3Things */ = {
 			isa = PBXGroup;
 			children = (
+				AA98E1C1182851AD0045F827 /* classes */,
 				AAF28C5E17DAA90A0067FD79 /* AppDelegate.h */,
 				AAF28C5F17DAA90A0067FD79 /* AppDelegate.m */,
 				AABB2F121800ADA000EEA446 /* 3Things.xcdatamodeld */,
@@ -332,6 +345,7 @@
 				AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */,
 				AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */,
 				AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */,
+				AA98E1C4182851E80045F827 /* TTNetManager.m in Sources */,
 				AABB2EC518006FD600EEA446 /* SplashViewController.m in Sources */,
 				AABB2F1D1800B0F600EEA446 /* ShareDayStore.m in Sources */,
 				AABB2EC218006FD600EEA446 /* FriendsDayListViewController.m in Sources */,

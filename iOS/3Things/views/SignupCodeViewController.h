@@ -12,9 +12,11 @@
 @interface SignupCodeViewController : UIViewController <PhotoPromptViewControllerDelegate>
 {
     UITextField *codeField;
+    NSString *confirmationCode;
 }
 
 - (BOOL)codeIsValid;
+- (id)initWithConfirmationCode:(NSString *)confCode;
 
 @property (nonatomic) CGRect frame;
 @property (nonatomic) BOOL photoPromptIsHidden;

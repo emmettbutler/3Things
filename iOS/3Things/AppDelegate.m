@@ -22,6 +22,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    [TTNetManager sharedInstance];
 
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"user_token"] != NULL) {
         [UserStore initCurrentUser];
