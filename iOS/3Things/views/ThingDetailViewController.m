@@ -43,7 +43,7 @@
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
          {
-             NSLog(@"we have our ALAsset!");
+             NSLog(@"thing image loaded successfully");
              UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, self.screenFrame.size.width, 300)];
              picView.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
              [self.view addSubview:picView];
@@ -53,7 +53,7 @@
          }
                 failureBlock:^(NSError *error )
          {
-             NSLog(@"Error loading asset");
+             NSLog(@"Error loading thing image");
          }];
     }
     

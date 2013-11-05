@@ -105,14 +105,14 @@
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
          {
-            NSLog(@"we have our ALAsset!");
+            NSLog(@"Thing image loaded successfully");
             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(100, textFieldFrame.origin.y+textFieldFrame.size.height+8, 40, 40)];
             picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
             [self.view addSubview:picView];
          }
                 failureBlock:^(NSError *error )
          {
-             NSLog(@"Error loading asset");
+             NSLog(@"Error loading thing image");
          }];
     }
 }

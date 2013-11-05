@@ -114,12 +114,12 @@
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
             [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
              {
-                 NSLog(@"we have our ALAsset!");
+                 NSLog(@"Profile image loaded");
                  profilePicView.image = [UIImage imageWithCGImage:[asset thumbnail]];
              }
                     failureBlock:^(NSError *error )
              {
-                 NSLog(@"Error loading asset");
+                 NSLog(@"Error loading profile image");
              }];
         }
     } else {
@@ -201,14 +201,14 @@
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
          {
-             NSLog(@"we have our ALAsset!");
+             NSLog(@"thing image loaded at index %d", indexPath.row);
              UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(200, 0, 40, 40)];
              picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
              [container addSubview:picView];
          }
         failureBlock:^(NSError *error )
          {
-             NSLog(@"Error loading asset");
+             NSLog(@"Error loading thing image at index %d", indexPath.row);
          }];
     }
     cell.backgroundView = container;
