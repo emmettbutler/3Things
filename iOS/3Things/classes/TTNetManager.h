@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "User.h"
 
 @class TTNetManager;
 @protocol TTNetManagerDelegate <NSObject>
 @optional
--(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error;
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url;
 @end
 
 id <TTNetManagerDelegate> netDelegate;
@@ -22,10 +23,13 @@ id <TTNetManagerDelegate> netDelegate;
 }
 
 +(TTNetManager *)sharedInstance;
+-(NSString *)urlEncodeString:(NSString *)string;
 -(id)init;
 -(NSURLResponse *)apiConnectionWithURL:(NSString *)url;
--(NSURLResponse *)registerUser:(NSString *)email withName:(NSString *)uname andPassword:(NSString *)pw andPasswordConf:(NSString *)pwConf;
+-(void)registerUser:(NSString *)email withName:(NSString *)uname andPassword:(NSString *)pw andPasswordConf:(NSString *)pwConf;
+-(void)loginUser:(NSString *)email withPassword:(NSString *)pw;
 
+@property (nonatomic, retain) NSString *currentAccessToken;
 @property (nonatomic, assign) id <TTNetManagerDelegate> netDelegate;
 
 @end

@@ -21,6 +21,8 @@
 
 @property (nonatomic) NSString *profLocalImageURL;
 @property (nonatomic) BOOL didSelectImage;
+@property (nonatomic) NSString *userEmail;
+@property (nonatomic) NSString *userPassword;
 
 -(BOOL) fieldsAreValid;
 -(void)continueWasTouched;

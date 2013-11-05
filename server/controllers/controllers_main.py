@@ -66,7 +66,7 @@ class RegistrationHandler(Base3ThingsHandler):
             return
 
         code = self._generate_confirmation_code(email)
-        ret = {"conf_code": code, "uid": email, "name": fname}
+        ret = {"conf_code": code, "email": email, "name": fname}
         self.set_status(201)
         self._send_response(ret)
 
@@ -129,6 +129,7 @@ class LoginHandler(Base3ThingsHandler):
         users = db.users.find({'email': email})
         try:
             user = users.next()
+            print "expected: %s\ngot: %s" % (email, user['email'])
             if user['email'] != email:
                 raise Return(None)
             if not self._check_password(pw, user['password']):

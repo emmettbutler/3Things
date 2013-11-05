@@ -53,6 +53,7 @@
     CGRect emailFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-70, 280.0f, 31.0f);
     emailField = [[UITextField alloc] initWithFrame:emailFieldFrame];
     emailField.placeholder = @"Email";
+    emailField.autocorrectionType = UITextAutocorrectionTypeNo;
     emailField.borderStyle = UITextBorderStyleRoundedRect;
     emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:emailField];
@@ -100,24 +101,44 @@
     }
 }
 
-- (void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error {
+- (void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url {
+    NSLog(@"Data received from %@", url.path);
+    NSLog(@"Response: %@", res);
     if (error == NULL) {
-        if([((NSHTTPURLResponse *)res) statusCode] != 304){
-            NSError *jsonError = nil;
-            NSDictionary *json = [NSJSONSerialization
-                                  JSONObjectWithData:data
-                                  options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
-                                  error:&jsonError];
-            NSLog(@"json response: %@", json);
-            
-            NSString *confCode = [[json objectForKey:@"data"] objectForKey:@"conf_code"];
-            
-            signupCodeController = [[SignupCodeViewController alloc] initWithConfirmationCode:confCode];
-            [self addChildViewController:signupCodeController];
-            [self.view addSubview:signupCodeController.view];
-            signupCodeController.view.frame = signupCodeController.frame;
-            [signupCodeController didMoveToParentViewController:self];
-            self.didSelectImage = YES;
+        if ([url.path isEqualToString:@"/register"]){
+            if([((NSHTTPURLResponse *)res) statusCode] != 304){
+                NSError *jsonError = nil;
+                NSDictionary *json = [NSJSONSerialization
+                                      JSONObjectWithData:data
+                                      options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
+                                      error:&jsonError];
+                NSLog(@"json response: %@", json);
+                
+                NSString *confCode = [[json objectForKey:@"data"] objectForKey:@"conf_code"];
+                self.userEmail = [[json objectForKey:@"data"] objectForKey:@"email"];
+                self.userPassword = pwField.text;
+                
+                signupCodeController = [[SignupCodeViewController alloc] initWithConfirmationCode:confCode];
+                [self addChildViewController:signupCodeController];
+                [self.view addSubview:signupCodeController.view];
+                signupCodeController.view.frame = signupCodeController.frame;
+                [signupCodeController didMoveToParentViewController:self];
+                self.didSelectImage = YES;
+            }
+        } else if([url.path isEqualToString:@"/login"]){
+            if([((NSHTTPURLResponse *)res) statusCode] == 200){
+                NSError *jsonError = nil;
+                NSDictionary *json = [NSJSONSerialization
+                                      JSONObjectWithData:data
+                                      options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
+                                      error:&jsonError];
+                NSLog(@"json response: %@", json);
+                [TTNetManager sharedInstance].currentAccessToken = [[json objectForKey:@"data"] objectForKey:@"access_token"];
+                [UserStore initCurrentUserWithImage:self.profLocalImageURL
+                                           andEmail:self.userEmail
+                                        andUserName:firstNameField.text
+                                        andPassword:self.userPassword];
+            }
         }
     }
 }
@@ -128,11 +149,13 @@
 - (void)photoWasSaved:(NSURL *)savedPhotoURL {
     NSLog(@"got image url: %@", savedPhotoURL);
     self.profLocalImageURL = [savedPhotoURL absoluteString];
+    [[TTNetManager sharedInstance] loginUser:self.userEmail withPassword:self.userPassword];
 }
 
 - (void)continueWasTouched {
-    if (self.profLocalImageURL != nil){
-        [UserStore initCurrentUserWithImage:self.profLocalImageURL andEmail:emailField.text andUserName:firstNameField.text andPassword:pwField.text];
+    UserStore *userStore = [[UserStore alloc] init];
+    if (self.profLocalImageURL != nil && [userStore getAuthenticatedUser] != NULL){
+        NSLog(@"Current access token: %@", [[TTNetManager sharedInstance] currentAccessToken]);
         UIViewController *viewController;
         if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
             viewController = [[DayListViewController alloc] init];

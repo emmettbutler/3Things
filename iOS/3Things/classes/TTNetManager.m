@@ -14,13 +14,23 @@
 TTNetManager *instance;
 
 
--(NSURLResponse *)registerUser:(NSString *)email withName:(NSString *)uname andPassword:(NSString *)pw andPasswordConf:(NSString *)pwConf
+-(void)registerUser:(NSString *)email withName:(NSString *)uname andPassword:(NSString *)pw andPasswordConf:(NSString *)pwConf
 {
+    uname = [self urlEncodeString:uname];
+    pw = [self urlEncodeString:pw];
+    pwConf = [self urlEncodeString:pwConf];
     NSString *url = [NSString stringWithFormat:@"%@/register?identifier=%@&name=%@&pw=%@&pwc=%@",
                       rootURL, email, uname, pw, pwConf];
     NSLog(@"Attempting to register user with URL: '%@'", url);
-    NSURLResponse *res = [self apiConnectionWithURL:url];
-    return res;
+    [self apiConnectionWithURL:url];
+}
+
+-(void)loginUser:(NSString *)email withPassword:(NSString *)pw
+{
+    NSString *url = [NSString stringWithFormat:@"%@/login?email=%@&pw=%@",
+                     rootURL, email, pw];
+    NSLog(@"Attempting to login user with URL: '%@'", url);
+    [self apiConnectionWithURL:url];
 }
 
 -(NSURLResponse *)apiConnectionWithURL:(NSString *)url{
@@ -31,7 +41,7 @@ TTNetManager *instance;
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *error){
-         [netDelegate dataWasReceived:response withData:data andError:error];
+         [netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
      }
      ];
     return nil;
@@ -40,6 +50,7 @@ TTNetManager *instance;
 -(id)init{
     @synchronized(self){
         if(self = [super init]){
+            self.currentAccessToken = nil;
             rootURL = @"http://localhost:8888";
         }
         return self;
@@ -69,6 +80,20 @@ TTNetManager *instance;
 
 - (id)copyWithZone:(NSZone *)zone{
     return self;
+}
+
+// helpers
+
+-(NSString *)urlEncodeString:(NSString *)string{
+    NSString *retval = (NSString *)CFBridgingRelease(
+                                                     CFURLCreateStringByAddingPercentEscapes(
+                                                                                             NULL,
+                                                                                             (__bridge CFStringRef) string,
+                                                                                             NULL,
+                                                                                             CFSTR("!*'();:@&=+$,/?%#[]"),
+                                                                                             kCFStringEncodingUTF8
+                                                                                             ));
+    return retval;
 }
 
 @end
