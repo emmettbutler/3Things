@@ -120,7 +120,7 @@ class LoginHandler(Base3ThingsHandler):
 
         self.set_status(200)
         token = yield self._generate_token(user)
-        ret = {"access_token": token}
+        ret = {"access_token": token, "name": user['name']}
         self._send_response(ret)
 
     @coroutine
@@ -129,7 +129,6 @@ class LoginHandler(Base3ThingsHandler):
         users = db.users.find({'email': email})
         try:
             user = users.next()
-            print "expected: %s\ngot: %s" % (email, user['email'])
             if user['email'] != email:
                 raise Return(None)
             if not self._check_password(pw, user['password']):

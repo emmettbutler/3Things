@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTNetManager.h"
 
-@interface LoginEmailViewController : UIViewController
+@interface LoginEmailViewController : UIViewController <TTNetManagerDelegate>
 {
     UITextField *idField, *pwField;
 }

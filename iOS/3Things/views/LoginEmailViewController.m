@@ -36,6 +36,7 @@
     CGRect idFieldFrame = CGRectMake(20.0f, screenFrame.size.height/2-100, 280.0f, 31.0f);
     idField = [[UITextField alloc] initWithFrame:idFieldFrame];
     idField.placeholder = @"Username or email";
+    idField.autocorrectionType = UITextAutocorrectionTypeNo;
     idField.borderStyle = UITextBorderStyleRoundedRect;
     idField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:idField];
@@ -52,6 +53,24 @@
 - (void)loginWasTouched {
     NSLog(@"Login selected");
     if ([self loginIsValid]){
+        [TTNetManager sharedInstance].netDelegate = self;
+        [[TTNetManager sharedInstance] loginUser:idField.text withPassword:pwField.text];
+    }
+}
+
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url {
+    if([((NSHTTPURLResponse *)res) statusCode] == 200){
+        NSError *jsonError = nil;
+        NSDictionary *json = [NSJSONSerialization
+                              JSONObjectWithData:data
+                              options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
+                              error:&jsonError];
+        NSLog(@"json response: %@", json);
+        
+        [UserStore initCurrentUserWithImage:nil
+                                   andEmail:nil
+                                andUserName:[[json objectForKey:@"data"] objectForKey:@"name"]
+                                andPassword:nil];
         [UserStore initCurrentUser];
         [self setModalPresentationStyle:UIModalPresentationPageSheet];
         UIViewController *viewController;
