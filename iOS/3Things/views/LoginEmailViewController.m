@@ -68,10 +68,9 @@
         NSLog(@"json response: %@", json);
         
         [UserStore initCurrentUserWithImage:nil
-                                   andEmail:nil
+                                   andEmail:idField.text
                                 andUserName:[[json objectForKey:@"data"] objectForKey:@"name"]
                                 andPassword:nil];
-        [UserStore initCurrentUser];
         [self setModalPresentationStyle:UIModalPresentationPageSheet];
         UIViewController *viewController;
         if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
