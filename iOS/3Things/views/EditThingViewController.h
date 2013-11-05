@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "TTShareDay.h"
 #import "PhotoPromptViewController.h"
+#import "TTNetManager.h"
 
-@interface EditThingViewController : UIViewController <UITextViewDelegate, PhotoPromptViewControllerDelegate>
+@interface EditThingViewController : UIViewController <UITextViewDelegate, PhotoPromptViewControllerDelegate, TTNetManagerDelegate>
 {
     CGRect screenFrame, textFieldFrame;
 }

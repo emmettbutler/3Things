@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "User.h"
+#import "TTShareDay.h"
 
 @class TTNetManager;
 @protocol TTNetManagerDelegate <NSObject>
@@ -28,6 +29,7 @@ id <TTNetManagerDelegate> netDelegate;
 -(NSURLResponse *)apiConnectionWithURL:(NSString *)url;
 -(void)registerUser:(NSString *)email withName:(NSString *)uname andPassword:(NSString *)pw andPasswordConf:(NSString *)pwConf;
 -(void)loginUser:(NSString *)email withPassword:(NSString *)pw;
+-(void)postShareDay:(TTShareDay *)shares;
 
 @property (nonatomic, retain) NSString *currentAccessToken;
 @property (nonatomic, assign) id <TTNetManagerDelegate> netDelegate;

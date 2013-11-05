@@ -236,6 +236,8 @@
 
 - (void)shareWasTouched {
     if ([self.completedThings intValue] == 3) {
+        [TTNetManager sharedInstance].netDelegate = self;
+        [[TTNetManager sharedInstance] postShareDay:self.shares];
         [[self navigationController] pushViewController:
          [[UserHistoryViewController alloc] init] animated:YES];
     } else {

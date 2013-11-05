@@ -33,6 +33,11 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url];
 }
 
+-(void)postShareDay:(TTShareDay *)shares
+{
+    NSLog(@"Stub of postShareDay");
+}
+
 -(NSURLResponse *)apiConnectionWithURL:(NSString *)url{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData

@@ -228,6 +228,8 @@
 }
 
 - (void)saveDay{
+    [TTNetManager sharedInstance].netDelegate = self;
+    [[TTNetManager sharedInstance] postShareDay:self.shares];
     ShareDayStore *dayStore = [[ShareDayStore alloc] init];
     ShareDay *item = [dayStore getToday];
     if (item == NULL){
