@@ -211,21 +211,26 @@
     if (item == NULL){
         item = [dayStore createShareDay];
     }
-    item.things = [[NSMutableSet alloc] init];
-    if ([self.shares.theThings objectAtIndex:0] != NULL) {
-        [(NSMutableSet *)item.things addObject:[self saveThingWithIndex:[NSNumber numberWithInt:0]]];
-    }
-    if ([self.shares.theThings objectAtIndex:1] != NULL) {
-        [(NSMutableSet *)item.things addObject:[self saveThingWithIndex:[NSNumber numberWithInt:1]]];
-    }
-    if ([self.shares.theThings objectAtIndex:2] != NULL) {
-        [(NSMutableSet *)item.things addObject:[self saveThingWithIndex:[NSNumber numberWithInt:2]]];
+    for (int i = 0; i < 3; i++){
+        if (![[[self.shares.theThings objectAtIndex:i] objectForKey:@"text"] isEqualToString:@""]) {
+            Thing *toRemove = NULL;
+            for (Thing* oldThing in item.things){
+                if ([oldThing.index intValue] == i){
+                    toRemove = oldThing;
+                }
+            }
+            if (toRemove != NULL){
+                [item removeThingsObject:toRemove];
+            }
+            Thing *thing = [self saveThingWithIndex:[NSNumber numberWithInt:i]];
+            TTLog(@"added thing %d with text %@", i, thing.text);
+            [item addThingsObject:thing];
+        }
     }
     item.date = [dayStore getDateOnly];
     UserStore *userStore = [[UserStore alloc] init];
     item.user = [userStore getAuthenticatedUser];
     [dayStore saveChanges];
-    TTLog(@"item date: %@", item.date);
 }
 
 - (void)saveDay{
@@ -237,11 +242,14 @@
     if (item == NULL){
         item = [dayStore createShareDay];
     }
-    item.things = [NSSet setWithObjects:
-                   [self saveThingWithIndex:[NSNumber numberWithInt:0]],
-                   [self saveThingWithIndex:[NSNumber numberWithInt:1]],
-                   [self saveThingWithIndex:[NSNumber numberWithInt:2]],
-                   nil];
+    NSMutableSet *toRemove = [[NSMutableSet alloc] init];
+    for (Thing *thing in item.things){
+        [toRemove addObject:thing];
+    }
+    [item removeThings:toRemove];
+    for (int i = 0; i < 3; i++){
+        [item addThingsObject:[self saveThingWithIndex:[NSNumber numberWithInt:i]]];
+    }
     item.date = [dayStore getDateOnly];
     item.user = [userStore getAuthenticatedUser];
     [dayStore saveChanges];

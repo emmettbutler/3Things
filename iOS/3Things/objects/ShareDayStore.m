@@ -8,6 +8,7 @@
 
 #import "ShareDayStore.h"
 #import "AppDelegate.h"
+#import "TTNetManager.h"
 
 @implementation ShareDayStore
 
@@ -19,8 +20,9 @@
 
 - (NSArray *)allItemsForUser:(User *)user
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(user.identifier = %@)", user.identifier];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(user.userID = %@)", user.userID];
     NSArray *result = [self allItems:@"ShareDay" withSort:@"date" andPredicate:predicate];
+    TTLog(@"allItemsForUser count: %d", [result count]);
     return result;
 }
 

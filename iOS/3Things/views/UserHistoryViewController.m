@@ -143,7 +143,9 @@
         UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(40, j*20, frame.size.width, 20)];
         text.textAlignment = NSTextAlignmentLeft;
         NSString *thingString;
+        TTLog(@"Things count: %d", [[[self.userHistory objectAtIndex:indexPath.row] things] count]);
         for (Thing *thing in [[self.userHistory objectAtIndex:indexPath.row] things]){
+            TTLog(@"Thing: %@", thing);
             if([thing.index intValue] == j){
                 thingString = thing.text;
                 break;

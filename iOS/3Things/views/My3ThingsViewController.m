@@ -17,6 +17,7 @@
 #import "ThingDetailViewController.h"
 #import "ErrorPromptViewController.h"
 #import "TTNetManager.h"
+#import "Thing.h"
 
 @interface My3ThingsViewController ()
 
@@ -48,7 +49,10 @@
             TTLog(@"Found nothing");
             self.shares = [[TTShareDay alloc] init];
         } else {
-            TTLog(@"Found an entry: %@", today);
+            TTLog(@"Found an entry");
+            for (Thing *thing in today.things){
+                TTLog(@"%@", thing.text);
+            }
             self.shares = [TTShareDay shareDayWithShareObject:today];
         }
         TTLog(@"Entering 3things view: %@", self.shares.theThings);
