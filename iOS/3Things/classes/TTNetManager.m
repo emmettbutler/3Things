@@ -28,7 +28,7 @@ TTNetManager *instance;
     NSString *url = [NSString stringWithFormat:@"%@/register?identifier=%@&name=%@&pw=%@&pwc=%@",
                       rootURL, email, uname, pw, pwConf];
     NSLog(@"Attempting to register user with URL: '%@'", url);
-    [self apiConnectionWithURL:url];
+    [self apiConnectionWithURL:url authorized:NO];
 }
 
 -(void)loginUser:(NSString *)email withPassword:(NSString *)pw
@@ -36,7 +36,7 @@ TTNetManager *instance;
     NSString *url = [NSString stringWithFormat:@"%@/login?email=%@&pw=%@",
                      rootURL, email, pw];
     NSLog(@"Attempting to login user with URL: '%@'", url);
-    [self apiConnectionWithURL:url];
+    [self apiConnectionWithURL:url authorized:NO];
 }
 
 -(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID
@@ -45,15 +45,37 @@ TTNetManager *instance;
     NSLog(@"Attempting to post day to URL %@", url);
     NSLog(@"Posting day: %@", shares);
     NSLog(@"Current access token: %@", self.currentAccessToken);
-    NSString *data = @"";
-    [self apiConnectionWithURL:url andData:data];
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    [jsonDict setObject:[NSString stringWithFormat:@"%d", (int)[[NSDate date] timeIntervalSince1970] ] forKey:@"time"];
+    NSMutableDictionary *thing1 = [shares.theThings objectAtIndex:0];
+    [jsonDict setObject:thing1 forKey:@"thing1"];
+    NSMutableDictionary *thing2 = [shares.theThings objectAtIndex:1];
+    [jsonDict setObject:thing2 forKey:@"thing2"];
+    NSMutableDictionary *thing3 = [shares.theThings objectAtIndex:2];
+    [jsonDict setObject:thing3 forKey:@"thing3"];
+    
+    NSError *error;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDict
+                                                   options:NSJSONWritingPrettyPrinted
+                                                     error:&error];
+    if (! data) {
+        NSLog(@"Error encoding JSON for day POST: %@", error);
+    } else {
+        NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [self apiConnectionWithURL:url andData:jsonString authorized:YES];
+    }
+    
 }
 
--(void)apiConnectionWithURL:(NSString *)url{
+-(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                        timeoutInterval:10];
     [request setHTTPMethod:@"GET"];
+    if (auth){
+        [request setValue:[NSString stringWithFormat:@"bearer %@", self.currentAccessToken] forHTTPHeaderField:@"Authorization"];
+    }
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *error){
@@ -62,7 +84,7 @@ TTNetManager *instance;
      ];
 }
 
--(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data{
+-(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data authorized:(BOOL)auth{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                        timeoutInterval:10];
@@ -72,6 +94,9 @@ TTNetManager *instance;
     
     [request setHTTPMethod:@"POST"];
     [request setValue:[NSString stringWithFormat:@"%d", [postData length]] forHTTPHeaderField:@"Content-Length"];
+    if (auth){
+        [request setValue:[NSString stringWithFormat:@"bearer %@", self.currentAccessToken] forHTTPHeaderField:@"Authorization"];
+    }
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
     

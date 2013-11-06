@@ -176,6 +176,7 @@ class DayController(Base3ThingsHandler):
             raise tornado.web.HTTPError(403, "Not allowed to post days for other user")
 
         try:
+            print "Decoding request body\n%s" % self.request.body
             sent_day = json.loads(self.request.body)
         except:
             raise tornado.web.HTTPError(400, "Could not decode request body as JSON")
@@ -197,6 +198,12 @@ class DayController(Base3ThingsHandler):
 
     @coroutine
     def _insert_day(self, date, sent_day):
+        if "thing1" not in sent_day:
+            raise tornado.web.HTTPError(400, "Missing thing1 parameter")
+        if "thing2" not in sent_day:
+            raise tornado.web.HTTPError(400, "Missing thing2 parameter")
+        if "thing3" not in sent_day:
+            raise tornado.web.HTTPError(400, "Missing thing3 parameter")
         record = {'user': self.cur_user['_id'], 'date': date}
 
         db = self.application.dbclient.three_things

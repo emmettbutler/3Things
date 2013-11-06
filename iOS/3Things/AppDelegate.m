@@ -26,6 +26,8 @@
     [TTNetManager sharedInstance];
 
     if ([[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"%d", kAccessToken]] != NULL) {
+        // get the stored access token from defauls, put it in TTNetManager's memory, re-save it
+        [[TTNetManager sharedInstance] loginToken:[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kAccessToken]]];
         if ([[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kDayComplete]] boolValue] == YES) {
             self.viewController = [[DayListViewController alloc] init];
         } else {
