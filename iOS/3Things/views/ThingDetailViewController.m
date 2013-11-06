@@ -7,6 +7,7 @@
 //
 
 #import "ThingDetailViewController.h"
+#import "TTNetManager.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface ThingDetailViewController ()
@@ -43,7 +44,7 @@
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
          {
-             NSLog(@"thing image loaded successfully");
+             TTLog(@"thing image loaded successfully");
              UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, self.screenFrame.size.width, 300)];
              picView.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
              [self.view addSubview:picView];
@@ -53,7 +54,7 @@
          }
                 failureBlock:^(NSError *error )
          {
-             NSLog(@"Error loading thing image");
+             TTLog(@"Error loading thing image");
          }];
     }
     

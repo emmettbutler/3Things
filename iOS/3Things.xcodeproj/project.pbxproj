@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA09105C1801BA1200F9D8B8 /* ShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AA09105B1801BA1200F9D8B8 /* ShareDay.m */; };
 		AA0910621801BDA100F9D8B8 /* UserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910611801BDA100F9D8B8 /* UserStore.m */; };
 		AA09109D1801CB9300F9D8B8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA09109C1801CB9300F9D8B8 /* ImageIO.framework */; };
 		AA09109F1801CC2D00F9D8B8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = AA09109E1801CC2D00F9D8B8 /* placeholder.png */; };
@@ -15,8 +14,9 @@
 		AA0910AC1801EC2500F9D8B8 /* TTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A51801EC2500F9D8B8 /* TTDataStore.m */; };
 		AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A71801EC2500F9D8B8 /* ThingStore.m */; };
 		AA0910B21801EEFB00F9D8B8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */; };
-		AA0910B81801F4B100F9D8B8 /* Thing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910B71801F4B100F9D8B8 /* Thing.m */; };
-		AA1E52CE182AA0E7000EBBBA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52CD182AA0E7000EBBBA /* User.m */; };
+		AA1E52D1182AE49F000EBBBA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52D0182AE49F000EBBBA /* User.m */; };
+		AA1E52D7182AE4A0000EBBBA /* Thing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52D6182AE4A0000EBBBA /* Thing.m */; };
+		AA1E52DA182AE502000EBBBA /* ShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52D9182AE502000EBBBA /* ShareDay.m */; };
 		AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */; };
 		AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */; };
 		AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E13661803579B00D65980 /* BottomNavViewController.m */; };
@@ -49,8 +49,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AA09105A1801BA1200F9D8B8 /* ShareDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDay.h; sourceTree = "<group>"; };
-		AA09105B1801BA1200F9D8B8 /* ShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDay.m; sourceTree = "<group>"; };
 		AA0910601801BDA100F9D8B8 /* UserStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserStore.h; sourceTree = "<group>"; };
 		AA0910611801BDA100F9D8B8 /* UserStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserStore.m; sourceTree = "<group>"; };
 		AA09109C1801CB9300F9D8B8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -63,10 +61,12 @@
 		AA0910A81801EC2500F9D8B8 /* ThingStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingStore.h; sourceTree = "<group>"; };
 		AA0910AF1801EDAF00F9D8B8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		AA0910B61801F4B100F9D8B8 /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Thing.h; path = ../../Thing.h; sourceTree = "<group>"; };
-		AA0910B71801F4B100F9D8B8 /* Thing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Thing.m; path = ../../Thing.m; sourceTree = "<group>"; };
-		AA1E52CC182AA0E7000EBBBA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		AA1E52CD182AA0E7000EBBBA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		AA1E52CF182AE49F000EBBBA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		AA1E52D0182AE49F000EBBBA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		AA1E52D5182AE4A0000EBBBA /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thing.h; sourceTree = "<group>"; };
+		AA1E52D6182AE4A0000EBBBA /* Thing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Thing.m; sourceTree = "<group>"; };
+		AA1E52D8182AE502000EBBBA /* ShareDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDay.h; sourceTree = "<group>"; };
+		AA1E52D9182AE502000EBBBA /* ShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDay.m; sourceTree = "<group>"; };
 		AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorPromptViewController.m; sourceTree = "<group>"; };
 		AA230A011809BA620025BCF5 /* ErrorPromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorPromptViewController.h; sourceTree = "<group>"; };
 		AA230A031809BB0D0025BCF5 /* ErrorThrowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorThrowingViewController.h; sourceTree = "<group>"; };
@@ -184,16 +184,16 @@
 		AABB2EB918006FD600EEA446 /* objects */ = {
 			isa = PBXGroup;
 			children = (
-				AA1E52CC182AA0E7000EBBBA /* User.h */,
-				AA1E52CD182AA0E7000EBBBA /* User.m */,
-				AA0910B61801F4B100F9D8B8 /* Thing.h */,
-				AA0910B71801F4B100F9D8B8 /* Thing.m */,
+				AA1E52D8182AE502000EBBBA /* ShareDay.h */,
+				AA1E52D9182AE502000EBBBA /* ShareDay.m */,
+				AA1E52D5182AE4A0000EBBBA /* Thing.h */,
+				AA1E52D6182AE4A0000EBBBA /* Thing.m */,
+				AA1E52CF182AE49F000EBBBA /* User.h */,
+				AA1E52D0182AE49F000EBBBA /* User.m */,
 				AA0910A51801EC2500F9D8B8 /* TTDataStore.m */,
 				AA0910A61801EC2500F9D8B8 /* TTDataStore.h */,
 				AA0910A71801EC2500F9D8B8 /* ThingStore.m */,
 				AA0910A81801EC2500F9D8B8 /* ThingStore.h */,
-				AA09105A1801BA1200F9D8B8 /* ShareDay.h */,
-				AA09105B1801BA1200F9D8B8 /* ShareDay.m */,
 				AABB2F1B1800B0F600EEA446 /* ShareDayStore.h */,
 				AABB2F1C1800B0F600EEA446 /* ShareDayStore.m */,
 				AA0910601801BDA100F9D8B8 /* UserStore.h */,
@@ -335,12 +335,12 @@
 			files = (
 				AA9A8535180331D00071FD38 /* ThingDetailViewController.m in Sources */,
 				AABB2EC718006FD600EEA446 /* TTSharesAccessor.m in Sources */,
+				AA1E52DA182AE502000EBBBA /* ShareDay.m in Sources */,
 				AAF28C5C17DAA90A0067FD79 /* main.m in Sources */,
 				AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */,
 				AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */,
-				AA0910B81801F4B100F9D8B8 /* Thing.m in Sources */,
 				AABB2ECB18007A3500EEA446 /* UserHistoryViewController.m in Sources */,
-				AA1E52CE182AA0E7000EBBBA /* User.m in Sources */,
+				AA1E52D1182AE49F000EBBBA /* User.m in Sources */,
 				AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */,
 				AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */,
 				AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */,
@@ -350,11 +350,11 @@
 				AABB2F1D1800B0F600EEA446 /* ShareDayStore.m in Sources */,
 				AABB2EC218006FD600EEA446 /* FriendsDayListViewController.m in Sources */,
 				AABB2EC418006FD600EEA446 /* SignupCodeViewController.m in Sources */,
+				AA1E52D7182AE4A0000EBBBA /* Thing.m in Sources */,
 				AA0910621801BDA100F9D8B8 /* UserStore.m in Sources */,
 				AA0910A21801D2C700F9D8B8 /* PhotoPromptViewController.m in Sources */,
 				AABB2F141800ADA000EEA446 /* 3Things.xcdatamodeld in Sources */,
 				AAF46B43180C97A300FE79A9 /* LoginTypePickerViewController.m in Sources */,
-				AA09105C1801BA1200F9D8B8 /* ShareDay.m in Sources */,
 				AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */,
 				AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */,
 				AAF46B46180CA19C00FE79A9 /* LoginEmailViewController.m in Sources */,

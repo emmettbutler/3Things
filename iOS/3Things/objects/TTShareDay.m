@@ -8,6 +8,7 @@
 
 #import "TTShareDay.h"
 #import "Thing.h"
+#import "TTNetManager.h"
 
 @implementation TTShareDay
 
@@ -32,19 +33,19 @@
 
 + (TTShareDay *)shareDayWithShareObject:(ShareDay *)shares {
     TTShareDay *ret = [[TTShareDay alloc] init];
-    NSLog(@"In sharedaywithshareobject: %@", shares.thing1);
+    TTLog(@"In sharedaywithshareobject: %@", shares.thing1);
     if (shares.thing1 != NULL) {
         NSDictionary *thing = @{@"text": shares.thing1.text, @"localImageURL": shares.thing1.localImageURL};
-        NSLog(@"loaded 1");
+        TTLog(@"loaded 1");
         [ret.theThings replaceObjectAtIndex:0 withObject:thing];
     }
     if (shares.thing2 != NULL) {
-        NSLog(@"loaded 2");
+        TTLog(@"loaded 2");
         NSDictionary *thing = @{@"text": shares.thing2.text, @"localImageURL": shares.thing2.localImageURL};
         [ret.theThings replaceObjectAtIndex:1 withObject:thing];
     }
     if (shares.thing3 != NULL) {
-        NSLog(@"loaded 3");
+        TTLog(@"loaded 3");
         NSDictionary *thing = @{@"text": shares.thing3.text, @"localImageURL": shares.thing3.localImageURL};
         [ret.theThings replaceObjectAtIndex:2 withObject:thing];
     }

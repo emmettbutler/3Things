@@ -105,14 +105,14 @@
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
          {
-            NSLog(@"Thing image loaded successfully");
+            TTLog(@"Thing image loaded successfully");
             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(100, textFieldFrame.origin.y+textFieldFrame.size.height+8, 40, 40)];
             picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
             [self.view addSubview:picView];
          }
                 failureBlock:^(NSError *error )
          {
-             NSLog(@"Error loading thing image");
+             TTLog(@"Error loading thing image");
          }];
     }
 }
@@ -145,7 +145,7 @@
 }
 
 - (void)imgButtonWasTouched {
-    NSLog(@"Got callback for image prompt");
+    TTLog(@"Got callback for image prompt");
     [self.view endEditing:YES];
     PhotoPromptViewController *promptViewController = [[PhotoPromptViewController alloc] init];
     promptViewController.promptDelegate = self;
@@ -157,19 +157,19 @@
 }
 
 - (void)photoWasSelected:(UIImage *)selectedImage {
-    NSLog(@"got image: %@", selectedImage);
+    TTLog(@"got image: %@", selectedImage);
     int imgWidth = 40;
     UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(100, textFieldFrame.origin.y+textFieldFrame.size.height+8, imgWidth, imgWidth)];
     picView.image = selectedImage;
     [self.view addSubview:picView];
 }
 - (void)photoWasSaved:(NSURL *)savedPhotoURL {
-    NSLog(@"got image url: %@", savedPhotoURL);
+    TTLog(@"got image url: %@", savedPhotoURL);
     self.thingLocalImageURL = [savedPhotoURL absoluteString];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    NSLog(@"is first edit? %@", [NSNumber numberWithBool:self.firstEdit]);
+    TTLog(@"is first edit? %@", [NSNumber numberWithBool:self.firstEdit]);
     if (self.firstEdit) {
         textView.text = @"";
         self.firstEdit = NO;
@@ -205,7 +205,7 @@
 }
 
 - (void)savePartialDay{
-    NSLog(@"In edit view, in save partial: %@", self.shares.theThings);
+    TTLog(@"In edit view, in save partial: %@", self.shares.theThings);
     ShareDayStore *dayStore = [[ShareDayStore alloc] init];
     ShareDay *item = [dayStore getToday];
     if (item == NULL){
@@ -224,7 +224,7 @@
     UserStore *userStore = [[UserStore alloc] init];
     item.user = [userStore getAuthenticatedUser];
     [dayStore saveChanges];
-    NSLog(@"item date: %@", item.date);
+    TTLog(@"item date: %@", item.date);
 }
 
 - (void)saveDay{

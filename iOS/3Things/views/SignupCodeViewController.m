@@ -57,7 +57,7 @@
 
 - (void)confirmWasTouched {
     if (![self codeIsValid]) {
-        NSLog(@"Invalid signup code");
+        TTLog(@"Invalid signup code");
         return;
     }
     [self.view endEditing:YES];
@@ -79,7 +79,7 @@
 
 - (BOOL)codeIsValid {
     NSString *enteredCode = [codeField text];
-    NSLog(@"Expected signup code: %@", confirmationCode);
+    TTLog(@"Expected signup code: %@", confirmationCode);
     if ([enteredCode isEqualToString:confirmationCode]) {
         return YES;
     }

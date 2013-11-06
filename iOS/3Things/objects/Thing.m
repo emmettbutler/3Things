@@ -1,23 +1,20 @@
 //
-//  ShareDay.m
+//  Thing.m
 //  3Things
 //
 //  Created by Emmett Butler on 11/6/13.
 //  Copyright (c) 2013 Emmett Butler. All rights reserved.
 //
 
-#import "ShareDay.h"
 #import "Thing.h"
-#import "User.h"
+#import "ShareDay.h"
 
 
-@implementation ShareDay
+@implementation Thing
 
 @dynamic date;
-@dynamic thing1;
-@dynamic thing2;
-@dynamic thing3;
-@dynamic user;
-@dynamic things;
+@dynamic localImageURL;
+@dynamic text;
+@dynamic day;
 
 @end

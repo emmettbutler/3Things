@@ -27,7 +27,7 @@ TTNetManager *instance;
     pwConf = [self urlEncodeString:pwConf];
     NSString *url = [NSString stringWithFormat:@"%@/register?identifier=%@&name=%@&pw=%@&pwc=%@",
                       rootURL, email, uname, pw, pwConf];
-    NSLog(@"Attempting to register user with URL: '%@'", url);
+    TTLog(@"Attempting to register user with URL: '%@'", url);
     [self apiConnectionWithURL:url authorized:NO];
 }
 
@@ -35,16 +35,16 @@ TTNetManager *instance;
 {
     NSString *url = [NSString stringWithFormat:@"%@/login?email=%@&pw=%@",
                      rootURL, email, pw];
-    NSLog(@"Attempting to login user with URL: '%@'", url);
+    TTLog(@"Attempting to login user with URL: '%@'", url);
     [self apiConnectionWithURL:url authorized:NO];
 }
 
 -(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID
 {
     NSString *url = [NSString stringWithFormat:@"%@/users/%@/days", rootURL, userID];
-    NSLog(@"Attempting to post day to URL %@", url);
-    NSLog(@"Posting day: %@", shares);
-    NSLog(@"Current access token: %@", self.currentAccessToken);
+    TTLog(@"Attempting to post day to URL %@", url);
+    TTLog(@"Posting day: %@", shares);
+    TTLog(@"Current access token: %@", self.currentAccessToken);
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:[NSString stringWithFormat:@"%d", (int)[[NSDate date] timeIntervalSince1970] ] forKey:@"time"];
@@ -55,7 +55,7 @@ TTNetManager *instance;
                                                    options:NSJSONWritingPrettyPrinted
                                                      error:&error];
     if (! data) {
-        NSLog(@"Error encoding JSON for day POST: %@", error);
+        TTLog(@"Error encoding JSON for day POST: %@", error);
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         [self apiConnectionWithURL:url andData:jsonString authorized:YES];

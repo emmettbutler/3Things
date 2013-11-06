@@ -51,7 +51,7 @@
 }
 
 - (void)loginWasTouched {
-    NSLog(@"Login selected");
+    TTLog(@"Login selected");
     if ([self loginIsValid]){
         [TTNetManager sharedInstance].netDelegate = self;
         [[TTNetManager sharedInstance] loginUser:idField.text withPassword:pwField.text];
@@ -65,7 +65,7 @@
                               JSONObjectWithData:data
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
-        NSLog(@"json response: %@", json);
+        TTLog(@"json response: %@", json);
         NSString *uid = [[json objectForKey:@"data"] objectForKey:@"uid"];
         
         [[TTNetManager sharedInstance] loginToken:[[json objectForKey:@"data"] objectForKey:@"access_token"]];

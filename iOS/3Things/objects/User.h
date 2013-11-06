@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class ShareDay;
 
 @interface User : NSManagedObject
 
@@ -17,5 +18,14 @@
 @property (nonatomic, retain) NSString * profileImageLocalURL;
 @property (nonatomic, retain) NSString * profileImageURL;
 @property (nonatomic, retain) NSString * userID;
+@property (nonatomic, retain) NSSet *shareDays;
+@end
+
+@interface User (CoreDataGeneratedAccessors)
+
+- (void)addShareDaysObject:(ShareDay *)value;
+- (void)removeShareDaysObject:(ShareDay *)value;
+- (void)addShareDays:(NSSet *)values;
+- (void)removeShareDays:(NSSet *)values;
 
 @end

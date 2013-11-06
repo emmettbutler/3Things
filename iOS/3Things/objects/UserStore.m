@@ -15,14 +15,14 @@
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@)", uid];
     NSArray *result = [self allItems:@"User" withSort:@"userID" andPredicate:predicate];
-    NSLog(@"In createUser: searching for uid %@:  %@", uid, result);
+    TTLog(@"In createUser: searching for uid %@:  %@", uid, result);
     if (result.count == 0) {
         NSManagedObject *newItem = [self createItem:@"User"];
         ((User *)newItem).name = name;
         ((User *)newItem).profileImageLocalURL = localProfImgURL;
         ((User *)newItem).profileImageURL = @"";
         ((User *)newItem).userID = uid;
-        NSLog(@"Found no user, created %@", (User *)newItem);
+        TTLog(@"Found no user, created %@", (User *)newItem);
         [self saveChanges];
         return (User *)newItem;
     } else {
@@ -39,7 +39,7 @@
 - (User *)getAuthenticatedUser
 {
     NSNumber *identifier = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kAuthUserID]];
-    NSLog(@"Looking up authenticated user by id %@", identifier);
+    TTLog(@"Looking up authenticated user by id %@", identifier);
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@)", identifier];
     NSArray *result = [self allItems:@"User" withSort:@"userID" andPredicate:predicate];
     return result.count == 0 ? NULL : [result objectAtIndex:0];

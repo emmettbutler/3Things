@@ -7,6 +7,7 @@
 //
 
 #import "User.h"
+#import "ShareDay.h"
 
 
 @implementation User
@@ -16,5 +17,6 @@
 @dynamic profileImageLocalURL;
 @dynamic profileImageURL;
 @dynamic userID;
+@dynamic shareDays;
 
 @end

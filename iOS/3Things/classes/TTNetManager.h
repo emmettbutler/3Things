@@ -10,6 +10,8 @@
 #import "User.h"
 #import "TTShareDay.h"
 
+#define TTLog( s, ... ) NSLog( @"<%@:(%d)> [3Things] %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+
 @class TTNetManager;
 @protocol TTNetManagerDelegate <NSObject>
 @optional

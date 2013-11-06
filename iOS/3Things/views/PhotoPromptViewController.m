@@ -20,7 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	NSLog(@"Photo prompt loaded");
+	TTLog(@"Photo prompt loaded");
     
     self.view.backgroundColor = [UIColor colorWithRed:.3 green:.3 blue:.3 alpha:1];
     CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
@@ -54,7 +54,7 @@
 - (void)takeWasTouched
 {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
+    picker.delegate = (id<UINavigationControllerDelegate,UIImagePickerControllerDelegate>)self;
     picker.allowsEditing = YES;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
@@ -64,7 +64,7 @@
 - (void)chooseWasTouched
 {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
+    picker.delegate = (id<UINavigationControllerDelegate,UIImagePickerControllerDelegate>)self;
     picker.allowsEditing = YES;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
@@ -87,7 +87,7 @@
         // Request to save the image to camera roll
         [library writeImageToSavedPhotosAlbum:[chosenImage CGImage] orientation:(ALAssetOrientation)[chosenImage imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
             if (error) {
-                NSLog(@"error saving image");
+                TTLog(@"error saving image");
             } else {
                 [self.promptDelegate photoWasSaved:assetURL];
             }  

@@ -5,12 +5,14 @@
         <relationship name="thing1" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" syncable="YES"/>
         <relationship name="thing2" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" syncable="YES"/>
         <relationship name="thing3" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" syncable="YES"/>
+        <relationship name="things" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Thing" inverseName="day" inverseEntity="Thing" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="shareDays" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Thing" representedClassName="Thing" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="localImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="day" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShareDay" inverseName="things" inverseEntity="ShareDay" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -18,6 +20,7 @@
         <attribute name="profileImageLocalURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profileImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="shareDays" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ShareDay" inverseName="user" inverseEntity="ShareDay" syncable="YES"/>
     </entity>
     <elements>
         <element name="ShareDay" positionX="0" positionY="0" width="0" height="0"/>

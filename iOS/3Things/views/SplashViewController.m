@@ -11,6 +11,7 @@
 #import "DayListViewController.h"
 #import "UserStore.h"
 #import "My3ThingsViewController.h"
+#import "TTNetManager.h"
 
 @interface SplashViewController ()
 
@@ -81,7 +82,7 @@
     
     if (![self fieldsAreValid]){
         if (!self.errViewIsShown) {
-            NSLog(@"Error: not all required fields are present in signup data");
+            TTLog(@"Error: not all required fields are present in signup data");
             self.errViewIsShown = YES;
             ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"Please fill in all fields"];
             [self addChildViewController:errViewController];
@@ -91,7 +92,7 @@
             [errViewController didMoveToParentViewController:self];
         }
     } else {
-        NSLog(@"Signup information received:\n    fname: %@\n    lname: %@\n    email: %@",
+        TTLog(@"Signup information received:\n    fname: %@\n    lname: %@\n    email: %@",
               firstNameField.text, lastNameField.text, emailField.text);
         [TTNetManager sharedInstance].netDelegate = self;
         [[TTNetManager sharedInstance] registerUser:emailField.text
@@ -102,8 +103,8 @@
 }
 
 - (void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url {
-    NSLog(@"Data received from %@", url.path);
-    NSLog(@"Response: %@", res);
+    TTLog(@"Data received from %@", url.path);
+    TTLog(@"Response: %@", res);
     if (error == NULL) {
         if ([url.path isEqualToString:@"/register"]){
             if([((NSHTTPURLResponse *)res) statusCode] != 304){
@@ -112,7 +113,7 @@
                                       JSONObjectWithData:data
                                       options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                                       error:&jsonError];
-                NSLog(@"json response: %@", json);
+                TTLog(@"json response: %@", json);
                 
                 NSString *confCode = [[json objectForKey:@"data"] objectForKey:@"conf_code"];
                 self.userEmail = [[json objectForKey:@"data"] objectForKey:@"email"];
@@ -132,7 +133,7 @@
                                       JSONObjectWithData:data
                                       options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                                       error:&jsonError];
-                NSLog(@"json response: %@", json);
+                TTLog(@"json response: %@", json);
                 NSString *uid = [[json objectForKey:@"data"] objectForKey:@"uid"];
                 [[TTNetManager sharedInstance] loginToken:[[json objectForKey:@"data"] objectForKey:@"access_token"]];
                 [UserStore initCurrentUserWithImage:self.profLocalImageURL
@@ -146,10 +147,10 @@
 }
 
 - (void)photoWasSelected:(UIImage *)selectedImage {
-    NSLog(@"got image: %@", selectedImage);
+    TTLog(@"got image: %@", selectedImage);
 }
 - (void)photoWasSaved:(NSURL *)savedPhotoURL {
-    NSLog(@"got image url: %@", savedPhotoURL);
+    TTLog(@"got image url: %@", savedPhotoURL);
     self.profLocalImageURL = [savedPhotoURL absoluteString];
     [[TTNetManager sharedInstance] loginUser:self.userEmail withPassword:self.userPassword];
 }
@@ -157,7 +158,7 @@
 - (void)continueWasTouched {
     UserStore *userStore = [[UserStore alloc] init];
     if (self.profLocalImageURL != nil && [userStore getAuthenticatedUser] != NULL){
-        NSLog(@"Current access token: %@", [[TTNetManager sharedInstance] currentAccessToken]);
+        TTLog(@"Current access token: %@", [[TTNetManager sharedInstance] currentAccessToken]);
         UIViewController *viewController;
         if ([[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kDayComplete]] boolValue] == YES) {
             viewController = [[DayListViewController alloc] init];

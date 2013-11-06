@@ -49,7 +49,7 @@
     NSArray *result = [context executeFetchRequest:request error:&error];
     
     if (error) {
-        NSLog(@"Eror occured while fetching items. Error: %@", [error localizedDescription]);
+        TTLog(@"Eror occured while fetching items. Error: %@", [error localizedDescription]);
     }
     
     return result;
@@ -64,7 +64,7 @@
     
     if (error)
     {
-        NSLog(@"Error occurred while saving. Error: %@", [error localizedDescription]);
+        TTLog(@"Error occurred while saving. Error: %@", [error localizedDescription]);
     }
 }
 

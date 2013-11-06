@@ -14,12 +14,13 @@
 #import "Thing.h"
 #import "BottomNavViewController.h"
 #import "UserStore.h"
+#import "TTNetManager.h"
 
 @implementation UserHistoryViewController
 
 - (void)viewDidLoad
 {
-    NSLog(@"entered userhistory controller");
+    TTLog(@"entered userhistory controller");
     [super viewDidLoad];
     
     self.navigationController.navigationBarHidden = NO;
@@ -51,18 +52,18 @@
     NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
     UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+30, imgWidth, 70)];
     if ([[url absoluteString] isEqualToString:@""]) {
-        NSLog(@"Searching for local image");
+        TTLog(@"Searching for local image");
         NSString *imgURL = [[userStore getAuthenticatedUser] profileImageLocalURL];
         if (![imgURL isEqualToString:@""]){
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
             [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
              {
-                 NSLog(@"profile pic retrieved from %@", imgURL);
+                 TTLog(@"profile pic retrieved from %@", imgURL);
                  profilePicView.image = [UIImage imageWithCGImage:[asset thumbnail]];
              }
                     failureBlock:^(NSError *error )
              {
-                 NSLog(@"Error loading asset");
+                 TTLog(@"Error loading asset");
              }];
         }
     } else {
@@ -176,7 +177,7 @@
 }
 
 - (void)reviewWasTouched {
-    NSLog(@"User history screen got review callback");
+    TTLog(@"User history screen got review callback");
     [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]] animated:YES];
 }
 

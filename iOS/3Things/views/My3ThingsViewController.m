@@ -16,6 +16,7 @@
 #import "UserStore.h"
 #import "ThingDetailViewController.h"
 #import "ErrorPromptViewController.h"
+#import "TTNetManager.h"
 
 @interface My3ThingsViewController ()
 
@@ -41,16 +42,16 @@
         ShareDayStore *itemStore = [[ShareDayStore alloc] init];
         ShareDay *today = [itemStore getToday];
         if (!self.isCurrent) {
-            NSLog(@"Got sent a day in the past");
+            TTLog(@"Got sent a day in the past");
             self.shares = shares;
         } else if (today == NULL) {
-            NSLog(@"Found nothing");
+            TTLog(@"Found nothing");
             self.shares = [[TTShareDay alloc] init];
         } else {
-            NSLog(@"Found an entry: %@", today);
+            TTLog(@"Found an entry: %@", today);
             self.shares = [TTShareDay shareDayWithShareObject:today];
         }
-        NSLog(@"Entering 3things view: %@", self.shares.theThings);
+        TTLog(@"Entering 3things view: %@", self.shares.theThings);
     }
     return self;
 }
@@ -114,12 +115,12 @@
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
             [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
              {
-                 NSLog(@"Profile image loaded");
+                 TTLog(@"Profile image loaded");
                  profilePicView.image = [UIImage imageWithCGImage:[asset thumbnail]];
              }
                     failureBlock:^(NSError *error )
              {
-                 NSLog(@"Error loading profile image");
+                 TTLog(@"Error loading profile image");
              }];
         }
     } else {
@@ -201,14 +202,14 @@
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
          {
-             NSLog(@"thing image loaded at index %d", indexPath.row);
+             TTLog(@"thing image loaded at index %d", indexPath.row);
              UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(200, 0, 40, 40)];
              picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
              [container addSubview:picView];
          }
         failureBlock:^(NSError *error )
          {
-             NSLog(@"Error loading thing image at index %d", indexPath.row);
+             TTLog(@"Error loading thing image at index %d", indexPath.row);
          }];
     }
     cell.backgroundView = container;
@@ -218,7 +219,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.errViewIsShown) return;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSLog(@"Entering editor: %@", self.shares.theThings);
+    TTLog(@"Entering editor: %@", self.shares.theThings);
     if (self.isCurrent) {
         UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andShares:self.shares];
         [[self navigationController] pushViewController:editView animated:YES];
@@ -237,14 +238,14 @@
 - (void)shareWasTouched {
     UserStore *userStore = [[UserStore alloc] init];
     if ([self.completedThings intValue] == 3) {
-        [TTNetManager sharedInstance].netDelegate = self;
+        [TTNetManager sharedInstance].netDelegate = (id<TTNetManagerDelegate>)self;
         [[TTNetManager sharedInstance] postShareDay:self.shares forUser:[[userStore getAuthenticatedUser] userID]];
         [[self navigationController] pushViewController:
          [[UserHistoryViewController alloc] init] animated:YES];
     } else {
         if (!self.errViewIsShown){
             self.errViewIsShown = YES;
-            NSLog(@"Error: 3 things not completed for the day. Must complete 3 things before sharing.");
+            TTLog(@"Error: 3 things not completed for the day. Must complete 3 things before sharing.");
             ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"Enter your 3 things before sharing"];
             [self addChildViewController:errViewController];
             [self.view addSubview:errViewController.view];

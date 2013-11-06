@@ -217,11 +217,12 @@ class DayController(Base3ThingsHandler):
         except StopIteration:
             pass
         else:
-            self.set_status(304)
-            raise Return(None)
+            if updating_day:
+                db.days.remove(existing_day)
+            else:
+                self.set_status(304)
+                raise Return(None)
 
-        if updating_day:
-            db.days.remove(existing_day)
         record = dict(record.items() + sent_day.items())
         days = db.days.insert(record)
         raise Return(days)
