@@ -48,12 +48,7 @@ TTNetManager *instance;
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     [jsonDict setObject:[NSString stringWithFormat:@"%d", (int)[[NSDate date] timeIntervalSince1970] ] forKey:@"time"];
-    NSMutableDictionary *thing1 = [shares.theThings objectAtIndex:0];
-    [jsonDict setObject:thing1 forKey:@"thing1"];
-    NSMutableDictionary *thing2 = [shares.theThings objectAtIndex:1];
-    [jsonDict setObject:thing2 forKey:@"thing2"];
-    NSMutableDictionary *thing3 = [shares.theThings objectAtIndex:2];
-    [jsonDict setObject:thing3 forKey:@"thing3"];
+    [jsonDict setObject:shares.theThings forKey:@"things"];
     
     NSError *error;
     NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDict

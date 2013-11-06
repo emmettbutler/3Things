@@ -198,12 +198,8 @@ class DayController(Base3ThingsHandler):
 
     @coroutine
     def _insert_day(self, date, sent_day):
-        if "thing1" not in sent_day:
-            raise tornado.web.HTTPError(400, "Missing thing1 parameter")
-        if "thing2" not in sent_day:
-            raise tornado.web.HTTPError(400, "Missing thing2 parameter")
-        if "thing3" not in sent_day:
-            raise tornado.web.HTTPError(400, "Missing thing3 parameter")
+        if len(sent_day['things']) < 3:
+            raise tornado.web.HTTPError(400, "Missing some Things")
         record = {'user': self.cur_user['_id'], 'date': date}
 
         db = self.application.dbclient.three_things
