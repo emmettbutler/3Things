@@ -218,6 +218,7 @@ class DayController(Base3ThingsHandler):
             pass
         else:
             self.set_status(304)
+            raise Return(None)
 
         if updating_day:
             db.days.remove(existing_day)
