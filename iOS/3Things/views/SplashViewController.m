@@ -133,11 +133,13 @@
                                       options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                                       error:&jsonError];
                 NSLog(@"json response: %@", json);
-                [TTNetManager sharedInstance].currentAccessToken = [[json objectForKey:@"data"] objectForKey:@"access_token"];
+                NSString *uid = [[json objectForKey:@"data"] objectForKey:@"uid"];
+                [[TTNetManager sharedInstance] loginToken:[[json objectForKey:@"data"] objectForKey:@"access_token"]];
                 [UserStore initCurrentUserWithImage:self.profLocalImageURL
                                            andEmail:self.userEmail
                                         andUserName:firstNameField.text
-                                        andPassword:self.userPassword];
+                                        andPassword:self.userPassword
+                                          andUserID:uid];
             }
         }
     }
@@ -157,7 +159,7 @@
     if (self.profLocalImageURL != nil && [userStore getAuthenticatedUser] != NULL){
         NSLog(@"Current access token: %@", [[TTNetManager sharedInstance] currentAccessToken]);
         UIViewController *viewController;
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kDayComplete]] boolValue] == YES) {
             viewController = [[DayListViewController alloc] init];
         } else {
             viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];

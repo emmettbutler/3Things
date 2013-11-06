@@ -228,8 +228,9 @@
 }
 
 - (void)saveDay{
+    UserStore *userStore = [[UserStore alloc] init];
     [TTNetManager sharedInstance].netDelegate = self;
-    [[TTNetManager sharedInstance] postShareDay:self.shares];
+    [[TTNetManager sharedInstance] postShareDay:self.shares forUser:[[userStore getAuthenticatedUser] userID]];
     ShareDayStore *dayStore = [[ShareDayStore alloc] init];
     ShareDay *item = [dayStore getToday];
     if (item == NULL){
@@ -239,7 +240,6 @@
     item.thing2 = [self saveThingWithIndex:[NSNumber numberWithInt:1]];
     item.thing3 = [self saveThingWithIndex:[NSNumber numberWithInt:2]];
     item.date = [dayStore getDateOnly];
-    UserStore *userStore = [[UserStore alloc] init];
     item.user = [userStore getAuthenticatedUser];
     [dayStore saveChanges];
 }

@@ -17,6 +17,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profileImageLocalURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profileImageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="ShareDay" positionX="0" positionY="0" width="0" height="0"/>

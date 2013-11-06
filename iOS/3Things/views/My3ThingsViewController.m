@@ -129,9 +129,9 @@
     [self.view addSubview:profilePicView];
     
     if([self.completedThings intValue] == 3) {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"day_complete"];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
     } else {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"day_complete"];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -235,9 +235,10 @@
 }
 
 - (void)shareWasTouched {
+    UserStore *userStore = [[UserStore alloc] init];
     if ([self.completedThings intValue] == 3) {
         [TTNetManager sharedInstance].netDelegate = self;
-        [[TTNetManager sharedInstance] postShareDay:self.shares];
+        [[TTNetManager sharedInstance] postShareDay:self.shares forUser:[[userStore getAuthenticatedUser] userID]];
         [[self navigationController] pushViewController:
          [[UserHistoryViewController alloc] init] animated:YES];
     } else {

@@ -18,6 +18,10 @@
 
 id <TTNetManagerDelegate> netDelegate;
 
+typedef enum _kStorage {
+    kAccessToken, kDayComplete, kAuthUserID
+} kStorage;
+
 @interface TTNetManager : NSObject <NSURLConnectionDelegate>
 {
     NSString *rootURL;
@@ -26,10 +30,12 @@ id <TTNetManagerDelegate> netDelegate;
 +(TTNetManager *)sharedInstance;
 -(NSString *)urlEncodeString:(NSString *)string;
 -(id)init;
--(NSURLResponse *)apiConnectionWithURL:(NSString *)url;
+-(void)loginToken:(NSString *)access_token;
+-(void)apiConnectionWithURL:(NSString *)url;
+-(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data;
 -(void)registerUser:(NSString *)email withName:(NSString *)uname andPassword:(NSString *)pw andPasswordConf:(NSString *)pwConf;
 -(void)loginUser:(NSString *)email withPassword:(NSString *)pw;
--(void)postShareDay:(TTShareDay *)shares;
+-(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID;
 
 @property (nonatomic, retain) NSString *currentAccessToken;
 @property (nonatomic, assign) id <TTNetManagerDelegate> netDelegate;

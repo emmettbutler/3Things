@@ -28,6 +28,8 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
 
     def _authenticate(self):
         token = self.request.headers.get("Authorization")
+        if not token:
+            raise tornado.web.HTTPError(403, "Missing authorization header")
         if token.split()[0] == "bearer":
             db = self.application.dbclient.three_things
             stored_token = db.access_tokens.find({'token': token.split()[1]})
@@ -120,7 +122,7 @@ class LoginHandler(Base3ThingsHandler):
 
         self.set_status(200)
         token = yield self._generate_token(user)
-        ret = {"access_token": token, "name": user['name']}
+        ret = {"access_token": token, "name": user['name'], "uid": user['_id']}
         self._send_response(ret)
 
     @coroutine

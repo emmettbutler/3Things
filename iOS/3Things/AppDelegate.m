@@ -25,9 +25,9 @@
     
     [TTNetManager sharedInstance];
 
-    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"user_token"] != NULL) {
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"%d", kAccessToken]] != NULL) {
         [UserStore initCurrentUser];
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kDayComplete]] boolValue] == YES) {
             self.viewController = [[DayListViewController alloc] init];
         } else {
             self.viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];

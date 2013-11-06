@@ -16,13 +16,13 @@
 		AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A71801EC2500F9D8B8 /* ThingStore.m */; };
 		AA0910B21801EEFB00F9D8B8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */; };
 		AA0910B81801F4B100F9D8B8 /* Thing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910B71801F4B100F9D8B8 /* Thing.m */; };
+		AA1E52CE182AA0E7000EBBBA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52CD182AA0E7000EBBBA /* User.m */; };
 		AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */; };
 		AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */; };
 		AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E13661803579B00D65980 /* BottomNavViewController.m */; };
 		AA98E1C4182851E80045F827 /* TTNetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA98E1C3182851E80045F827 /* TTNetManager.m */; };
 		AA9A8535180331D00071FD38 /* ThingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9A8534180331D00071FD38 /* ThingDetailViewController.m */; };
 		AABAA1F018144437004547EE /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABAA1EF18144437004547EE /* SDWebImage.framework */; };
-		AABAA1F318145298004547EE /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AABAA1F218145298004547EE /* User.m */; };
 		AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EAE18006FD600EEA446 /* DayListViewController.m */; };
 		AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB018006FD600EEA446 /* EditThingViewController.m */; };
 		AABB2EC218006FD600EEA446 /* FriendsDayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB218006FD600EEA446 /* FriendsDayListViewController.m */; };
@@ -65,6 +65,8 @@
 		AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		AA0910B61801F4B100F9D8B8 /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Thing.h; path = ../../Thing.h; sourceTree = "<group>"; };
 		AA0910B71801F4B100F9D8B8 /* Thing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Thing.m; path = ../../Thing.m; sourceTree = "<group>"; };
+		AA1E52CC182AA0E7000EBBBA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		AA1E52CD182AA0E7000EBBBA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorPromptViewController.m; sourceTree = "<group>"; };
 		AA230A011809BA620025BCF5 /* ErrorPromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorPromptViewController.h; sourceTree = "<group>"; };
 		AA230A031809BB0D0025BCF5 /* ErrorThrowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorThrowingViewController.h; sourceTree = "<group>"; };
@@ -76,8 +78,6 @@
 		AA9A8533180331D00071FD38 /* ThingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingDetailViewController.h; sourceTree = "<group>"; };
 		AA9A8534180331D00071FD38 /* ThingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThingDetailViewController.m; sourceTree = "<group>"; };
 		AABAA1EF18144437004547EE /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
-		AABAA1F118145298004547EE /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		AABAA1F218145298004547EE /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		AABB2EAD18006FD600EEA446 /* DayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayListViewController.h; sourceTree = "<group>"; };
 		AABB2EAE18006FD600EEA446 /* DayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayListViewController.m; sourceTree = "<group>"; };
 		AABB2EAF18006FD600EEA446 /* EditThingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditThingViewController.h; sourceTree = "<group>"; };
@@ -184,6 +184,8 @@
 		AABB2EB918006FD600EEA446 /* objects */ = {
 			isa = PBXGroup;
 			children = (
+				AA1E52CC182AA0E7000EBBBA /* User.h */,
+				AA1E52CD182AA0E7000EBBBA /* User.m */,
 				AA0910B61801F4B100F9D8B8 /* Thing.h */,
 				AA0910B71801F4B100F9D8B8 /* Thing.m */,
 				AA0910A51801EC2500F9D8B8 /* TTDataStore.m */,
@@ -200,8 +202,6 @@
 				AABB2EBB18006FD600EEA446 /* TTShareDay.m */,
 				AABB2EBC18006FD600EEA446 /* TTSharesAccessor.h */,
 				AABB2EBD18006FD600EEA446 /* TTSharesAccessor.m */,
-				AABAA1F118145298004547EE /* User.h */,
-				AABAA1F218145298004547EE /* User.m */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -333,7 +333,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AABAA1F318145298004547EE /* User.m in Sources */,
 				AA9A8535180331D00071FD38 /* ThingDetailViewController.m in Sources */,
 				AABB2EC718006FD600EEA446 /* TTSharesAccessor.m in Sources */,
 				AAF28C5C17DAA90A0067FD79 /* main.m in Sources */,
@@ -341,6 +340,7 @@
 				AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */,
 				AA0910B81801F4B100F9D8B8 /* Thing.m in Sources */,
 				AABB2ECB18007A3500EEA446 /* UserHistoryViewController.m in Sources */,
+				AA1E52CE182AA0E7000EBBBA /* User.m in Sources */,
 				AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */,
 				AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */,
 				AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */,

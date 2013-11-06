@@ -66,14 +66,17 @@
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
         NSLog(@"json response: %@", json);
+        NSString *uid = [[json objectForKey:@"data"] objectForKey:@"uid"];
         
+        [[TTNetManager sharedInstance] loginToken:[[json objectForKey:@"data"] objectForKey:@"access_token"]];
         [UserStore initCurrentUserWithImage:nil
                                    andEmail:idField.text
                                 andUserName:[[json objectForKey:@"data"] objectForKey:@"name"]
-                                andPassword:nil];
+                                andPassword:nil
+                                  andUserID:uid];
         [self setModalPresentationStyle:UIModalPresentationPageSheet];
         UIViewController *viewController;
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"day_complete"] boolValue] == YES) {
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kDayComplete]] boolValue] == YES) {
             viewController = [[DayListViewController alloc] init];
         } else {
             viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];
