@@ -26,7 +26,6 @@
     [TTNetManager sharedInstance];
 
     if ([[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"%d", kAccessToken]] != NULL) {
-        [UserStore initCurrentUser];
         if ([[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kDayComplete]] boolValue] == YES) {
             self.viewController = [[DayListViewController alloc] init];
         } else {

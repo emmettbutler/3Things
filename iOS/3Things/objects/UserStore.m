@@ -15,7 +15,7 @@
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@)", uid];
     NSArray *result = [self allItems:@"User" withSort:@"userID" andPredicate:predicate];
-    NSLog(@"In createUser: %@", result);
+    NSLog(@"In createUser: searching for uid %@:  %@", uid, result);
     if (result.count == 0) {
         NSManagedObject *newItem = [self createItem:@"User"];
         ((User *)newItem).name = name;
@@ -39,13 +39,15 @@
 - (User *)getAuthenticatedUser
 {
     NSNumber *identifier = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kAuthUserID]];
+    NSLog(@"Looking up authenticated user by id %@", identifier);
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@)", identifier];
     NSArray *result = [self allItems:@"User" withSort:@"userID" andPredicate:predicate];
     return result.count == 0 ? NULL : [result objectAtIndex:0];
 }
 
 +(void) initCurrentUser {
-    [UserStore initCurrentUserWithImage:NULL andEmail:nil andUserName:nil andPassword:nil andUserID:nil];
+    NSString *userID = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kAuthUserID]];
+    [UserStore initCurrentUserWithImage:NULL andEmail:nil andUserName:nil andPassword:nil andUserID:userID];
 }
 
 +(void) initCurrentUserWithImage:(NSString *)imageURL
@@ -54,17 +56,12 @@
                      andPassword:(NSString *)pw
                        andUserID:(NSString *)uid {
     UserStore *userStore = [[UserStore alloc] init];
-    NSLog(@"image url: %@", imageURL);
-    // use actual entered user data here - this should eventually take arguments
     [userStore createUser:uid withName:uname andLocalImgURL:imageURL];
     if (imageURL != NULL) {
         [[NSUserDefaults standardUserDefaults] setObject:imageURL forKey:@"cur_user_prof_pic"];
     }
     [[NSUserDefaults standardUserDefaults] setObject:uid forKey:[NSString stringWithFormat:@"%d", kAuthUserID]];
-    [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"cur_user_email"];
-    [[NSUserDefaults standardUserDefaults] setObject:uname forKey:@"cur_user_uname"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    // publish to web
 }
 
 @end
