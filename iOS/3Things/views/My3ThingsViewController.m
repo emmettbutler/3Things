@@ -113,13 +113,13 @@
     int imgWidth = 40;
     NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
     UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+25, imgWidth, 50)];
-    if ([[url absoluteString] isEqualToString:@""]) {
+    if (![[url absoluteString] isEqualToString:@""]) {
         NSString *imgURL = [[userStore getAuthenticatedUser] profileImageLocalURL];
         if (![imgURL isEqualToString:@""]){
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
             [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
              {
-                 TTLog(@"Profile image loaded");
+                 TTLog(@"Profile image loaded from %@", imgURL);
                  profilePicView.image = [UIImage imageWithCGImage:[asset thumbnail]];
              }
                     failureBlock:^(NSError *error )

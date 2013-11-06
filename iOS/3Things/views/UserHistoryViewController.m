@@ -51,7 +51,7 @@
     int imgWidth = 60;
     NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
     UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+30, imgWidth, 70)];
-    if ([[url absoluteString] isEqualToString:@""]) {
+    if (![[url absoluteString] isEqualToString:@""]) {
         TTLog(@"Searching for local image");
         NSString *imgURL = [[userStore getAuthenticatedUser] profileImageLocalURL];
         if (![imgURL isEqualToString:@""]){
