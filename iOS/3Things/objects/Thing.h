@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSDate * date;
 @property (nonatomic, retain) NSString * localImageURL;
 @property (nonatomic, retain) NSString * text;
+@property (nonatomic, retain) NSNumber * index;
 @property (nonatomic, retain) ShareDay *day;
 
 @end

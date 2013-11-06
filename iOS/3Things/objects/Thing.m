@@ -15,6 +15,7 @@
 @dynamic date;
 @dynamic localImageURL;
 @dynamic text;
+@dynamic index;
 @dynamic day;
 
 @end

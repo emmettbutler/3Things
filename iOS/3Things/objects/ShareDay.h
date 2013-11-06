@@ -14,9 +14,6 @@
 @interface ShareDay : NSManagedObject
 
 @property (nonatomic, retain) NSDate * date;
-@property (nonatomic, retain) Thing *thing1;
-@property (nonatomic, retain) Thing *thing2;
-@property (nonatomic, retain) Thing *thing3;
 @property (nonatomic, retain) User *user;
 @property (nonatomic, retain) NSSet *things;
 @end

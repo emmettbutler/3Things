@@ -211,14 +211,15 @@
     if (item == NULL){
         item = [dayStore createShareDay];
     }
+    item.things = [[NSMutableSet alloc] init];
     if ([self.shares.theThings objectAtIndex:0] != NULL) {
-        item.thing1 = [self saveThingWithIndex:[NSNumber numberWithInt:0]];
+        [(NSMutableSet *)item.things addObject:[self saveThingWithIndex:[NSNumber numberWithInt:0]]];
     }
     if ([self.shares.theThings objectAtIndex:1] != NULL) {
-        item.thing2 = [self saveThingWithIndex:[NSNumber numberWithInt:1]];
+        [(NSMutableSet *)item.things addObject:[self saveThingWithIndex:[NSNumber numberWithInt:1]]];
     }
     if ([self.shares.theThings objectAtIndex:2] != NULL) {
-        item.thing3 = [self saveThingWithIndex:[NSNumber numberWithInt:2]];
+        [(NSMutableSet *)item.things addObject:[self saveThingWithIndex:[NSNumber numberWithInt:2]]];
     }
     item.date = [dayStore getDateOnly];
     UserStore *userStore = [[UserStore alloc] init];
@@ -236,9 +237,11 @@
     if (item == NULL){
         item = [dayStore createShareDay];
     }
-    item.thing1 = [self saveThingWithIndex:[NSNumber numberWithInt:0]];
-    item.thing2 = [self saveThingWithIndex:[NSNumber numberWithInt:1]];
-    item.thing3 = [self saveThingWithIndex:[NSNumber numberWithInt:2]];
+    item.things = [NSSet setWithObjects:
+                   [self saveThingWithIndex:[NSNumber numberWithInt:0]],
+                   [self saveThingWithIndex:[NSNumber numberWithInt:1]],
+                   [self saveThingWithIndex:[NSNumber numberWithInt:2]],
+                   nil];
     item.date = [dayStore getDateOnly];
     item.user = [userStore getAuthenticatedUser];
     [dayStore saveChanges];
@@ -249,6 +252,7 @@
     Thing *thing = [thingStore createThing];
     thing.text = [[self.shares.theThings objectAtIndex:[index intValue]] objectForKey:@"text"];
     thing.localImageURL = [[self.shares.theThings objectAtIndex:[index intValue]] objectForKey:@"localImageURL"];
+    thing.index = index;
     return thing;
 }
 

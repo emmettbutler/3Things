@@ -143,16 +143,11 @@
         UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(40, j*20, frame.size.width, 20)];
         text.textAlignment = NSTextAlignmentLeft;
         NSString *thingString;
-        switch (j) {
-            case 0:
-                thingString = [[[self.userHistory objectAtIndex:indexPath.row] thing1] text];
+        for (Thing *thing in [[self.userHistory objectAtIndex:indexPath.row] things]){
+            if([thing.index intValue] == j){
+                thingString = thing.text;
                 break;
-            case 1:
-                thingString = [[[self.userHistory objectAtIndex:indexPath.row] thing2] text];
-                break;
-            case 2:
-                thingString = [[[self.userHistory objectAtIndex:indexPath.row] thing3] text];
-                break;
+            }
         }
         text.text = [NSString stringWithFormat:@"%d. %@", j+1, thingString];
         text.allowsEditingTextAttributes = NO;

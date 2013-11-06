@@ -2,14 +2,12 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F45" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="ShareDay" representedClassName="ShareDay" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="thing1" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" syncable="YES"/>
-        <relationship name="thing2" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" syncable="YES"/>
-        <relationship name="thing3" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Thing" syncable="YES"/>
         <relationship name="things" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Thing" inverseName="day" inverseEntity="Thing" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="shareDays" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Thing" representedClassName="Thing" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="localImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="day" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShareDay" inverseName="things" inverseEntity="ShareDay" syncable="YES"/>

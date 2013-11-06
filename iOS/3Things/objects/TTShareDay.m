@@ -33,21 +33,9 @@
 
 + (TTShareDay *)shareDayWithShareObject:(ShareDay *)shares {
     TTShareDay *ret = [[TTShareDay alloc] init];
-    TTLog(@"In sharedaywithshareobject: %@", shares.thing1);
-    if (shares.thing1 != NULL) {
-        NSDictionary *thing = @{@"text": shares.thing1.text, @"localImageURL": shares.thing1.localImageURL};
-        TTLog(@"loaded 1");
-        [ret.theThings replaceObjectAtIndex:0 withObject:thing];
-    }
-    if (shares.thing2 != NULL) {
-        TTLog(@"loaded 2");
-        NSDictionary *thing = @{@"text": shares.thing2.text, @"localImageURL": shares.thing2.localImageURL};
-        [ret.theThings replaceObjectAtIndex:1 withObject:thing];
-    }
-    if (shares.thing3 != NULL) {
-        TTLog(@"loaded 3");
-        NSDictionary *thing = @{@"text": shares.thing3.text, @"localImageURL": shares.thing3.localImageURL};
-        [ret.theThings replaceObjectAtIndex:2 withObject:thing];
+    for (Thing *thing in shares.things){
+        NSDictionary *newThing = @{@"text": thing.text, @"localImageURL": thing.localImageURL};
+        [ret.theThings replaceObjectAtIndex:[thing.index intValue] withObject:newThing];
     }
     [ret setDate:shares.date];
     ret.user = shares.user;

@@ -14,9 +14,6 @@
 @implementation ShareDay
 
 @dynamic date;
-@dynamic thing1;
-@dynamic thing2;
-@dynamic thing3;
 @dynamic user;
 @dynamic things;
 
