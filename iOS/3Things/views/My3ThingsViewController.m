@@ -133,11 +133,6 @@
     }
     [self.view addSubview:profilePicView];
     
-    if([self.completedThings intValue] == 3) {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
-    } else {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
-    }
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -195,6 +190,13 @@
         text = @"Share something...";
     } else {
         self.completedThings = [NSNumber numberWithInt:[self.completedThings intValue] + 1];
+        TTLog(@"Counted completed thing for day: %d", [self.completedThings intValue]);
+        if([self.completedThings intValue] == 3) {
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
+        }
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
     [thingTextView setText:text];
@@ -273,7 +275,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
