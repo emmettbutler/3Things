@@ -15,7 +15,7 @@
 typedef void (^ALAssetsLibraryAssetForURLResultBlock)(ALAsset *asset);
 typedef void (^ALAssetsLibraryAccessFailureBlock)(NSError *error);
 
-@interface My3ThingsViewController : ErrorThrowingViewController <UICollectionViewDataSource, UICollectionViewDelegate, ErrorPromptViewControllerDelegate>
+@interface My3ThingsViewController : ErrorThrowingViewController <ErrorPromptViewControllerDelegate>
 
 - (id)initWithIsCurrent:(NSNumber *)isCurrent;
 - (id)initWithShareDay:(TTShareDay *)shares;

@@ -18,6 +18,7 @@
 #import "ErrorPromptViewController.h"
 #import "TTNetManager.h"
 #import "Thing.h"
+#import "SingleDayViewController.h"
 
 @interface My3ThingsViewController ()
 
@@ -83,23 +84,19 @@
 	[navBar setFrame:frame];
 	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
-    
 	[self.view addSubview:navBar];
     
     float mainButtonHeight = 65;
     
     CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight+40, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-80);
     self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
-    UICollectionViewFlowLayout* flow = [[UICollectionViewFlowLayout alloc] init];
-    [flow setItemSize:CGSizeMake(scrollFrame.size.width, (scrollFrame.size.height)/3)];
-    UICollectionView *tableView = [[UICollectionView alloc] initWithFrame:scrollFrame collectionViewLayout:flow];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    tableView.scrollEnabled = NO;
-    [tableView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"MyReuseIdentifier"];
-    [tableView reloadData];
-    [self.view addSubview:tableView];
     
+    SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:[NSNumber numberWithBool:self.isCurrent]];
+    [self addChildViewController:dayView];
+    [self.view addSubview:dayView.view];
+    dayView.view.frame = dayView.frame;
+    [dayView didMoveToParentViewController:self];
+
     if (self.isCurrent){
         UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [shareButton addTarget:self
@@ -150,82 +147,6 @@
     [self.view addSubview:text2];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
-    return 1;
-}
-
-- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 3;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    TTLog(@"In collectionView cellForItem");
-    static NSString *MyIdentifier = @"MyReuseIdentifier";
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MyIdentifier forIndexPath:indexPath];
-    if (cell == nil) {
-        cell = [[UICollectionViewCell alloc] init];
-    }
-    
-    cell.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
-    
-    CGRect frame = cell.bounds;
-    UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
-    
-    NSString *text = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"text"];
-    if ([text isEqualToString:@""]) {
-        text = @"Share something...";
-    } else {
-        self.completedThings = [NSNumber numberWithInt:[self.completedThings intValue] + 1];
-        TTLog(@"Counted completed thing for day: %d", [self.completedThings intValue]);
-        if([self.completedThings intValue] == 3) {
-            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
-        } else {
-            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
-        }
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
-    [thingTextView setText:text];
-    [thingTextView setFont:[UIFont systemFontOfSize:20]];
-    [container addSubview:thingTextView];
-    
-    NSString *imgURL = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"localImageURL"];
-    if (![imgURL isEqualToString:@""]){
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
-         {
-             TTLog(@"thing image loaded at index %d", indexPath.row);
-             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(200, 0, 40, 40)];
-             picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
-             [container addSubview:picView];
-         }
-                failureBlock:^(NSError *error )
-         {
-             TTLog(@"Error loading thing image at index %d", indexPath.row);
-         }];
-    }
-    cell.backgroundView = container;
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return (self.tableHeight.floatValue-44)/3;
-}
-
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.errViewIsShown) return;
-    TTLog(@"Entering editor: %@", self.shares.theThings);
-    if (self.isCurrent) {
-        UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andShares:self.shares];
-        [[self navigationController] pushViewController:editView animated:YES];
-    } else {
-        ThingDetailViewController *detailView = [[ThingDetailViewController alloc] initWithThing:[self.shares.theThings objectAtIndex:indexPath.row]];
-        [[self navigationController] pushViewController:detailView animated:YES];
-    }
 }
 
 - (void)backWasTouched {
