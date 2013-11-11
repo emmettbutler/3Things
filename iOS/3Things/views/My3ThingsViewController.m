@@ -94,7 +94,7 @@
     SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:[NSNumber numberWithBool:self.isCurrent]];
     [self addChildViewController:dayView];
     [self.view addSubview:dayView.view];
-    dayView.view.frame = dayView.frame;
+    dayView.view.frame = CGRectMake(18, 90, dayView.frame.size.width, dayView.frame.size.height);
     [dayView didMoveToParentViewController:self];
 
     if (self.isCurrent){
@@ -106,45 +106,6 @@
         shareButton.frame = CGRectMake(80.0, self.screenFrame.size.height-40, 160.0, 40.0);
         [self.view addSubview:shareButton];
     }
-    
-    int imgWidth = 40;
-    NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
-    UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+25, imgWidth, 50)];
-    if (![[url absoluteString] isEqualToString:@""]) {
-        NSString *imgURL = [[userStore getAuthenticatedUser] profileImageLocalURL];
-        if (![imgURL isEqualToString:@""]){
-            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-            [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
-             {
-                 TTLog(@"Profile image loaded from %@", imgURL);
-                 profilePicView.image = [UIImage imageWithCGImage:[asset thumbnail]];
-             }
-                    failureBlock:^(NSError *error )
-             {
-                 TTLog(@"Error loading profile image");
-             }];
-        }
-    } else {
-        [profilePicView setImageWithURL:url
-                       placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
-    }
-    [self.view addSubview:profilePicView];
-    
-    CGRect headFrame = CGRectMake(0, 0, 0, 0);
-    headFrame.size = CGSizeMake(self.screenFrame.size.width*.9, 60);
-    
-    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(frame.size.width/2-headFrame.size.width/2, frame.size.height+70, headFrame.size.width, 20)];
-    text.textAlignment = NSTextAlignmentCenter;
-    text.text = [[userStore getAuthenticatedUser] name];
-    [self.view addSubview:text];
-    
-    UITextView *text2 = [[UITextView alloc] initWithFrame:CGRectMake(frame.size.width/2-headFrame.size.width/2, frame.size.height+90, headFrame.size.width, 23)];
-    text2.textAlignment = NSTextAlignmentCenter;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MM/dd"];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
-    text2.text = [formatter stringFromDate:self.shares.date];
-    [self.view addSubview:text2];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

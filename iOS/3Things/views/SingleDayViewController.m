@@ -46,12 +46,12 @@
 {
     [super viewDidLoad];
     
+    UserStore *userStore = [[UserStore alloc] init];
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
-    CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
-    CGRect scrollFrame = CGRectMake(10, 90, screenFrame.size.width*.9, 300);
-    TTLog(@"Scroll frame: (%fx%f)", scrollFrame.size.width, scrollFrame.size.height);
-    self.frame = scrollFrame;
+    CGRect myFrame = CGRectMake(10, 70, 280, 420);
+    CGRect scrollFrame = CGRectMake(10, 100, myFrame.size.width*.9, myFrame.size.height-100);
+    self.frame = myFrame;
 
     UICollectionViewFlowLayout* flow = [[UICollectionViewFlowLayout alloc] init];
     [flow setItemSize:CGSizeMake(scrollFrame.size.width, (scrollFrame.size.height)/3)];
@@ -62,6 +62,47 @@
     [tableView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"MyReuseIdentifier"];
     [tableView reloadData];
     [self.view addSubview:tableView];
+    
+    CGRect headFrame = CGRectMake(0, 0, 0, 0);
+    headFrame.size = CGSizeMake(myFrame.size.width*.9, 60);
+    
+    int imgWidth = 40;
+    NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
+    UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(myFrame.size.width/2-imgWidth/2, 0, imgWidth, 50)];
+    if (![[url absoluteString] isEqualToString:@""]) {
+        NSString *imgURL = [[userStore getAuthenticatedUser] profileImageLocalURL];
+        if (![imgURL isEqualToString:@""]){
+            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+            [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
+             {
+                 TTLog(@"Profile image loaded from %@", imgURL);
+                 profilePicView.image = [UIImage imageWithCGImage:[asset thumbnail]];
+             }
+                    failureBlock:^(NSError *error )
+             {
+                 TTLog(@"Error loading profile image");
+             }];
+        }
+    } else {
+        [profilePicView setImageWithURL:url
+                       placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    }
+    [self.view addSubview:profilePicView];
+    
+    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 50, myFrame.size.width, 20)];
+    text.textAlignment = NSTextAlignmentCenter;
+    text.text = [[userStore getAuthenticatedUser] name];
+    text.editable = NO;
+    [self.view addSubview:text];
+    
+    UITextView *text2 = [[UITextView alloc] initWithFrame:CGRectMake(0, 70, myFrame.size.width, 20)];
+    text2.textAlignment = NSTextAlignmentCenter;
+    text2.editable = NO;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM/dd"];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    text2.text = [formatter stringFromDate:self.shares.date];
+    [self.view addSubview:text2];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
