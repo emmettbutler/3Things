@@ -64,8 +64,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    UserStore *userStore = [[UserStore alloc] init];
 	
     self.navigationController.navigationBarHidden = NO;
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
@@ -106,8 +104,6 @@
         shareButton.frame = CGRectMake(80.0, self.screenFrame.size.height-40, 160.0, 40.0);
         [self.view addSubview:shareButton];
     }
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)backWasTouched {
