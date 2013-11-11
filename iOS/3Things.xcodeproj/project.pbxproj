@@ -30,7 +30,6 @@
 		AABB2EC418006FD600EEA446 /* SignupCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB618006FD600EEA446 /* SignupCodeViewController.m */; };
 		AABB2EC518006FD600EEA446 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB818006FD600EEA446 /* SplashViewController.m */; };
 		AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EBB18006FD600EEA446 /* TTShareDay.m */; };
-		AABB2EC718006FD600EEA446 /* TTSharesAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EBD18006FD600EEA446 /* TTSharesAccessor.m */; };
 		AABB2ECB18007A3500EEA446 /* UserHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2ECA18007A3500EEA446 /* UserHistoryViewController.m */; };
 		AABB2F111800A43600EEA446 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABB2F101800A43600EEA446 /* CoreData.framework */; };
 		AABB2F141800ADA000EEA446 /* 3Things.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AABB2F121800ADA000EEA446 /* 3Things.xcdatamodeld */; };
@@ -92,8 +91,6 @@
 		AABB2EB818006FD600EEA446 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		AABB2EBA18006FD600EEA446 /* TTShareDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTShareDay.h; sourceTree = "<group>"; };
 		AABB2EBB18006FD600EEA446 /* TTShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTShareDay.m; sourceTree = "<group>"; };
-		AABB2EBC18006FD600EEA446 /* TTSharesAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSharesAccessor.h; sourceTree = "<group>"; };
-		AABB2EBD18006FD600EEA446 /* TTSharesAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSharesAccessor.m; sourceTree = "<group>"; };
 		AABB2EC918007A3500EEA446 /* UserHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHistoryViewController.h; sourceTree = "<group>"; };
 		AABB2ECA18007A3500EEA446 /* UserHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHistoryViewController.m; sourceTree = "<group>"; };
 		AABB2F101800A43600EEA446 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -200,8 +197,6 @@
 				AA0910611801BDA100F9D8B8 /* UserStore.m */,
 				AABB2EBA18006FD600EEA446 /* TTShareDay.h */,
 				AABB2EBB18006FD600EEA446 /* TTShareDay.m */,
-				AABB2EBC18006FD600EEA446 /* TTSharesAccessor.h */,
-				AABB2EBD18006FD600EEA446 /* TTSharesAccessor.m */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -334,7 +329,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA9A8535180331D00071FD38 /* ThingDetailViewController.m in Sources */,
-				AABB2EC718006FD600EEA446 /* TTSharesAccessor.m in Sources */,
 				AA1E52E0182AEB3E000EBBBA /* ShareDay.m in Sources */,
 				AAF28C5C17DAA90A0067FD79 /* main.m in Sources */,
 				AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */,

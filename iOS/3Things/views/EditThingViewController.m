@@ -9,7 +9,6 @@
 #import "EditThingViewController.h"
 #import "UserHistoryViewController.h"
 #import "My3ThingsViewController.h"
-#import "TTSharesAccessor.h"
 #import "ThingStore.h"
 #import "ShareDayStore.h"
 #import "UserStore.h"

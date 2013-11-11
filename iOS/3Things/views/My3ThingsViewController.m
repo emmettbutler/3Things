@@ -64,8 +64,6 @@
 {
     [super viewDidLoad];
     
-    self.accessor = [[TTSharesAccessor alloc] init];
-    
     UserStore *userStore = [[UserStore alloc] init];
 	
     self.navigationController.navigationBarHidden = NO;

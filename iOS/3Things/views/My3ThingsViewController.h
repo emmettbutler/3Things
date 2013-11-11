@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTSharesAccessor.h"
 #import "TTShareDay.h"
 #import "ErrorPromptViewController.h"
 #import "ErrorThrowingViewController.h"
@@ -24,7 +23,6 @@ typedef void (^ALAssetsLibraryAccessFailureBlock)(NSError *error);
 
 @property (nonatomic, retain) TTShareDay *shares;
 @property (nonatomic) BOOL isCurrent;
-@property (nonatomic, retain) TTSharesAccessor *accessor;
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic, retain) NSNumber *tableHeight;
 @property (nonatomic) NSNumber *completedThings;
