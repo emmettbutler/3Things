@@ -7,6 +7,7 @@
 //
 
 #import "SingleDayViewController.h"
+#import "UserStore.h"
 
 @interface SingleDayViewController ()
 
@@ -14,25 +15,15 @@
 
 @implementation SingleDayViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    UserStore *userStore = [[UserStore alloc] init];
+    self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    
+    CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
+    self.frame = CGRectMake(0, 50+(screenFrame.size.height/2), screenFrame.size.width, 100);
 }
 
 @end

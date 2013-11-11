@@ -88,13 +88,17 @@
     
     float mainButtonHeight = 65;
     
-    CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-50);
+    CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight+40, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-80);
     self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
-    UITableView *tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    UICollectionViewFlowLayout* flow = [[UICollectionViewFlowLayout alloc] init];
+    [flow setItemSize:CGSizeMake(scrollFrame.size.width, (scrollFrame.size.height)/3)];
+    UICollectionView *tableView = [[UICollectionView alloc] initWithFrame:scrollFrame collectionViewLayout:flow];
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.scrollEnabled = NO;
+    [tableView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"MyReuseIdentifier"];
     [tableView reloadData];
+    [self.view addSubview:tableView];
     
     if (self.isCurrent){
         UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -105,8 +109,6 @@
         shareButton.frame = CGRectMake(80.0, self.screenFrame.size.height-40, 160.0, 40.0);
         [self.view addSubview:shareButton];
     }
-    
-    [self.view addSubview:tableView];
     
     int imgWidth = 40;
     NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
@@ -131,54 +133,43 @@
     }
     [self.view addSubview:profilePicView];
     
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 44.0;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UITableViewHeaderFooterView *header = [[UITableViewHeaderFooterView alloc] init];
+    CGRect headFrame = CGRectMake(0, 0, 0, 0);
+    headFrame.size = CGSizeMake(self.screenFrame.size.width*.9, 60);
     
-    CGRect frame = CGRectMake(0, 0, 0, 0);
-    frame.size = CGSizeMake(self.screenFrame.size.width*.9, 60);
-    
-    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 20)];
+    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(frame.size.width/2-headFrame.size.width/2, frame.size.height+70, headFrame.size.width, 20)];
     text.textAlignment = NSTextAlignmentCenter;
-    UserStore *userStore = [[UserStore alloc] init];
     text.text = [[userStore getAuthenticatedUser] name];
-    [header addSubview:text];
+    [self.view addSubview:text];
     
-    UITextView *text2 = [[UITextView alloc] initWithFrame:CGRectMake(0, 20, frame.size.width, 23)];
+    UITextView *text2 = [[UITextView alloc] initWithFrame:CGRectMake(frame.size.width/2-headFrame.size.width/2, frame.size.height+90, headFrame.size.width, 23)];
     text2.textAlignment = NSTextAlignmentCenter;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM/dd"];
     [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
     text2.text = [formatter stringFromDate:self.shares.date];
-    [header addSubview:text2];
+    [self.view addSubview:text2];
     
-    return header;
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 3;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (self.tableHeight.floatValue-44)/3;
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TTLog(@"In collectionView cellForItem");
     static NSString *MyIdentifier = @"MyReuseIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MyIdentifier forIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
+        cell = [[UICollectionViewCell alloc] init];
     }
+    
+    cell.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
@@ -211,7 +202,7 @@
              picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
              [container addSubview:picView];
          }
-        failureBlock:^(NSError *error )
+                failureBlock:^(NSError *error )
          {
              TTLog(@"Error loading thing image at index %d", indexPath.row);
          }];
@@ -220,9 +211,13 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return (self.tableHeight.floatValue-44)/3;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.errViewIsShown) return;
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TTLog(@"Entering editor: %@", self.shares.theThings);
     if (self.isCurrent) {
         UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andShares:self.shares];

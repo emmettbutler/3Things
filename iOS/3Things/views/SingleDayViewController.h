@@ -10,4 +10,6 @@
 
 @interface SingleDayViewController : UIViewController
 
+@property (nonatomic) CGRect frame;
+
 @end
