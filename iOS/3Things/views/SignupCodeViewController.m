@@ -7,7 +7,7 @@
 //
 
 #import "SignupCodeViewController.h"
-#import "DayListViewController.h"
+#import "FriendFeedViewController.h"
 #import "My3ThingsViewController.h"
 #import "UserStore.h"
 #import "SplashViewController.h"

@@ -98,7 +98,7 @@
     tableView.dataSource = self;
     [tableView reloadData];
     
-    if (self.isCurrent /*&& [self hasEnteredAllThings]*/){
+    if (self.isCurrent){
         UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [shareButton addTarget:self
                         action:@selector(shareWasTouched)

@@ -20,12 +20,12 @@
 		AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */; };
 		AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */; };
 		AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E13661803579B00D65980 /* BottomNavViewController.m */; };
+		AA7E5503183188F500D7DE8C /* SingleDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7E5502183188F500D7DE8C /* SingleDayViewController.m */; };
 		AA98E1C4182851E80045F827 /* TTNetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA98E1C3182851E80045F827 /* TTNetManager.m */; };
 		AA9A8535180331D00071FD38 /* ThingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9A8534180331D00071FD38 /* ThingDetailViewController.m */; };
 		AABAA1F018144437004547EE /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABAA1EF18144437004547EE /* SDWebImage.framework */; };
-		AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EAE18006FD600EEA446 /* DayListViewController.m */; };
+		AABB2EC018006FD600EEA446 /* FriendFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EAE18006FD600EEA446 /* FriendFeedViewController.m */; };
 		AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB018006FD600EEA446 /* EditThingViewController.m */; };
-		AABB2EC218006FD600EEA446 /* FriendsDayListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB218006FD600EEA446 /* FriendsDayListViewController.m */; };
 		AABB2EC318006FD600EEA446 /* My3ThingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB418006FD600EEA446 /* My3ThingsViewController.m */; };
 		AABB2EC418006FD600EEA446 /* SignupCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB618006FD600EEA446 /* SignupCodeViewController.m */; };
 		AABB2EC518006FD600EEA446 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB818006FD600EEA446 /* SplashViewController.m */; };
@@ -73,17 +73,17 @@
 		AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorThrowingViewController.m; sourceTree = "<group>"; };
 		AA4E13651803579B00D65980 /* BottomNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomNavViewController.h; sourceTree = "<group>"; };
 		AA4E13661803579B00D65980 /* BottomNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomNavViewController.m; sourceTree = "<group>"; };
+		AA7E5501183188F500D7DE8C /* SingleDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleDayViewController.h; sourceTree = "<group>"; };
+		AA7E5502183188F500D7DE8C /* SingleDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleDayViewController.m; sourceTree = "<group>"; };
 		AA98E1C2182851E80045F827 /* TTNetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetManager.h; sourceTree = "<group>"; };
 		AA98E1C3182851E80045F827 /* TTNetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNetManager.m; sourceTree = "<group>"; };
 		AA9A8533180331D00071FD38 /* ThingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingDetailViewController.h; sourceTree = "<group>"; };
 		AA9A8534180331D00071FD38 /* ThingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThingDetailViewController.m; sourceTree = "<group>"; };
 		AABAA1EF18144437004547EE /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
-		AABB2EAD18006FD600EEA446 /* DayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayListViewController.h; sourceTree = "<group>"; };
-		AABB2EAE18006FD600EEA446 /* DayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayListViewController.m; sourceTree = "<group>"; };
+		AABB2EAD18006FD600EEA446 /* FriendFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendFeedViewController.h; sourceTree = "<group>"; };
+		AABB2EAE18006FD600EEA446 /* FriendFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendFeedViewController.m; sourceTree = "<group>"; };
 		AABB2EAF18006FD600EEA446 /* EditThingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditThingViewController.h; sourceTree = "<group>"; };
 		AABB2EB018006FD600EEA446 /* EditThingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditThingViewController.m; sourceTree = "<group>"; };
-		AABB2EB118006FD600EEA446 /* FriendsDayListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsDayListViewController.h; sourceTree = "<group>"; };
-		AABB2EB218006FD600EEA446 /* FriendsDayListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsDayListViewController.m; sourceTree = "<group>"; };
 		AABB2EB318006FD600EEA446 /* My3ThingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = My3ThingsViewController.h; sourceTree = "<group>"; };
 		AABB2EB418006FD600EEA446 /* My3ThingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = My3ThingsViewController.m; sourceTree = "<group>"; };
 		AABB2EB518006FD600EEA446 /* SignupCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupCodeViewController.h; sourceTree = "<group>"; };
@@ -151,8 +151,8 @@
 			children = (
 				AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */,
 				AA230A011809BA620025BCF5 /* ErrorPromptViewController.h */,
-				AABB2EAD18006FD600EEA446 /* DayListViewController.h */,
-				AABB2EAE18006FD600EEA446 /* DayListViewController.m */,
+				AABB2EAD18006FD600EEA446 /* FriendFeedViewController.h */,
+				AABB2EAE18006FD600EEA446 /* FriendFeedViewController.m */,
 				AABB2EC918007A3500EEA446 /* UserHistoryViewController.h */,
 				AABB2ECA18007A3500EEA446 /* UserHistoryViewController.m */,
 				AABB2EAF18006FD600EEA446 /* EditThingViewController.h */,
@@ -163,10 +163,10 @@
 				AA0910A11801D2C700F9D8B8 /* PhotoPromptViewController.m */,
 				AA4E13651803579B00D65980 /* BottomNavViewController.h */,
 				AA4E13661803579B00D65980 /* BottomNavViewController.m */,
-				AABB2EB118006FD600EEA446 /* FriendsDayListViewController.h */,
-				AABB2EB218006FD600EEA446 /* FriendsDayListViewController.m */,
 				AABB2EB318006FD600EEA446 /* My3ThingsViewController.h */,
 				AABB2EB418006FD600EEA446 /* My3ThingsViewController.m */,
+				AA7E5501183188F500D7DE8C /* SingleDayViewController.h */,
+				AA7E5502183188F500D7DE8C /* SingleDayViewController.m */,
 				AA230A031809BB0D0025BCF5 /* ErrorThrowingViewController.h */,
 				AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */,
 				AABB2EB518006FD600EEA446 /* SignupCodeViewController.h */,
@@ -343,16 +343,16 @@
 				AA1E52D1182AE49F000EBBBA /* User.m in Sources */,
 				AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */,
 				AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */,
-				AABB2EC018006FD600EEA446 /* DayListViewController.m in Sources */,
+				AABB2EC018006FD600EEA446 /* FriendFeedViewController.m in Sources */,
 				AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */,
 				AA98E1C4182851E80045F827 /* TTNetManager.m in Sources */,
 				AABB2EC518006FD600EEA446 /* SplashViewController.m in Sources */,
 				AABB2F1D1800B0F600EEA446 /* ShareDayStore.m in Sources */,
-				AABB2EC218006FD600EEA446 /* FriendsDayListViewController.m in Sources */,
 				AABB2EC418006FD600EEA446 /* SignupCodeViewController.m in Sources */,
 				AA0910621801BDA100F9D8B8 /* UserStore.m in Sources */,
 				AA0910A21801D2C700F9D8B8 /* PhotoPromptViewController.m in Sources */,
 				AABB2F141800ADA000EEA446 /* 3Things.xcdatamodeld in Sources */,
+				AA7E5503183188F500D7DE8C /* SingleDayViewController.m in Sources */,
 				AAF46B43180C97A300FE79A9 /* LoginTypePickerViewController.m in Sources */,
 				AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */,
 				AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */,

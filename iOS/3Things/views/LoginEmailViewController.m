@@ -7,7 +7,7 @@
 //
 
 #import "LoginEmailViewController.h"
-#import "DayListViewController.h"
+#import "FriendFeedViewController.h"
 #import "My3ThingsViewController.h"
 #import "UserStore.h"
 
@@ -77,7 +77,7 @@
         [self setModalPresentationStyle:UIModalPresentationPageSheet];
         UIViewController *viewController;
         if ([[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kDayComplete]] boolValue] == YES) {
-            viewController = [[DayListViewController alloc] init];
+            viewController = [[FriendFeedViewController alloc] init];
         } else {
             viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];
         }

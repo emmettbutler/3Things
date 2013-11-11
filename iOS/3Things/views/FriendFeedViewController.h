@@ -1,5 +1,5 @@
 //
-//  FriendsDayListViewController.h
+//  FriendFeedViewController.h
 //  3Things
 //
 //  Created by Emmett Butler on 9/7/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FriendsDayListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface FriendFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

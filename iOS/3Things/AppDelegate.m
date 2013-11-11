@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "LoginTypePickerViewController.h"
 #import "My3ThingsViewController.h"
-#import "DayListViewController.h"
+#import "FriendFeedViewController.h"
 #import "UserStore.h"
 #import "User.h"
 #import "TTNetManager.h"
@@ -32,7 +32,7 @@
         BOOL dayComplete = [[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kDayComplete]] boolValue];
         TTLog(@"DayComplete: %d", dayComplete);
         if (dayComplete == YES) {
-            self.viewController = [[DayListViewController alloc] init];
+            self.viewController = [[FriendFeedViewController alloc] init];
         } else {
             self.viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];
         }

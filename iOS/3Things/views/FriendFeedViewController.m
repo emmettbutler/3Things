@@ -1,20 +1,19 @@
 //
-//  DayListViewController.m
+//  FriendFeedViewController.m
 //  3Things
 //
 //  Created by Emmett Butler on 9/7/13.
 //  Copyright (c) 2013 Emmett Butler. All rights reserved.
 //
 
-#import "DayListViewController.h"
-#import "FriendsDayListViewController.h"
+#import "FriendFeedViewController.h"
 #import "My3ThingsViewController.h"
 
-@interface DayListViewController ()
+@interface FriendFeedViewController ()
 
 @end
 
-@implementation DayListViewController
+@implementation FriendFeedViewController
 
 - (void)viewDidLoad
 {
@@ -86,9 +85,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    UIViewController *friendsView = [[FriendsDayListViewController alloc] init];
-    [[self navigationController] pushViewController:friendsView animated:YES];
 }
 
 -(void) shareWasTouched {
