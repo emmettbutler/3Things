@@ -8,6 +8,7 @@
 
 #import "FriendFeedViewController.h"
 #import "My3ThingsViewController.h"
+#import "SingleDayViewController.h"
 
 @interface FriendFeedViewController ()
 
@@ -36,23 +37,21 @@
     
 	[self.view addSubview:navBar];
     
-    float mainButtonHeight = 120;
-    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [shareButton addTarget:self
-               action:@selector(shareWasTouched)
-     forControlEvents:UIControlEventTouchDown];
-    [shareButton setTitle:@"Share your 3 things" forState:UIControlStateNormal];
-    shareButton.frame = CGRectMake(80.0, frame.size.height+40, 160.0, 40.0);
-    [self.view addSubview:shareButton];
+    CGRect scrollFrame = CGRectMake(0, frame.size.height+10, frame.size.width, screenFrame.size.height-frame.size.height);
+    self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.allowsSelection = NO;
+    [self.tableView reloadData];
+    [self.view addSubview:self.tableView];
     
-    CGRect scrollFrame = CGRectMake(0, frame.size.height+mainButtonHeight, frame.size.width, screenFrame.size.height-frame.size.height-mainButtonHeight);
-    UITableView *tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    [tableView reloadData];
-    
-    [self.view addSubview:tableView];
+    BottomNavViewController *navViewController = [[BottomNavViewController alloc] init];
+    navViewController.navDelegate = self;
+    [self addChildViewController:navViewController];
+    [self.view addSubview:navViewController.view];
+    navViewController.view.frame = CGRectMake(0, screenFrame.size.height-30, screenFrame.size.width, 50);
+    [navViewController didMoveToParentViewController:self];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -60,16 +59,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Number of rows is the number of time zones in the region for the specified section.
-    return 6;
+    return 2;
 }
 
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    // The header for the section is the region name -- get this from the region at the section index.
-    return @"See Who Shared";
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 700;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *MyIdentifier = @"MyReuseIdentifier";
@@ -77,17 +72,22 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
     }
-    cell.textLabel.text = @"Date";
-    // add images for friends
-    //[cell addSubview:[[UIImageView alloc] initWithImage: ]];
+    CGRect frame = cell.bounds;
+    UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
+    
+    SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:nil andIsCurrent:[NSNumber numberWithBool:YES]];
+    [self addChildViewController:dayView];
+    [container addSubview:dayView.view];
+    dayView.view.frame = CGRectMake(0, 0, dayView.frame.size.width, frame.size.height);
+    [dayView didMoveToParentViewController:self];
+    
+    [container addSubview:dayView.view];
+    
+    cell.backgroundView = container;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
--(void) shareWasTouched {
+-(void) reviewWasTouched {
     [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]] animated:YES];
 }
 

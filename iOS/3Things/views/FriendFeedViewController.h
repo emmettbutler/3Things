@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BottomNavViewController.h"
 
-@interface FriendFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface FriendFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, BottomNavViewControllerDelegate>
+
+@property (nonatomic, retain) UITableView *tableView;
 
 @end
