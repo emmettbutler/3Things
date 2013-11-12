@@ -10,7 +10,9 @@ def get_app():
         (r"/register", controllers_main.RegistrationHandler),
         (r"/login", controllers_main.LoginHandler),
         (r"/users/([^\/]+)", controllers_main.UserController),
-        (r"/users/([^\/]+)/days", controllers_main.DayController),
+        (r"/users/([^\/]+)/friends", controllers_main.UserFriendsController),
+        (r"/users/([^\/]+)/friends/([^\/]+)", controllers_main.UserFriendController),
+        (r"/users/([^\/]+)/days", controllers_main.UserDaysController),
         (r"/days", controllers_main.DaysController)
     ])
     application.dbclient = MongoClient('localhost', 27017)

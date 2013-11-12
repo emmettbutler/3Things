@@ -43,6 +43,11 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
             except StopIteration:
                 raise tornado.web.HTTPError(401, "Invalid access token")
 
+    def _user_response(self, user_id):
+        db = self.application.dbclient.three_things
+        user = list(db.users.find({'_id': user_id}))[0]
+        return {'name': user['name']}
+
 
 class RegistrationHandler(Base3ThingsHandler):
     @coroutine
@@ -174,12 +179,11 @@ class DaysController(Base3ThingsHandler):
         db = self.application.dbclient.three_things
         history = list(db.days.find().limit(20).sort("date", -1))
         for item in history:
-            user = list(db.users.find({'_id': item['user']}))[0]
-            item['user'] = {'name': user['name']}
+            item['user'] = self._user_response(item['user'])
         return history
 
 
-class DayController(Base3ThingsHandler):
+class UserDaysController(Base3ThingsHandler):
     @coroutine
     @authenticated
     def get(self, user_id):
@@ -252,3 +256,19 @@ class DayController(Base3ThingsHandler):
 class UserController(Base3ThingsHandler):
     def get(self, user_id):
         self.write(user_id)
+
+
+class UserFriendsController(Base3ThingsHandler):
+    def get(self, user_id):
+        # get all friends
+        pass
+
+
+class UserFriendController(Base3ThingsHandler):
+    def put(self, user_id):
+        # add friend
+        pass
+
+    def delete(self, user_id):
+        # remove friend
+        pass
