@@ -315,6 +315,7 @@ class UserFriendController(Base3ThingsHandler):
         self.set_status(200)
         self.finish()
 
+    # TODO - friending should be a two-way relationship??
     @coroutine
     def _add_friend_for_user(self, user_id, friend_id):
         db = self.application.dbclient.three_things
