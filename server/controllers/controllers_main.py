@@ -158,6 +158,23 @@ class LoginHandler(Base3ThingsHandler):
         return hsh == manager.get_hexdigest(algo, salt, _raw_password)
 
 
+class DaysController(Base3ThingsHandler):
+    @coroutine
+    @authenticated
+    def get(self):
+        history = yield self._get_friend_feed(self.cur_user['_id'])
+        ret = {"history": history}
+        self.set_status(200)
+        self._send_response(ret)
+
+    @coroutine
+    def _get_friend_feed(self, for_user):
+        # TODO - only return user posts that are from friends
+        db = self.application.dbclient.three_things
+        history = db.days.find()
+        return history
+
+
 class DayController(Base3ThingsHandler):
     @coroutine
     @authenticated
