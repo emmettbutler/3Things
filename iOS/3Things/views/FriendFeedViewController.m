@@ -9,6 +9,8 @@
 #import "FriendFeedViewController.h"
 #import "My3ThingsViewController.h"
 #import "SingleDayViewController.h"
+#import "TTNetManager.h"
+#import "UserStore.h"
 
 @interface FriendFeedViewController ()
 
@@ -36,6 +38,10 @@
 	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
     
 	[self.view addSubview:navBar];
+    
+    UserStore *userStore = [[UserStore alloc] init];
+    [TTNetManager sharedInstance].netDelegate = self;
+    [[TTNetManager sharedInstance] getFriendFeedForUser:[NSString stringWithFormat:@"%d", [[userStore getAuthenticatedUser].identifier intValue]]];
     
     CGRect scrollFrame = CGRectMake(0, frame.size.height+10, frame.size.width, screenFrame.size.height-frame.size.height);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
@@ -88,8 +94,10 @@
     }
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
-        
-    SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:nil andIsCurrent:[NSNumber numberWithBool:YES]];
+    
+    TTShareDay *shareDay = [[TTShareDay alloc] initWithSharesDictionary:
+                            [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:indexPath.row]];
+    SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:shareDay andIsCurrent:[NSNumber numberWithBool:YES]];
     [self addChildViewController:dayView];
     [container addSubview:dayView.view];
     dayView.view.frame = CGRectMake(0, 0, dayView.frame.size.width, frame.size.height);

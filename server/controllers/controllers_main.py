@@ -163,6 +163,7 @@ class DaysController(Base3ThingsHandler):
     @authenticated
     def get(self):
         history = yield self._get_friend_feed(self.cur_user['_id'])
+        print "Sending friend feed for user %s" % self.cur_user['_id']
         ret = {"history": history}
         self.set_status(200)
         self._send_response(ret)

@@ -37,6 +37,7 @@ typedef enum _kStorage {
 -(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data authorized:(BOOL)auth;
 -(void)registerUser:(NSString *)email withName:(NSString *)uname andPassword:(NSString *)pw andPasswordConf:(NSString *)pwConf;
 -(void)loginUser:(NSString *)email withPassword:(NSString *)pw;
+-(void)getFriendFeedForUser:(NSString *)userID;
 -(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID;
 
 @property (nonatomic, retain) NSString *currentAccessToken;

@@ -21,6 +21,7 @@
 {
     self = [super init];
     if (self) {
+        self.theThings = [[NSMutableArray alloc] initWithCapacity:3];
         if (shares == nil){
             NSCalendar* myCalendar = [NSCalendar currentCalendar];
             NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
@@ -29,15 +30,18 @@
             [components setMinute: 0];
             [components setSecond: 0];
             self.date = [myCalendar dateFromComponents:components];
-            self.theThings = [[NSMutableArray alloc] initWithCapacity:3];
             for (int i = 0; i < 3; i++) {
                 [self.theThings addObject:@{@"text": @"", @"localImageURL": @""}];
             }
         } else {
-            //self.date = /* parse date from shares */;
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            self.date = [dateFormatter dateFromString:[shares objectForKey:@"date"]];
             for (int i = 0; i < 3; i++){
-                // add each list item to self.theThings, after some munging
+                [self.theThings addObject:[[shares objectForKey:@"things"] objectAtIndex:i]];
             }
+            TTLog(@"Constructed day from dictionary: %@", self.theThings);
         }
     }
     return self;
