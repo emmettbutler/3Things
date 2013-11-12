@@ -172,7 +172,7 @@ class DaysController(Base3ThingsHandler):
         # TODO - only return user posts that are from friends
         db = self.application.dbclient.three_things
         history = db.days.find()
-        return history
+        return list(history)
 
 
 class DayController(Base3ThingsHandler):
