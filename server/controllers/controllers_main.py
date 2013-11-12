@@ -172,7 +172,7 @@ class DaysController(Base3ThingsHandler):
     def _get_friend_feed(self, for_user):
         # TODO - only return user posts that are from friends
         db = self.application.dbclient.three_things
-        history = db.days.find().sort("date", -1)
+        history = db.days.find().limit(20).sort("date", -1)
         return list(history)
 
 
