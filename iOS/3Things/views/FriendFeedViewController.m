@@ -73,6 +73,11 @@
                               error:&jsonError];
         TTLog(@"json response: %@", json);
         self.feedData = json;
+        for (int i = 0; i < [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] count]; i++){
+            TTShareDay *shareDay = [[TTShareDay alloc] initWithSharesDictionary:
+                                    [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:i]];
+            [self.parsedFeed addObject:shareDay];
+        }
         [self.tableView reloadData];
     }
 }
@@ -102,10 +107,10 @@
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     
-    TTShareDay *shareDay = [[TTShareDay alloc] initWithSharesDictionary:
-                            [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:indexPath.row]];
-    [self.parsedFeed insertObject:shareDay atIndex:indexPath.row];
-    SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:shareDay andIsCurrent:[NSNumber numberWithBool:YES]];
+    if (self.feedData == nil) return cell;
+    
+    SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:
+                                        [self.parsedFeed objectAtIndex:indexPath.row] andIsCurrent:[NSNumber numberWithBool:YES]];
     [self addChildViewController:dayView];
     [container addSubview:dayView.view];
     dayView.view.frame = CGRectMake(0, 0, dayView.frame.size.width, frame.size.height);
