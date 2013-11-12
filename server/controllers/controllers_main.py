@@ -181,7 +181,12 @@ class DaysController(Base3ThingsHandler):
     def _get_friend_feed(self, for_user):
         # TODO - only return user posts that are from friends
         db = self.application.dbclient.three_things
-        history = list(db.days.find().limit(20).sort("date", -1))
+        user = list(db.users.find({'_id': for_user}))
+        if len(user) == 0:
+            raise tornado.web.HTTPError(400, "User %s not found" % for_user)
+        friends = user['friends'] if 'friends' in user else []
+        cond = {'user': {"$in": friends + [for_user]}}
+        history = list(db.days.find(cond).limit(20).sort("date", -1))
         for item in history:
             item['user'] = self._user_response(item['user'])
         return history
