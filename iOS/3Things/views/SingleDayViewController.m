@@ -71,9 +71,9 @@
     int imgWidth = 40;
     NSURL *url = [NSURL URLWithString:[self.user profileImageURL]];
     UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(myFrame.size.width/2-imgWidth/2, 0, imgWidth, 50)];
-    if (![[url absoluteString] isEqualToString:@""]) {
+    if (![[url absoluteString] isEqualToString:@""] && url != NULL) {
         NSString *imgURL = [self.user profileImageLocalURL];
-        if (![imgURL isEqualToString:@""]){
+        if (![imgURL isEqualToString:@""] && imgURL != NULL){
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
             [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
              {

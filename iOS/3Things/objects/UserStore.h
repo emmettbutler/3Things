@@ -14,6 +14,7 @@
 - (NSArray *)allUsers;
 - (User *)createUser:(NSString *)uid withName:(NSString *)name andLocalImgURL:(NSString *)localProfImgURL;
 - (User *)getAuthenticatedUser;
+- (User *)newUserFromDictionary:(NSDictionary *)userDict;
 + (void)initCurrentUser;
 + (void)initCurrentUserWithImage:(NSString *)imageURL
                         andEmail:(NSString *)email

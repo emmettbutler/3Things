@@ -11,6 +11,12 @@
 
 @implementation UserStore
 
+-(User *)newUserFromDictionary:(NSDictionary *)userDict {
+    NSManagedObject *user = [self createItem:@"User"];
+    ((User *)user).name = [userDict objectForKey:@"name"];
+    return (User *)user;
+}
+
 - (User *)createUser:(NSString *)uid withName:(NSString *)name andLocalImgURL:(NSString *)localProfImgURL
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@)", uid];

@@ -74,9 +74,14 @@
         TTLog(@"json response: %@", json);
         self.feedData = json;
         for (int i = 0; i < [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] count]; i++){
+            NSMutableDictionary *dayAndUser = [[NSMutableDictionary alloc] init];
             TTShareDay *shareDay = [[TTShareDay alloc] initWithSharesDictionary:
                                     [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:i]];
-            [self.parsedFeed addObject:shareDay];
+            [dayAndUser setObject:shareDay forKey:@"day"];
+            UserStore *userStore = [[UserStore alloc] init];
+            User *user = [userStore newUserFromDictionary:[[[[self.feedData objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:i] objectForKey:@"user"]];
+            [dayAndUser setObject:user forKey:@"user"];
+            [self.parsedFeed addObject:dayAndUser];
         }
         [self.tableView reloadData];
     }
@@ -109,9 +114,9 @@
     
     if (self.feedData == nil) return cell;
     
-    UserStore *userStore = [[UserStore alloc] init];
+    NSMutableDictionary *dayAndUser = [self.parsedFeed objectAtIndex:indexPath.row];
     SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:
-                                        [self.parsedFeed objectAtIndex:indexPath.row] andIsCurrent:[NSNumber numberWithBool:YES] andUser:[userStore getAuthenticatedUser]];
+                                        [dayAndUser objectForKey:@"day"] andIsCurrent:[NSNumber numberWithBool:YES] andUser:[dayAndUser objectForKey:@"user"]];
     [self addChildViewController:dayView];
     [container addSubview:dayView.view];
     dayView.view.frame = CGRectMake(0, 0, dayView.frame.size.width, frame.size.height);
@@ -126,12 +131,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    TTLog(@"Opening detail view: %@", [self.parsedFeed objectAtIndex:indexPath.row]);
-    UserStore *userStore = [[UserStore alloc] init];
-    User *thisUser = [userStore getAuthenticatedUser];
+     NSMutableDictionary *dayAndUser = [self.parsedFeed objectAtIndex:indexPath.row];
     [[self navigationController] pushViewController:
-     [[My3ThingsViewController alloc] initWithShareDay:[self.parsedFeed objectAtIndex:indexPath.row]
-                                          andIsCurrent:[NSNumber numberWithBool:NO] andUser:thisUser]
+     [[My3ThingsViewController alloc] initWithShareDay:[dayAndUser objectForKey:@"day"]
+                                          andIsCurrent:[NSNumber numberWithBool:NO]
+                                               andUser:[dayAndUser objectForKey:@"user"]]
                                            animated:YES];
 }
 
