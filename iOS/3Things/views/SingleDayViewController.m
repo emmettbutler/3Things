@@ -23,20 +23,23 @@
 @implementation SingleDayViewController
 
 - (id)initWithIsCurrent:(NSNumber *)isCurrent {
-    return [self initWithShareDay:NULL andIsCurrent:isCurrent];
+    UserStore *userStore = [[UserStore alloc] init];
+    return [self initWithShareDay:NULL andIsCurrent:isCurrent andUser:[userStore getAuthenticatedUser]];
 }
 
 - (id)initWithShareDay:(TTShareDay *)shares {
-    return [self initWithShareDay:shares andIsCurrent:[NSNumber numberWithBool:NO]];
+    UserStore *userStore = [[UserStore alloc] init];
+    return [self initWithShareDay:shares andIsCurrent:[NSNumber numberWithBool:NO] andUser:[userStore getAuthenticatedUser]];
 }
 
--(id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent
+-(id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user
 {
     self = [super init];
     if (self) {
         self.isCurrent = [isCurrent boolValue];
         self.completedThings = [NSNumber numberWithInt:self.isCurrent ? 0 : 3];
         self.shares = shares;
+        self.user = user;
         TTLog(@"Entering single day view: %@", self.shares.theThings);
     }
     return self;
@@ -46,7 +49,6 @@
 {
     [super viewDidLoad];
     
-    UserStore *userStore = [[UserStore alloc] init];
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
     CGRect myFrame = CGRectMake(10, 70, 280, 420);
@@ -67,10 +69,10 @@
     headFrame.size = CGSizeMake(myFrame.size.width*.9, 60);
     
     int imgWidth = 40;
-    NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
+    NSURL *url = [NSURL URLWithString:[self.user profileImageURL]];
     UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(myFrame.size.width/2-imgWidth/2, 0, imgWidth, 50)];
     if (![[url absoluteString] isEqualToString:@""]) {
-        NSString *imgURL = [[userStore getAuthenticatedUser] profileImageLocalURL];
+        NSString *imgURL = [self.user profileImageLocalURL];
         if (![imgURL isEqualToString:@""]){
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
             [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
@@ -91,7 +93,7 @@
     
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 50, myFrame.size.width, 20)];
     text.textAlignment = NSTextAlignmentCenter;
-    text.text = [[userStore getAuthenticatedUser] name];
+    text.text = [self.user name];
     text.editable = NO;
     [self.view addSubview:text];
     

@@ -109,8 +109,9 @@
     
     if (self.feedData == nil) return cell;
     
+    UserStore *userStore = [[UserStore alloc] init];
     SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:
-                                        [self.parsedFeed objectAtIndex:indexPath.row] andIsCurrent:[NSNumber numberWithBool:YES]];
+                                        [self.parsedFeed objectAtIndex:indexPath.row] andIsCurrent:[NSNumber numberWithBool:YES] andUser:[userStore getAuthenticatedUser]];
     [self addChildViewController:dayView];
     [container addSubview:dayView.view];
     dayView.view.frame = CGRectMake(0, 0, dayView.frame.size.width, frame.size.height);
@@ -126,14 +127,17 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     TTLog(@"Opening detail view: %@", [self.parsedFeed objectAtIndex:indexPath.row]);
+    UserStore *userStore = [[UserStore alloc] init];
+    User *thisUser = [userStore getAuthenticatedUser];
     [[self navigationController] pushViewController:
      [[My3ThingsViewController alloc] initWithShareDay:[self.parsedFeed objectAtIndex:indexPath.row]
-                                          andIsCurrent:[NSNumber numberWithBool:NO]]
+                                          andIsCurrent:[NSNumber numberWithBool:NO] andUser:thisUser]
                                            animated:YES];
 }
 
 -(void) reviewWasTouched {
-    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]] animated:YES];
+    UserStore *userStore = [[UserStore alloc] init];
+    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES] andUser:[userStore getAuthenticatedUser]] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

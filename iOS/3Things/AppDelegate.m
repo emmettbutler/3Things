@@ -26,6 +26,7 @@
     
     [TTNetManager sharedInstance];
 
+    UserStore *userStore = [[UserStore alloc] init];
     if ([[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"%d", kAccessToken]] != NULL) {
         // get the stored access token from defauls, put it in TTNetManager's memory, re-save it
         [[TTNetManager sharedInstance] loginToken:[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kAccessToken]]];
@@ -34,7 +35,7 @@
         if (dayComplete == YES) {
             self.viewController = [[FriendFeedViewController alloc] init];
         } else {
-            self.viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]];
+            self.viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES] andUser:[userStore getAuthenticatedUser]];
         }
         UIViewController *viewController = self.viewController;
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];

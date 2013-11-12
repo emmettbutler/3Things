@@ -27,18 +27,21 @@
 @implementation My3ThingsViewController
 
 - (id)initWithIsCurrent:(NSNumber *)isCurrent {
-    return [self initWithShareDay:NULL andIsCurrent:isCurrent];
+    UserStore *userStore = [[UserStore alloc] init];
+    return [self initWithShareDay:NULL andIsCurrent:isCurrent andUser:[userStore getAuthenticatedUser]];
 }
 
 - (id)initWithShareDay:(TTShareDay *)shares {
-    return [self initWithShareDay:shares andIsCurrent:[NSNumber numberWithBool:NO]];
+    UserStore *userStore = [[UserStore alloc] init];
+    return [self initWithShareDay:shares andIsCurrent:[NSNumber numberWithBool:NO] andUser:[userStore getAuthenticatedUser]];
 }
 
--(id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent
+-(id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user
 {
     self = [super init];
     if (self) {
         self.isCurrent = [isCurrent boolValue];
+        self.user = user;
         
         ShareDayStore *itemStore = [[ShareDayStore alloc] init];
         ShareDay *today = [itemStore getToday];
@@ -88,7 +91,7 @@
     CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight+40, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-80);
     self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
     
-    self.dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:[NSNumber numberWithBool:self.isCurrent]];
+    self.dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:[NSNumber numberWithBool:self.isCurrent] andUser:self.user];
     [self addChildViewController:self.dayView];
     [self.view addSubview:self.dayView.view];
     self.dayView.view.frame = CGRectMake(18, 90, self.dayView.frame.size.width, self.dayView.frame.size.height);

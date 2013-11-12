@@ -11,6 +11,7 @@
 #import "ErrorPromptViewController.h"
 #import "ErrorThrowingViewController.h"
 #import "SingleDayViewController.h"
+#import "User.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 typedef void (^ALAssetsLibraryAssetForURLResultBlock)(ALAsset *asset);
@@ -20,12 +21,13 @@ typedef void (^ALAssetsLibraryAccessFailureBlock)(NSError *error);
 
 - (id)initWithIsCurrent:(NSNumber *)isCurrent;
 - (id)initWithShareDay:(TTShareDay *)shares;
-- (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent;
+- (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user;
 
 @property (nonatomic, retain) TTShareDay *shares;
 @property (nonatomic) BOOL isCurrent;
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic, retain) NSNumber *tableHeight;
 @property (nonatomic) SingleDayViewController *dayView;
+@property (nonatomic) User *user;
 
 @end

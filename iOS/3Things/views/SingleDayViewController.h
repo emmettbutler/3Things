@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "TTShareDay.h"
+#import "User.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface SingleDayViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 - (id)initWithIsCurrent:(NSNumber *)isCurrent;
 - (id)initWithShareDay:(TTShareDay *)shares;
-- (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent;
+- (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user;
 
 @property (nonatomic) CGRect frame;
 @property (nonatomic, retain) TTShareDay *shares;
@@ -22,5 +23,6 @@
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic, retain) NSNumber *tableHeight;
 @property (nonatomic) NSNumber *completedThings;
+@property (nonatomic) User *user;
 
 @end

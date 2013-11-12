@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 #import "BottomNavViewController.h"
 
 @interface UserHistoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, BottomNavViewControllerDelegate>
 
 @property (nonatomic, retain) NSArray *userHistory;
 @property (nonatomic) CGRect screenFrame;
+@property (nonatomic, retain) User *user;
 @property (nonatomic, retain) NSNumber *tableHeight;
 
 @end

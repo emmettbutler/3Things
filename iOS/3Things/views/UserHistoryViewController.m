@@ -27,7 +27,8 @@
     
     ShareDayStore *store = [[ShareDayStore alloc] init];
     UserStore *userStore = [[UserStore alloc] init];
-    self.userHistory = [store allItemsForUser:[userStore getAuthenticatedUser]];
+    self.user = [userStore getAuthenticatedUser];
+    self.userHistory = [store allItemsForUser:self.user];
 	
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
@@ -165,7 +166,7 @@
     
     [[self navigationController] pushViewController:
      [[My3ThingsViewController alloc] initWithShareDay:[TTShareDay shareDayWithShareObject:(ShareDay *)[self.userHistory objectAtIndex:indexPath.row]]
-                                          andIsCurrent:[NSNumber numberWithBool:NO]]
+                                          andIsCurrent:[NSNumber numberWithBool:NO] andUser:self.user]
       animated:YES];
 }
 
@@ -175,7 +176,7 @@
 
 - (void)reviewWasTouched {
     TTLog(@"User history screen got review callback");
-    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES]] animated:YES];
+    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES] andUser:self.user] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
