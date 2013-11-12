@@ -60,7 +60,13 @@ TTNetManager *instance;
         NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         [self apiConnectionWithURL:url andData:jsonString authorized:YES];
     }
-    
+}
+
+-(void)getFriendFeedForUser:(NSString *)userID
+{
+    NSString *url = [NSString stringWithFormat:@"%@/days", rootURL];
+    TTLog(@"Attempting to retrieve friends feed for use %@", userID);
+    [self apiConnectionWithURL:url authorized:YES];
 }
 
 -(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth{

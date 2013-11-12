@@ -54,6 +54,20 @@
     [navViewController didMoveToParentViewController:self];
 }
 
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
+{
+    if (error == NULL) {
+        NSError *jsonError = nil;
+        NSDictionary *json = [NSJSONSerialization
+                              JSONObjectWithData:data
+                              options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
+                              error:&jsonError];
+        TTLog(@"json response: %@", json);
+        self.feedData = json;
+        [self.tableView reloadData];
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -74,7 +88,7 @@
     }
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
-    
+        
     SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:nil andIsCurrent:[NSNumber numberWithBool:YES]];
     [self addChildViewController:dayView];
     [container addSubview:dayView.view];

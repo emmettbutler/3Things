@@ -14,18 +14,30 @@
 
 - (id) init
 {
+    return [self initWithSharesDictionary:nil];
+}
+
+- (id) initWithSharesDictionary:(NSDictionary *)shares
+{
     self = [super init];
     if (self) {
-        NSCalendar* myCalendar = [NSCalendar currentCalendar];
-        NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
-                                                     fromDate:[NSDate date]];
-        [components setHour: 0];
-        [components setMinute: 0];
-        [components setSecond: 0];
-        self.date = [myCalendar dateFromComponents:components];
-        self.theThings = [[NSMutableArray alloc] initWithCapacity:3];
-        for (int i = 0; i < 3; i++) {
-            [self.theThings addObject:@{@"text": @"", @"localImageURL": @""}];
+        if (shares == nil){
+            NSCalendar* myCalendar = [NSCalendar currentCalendar];
+            NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
+                                                         fromDate:[NSDate date]];
+            [components setHour: 0];
+            [components setMinute: 0];
+            [components setSecond: 0];
+            self.date = [myCalendar dateFromComponents:components];
+            self.theThings = [[NSMutableArray alloc] initWithCapacity:3];
+            for (int i = 0; i < 3; i++) {
+                [self.theThings addObject:@{@"text": @"", @"localImageURL": @""}];
+            }
+        } else {
+            //self.date = /* parse date from shares */;
+            for (int i = 0; i < 3; i++){
+                // add each list item to self.theThings, after some munging
+            }
         }
     }
     return self;

@@ -17,5 +17,6 @@
 @property (nonatomic) NSMutableArray *theThings;
 
 + (TTShareDay *)shareDayWithShareObject:(ShareDay *)shares;
+- (id) initWithSharesDictionary:(NSDictionary *)shares;
 
 @end

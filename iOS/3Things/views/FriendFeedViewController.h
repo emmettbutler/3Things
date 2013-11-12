@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "BottomNavViewController.h"
+#import "TTNetManager.h"
 
-@interface FriendFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, BottomNavViewControllerDelegate>
+@interface FriendFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, BottomNavViewControllerDelegate, TTNetManagerDelegate>
 
 @property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) NSDictionary *feedData;
 
 @end
