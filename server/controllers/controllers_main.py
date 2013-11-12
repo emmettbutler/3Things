@@ -255,7 +255,9 @@ class UserDaysController(Base3ThingsHandler):
 
 class UserController(Base3ThingsHandler):
     def get(self, user_id):
-        self.write(user_id)
+        ret = self._user_response(user_id)
+        self.set_status(200)
+        self._send_response(ret)
 
 
 class UserFriendsController(Base3ThingsHandler):
