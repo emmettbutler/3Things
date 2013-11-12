@@ -10,6 +10,7 @@
 #import "TTShareDay.h"
 #import "ErrorPromptViewController.h"
 #import "ErrorThrowingViewController.h"
+#import "SingleDayViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 typedef void (^ALAssetsLibraryAssetForURLResultBlock)(ALAsset *asset);
@@ -25,6 +26,6 @@ typedef void (^ALAssetsLibraryAccessFailureBlock)(NSError *error);
 @property (nonatomic) BOOL isCurrent;
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic, retain) NSNumber *tableHeight;
-@property (nonatomic) NSNumber *completedThings;
+@property (nonatomic) SingleDayViewController *dayView;
 
 @end

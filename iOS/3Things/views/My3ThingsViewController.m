@@ -39,7 +39,6 @@
     self = [super init];
     if (self) {
         self.isCurrent = [isCurrent boolValue];
-        self.completedThings = [NSNumber numberWithInt:self.isCurrent ? 0 : 3];
         
         ShareDayStore *itemStore = [[ShareDayStore alloc] init];
         ShareDay *today = [itemStore getToday];
@@ -89,11 +88,11 @@
     CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight+40, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-80);
     self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
     
-    SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:[NSNumber numberWithBool:self.isCurrent]];
-    [self addChildViewController:dayView];
-    [self.view addSubview:dayView.view];
-    dayView.view.frame = CGRectMake(18, 90, dayView.frame.size.width, dayView.frame.size.height);
-    [dayView didMoveToParentViewController:self];
+    self.dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:[NSNumber numberWithBool:self.isCurrent]];
+    [self addChildViewController:self.dayView];
+    [self.view addSubview:self.dayView.view];
+    self.dayView.view.frame = CGRectMake(18, 90, self.dayView.frame.size.width, self.dayView.frame.size.height);
+    [self.dayView didMoveToParentViewController:self];
 
     if (self.isCurrent){
         UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -114,7 +113,7 @@
 
 - (void)shareWasTouched {
     UserStore *userStore = [[UserStore alloc] init];
-    if ([self.completedThings intValue] == 3) {
+    if ([self.dayView.completedThings intValue] == 3) {
         [TTNetManager sharedInstance].netDelegate = (id<TTNetManagerDelegate>)self;
         [[TTNetManager sharedInstance] postShareDay:self.shares forUser:[[userStore getAuthenticatedUser] userID]];
         [[self navigationController] pushViewController:
