@@ -299,13 +299,29 @@ class UserFriendController(Base3ThingsHandler):
         self.set_status(200)
         self.finish()
 
+    @coroutine
+    @authenticated
     def delete(self, user_id, friend_id):
         if str(self.cur_user['_id']) != user_id:
             raise tornado.web.HTTPError(403, "Not allowed to edit friends for other user")
 
+        self._remove_friend_for_user(user_id, friend_id)
+
+        self.set_status(200)
+        self.finish()
+
+    @coroutine
     def _add_friend_for_user(self, user_id, friend_id):
         db = self.application.dbclient.three_things
         user = db.users.update(
             {'_id': ObjectId(user_id)},
             {"$addToSet": {"friends": ObjectId(friend_id)}}
+        )
+
+    @coroutine
+    def _remove_friend_for_user(self, user_id, friend_id):
+        db = self.application.dbclient.three_things
+        user = db.users.update(
+            {'_id': ObjectId(user_id)},
+            {"$pull": {"friends": ObjectId(friend_id)}}
         )
