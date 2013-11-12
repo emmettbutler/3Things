@@ -175,7 +175,7 @@ class DaysController(Base3ThingsHandler):
         history = list(db.days.find().limit(20).sort("date", -1))
         for item in history:
             user = list(db.users.find({'_id': item['user']}))[0]
-            item['user'] = user
+            item['user'] = {'name': user['name']}
         return history
 
 
