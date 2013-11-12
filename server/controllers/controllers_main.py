@@ -46,7 +46,7 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
     def _user_response(self, user_id):
         db = self.application.dbclient.three_things
         user = list(db.users.find({'_id': user_id}))[0]
-        return {'name': user['name']}
+        return {'name': user['name'], '_id': user['_id']}
 
 
 class RegistrationHandler(Base3ThingsHandler):
@@ -96,7 +96,11 @@ class RegistrationHandler(Base3ThingsHandler):
         if existing_users.count() != 0:
             raise Return(False)
         encrypted = self._set_password(pw)
-        db.users.insert({'email': identifier, 'name': fname, 'password': encrypted})
+        db.users.insert({
+            'email': identifier,
+            'name': fname,
+            'password': encrypted,
+            'friends': []})
         raise Return(True)
 
     def _generate_confirmation_code(self, identifier):
@@ -261,9 +265,26 @@ class UserController(Base3ThingsHandler):
 
 
 class UserFriendsController(Base3ThingsHandler):
+    @coroutine
+    @authenticated
     def get(self, user_id):
-        # get all friends
-        pass
+        ret = yield self._get_user_friends(user_id)
+        self.set_status(200)
+        self._send_response(ret)
+
+    @coroutine
+    def _get_user_friends(self, user_id):
+        db = self.application.dbclient.three_things
+        user = list(db.users.find({'_id': ObjectId(user_id)}))
+        if len(user) > 0:
+            user = user[0]
+        else:
+            raise tornado.web.HTTPError(404, "User not found")
+        user_friends = []
+        if 'friends' in user:
+            for friend_id in user['friends']:
+                user_friends.append(self._user_response(friend_id))
+        raise Return({"friends": user_friends})
 
 
 class UserFriendController(Base3ThingsHandler):
