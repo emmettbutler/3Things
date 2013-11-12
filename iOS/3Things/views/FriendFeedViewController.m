@@ -11,6 +11,7 @@
 #import "SingleDayViewController.h"
 #import "TTNetManager.h"
 #import "UserStore.h"
+#import "My3ThingsViewController.h"
 
 @interface FriendFeedViewController ()
 
@@ -23,6 +24,7 @@
     [super viewDidLoad];
     
     self.feedData = nil;
+    self.parsedFeed = [[NSMutableArray alloc] init];
 	
     self.navigationController.navigationBarHidden = NO;
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
@@ -50,7 +52,6 @@
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.allowsSelection = NO;
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
     
@@ -89,7 +90,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 700;
+    return 460;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -103,6 +104,7 @@
     
     TTShareDay *shareDay = [[TTShareDay alloc] initWithSharesDictionary:
                             [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:indexPath.row]];
+    [self.parsedFeed insertObject:shareDay atIndex:indexPath.row];
     SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:shareDay andIsCurrent:[NSNumber numberWithBool:YES]];
     [self addChildViewController:dayView];
     [container addSubview:dayView.view];
@@ -113,6 +115,16 @@
     
     cell.backgroundView = container;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    TTLog(@"Opening detail view: %@", [self.parsedFeed objectAtIndex:indexPath.row]);
+    [[self navigationController] pushViewController:
+     [[My3ThingsViewController alloc] initWithShareDay:[self.parsedFeed objectAtIndex:indexPath.row]
+                                          andIsCurrent:[NSNumber numberWithBool:NO]]
+                                           animated:YES];
 }
 
 -(void) reviewWasTouched {

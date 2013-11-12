@@ -14,5 +14,6 @@
 
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) NSDictionary *feedData;
+@property (nonatomic, retain) NSMutableArray *parsedFeed;
 
 @end
