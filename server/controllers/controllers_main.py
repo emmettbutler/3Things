@@ -264,14 +264,17 @@ class UserDaysController(Base3ThingsHandler):
 class UsersController(Base3ThingsHandler):
     @coroutine
     def get(self):
-        ret = yield self._user_search()
+        query = self.get_argument("q", default="")
+        ret = yield self._user_search(query)
         self.set_status(200)
         self._send_response(ret)
 
     @coroutine
-    def _user_search(self):
+    def _user_search(self, query):
+        regex = re.compile(query, re.IGNORECASE)
         db = self.application.dbclient.three_things
-        users = list(db.users.find().limit(20))
+        cond = {"name": regex} if query else {}
+        users = list(db.users.find(cond).limit(20))
         ret = []
         for user in users:
             ret.append({'name': user['name'], '_id': user['_id']})
