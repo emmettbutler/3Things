@@ -144,7 +144,7 @@
     
     NSMutableDictionary *dayAndUser = [self.parsedFeed objectAtIndex:indexPath.row];
     SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:
-                                        [dayAndUser objectForKey:@"day"] andIsCurrent:[NSNumber numberWithBool:YES] andUser:[dayAndUser objectForKey:@"user"]];
+                                        [dayAndUser objectForKey:@"day"] andIsCurrent:[NSNumber numberWithBool:NO] andUser:[dayAndUser objectForKey:@"user"]];
     [self addChildViewController:dayView];
     [container addSubview:dayView.view];
     dayView.view.frame = CGRectMake(0, 0, dayView.frame.size.width, frame.size.height);

@@ -13,6 +13,7 @@
 #import "TTNetManager.h"
 #import "Thing.h"
 #import "ThingDetailViewController.h"
+#import "My3ThingsViewController.h"
 #import "ErrorThrowingViewController.h"
 #import "EditThingViewController.h"
 
@@ -54,7 +55,7 @@
     if (self.isCurrent){
         UserStore *userStore = [[UserStore alloc] init];
         [TTNetManager sharedInstance].netDelegate = self;
-        //[[TTNetManager sharedInstance] getTodayForUser:[userStore getAuthenticatedUser]];
+        [[TTNetManager sharedInstance] getTodayForUser:[userStore getAuthenticatedUser]];
     }
     
     CGRect myFrame = CGRectMake(10, 70, 280, 420);
@@ -182,6 +183,7 @@
         TTLog(@"json response: %@", json);
         self.feedData = json;
         self.shares = [[TTShareDay alloc] initWithSharesDictionary:[[[json objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:0]];
+        ((My3ThingsViewController *)self.parentViewController).shares = self.shares;
         [self.collectionView reloadData];
     }
 }
