@@ -7,6 +7,7 @@
 //
 
 #import "FriendSearchViewController.h"
+#import "UserStore.h"
 
 @interface FriendSearchViewController ()
 
@@ -97,6 +98,11 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TTLog(@"Selected search item %d", indexPath.row);
     TTLog(@"Search dismiss activated");
+    
+    UserStore *userStore = [[UserStore alloc] init];
+    NSDictionary *user = [[self.friendData objectForKey:@"data"] objectAtIndex:indexPath.row];
+    [[TTNetManager sharedInstance] addFriend:[user objectForKey:@"_id"] forUser:[userStore getAuthenticatedUser]];
+    
     [searchDelegate dismissSearchWasTouched];
 }
 

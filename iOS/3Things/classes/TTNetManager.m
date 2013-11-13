@@ -73,7 +73,7 @@ TTNetManager *instance;
 -(void)getFriendFeedForUser:(NSString *)userID
 {
     NSString *url = [NSString stringWithFormat:@"%@/days", rootURL];
-    TTLog(@"Attempting to retrieve friends feed for use %@", userID);
+    TTLog(@"Attempting to retrieve friends feed");
     [self apiConnectionWithURL:url authorized:YES];
 }
 

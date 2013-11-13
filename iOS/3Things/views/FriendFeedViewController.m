@@ -39,9 +39,8 @@
 	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
 	[self.view addSubview:navBar];
     
-    UserStore *userStore = [[UserStore alloc] init];
     [TTNetManager sharedInstance].netDelegate = self;
-    [[TTNetManager sharedInstance] getFriendFeedForUser:[NSString stringWithFormat:@"%d", [[userStore getAuthenticatedUser].identifier intValue]]];
+    [[TTNetManager sharedInstance] getFriendFeedForUser:nil];
     
     int searchBoxHeight = 50;
     CGRect scrollFrame = CGRectMake(0, frame.size.height+70, frame.size.width, screenFrame.size.height-frame.size.height-searchBoxHeight);
