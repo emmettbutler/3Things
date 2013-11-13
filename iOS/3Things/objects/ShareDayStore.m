@@ -9,6 +9,7 @@
 #import "ShareDayStore.h"
 #import "AppDelegate.h"
 #import "TTNetManager.h"
+#import "UserStore.h"
 
 @implementation ShareDayStore
 
@@ -46,7 +47,8 @@
     NSDateComponents* components = [calendar components:flags fromDate:date];
     NSDate* dateOnly = [calendar dateFromComponents:components];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(date = %@)", dateOnly];
+    UserStore *userStore = [[UserStore alloc] init];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(date = %@) AND (user.userID = %@)", dateOnly, [userStore getAuthenticatedUser]];
     NSArray *result = [self allItems:@"ShareDay" withSort:@"date" andPredicate:predicate];
     return result.count == 0 ? NULL : [result objectAtIndex:0];
 }

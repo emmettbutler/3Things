@@ -51,19 +51,25 @@
     
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
+    if (self.isCurrent){
+        UserStore *userStore = [[UserStore alloc] init];
+        [TTNetManager sharedInstance].netDelegate = self;
+        //[[TTNetManager sharedInstance] getTodayForUser:[userStore getAuthenticatedUser]];
+    }
+    
     CGRect myFrame = CGRectMake(10, 70, 280, 420);
     CGRect scrollFrame = CGRectMake(10, 100, myFrame.size.width*.9, myFrame.size.height-100);
     self.frame = myFrame;
 
     UICollectionViewFlowLayout* flow = [[UICollectionViewFlowLayout alloc] init];
     [flow setItemSize:CGSizeMake(scrollFrame.size.width, (scrollFrame.size.height)/3)];
-    UICollectionView *tableView = [[UICollectionView alloc] initWithFrame:scrollFrame collectionViewLayout:flow];
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    tableView.scrollEnabled = NO;
-    [tableView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"MyReuseIdentifier"];
-    [tableView reloadData];
-    [self.view addSubview:tableView];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:scrollFrame collectionViewLayout:flow];
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    self.collectionView.scrollEnabled = NO;
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"MyReuseIdentifier"];
+    [self.collectionView reloadData];
+    [self.view addSubview:self.collectionView];
     
     CGRect headFrame = CGRectMake(0, 0, 0, 0);
     headFrame.size = CGSizeMake(myFrame.size.width*.9, 60);
@@ -163,6 +169,21 @@
     }
     cell.backgroundView = container;
     return cell;
+}
+
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
+{
+    if (error == NULL) {
+        NSError *jsonError = nil;
+        NSDictionary *json = [NSJSONSerialization
+                              JSONObjectWithData:data
+                              options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
+                              error:&jsonError];
+        TTLog(@"json response: %@", json);
+        self.feedData = json;
+        self.shares = [[TTShareDay alloc] initWithSharesDictionary:[[[json objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:0]];
+        [self.collectionView reloadData];
+    }
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

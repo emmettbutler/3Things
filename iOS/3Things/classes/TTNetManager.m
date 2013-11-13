@@ -70,6 +70,13 @@ TTNetManager *instance;
     }
 }
 
+-(void)getTodayForUser:(User *)user
+{
+    NSString *url = [NSString stringWithFormat:@"%@/users/%@/today", rootURL, [user userID]];
+    TTLog(@"Attempting to get today for user %@", [user userID]);
+    [self apiConnectionWithURL:url authorized:YES];
+}
+
 -(void)getHistoryForUser:(NSString *)userID
 {
     NSString *url = [NSString stringWithFormat:@"%@/users/%@/days", rootURL, userID];

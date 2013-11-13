@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "TTShareDay.h"
 #import "User.h"
+#import "TTNetManager.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface SingleDayViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface SingleDayViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, TTNetManagerDelegate>
 
 - (id)initWithIsCurrent:(NSNumber *)isCurrent;
 - (id)initWithShareDay:(TTShareDay *)shares;
@@ -21,8 +22,10 @@
 @property (nonatomic, retain) TTShareDay *shares;
 @property (nonatomic) BOOL isCurrent;
 @property (nonatomic) CGRect screenFrame;
+@property (nonatomic) NSDictionary *feedData;
 @property (nonatomic, retain) NSNumber *tableHeight;
 @property (nonatomic) NSNumber *completedThings;
+@property (nonatomic) UICollectionView *collectionView;
 @property (nonatomic) User *user;
 
 @end

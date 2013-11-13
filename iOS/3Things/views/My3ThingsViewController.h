@@ -12,6 +12,7 @@
 #import "ErrorThrowingViewController.h"
 #import "SingleDayViewController.h"
 #import "User.h"
+#import "TTNetManager.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 typedef void (^ALAssetsLibraryAssetForURLResultBlock)(ALAsset *asset);

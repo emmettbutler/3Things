@@ -191,6 +191,27 @@ class DaysController(Base3ThingsHandler):
         return history
 
 
+class UserTodayController(Base3ThingsHandler):
+    @coroutine
+    @authenticated
+    def get(self, user_id):
+        history = yield self._get_user_today(user_id)
+        for item in history:
+            item.pop('user')
+        ret = {"history": history, "user": user_id}
+        self.set_status(200)
+        self._send_response(ret)
+
+    @coroutine
+    def _get_user_today(self, user_id):
+        date = datetime.combine(datetime.now(), datetime.min.time())
+        db = self.application.dbclient.three_things
+        history = db.days.find({'date': date, 'user': ObjectId(user_id)})
+        if history.count() == 0:
+            raise tornado.web.HTTPError(404, "No history found for user %s" % user_id)
+        raise Return(list(history))
+
+
 class UserDaysController(Base3ThingsHandler):
     @coroutine
     @authenticated

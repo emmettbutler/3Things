@@ -14,6 +14,7 @@ def get_app():
         (r"/users/([^\/]+)/friends", controllers_main.UserFriendsController),
         (r"/users/([^\/]+)/friends/([^\/]+)", controllers_main.UserFriendController),
         (r"/users/([^\/]+)/days", controllers_main.UserDaysController),
+        (r"/users/([^\/]+)/today", controllers_main.UserTodayController),
         (r"/days", controllers_main.DaysController)
     ])
     application.dbclient = MongoClient('localhost', 27017)
