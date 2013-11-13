@@ -39,19 +39,12 @@
     
     CGRect firstNameFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-170, 280.0f, 31.0f);
     firstNameField = [[UITextField alloc] initWithFrame:firstNameFieldFrame];
-    firstNameField.placeholder = @"First Name";
+    firstNameField.placeholder = @"Name";
     firstNameField.borderStyle = UITextBorderStyleRoundedRect;
     firstNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:firstNameField];
     
-    CGRect lastNameFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-120, 280.0f, 31.0f);
-    lastNameField = [[UITextField alloc] initWithFrame:lastNameFieldFrame];
-    lastNameField.placeholder = @"Last Name";
-    lastNameField.borderStyle = UITextBorderStyleRoundedRect;
-    lastNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    [self.view addSubview:lastNameField];
-    
-    CGRect emailFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-70, 280.0f, 31.0f);
+    CGRect emailFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-120, 280.0f, 31.0f);
     emailField = [[UITextField alloc] initWithFrame:emailFieldFrame];
     emailField.placeholder = @"Email";
     emailField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -59,7 +52,7 @@
     emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:emailField];
     
-    CGRect pwFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-20, 280.0f, 31.0f);
+    CGRect pwFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-70, 280.0f, 31.0f);
     pwField = [[UITextField alloc] initWithFrame:pwFieldFrame];
     pwField.placeholder = @"Password";
     pwField.secureTextEntry = YES;
@@ -67,7 +60,7 @@
     pwField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:pwField];
     
-    CGRect pwConfirmFieldFrame = CGRectMake(20.0f, screenRect.size.height/2+30, 280.0f, 31.0f);
+    CGRect pwConfirmFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-20, 280.0f, 31.0f);
     pwConfirmField = [[UITextField alloc] initWithFrame:pwConfirmFieldFrame];
     pwConfirmField.placeholder = @"Confirm Password";
     pwConfirmField.secureTextEntry = YES;
@@ -92,8 +85,8 @@
             [errViewController didMoveToParentViewController:self];
         }
     } else {
-        TTLog(@"Signup information received:\n    fname: %@\n    lname: %@\n    email: %@",
-              firstNameField.text, lastNameField.text, emailField.text);
+        TTLog(@"Signup information received:\n    fname: %@\n   email: %@",
+              firstNameField.text, emailField.text);
         [TTNetManager sharedInstance].netDelegate = self;
         [[TTNetManager sharedInstance] registerUser:emailField.text
                                            withName:firstNameField.text
@@ -172,9 +165,6 @@
 
 - (BOOL) fieldsAreValid {
     if ([firstNameField.text isEqualToString:@""]){
-        return NO;
-    }
-    if ([lastNameField.text isEqualToString:@""]){
         return NO;
     }
     if ([emailField.text isEqualToString:@""]){

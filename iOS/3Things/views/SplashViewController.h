@@ -16,7 +16,7 @@
 @interface SplashViewController : ErrorThrowingViewController <UITextFieldDelegate, PhotoPromptViewControllerDelegate, TTNetManagerDelegate>
 {
     SignupCodeViewController *signupCodeController;
-    UITextField *firstNameField, *lastNameField, *emailField, *pwField, *pwConfirmField;
+    UITextField *firstNameField, *emailField, *pwField, *pwConfirmField;
 }
 
 @property (nonatomic) NSString *profLocalImageURL;
