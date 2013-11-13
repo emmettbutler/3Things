@@ -16,9 +16,10 @@
 
 id <FriendSearchViewControllerDelegate> searchDelegate;
 
-@interface FriendSearchViewController : UIViewController
+@interface FriendSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) CGRect frame;
 @property (nonatomic, assign) id <FriendSearchViewControllerDelegate> searchDelegate;
+@property (nonatomic) UITableView *tableView;
 
 @end
