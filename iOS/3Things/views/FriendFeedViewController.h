@@ -9,8 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "BottomNavViewController.h"
 #import "TTNetManager.h"
+#import "FriendSearchViewController.h"
 
-@interface FriendFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, BottomNavViewControllerDelegate, TTNetManagerDelegate>
+@interface FriendFeedViewController : UIViewController <UITableViewDataSource,
+                                                        UITableViewDelegate,
+                                                        BottomNavViewControllerDelegate,
+                                                        TTNetManagerDelegate,
+                                                        UITextFieldDelegate,
+                                                        FriendSearchViewControllerDelegate>
 {
     UITextField *searchBox;
 }
@@ -18,5 +24,6 @@
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) NSDictionary *feedData;
 @property (nonatomic, retain) NSMutableArray *parsedFeed;
+@property (nonatomic, retain) FriendSearchViewController *searchViewController;
 
 @end

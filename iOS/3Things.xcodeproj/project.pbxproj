@@ -149,8 +149,8 @@
 		AABB2EAC18006FD600EEA446 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */,
 				AA230A011809BA620025BCF5 /* ErrorPromptViewController.h */,
+				AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */,
 				AABB2EAD18006FD600EEA446 /* FriendFeedViewController.h */,
 				AABB2EAE18006FD600EEA446 /* FriendFeedViewController.m */,
 				AABB2EC918007A3500EEA446 /* UserHistoryViewController.h */,

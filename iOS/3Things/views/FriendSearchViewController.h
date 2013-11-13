@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class FriendSearchViewController;
+@protocol FriendSearchViewControllerDelegate <NSObject>
+@optional
+- (void)dismissSearchWasTouched;
+@end
+
+id <FriendSearchViewControllerDelegate> searchDelegate;
+
 @interface FriendSearchViewController : UIViewController
+
+@property (nonatomic) CGRect frame;
+@property (nonatomic, assign) id <FriendSearchViewControllerDelegate> searchDelegate;
 
 @end

@@ -55,6 +55,7 @@
     CGRect searchFieldFrame = CGRectMake(0, 60, screenFrame.size.width, searchBoxHeight);
     searchBox = [[UITextField alloc] initWithFrame:searchFieldFrame];
     searchBox.placeholder = @"Search";
+    searchBox.delegate = self;
     searchBox.borderStyle = UITextBorderStyleRoundedRect;
     searchBox.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:searchBox];
@@ -65,6 +66,22 @@
     [self.view addSubview:navViewController.view];
     navViewController.view.frame = CGRectMake(0, screenFrame.size.height-30, screenFrame.size.width, 50);
     [navViewController didMoveToParentViewController:self];
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    TTLog(@"Search box selected");
+    self.searchViewController = [[FriendSearchViewController alloc] init];
+    [self addChildViewController:self.searchViewController];
+    [self.view addSubview:self.searchViewController.view];
+    self.searchViewController.searchDelegate = self;
+    self.searchViewController.view.frame = self.searchViewController.frame;
+    [self.searchViewController didMoveToParentViewController:self];
+}
+
+-(void)dismissSearchWasTouched {
+    TTLog(@"Search view was dismissed");
+    [self.searchViewController.view removeFromSuperview];
+    [searchBox endEditing:YES];
 }
 
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
