@@ -164,6 +164,10 @@
     [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES] andUser:[userStore getAuthenticatedUser]] animated:YES];
 }
 
+-(void) friendsWasTouched {
+    TTLog(@"Friend feed selected on friends page. Do nothing???");
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -14,6 +14,7 @@
 #import "Thing.h"
 #import "BottomNavViewController.h"
 #import "UserStore.h"
+#import "FriendFeedViewController.h"
 #import "TTNetManager.h"
 
 @implementation UserHistoryViewController
@@ -120,7 +121,6 @@
     return 80;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *MyIdentifier = @"MyReuseIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
@@ -177,6 +177,11 @@
 - (void)reviewWasTouched {
     TTLog(@"User history screen got review callback");
     [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES] andUser:self.user] animated:YES];
+}
+
+- (void)friendsWasTouched {
+    TTLog(@"User history screen got friends callback");
+    [[self navigationController] pushViewController:[[FriendFeedViewController alloc] init] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

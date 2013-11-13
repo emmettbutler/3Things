@@ -108,7 +108,7 @@ TTNetManager *instance;
          // To allow more than one at a time, maintain a dictionary of delegates and delegate each request to the
          // appropriate one
          [netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
-     }
+      }
      ];
 }
 

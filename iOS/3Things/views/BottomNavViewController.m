@@ -28,12 +28,24 @@
                    action:@selector(reviewWasTouched)
          forControlEvents:UIControlEventTouchDown];
     [reviewButton setTitle:@"Review" forState:UIControlStateNormal];
-    reviewButton.frame = CGRectMake(0, 0, popupFrame.size.width, 60);
+    reviewButton.frame = CGRectMake(100, 0, 80, 60);
     [self.view addSubview:reviewButton];
+    
+    UIButton *friendsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [friendsButton addTarget:self
+                     action:@selector(friendsWasTouched)
+           forControlEvents:UIControlEventTouchDown];
+    [friendsButton setTitle:@"Friends" forState:UIControlStateNormal];
+    friendsButton.frame = CGRectMake(200, 0, 80, 60);
+    [self.view addSubview:friendsButton];
 }
 
 - (void)reviewWasTouched{
     [self.navDelegate reviewWasTouched];
+}
+
+- (void)friendsWasTouched{
+    [self.navDelegate friendsWasTouched];
 }
 
 - (void)didReceiveMemoryWarning

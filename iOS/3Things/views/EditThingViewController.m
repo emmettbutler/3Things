@@ -264,6 +264,8 @@
 }
 
 - (void) registerCurrentThing {
+    TTLog(@"Registering current thing");
+    TTLog(@"Image URL: %@", self.thingLocalImageURL);
     [self.shares.theThings replaceObjectAtIndex:self.thingIndex.intValue
                                      withObject:@{@"text": self.textField.text,
                                          @"localImageURL": (self.thingLocalImageURL == nil) ? @"" : self.thingLocalImageURL}];
