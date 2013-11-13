@@ -19,6 +19,7 @@
 		AA1E52E0182AEB3E000EBBBA /* ShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52DF182AEB3E000EBBBA /* ShareDay.m */; };
 		AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */; };
 		AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */; };
+		AA2FFBD21833B26200B9865A /* FriendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2FFBD11833B26200B9865A /* FriendSearchViewController.m */; };
 		AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E13661803579B00D65980 /* BottomNavViewController.m */; };
 		AA7E5503183188F500D7DE8C /* SingleDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7E5502183188F500D7DE8C /* SingleDayViewController.m */; };
 		AA98E1C4182851E80045F827 /* TTNetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA98E1C3182851E80045F827 /* TTNetManager.m */; };
@@ -70,6 +71,8 @@
 		AA230A011809BA620025BCF5 /* ErrorPromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorPromptViewController.h; sourceTree = "<group>"; };
 		AA230A031809BB0D0025BCF5 /* ErrorThrowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorThrowingViewController.h; sourceTree = "<group>"; };
 		AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorThrowingViewController.m; sourceTree = "<group>"; };
+		AA2FFBD01833B26200B9865A /* FriendSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendSearchViewController.h; sourceTree = "<group>"; };
+		AA2FFBD11833B26200B9865A /* FriendSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendSearchViewController.m; sourceTree = "<group>"; };
 		AA4E13651803579B00D65980 /* BottomNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomNavViewController.h; sourceTree = "<group>"; };
 		AA4E13661803579B00D65980 /* BottomNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomNavViewController.m; sourceTree = "<group>"; };
 		AA7E5501183188F500D7DE8C /* SingleDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleDayViewController.h; sourceTree = "<group>"; };
@@ -174,6 +177,8 @@
 				AAF46B42180C97A300FE79A9 /* LoginTypePickerViewController.m */,
 				AAF46B44180CA19C00FE79A9 /* LoginEmailViewController.h */,
 				AAF46B45180CA19C00FE79A9 /* LoginEmailViewController.m */,
+				AA2FFBD01833B26200B9865A /* FriendSearchViewController.h */,
+				AA2FFBD11833B26200B9865A /* FriendSearchViewController.m */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -350,6 +355,7 @@
 				AAF46B43180C97A300FE79A9 /* LoginTypePickerViewController.m in Sources */,
 				AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */,
 				AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */,
+				AA2FFBD21833B26200B9865A /* FriendSearchViewController.m in Sources */,
 				AA1E52DD182AE669000EBBBA /* Thing.m in Sources */,
 				AAF46B46180CA19C00FE79A9 /* LoginEmailViewController.m in Sources */,
 				AA0910AC1801EC2500F9D8B8 /* TTDataStore.m in Sources */,
