@@ -184,10 +184,4 @@
     [[self navigationController] pushViewController:[[FriendFeedViewController alloc] init] animated:YES];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 @end

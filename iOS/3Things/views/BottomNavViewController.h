@@ -10,7 +10,7 @@
 
 @class BottomNavViewController;
 @protocol BottomNavViewControllerDelegate <NSObject>
-@optional
+@required
 - (void)reviewWasTouched;
 - (void)friendsWasTouched;
 @end

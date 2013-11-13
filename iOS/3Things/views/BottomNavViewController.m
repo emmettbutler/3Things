@@ -20,9 +20,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithRed:.3 green:.3 blue:.3 alpha:1];
-    CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
-    CGRect popupFrame = CGRectMake(0, screenFrame.size.height-30, screenFrame.size.width, 50);
-    
+
     UIButton *reviewButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [reviewButton addTarget:self
                    action:@selector(reviewWasTouched)
