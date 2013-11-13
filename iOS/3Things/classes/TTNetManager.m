@@ -70,6 +70,13 @@ TTNetManager *instance;
     }
 }
 
+-(void)getHistoryForUser:(NSString *)userID
+{
+    NSString *url = [NSString stringWithFormat:@"%@/users/%@/days", rootURL, userID];
+    TTLog(@"Attempting to get history for user %@", userID);
+    [self apiConnectionWithURL:url authorized:YES];
+}
+
 -(void)getFriendFeedForUser:(NSString *)userID
 {
     NSString *url = [NSString stringWithFormat:@"%@/days", rootURL];

@@ -26,6 +26,18 @@
     return result;
 }
 
+- (NSArray *)allItemsForUser:(User *)user andDay:(NSString *)day
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *date = [dateFormatter dateFromString:day];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user.userID = %@ AND date = %@", user.userID, date];
+    NSArray *result = [self allItems:@"ShareDay" withSort:@"date" andPredicate:predicate];
+    TTLog(@"allItemsForUser:andDay count: %d", [result count]);
+    return result;
+}
+
 - (ShareDay *)getToday
 {
     NSDate *date = [NSDate date];

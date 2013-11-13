@@ -24,12 +24,16 @@
     TTLog(@"entered userhistory controller");
     [super viewDidLoad];
     
+    self.feedData = nil;
     self.navigationController.navigationBarHidden = NO;
     
     ShareDayStore *store = [[ShareDayStore alloc] init];
     UserStore *userStore = [[UserStore alloc] init];
     self.user = [userStore getAuthenticatedUser];
     self.userHistory = [store allItemsForUser:self.user];
+    
+    [TTNetManager sharedInstance].netDelegate = self;
+    [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID];
 	
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
@@ -51,11 +55,11 @@
     float topSectionHeight = 120;
     
     int imgWidth = 60;
-    NSURL *url = [NSURL URLWithString:[[userStore getAuthenticatedUser] profileImageURL]];
+    NSURL *url = [NSURL URLWithString:[self.user profileImageURL]];
     UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+30, imgWidth, 70)];
     if (![[url absoluteString] isEqualToString:@""]) {
         TTLog(@"Searching for local image");
-        NSString *imgURL = [[userStore getAuthenticatedUser] profileImageLocalURL];
+        NSString *imgURL = [self.user profileImageLocalURL];
         if (![imgURL isEqualToString:@""]){
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
             [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
@@ -76,18 +80,17 @@
     
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, frame.size.height+(topSectionHeight-30), frame.size.width, frame.size.height)];
     text.textAlignment = NSTextAlignmentCenter;
-    text.text = [[userStore getAuthenticatedUser] name];
+    text.text = [self.user name];
     [self.view addSubview:text];
     
     CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+topSectionHeight, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-topSectionHeight);
     self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
-    UITableView *tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    [tableView reloadData];
-    
-    [self.view addSubview:tableView];
+    self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.tableView reloadData];
+    [self.view addSubview:self.tableView];
     
     BottomNavViewController *navViewController = [[BottomNavViewController alloc] init];
     navViewController.navDelegate = self;
@@ -97,13 +100,31 @@
     [navViewController didMoveToParentViewController:self];
 }
 
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
+{
+    if (error == NULL) {
+        NSError *jsonError = nil;
+        NSDictionary *json = [NSJSONSerialization
+                              JSONObjectWithData:data
+                              options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
+                              error:&jsonError];
+        TTLog(@"json response: %@", json);
+        self.feedData = json;
+        
+        [self.tableView reloadData];
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Number of rows is the number of time zones in the region for the specified section.
-    return self.userHistory.count;
+    if (self.feedData == nil) {
+        return 2;
+    } else {
+        return [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] count];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -131,28 +152,28 @@
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     
+    if (self.feedData == nil) return cell;
+    
+    NSDictionary *day = [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:indexPath.row];
+    
     UITextView *dateView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 20)];
     dateView.textAlignment = NSTextAlignmentLeft;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MM/dd"];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
-    dateView.text = [formatter stringFromDate:[[self.userHistory objectAtIndex:indexPath.row] date]];
+    NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+    [formatter2 setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *date = [formatter2 dateFromString:[day objectForKey:@"date"]];
+    NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+    [formatter1 setDateFormat:@"MM/dd"];
+    [formatter1 setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    dateView.text = [formatter1 stringFromDate:date];
     dateView.editable = NO;
     [container addSubview:dateView];
     
     for (int j = 0; j < 3; j++) {
         UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(40, j*20, frame.size.width, 20)];
         text.textAlignment = NSTextAlignmentLeft;
-        NSString *thingString;
-        TTLog(@"Things count: %d", [[[self.userHistory objectAtIndex:indexPath.row] things] count]);
-        for (Thing *thing in [[self.userHistory objectAtIndex:indexPath.row] things]){
-            TTLog(@"Thing: %@", thing);
-            if([thing.index intValue] == j){
-                thingString = thing.text;
-                break;
-            }
-        }
-        text.text = [NSString stringWithFormat:@"%d. %@", j+1, thingString];
+        NSDictionary *thing = [[day objectForKey:@"things"] objectAtIndex:j];
+        text.text = [NSString stringWithFormat:@"%d. %@", j+1, [thing objectForKey:@"text"]];
         text.allowsEditingTextAttributes = NO;
         text.editable = NO;
         [container addSubview:text];
@@ -164,8 +185,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    NSDictionary *day = [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:indexPath.row];
     [[self navigationController] pushViewController:
-     [[My3ThingsViewController alloc] initWithShareDay:[TTShareDay shareDayWithShareObject:(ShareDay *)[self.userHistory objectAtIndex:indexPath.row]]
+     [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] initWithSharesDictionary:day]
                                           andIsCurrent:[NSNumber numberWithBool:NO] andUser:self.user]
       animated:YES];
 }

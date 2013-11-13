@@ -134,7 +134,6 @@
         text = @"Share something...";
     } else {
         self.completedThings = [NSNumber numberWithInt:[self.completedThings intValue] + 1];
-        TTLog(@"Counted completed thing for day: %d", [self.completedThings intValue]);
         if([self.completedThings intValue] == 3) {
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
         } else {

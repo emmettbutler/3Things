@@ -224,7 +224,7 @@ class UserDaysController(Base3ThingsHandler):
     @coroutine
     def _get_user_history(self, user_id):
         db = self.application.dbclient.three_things
-        history = db.days.find({'user': ObjectId(user_id)})
+        history = db.days.find({'user': ObjectId(user_id)}).sort("date", -1)
         if history.count() == 0:
             raise tornado.web.HTTPError(404, "No history found for user %s" % user_id)
         raise Return(list(history))

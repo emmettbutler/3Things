@@ -17,6 +17,7 @@
 
 - (ShareDay *)createShareDay;
 - (NSArray *)allItemsForUser:(User *)user;
+- (NSArray *)allItemsForUser:(User *)user andDay:(NSString *)day;
 - (ShareDay *)getToday;
 
 @end

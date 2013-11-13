@@ -8,13 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
+#import "TTNetManager.h"
 #import "BottomNavViewController.h"
 
-@interface UserHistoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, BottomNavViewControllerDelegate>
+@interface UserHistoryViewController : UIViewController <UITableViewDataSource,
+                                                         UITableViewDelegate,
+                                                         BottomNavViewControllerDelegate,
+                                                         TTNetManagerDelegate>
 
 @property (nonatomic, retain) NSArray *userHistory;
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic, retain) User *user;
+@property (nonatomic) UITableView *tableView;
+@property (nonatomic, retain) NSDictionary *feedData;
 @property (nonatomic, retain) NSNumber *tableHeight;
 
 @end
