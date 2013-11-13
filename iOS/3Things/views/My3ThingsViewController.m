@@ -46,19 +46,12 @@
         ShareDayStore *itemStore = [[ShareDayStore alloc] init];
         ShareDay *today = [itemStore getToday];
         if (!self.isCurrent) {
-            TTLog(@"Got sent a day in the past");
             self.shares = shares;
         } else if (today == NULL) {
-            TTLog(@"Found nothing");
             self.shares = [[TTShareDay alloc] init];
         } else {
-            TTLog(@"Found an entry");
-            for (Thing *thing in today.things){
-                TTLog(@"%@", thing.text);
-            }
             self.shares = [TTShareDay shareDayWithShareObject:today];
         }
-        TTLog(@"Entering 3things view: %@", self.shares.theThings);
     }
     return self;
 }
