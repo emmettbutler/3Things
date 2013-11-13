@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTNetManager.h"
 
 @class FriendSearchViewController;
 @protocol FriendSearchViewControllerDelegate <NSObject>
@@ -16,10 +17,11 @@
 
 id <FriendSearchViewControllerDelegate> searchDelegate;
 
-@interface FriendSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface FriendSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TTNetManagerDelegate>
 
 @property (nonatomic) CGRect frame;
 @property (nonatomic, assign) id <FriendSearchViewControllerDelegate> searchDelegate;
 @property (nonatomic) UITableView *tableView;
+@property (nonatomic, retain) NSDictionary *friendData;
 
 @end

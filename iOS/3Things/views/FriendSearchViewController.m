@@ -7,7 +7,6 @@
 //
 
 #import "FriendSearchViewController.h"
-#import "TTNetManager.h"
 
 @interface FriendSearchViewController ()
 
@@ -20,11 +19,15 @@
 {
     [super viewDidLoad];
     
+    self.friendData = nil;
     self.view.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
     
     CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     CGRect popupFrame = CGRectMake(0, 110, screenFrame.size.width, screenFrame.size.height);
     self.frame = popupFrame;
+    
+    [TTNetManager sharedInstance].netDelegate = self;
+    [[TTNetManager sharedInstance] friendSearch];
     
     CGRect scrollFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
@@ -40,12 +43,29 @@
     [searchDelegate dismissSearchWasTouched];
 }
 
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url {
+    if (error == NULL) {
+        NSError *jsonError = nil;
+        NSDictionary *json = [NSJSONSerialization
+                              JSONObjectWithData:data
+                              options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
+                              error:&jsonError];
+        TTLog(@"json response: %@", json);
+        self.friendData = json;
+        [self.tableView reloadData];
+    }
+}
+
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    if (self.friendData == nil){
+        return 2;
+    } else {
+        return [[self.friendData objectForKey:@"data"] count];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -61,6 +81,15 @@
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
 
+    if (self.friendData == nil) return cell;
+    
+    NSDictionary *user = [[self.friendData objectForKey:@"data"] objectAtIndex:indexPath.row];
+    
+    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
+    [thingTextView setText:[user objectForKey:@"name"]];
+    [thingTextView setFont:[UIFont systemFontOfSize:20]];
+    [container addSubview:thingTextView];
+    
     cell.backgroundView = container;
     return cell;
 }

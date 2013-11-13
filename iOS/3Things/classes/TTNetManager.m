@@ -39,6 +39,14 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:NO];
 }
 
+-(void)friendSearch
+{
+    NSString *url = [NSString stringWithFormat:@"%@/users",
+                     rootURL];
+    TTLog(@"Attempting to search for users");
+    [self apiConnectionWithURL:url authorized:NO];
+}
+
 -(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID
 {
     NSString *url = [NSString stringWithFormat:@"%@/users/%@/days", rootURL, userID];
@@ -80,6 +88,10 @@ TTNetManager *instance;
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *error){
+         // TODO - this whole delegate idea only works if there is only ever one web request happening at a time
+         // doing more than one at a time would break this.
+         // To allow more than one at a time, maintain a dictionary of delegates and delegate each request to the
+         // appropriate one
          [netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
      }
      ];
