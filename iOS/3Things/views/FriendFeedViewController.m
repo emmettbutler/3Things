@@ -29,9 +29,6 @@
     self.navigationController.navigationBarHidden = NO;
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Friends" style:UIBarButtonItemStyleBordered target:self action:@selector(friendsWasTouched)];
-	[[self navigationItem] setLeftBarButtonItem:button];
-    
 	CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
 	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:screenFrame];
