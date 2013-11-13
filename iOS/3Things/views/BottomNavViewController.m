@@ -36,6 +36,14 @@
     [friendsButton setTitle:@"Friends" forState:UIControlStateNormal];
     friendsButton.frame = CGRectMake(200, 0, 80, 60);
     [self.view addSubview:friendsButton];
+    
+    UIButton *calendarButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [calendarButton addTarget:self
+                      action:@selector(calendarWasTouched)
+            forControlEvents:UIControlEventTouchDown];
+    [calendarButton setTitle:@"Calendar" forState:UIControlStateNormal];
+    calendarButton.frame = CGRectMake(10, 0, 80, 60);
+    [self.view addSubview:calendarButton];
 }
 
 - (void)reviewWasTouched{
@@ -44,6 +52,10 @@
 
 - (void)friendsWasTouched{
     [self.navDelegate friendsWasTouched];
+}
+
+- (void)calendarWasTouched{
+    [self.navDelegate calendarWasTouched];
 }
 
 @end

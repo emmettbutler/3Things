@@ -11,6 +11,7 @@
 #import "SingleDayViewController.h"
 #import "TTNetManager.h"
 #import "UserStore.h"
+#import "UserHistoryViewController.h"
 #import "My3ThingsViewController.h"
 
 @interface FriendFeedViewController ()
@@ -173,6 +174,10 @@
 
 -(void) friendsWasTouched {
     TTLog(@"Friend feed selected on friends page. Do nothing???");
+}
+
+-(void) calendarWasTouched {
+    [[self navigationController] pushViewController:[[UserHistoryViewController alloc] init] animated:YES];
 }
 
 @end

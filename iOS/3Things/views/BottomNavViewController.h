@@ -13,6 +13,7 @@
 @required
 - (void)reviewWasTouched;
 - (void)friendsWasTouched;
+- (void)calendarWasTouched;
 @end
 
 id <BottomNavViewControllerDelegate> navDelegate;

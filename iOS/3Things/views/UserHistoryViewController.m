@@ -184,4 +184,8 @@
     [[self navigationController] pushViewController:[[FriendFeedViewController alloc] init] animated:YES];
 }
 
+-(void) calendarWasTouched {
+    TTLog(@"Calendar requested on calendar screen. Do nothing???");
+}
+
 @end
