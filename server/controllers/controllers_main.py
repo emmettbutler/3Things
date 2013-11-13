@@ -179,7 +179,6 @@ class DaysController(Base3ThingsHandler):
 
     @coroutine
     def _get_friend_feed(self, for_user):
-        # TODO - only return user posts that are from friends
         db = self.application.dbclient.three_things
         user = list(db.users.find({'_id': for_user}))
         if len(user) == 0:
