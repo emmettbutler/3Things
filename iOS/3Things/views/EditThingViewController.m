@@ -271,9 +271,4 @@
                                          @"localImageURL": (self.thingLocalImageURL == nil) ? @"" : self.thingLocalImageURL}];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 @end
