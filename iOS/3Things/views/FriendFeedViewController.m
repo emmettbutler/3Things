@@ -37,20 +37,27 @@
 	[navBar setFrame:frame];
 	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
-    
 	[self.view addSubview:navBar];
     
     UserStore *userStore = [[UserStore alloc] init];
     [TTNetManager sharedInstance].netDelegate = self;
     [[TTNetManager sharedInstance] getFriendFeedForUser:[NSString stringWithFormat:@"%d", [[userStore getAuthenticatedUser].identifier intValue]]];
     
-    CGRect scrollFrame = CGRectMake(0, frame.size.height+10, frame.size.width, screenFrame.size.height-frame.size.height);
+    int searchBoxHeight = 50;
+    CGRect scrollFrame = CGRectMake(0, frame.size.height+70, frame.size.width, screenFrame.size.height-frame.size.height-searchBoxHeight);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
+    
+    CGRect searchFieldFrame = CGRectMake(0, 60, screenFrame.size.width, searchBoxHeight);
+    searchBox = [[UITextField alloc] initWithFrame:searchFieldFrame];
+    searchBox.placeholder = @"Search";
+    searchBox.borderStyle = UITextBorderStyleRoundedRect;
+    searchBox.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [self.view addSubview:searchBox];
     
     BottomNavViewController *navViewController = [[BottomNavViewController alloc] init];
     navViewController.navDelegate = self;

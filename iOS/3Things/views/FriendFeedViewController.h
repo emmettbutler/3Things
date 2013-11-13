@@ -11,6 +11,9 @@
 #import "TTNetManager.h"
 
 @interface FriendFeedViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, BottomNavViewControllerDelegate, TTNetManagerDelegate>
+{
+    UITextField *searchBox;
+}
 
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) NSDictionary *feedData;
