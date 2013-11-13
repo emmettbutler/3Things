@@ -34,12 +34,15 @@ typedef enum _kStorage {
 -(id)init;
 -(void)loginToken:(NSString *)access_token;
 -(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth;
+-(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth withMethod:(NSString *)httpMethod;
 -(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data authorized:(BOOL)auth;
 -(void)registerUser:(NSString *)email withName:(NSString *)uname andPassword:(NSString *)pw andPasswordConf:(NSString *)pwConf;
 -(void)loginUser:(NSString *)email withPassword:(NSString *)pw;
 -(void)getFriendFeedForUser:(NSString *)userID;
 -(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID;
 -(void)friendSearch;
+-(void)addFriend:(NSString *)friendID forUser:(User *)user;
+-(void)removeFriend:(NSString *)friendID forUser:(User *)user;
 
 @property (nonatomic, retain) NSString *currentAccessToken;
 @property (nonatomic, assign) id <TTNetManagerDelegate> netDelegate;

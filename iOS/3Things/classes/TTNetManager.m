@@ -77,11 +77,26 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:YES];
 }
 
--(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth{
+-(void)addFriend:(NSString *)friendID forUser:(User *)user
+{
+    NSString *url = [NSString stringWithFormat:@"%@/users/%@/friends/%@", rootURL, user.userID, friendID];
+    TTLog(@"Attempting to add friend for user %@", user.userID);
+    [self apiConnectionWithURL:url authorized:YES withMethod:@"PUT"];
+}
+
+-(void)removeFriend:(NSString *)friendID forUser:(User *)user
+{
+    NSString *url = [NSString stringWithFormat:@"%@/users/%@/friends/%@", rootURL, user.userID, friendID];
+    TTLog(@"Attempting to remove friend for user %@", user.userID);
+    [self apiConnectionWithURL:url authorized:YES withMethod:@"DELETE"];
+}
+
+-(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth withMethod:(NSString *)httpMethod
+{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                        timeoutInterval:10];
-    [request setHTTPMethod:@"GET"];
+    [request setHTTPMethod:httpMethod];
     if (auth){
         [request setValue:[NSString stringWithFormat:@"bearer %@", self.currentAccessToken] forHTTPHeaderField:@"Authorization"];
     }
@@ -95,6 +110,10 @@ TTNetManager *instance;
          [netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
      }
      ];
+}
+
+-(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth{
+    [self apiConnectionWithURL:url authorized:auth withMethod:@"GET"];
 }
 
 -(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data authorized:(BOOL)auth{
