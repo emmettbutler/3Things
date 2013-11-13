@@ -57,6 +57,7 @@
     searchBox.delegate = self;
     searchBox.borderStyle = UITextBorderStyleRoundedRect;
     searchBox.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [searchBox addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:searchBox];
     
     BottomNavViewController *navViewController = [[BottomNavViewController alloc] init];
@@ -73,8 +74,14 @@
     [self addChildViewController:self.searchViewController];
     [self.view addSubview:self.searchViewController.view];
     self.searchViewController.searchDelegate = self;
+    self.feedDelegate = self.searchViewController;
     self.searchViewController.view.frame = self.searchViewController.frame;
     [self.searchViewController didMoveToParentViewController:self];
+}
+
+-(void)textFieldDidChange:(UITextField *)field {
+    TTLog(@"Textfield changed: %@", field.text);
+    [self.feedDelegate searchQueryChanged:field.text];
 }
 
 -(void)dismissSearchWasTouched {

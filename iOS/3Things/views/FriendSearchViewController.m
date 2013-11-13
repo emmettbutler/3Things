@@ -7,6 +7,7 @@
 //
 
 #import "FriendSearchViewController.h"
+#import "FriendFeedViewController.h"
 #import "UserStore.h"
 
 @interface FriendSearchViewController ()
@@ -28,7 +29,7 @@
     self.frame = popupFrame;
     
     [TTNetManager sharedInstance].netDelegate = self;
-    [[TTNetManager sharedInstance] friendSearch];
+    [[TTNetManager sharedInstance] friendSearch:@""];
     
     CGRect scrollFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
@@ -42,6 +43,11 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     TTLog(@"Search dismiss activated");
     [searchDelegate dismissSearchWasTouched];
+}
+
+- (void)searchQueryChanged:(NSString *)text
+{
+    [[TTNetManager sharedInstance] friendSearch:text];
 }
 
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url {

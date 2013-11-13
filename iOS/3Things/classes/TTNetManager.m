@@ -39,10 +39,10 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:NO];
 }
 
--(void)friendSearch
+-(void)friendSearch:(NSString *)query
 {
-    NSString *url = [NSString stringWithFormat:@"%@/users",
-                     rootURL];
+    NSString *url = [NSString stringWithFormat:@"%@/users?q=%@",
+                     rootURL, query];
     TTLog(@"Attempting to search for users");
     [self apiConnectionWithURL:url authorized:NO];
 }

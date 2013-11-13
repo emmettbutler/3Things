@@ -11,6 +11,14 @@
 #import "TTNetManager.h"
 #import "FriendSearchViewController.h"
 
+@class FriendFeedViewController;
+@protocol FriendFeedViewControllerDelegate <NSObject>
+@optional
+- (void)searchQueryChanged:(NSString *)text;
+@end
+
+id <FriendFeedViewControllerDelegate> feedDelegate;
+
 @interface FriendFeedViewController : UIViewController <UITableViewDataSource,
                                                         UITableViewDelegate,
                                                         BottomNavViewControllerDelegate,
@@ -24,6 +32,7 @@
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) NSDictionary *feedData;
 @property (nonatomic, retain) NSMutableArray *parsedFeed;
+@property (nonatomic, assign) id <FriendFeedViewControllerDelegate> feedDelegate;
 @property (nonatomic, retain) FriendSearchViewController *searchViewController;
 
 @end
