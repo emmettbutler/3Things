@@ -261,6 +261,23 @@ class UserDaysController(Base3ThingsHandler):
         raise Return(days)
 
 
+class UsersController(Base3ThingsHandler):
+    @coroutine
+    def get(self):
+        ret = yield self._user_search()
+        self.set_status(200)
+        self._send_response(ret)
+
+    @coroutine
+    def _user_search(self):
+        db = self.application.dbclient.three_things
+        users = list(db.users.find().limit(20))
+        ret = []
+        for user in users:
+            ret.append({'name': user['name'], '_id': user['_id']})
+        raise Return(ret)
+
+
 class UserController(Base3ThingsHandler):
     def get(self, user_id):
         ret = self._user_response(user_id)

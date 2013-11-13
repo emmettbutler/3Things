@@ -9,6 +9,7 @@ def get_app():
     application = tornado.web.Application([
         (r"/register", controllers_main.RegistrationHandler),
         (r"/login", controllers_main.LoginHandler),
+        (r"/users", controllers_main.UsersController),
         (r"/users/([^\/]+)", controllers_main.UserController),
         (r"/users/([^\/]+)/friends", controllers_main.UserFriendsController),
         (r"/users/([^\/]+)/friends/([^\/]+)", controllers_main.UserFriendController),
