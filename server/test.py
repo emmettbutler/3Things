@@ -67,7 +67,25 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
             assert 'access_token' in json.loads(response.body)['data'], "Login should return an access token"
         self._test_login("test", handle_login)
 
+    def _get_json(self, url, callback):
+        def handle(response):
+            assert response.code == 200
+            callback(json.loads(response.body))
+            self.stop()
+        self.http_client.fetch(
+            url,
+            # this token belongs to one of the more permanent test users
+            #headers={"Authorization": "bearer 63cffb835612406bbf6b93de1f6d1536"},
+            callback=handle
+        )
+        self.wait()
+
     def test_bad_login(self):
         def handle_login(response):
             assert response.code == 403, "Bad login should return a 403"
         self._test_login("testr", handle_login)
+
+    def test_get_users(self):
+        def handle_users(response):
+            assert len(response['data']) > 0
+        self._get_json(self.get_url("/users"), handle_users)
