@@ -121,7 +121,6 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
         self.wait()
 
         def handle_unfriend(response):
-            print response
             user = list(db.users.find(
                 {'_id': ObjectId(TEST_EXISTING_USER), 'friends': ObjectId(TEST_FRIEND)}
             ))
@@ -131,3 +130,9 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
         request = HTTPRequest(url, method="DELETE", headers=AUTH_HEADER)
         self.http_client.fetch(request, callback=handle_unfriend)
         self.wait()
+
+    def test_user_days(self):
+        def handle_get(response):
+            assert len(response['data']['history']) > 0
+            assert response['data']['user'] == TEST_EXISTING_USER
+        self._get_json(self.get_url("/users/%s/days" % TEST_EXISTING_USER), handle_get)
