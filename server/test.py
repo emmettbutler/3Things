@@ -1,13 +1,17 @@
 import unittest
 import urllib
 import json
+from bson.objectid import ObjectId
 
 import tornado.testing
 import tornado.httpclient
+from tornado.httpclient import HTTPRequest
 
 from three_things import get_app
 
-TEST_EXISTING_USER = "52829e5933a3a10b4606702c"
+TEST_EXISTING_USER = "527ab4f333a3a1233d9f7dc3"
+TEST_FRIEND = "5283ccc233a3a11018085cd9"
+AUTH_HEADER = {"Authorization": "bearer 63cffb835612406bbf6b93de1f6d1536"}
 
 
 class TestServer(tornado.testing.AsyncHTTPTestCase):
@@ -77,7 +81,7 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
         self.http_client.fetch(
             url,
             # this token belongs to one of the more permanent test users
-            headers={"Authorization": "bearer 63cffb835612406bbf6b93de1f6d1536"},
+            headers=AUTH_HEADER,
             callback=handle
         )
         self.wait()
@@ -101,3 +105,18 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
         def handle_user_friends(response):
             assert len(response['data']['friends']) > 0
         self._get_json(self.get_url("/users/%s/friends" % TEST_EXISTING_USER), handle_user_friends)
+
+    def test_add_remove_friend(self):
+        def handle_friend(response):
+            print response
+            app = self.get_app()
+            db = app.dbclient.three_things
+            user = list(db.users.find(
+                {'_id': ObjectId(TEST_EXISTING_USER), 'friends': ObjectId(TEST_FRIEND)}
+            ))
+            assert len(user) > 0
+            self.stop()
+        url = self.get_url("/users/%s/friends/%s" % (TEST_EXISTING_USER, TEST_FRIEND))
+        request = HTTPRequest(url, method="PUT", headers=AUTH_HEADER, body="")
+        self.http_client.fetch(request, callback=handle_friend)
+        self.wait()
