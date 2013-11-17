@@ -108,6 +108,11 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
             assert len(response['data']['friends']) > 0
         self._get_json(self.get_url("/users/%s/friends" % TEST_EXISTING_USER), handle_user_friends)
 
+    def test_user_today(self):
+        def handle_user_today(response):
+            assert len(response['data']['history']) == 1
+        self._get_json(self.get_url("/users/%s/today" % TEST_EXISTING_USER), handle_user_today)
+
     def test_add_remove_friend(self):
         app = self.get_app()
         db = app.dbclient.three_things
