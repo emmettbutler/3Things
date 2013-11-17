@@ -7,6 +7,8 @@ import tornado.httpclient
 
 from three_things import get_app
 
+TEST_EXISTING_USER = "52829e5933a3a10b4606702c"
+
 
 class TestServer(tornado.testing.AsyncHTTPTestCase):
     def get_app(self):
@@ -69,7 +71,6 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
 
     def _get_json(self, url, callback):
         def handle(response):
-            print response
             assert response.code == 200
             callback(json.loads(response.body))
             self.stop()
@@ -93,6 +94,10 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
 
     def test_get_user(self):
         def handle_user(response):
-            print response
-            assert len(response['data']) > 0
-        self._get_json(self.get_url("/users/%s" % "52829e5933a3a10b4606702c"), handle_user)
+            assert '_id' in response['data']
+        self._get_json(self.get_url("/users/%s" % TEST_EXISTING_USER), handle_user)
+
+    def test_user_friends(self):
+        def handle_user_friends(response):
+            assert len(response['data']['friends']) > 0
+        self._get_json(self.get_url("/users/%s/friends" % TEST_EXISTING_USER), handle_user_friends)
