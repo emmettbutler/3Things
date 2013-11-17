@@ -108,6 +108,19 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
             assert len(response['data']['friends']) > 0
         self._get_json(self.get_url("/users/%s/friends" % TEST_EXISTING_USER), handle_user_friends)
 
+    def test_friend_feed(self):
+        def handle_friend_feed(response):
+            app = self.get_app()
+            db = app.dbclient.three_things
+            assert len(response['data']['history']) > 0
+            for item in response['data']['history']:
+                friend_id = ObjectId(item['user']['_id'])
+                user = list(db.users.find(
+                    {'_id': ObjectId(TEST_EXISTING_USER), 'friends': friend_id}
+                ))
+                assert len(user) == 1, "The friend feed must contain only entries from a user's friends"
+        self._get_json(self.get_url("/days"), handle_friend_feed)
+
     def test_user_today(self):
         def handle_user_today(response):
             assert len(response['data']['history']) == 1
