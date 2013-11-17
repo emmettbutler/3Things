@@ -107,10 +107,9 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
         self._get_json(self.get_url("/users/%s/friends" % TEST_EXISTING_USER), handle_user_friends)
 
     def test_add_remove_friend(self):
+        app = self.get_app()
+        db = app.dbclient.three_things
         def handle_friend(response):
-            print response
-            app = self.get_app()
-            db = app.dbclient.three_things
             user = list(db.users.find(
                 {'_id': ObjectId(TEST_EXISTING_USER), 'friends': ObjectId(TEST_FRIEND)}
             ))
@@ -119,4 +118,16 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
         url = self.get_url("/users/%s/friends/%s" % (TEST_EXISTING_USER, TEST_FRIEND))
         request = HTTPRequest(url, method="PUT", headers=AUTH_HEADER, body="")
         self.http_client.fetch(request, callback=handle_friend)
+        self.wait()
+
+        def handle_unfriend(response):
+            print response
+            user = list(db.users.find(
+                {'_id': ObjectId(TEST_EXISTING_USER), 'friends': ObjectId(TEST_FRIEND)}
+            ))
+            assert len(user) == 0
+            self.stop()
+        url = self.get_url("/users/%s/friends/%s" % (TEST_EXISTING_USER, TEST_FRIEND))
+        request = HTTPRequest(url, method="DELETE", headers=AUTH_HEADER)
+        self.http_client.fetch(request, callback=handle_unfriend)
         self.wait()
