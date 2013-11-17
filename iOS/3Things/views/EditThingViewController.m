@@ -132,7 +132,7 @@
     [self registerCurrentThing];
     [self savePartialDay];
     [[self navigationController] pushViewController:
-     [[My3ThingsViewController alloc] initWithIsCurrent:[NSNumber numberWithBool:YES]] animated:YES];
+     [[My3ThingsViewController alloc] initWithShareDay:self.shares andIsEdited:[NSNumber numberWithBool:YES]] animated:YES];
 }
 
 - (void)shareWasTouched {

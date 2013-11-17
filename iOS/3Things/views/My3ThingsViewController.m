@@ -36,16 +36,26 @@
     return [self initWithShareDay:shares andIsCurrent:[NSNumber numberWithBool:NO] andUser:[userStore getAuthenticatedUser]];
 }
 
--(id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user
+- (id) initWithShareDay:(TTShareDay *)shares andIsEdited:(NSNumber *)isEdited {
+    self = [self initWithShareDay:shares andIsCurrent:[NSNumber numberWithBool:YES] andUser:nil andIsEdited:isEdited];
+    return self;
+}
+
+-(id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user {
+    return [self initWithShareDay:shares andIsCurrent:isCurrent andUser:user andIsEdited:[NSNumber numberWithBool:NO]];
+}
+
+-(id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user andIsEdited:(NSNumber *)isEdited
 {
     self = [super init];
     if (self) {
         self.isCurrent = [isCurrent boolValue];
         self.user = user;
+        self.isEdited = [isEdited boolValue];
         
         ShareDayStore *itemStore = [[ShareDayStore alloc] init];
         ShareDay *today = [itemStore getToday];
-        if (!self.isCurrent) {
+        if (!self.isCurrent || self.isEdited) {
             self.shares = shares;
         } else if (today == NULL) {
             self.shares = [[TTShareDay alloc] init];
@@ -84,7 +94,7 @@
     CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight+40, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-80);
     self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
     
-    self.dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:[NSNumber numberWithBool:self.isCurrent] andUser:self.user];
+    self.dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:[NSNumber numberWithBool:self.isCurrent] andUser:self.user andIsEdited:[NSNumber numberWithBool:self.isEdited]];
     [self addChildViewController:self.dayView];
     [self.view addSubview:self.dayView.view];
     self.dayView.view.frame = CGRectMake(18, 90, self.dayView.frame.size.width, self.dayView.frame.size.height);

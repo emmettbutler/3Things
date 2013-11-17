@@ -165,7 +165,7 @@
     NSDate *date = [formatter2 dateFromString:[day objectForKey:@"date"]];
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
     [formatter1 setDateFormat:@"MM/dd"];
-    [formatter1 setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    [formatter1 setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     dateView.text = [formatter1 stringFromDate:date];
     dateView.editable = NO;
     [container addSubview:dateView];

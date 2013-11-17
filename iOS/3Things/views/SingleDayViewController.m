@@ -33,6 +33,12 @@
     return [self initWithShareDay:shares andIsCurrent:[NSNumber numberWithBool:NO] andUser:[userStore getAuthenticatedUser]];
 }
 
+- (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user andIsEdited:(NSNumber *)isEdited {
+    self = [self initWithShareDay:shares andIsCurrent:isCurrent andUser:user];
+    self.isEdited = [isEdited boolValue];
+    return self;
+}
+
 -(id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user
 {
     self = [super init];
@@ -52,7 +58,7 @@
     
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
-    if (self.isCurrent){
+    if (self.isCurrent && !self.isEdited){
         UserStore *userStore = [[UserStore alloc] init];
         [TTNetManager sharedInstance].netDelegate = self;
         [[TTNetManager sharedInstance] getTodayForUser:[userStore getAuthenticatedUser]];
