@@ -22,29 +22,40 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
         self.http_client.fetch(self.get_url("/register"), handle_no_args)
         self.wait()
 
+    def _create_temp_user(self, identifier, callback):
+        def handle(response):
+            callback(response)
+            self.stop()
+        pw = "test"
+        params = {'identifier': identifier,
+                  'name': "emmett butler", "pw": pw, "pwc": pw}
+        self.http_client.fetch(
+            self.get_url("/register?" + urllib.urlencode(params)),
+            handle
+        )
+
     def test_new_user(self):
         identifier = "emmett.butler321@gmail.com"
         def handle_new_user(response):
             assert response.code == 201
-            app = self.get_app()
-            db = app.dbclient.three_things
-            db.users.remove({'email': identifier})
             self.stop()
-        params = {'identifier': identifier,
-                  'name': "emmett butler", "pw": "test", "pwc": "test"}
-        self.http_client.fetch(
-            self.get_url("/register?" + urllib.urlencode(params)),
-            handle_new_user
-        )
+        app = self.get_app()
+        db = app.dbclient.three_things
+        db.users.remove({'email': identifier})
+        self._create_temp_user(identifier, handle_new_user)
         self.wait()
 
     def _test_login(self, pw, callback):
         def handle(response):
             callback(response)
             self.stop()
+        identifier = "test@test.com"
+        def do_nothing(response):
+            self.stop()
+        self._create_temp_user(identifier, do_nothing)
         self.http_client.fetch(
             self.get_url("/login?") + urllib.urlencode(
-                {'email': 'emmett.butler612@gmail.co', 'pw': pw}
+                {'email': identifier, 'pw': pw}
             ),
             handle
         )
@@ -54,9 +65,9 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
         def handle_login(response):
             assert response.code == 200, "Login should return a 200"
             assert 'access_token' in json.loads(response.body)['data'], "Login should return an access token"
-        self._test_login("butts", handle_login)
+        self._test_login("test", handle_login)
 
     def test_bad_login(self):
         def handle_login(response):
             assert response.code == 403, "Bad login should return a 403"
-        self._test_login("wrong", handle_login)
+        self._test_login("testr", handle_login)
