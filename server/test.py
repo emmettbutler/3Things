@@ -2,6 +2,8 @@ import unittest
 import urllib
 import json
 from bson.objectid import ObjectId
+import datetime
+import time
 
 import tornado.testing
 import tornado.httpclient
@@ -136,3 +138,20 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
             assert len(response['data']['history']) > 0
             assert response['data']['user'] == TEST_EXISTING_USER
         self._get_json(self.get_url("/users/%s/days" % TEST_EXISTING_USER), handle_get)
+
+        def handle_post(response):
+            assert response.code == 200
+            app = self.get_app()
+            db = app.dbclient.three_things
+            day = list(db.days.find(
+                {"user": ObjectId(TEST_EXISTING_USER), "things":{"text": "testing"}}
+            ))
+            assert len(day) == 1
+            self.stop()
+        url = self.get_url("/users/%s/days" % (TEST_EXISTING_USER))
+        dtime = datetime.datetime.now()
+        dtime = time.mktime(dtime.timetuple())
+        day = {"time": dtime, "things": [{"text": "testing"}, {"text": "some more"}, {"text": "also"}]}
+        request = HTTPRequest(url, method="POST", headers=AUTH_HEADER, body=json.dumps(day))
+        self.http_client.fetch(request, callback=handle_post)
+        self.wait()
