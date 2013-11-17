@@ -69,13 +69,14 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
 
     def _get_json(self, url, callback):
         def handle(response):
+            print response
             assert response.code == 200
             callback(json.loads(response.body))
             self.stop()
         self.http_client.fetch(
             url,
             # this token belongs to one of the more permanent test users
-            #headers={"Authorization": "bearer 63cffb835612406bbf6b93de1f6d1536"},
+            headers={"Authorization": "bearer 63cffb835612406bbf6b93de1f6d1536"},
             callback=handle
         )
         self.wait()
@@ -89,3 +90,9 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
         def handle_users(response):
             assert len(response['data']) > 0
         self._get_json(self.get_url("/users"), handle_users)
+
+    def test_get_user(self):
+        def handle_user(response):
+            print response
+            assert len(response['data']) > 0
+        self._get_json(self.get_url("/users/%s" % "52829e5933a3a10b4606702c"), handle_user)

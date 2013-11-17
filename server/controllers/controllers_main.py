@@ -45,7 +45,11 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
 
     def _user_response(self, user_id):
         db = self.application.dbclient.three_things
-        user = list(db.users.find({'_id': user_id}))[0]
+        user = list(db.users.find({'_id': ObjectId(user_id)}))
+        if len(user) > 0:
+            user = user[0]
+        else:
+            raise tornado.web.HTTPError(404, "User %s not found" % user_id)
         return {'name': user['name'], '_id': user['_id']}
 
 
