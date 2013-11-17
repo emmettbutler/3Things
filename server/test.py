@@ -155,3 +155,11 @@ class TestServer(tornado.testing.AsyncHTTPTestCase):
         request = HTTPRequest(url, method="POST", headers=AUTH_HEADER, body=json.dumps(day))
         self.http_client.fetch(request, callback=handle_post)
         self.wait()
+
+        def handle_wrong_user(response):
+            assert response.code == 403
+            self.stop()
+        url = self.get_url("/users/%s/days" % ("1"))
+        request = HTTPRequest(url, method="POST", headers=AUTH_HEADER, body=json.dumps(day))
+        self.http_client.fetch(request, callback=handle_wrong_user)
+        self.wait()
