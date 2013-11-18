@@ -56,7 +56,8 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    //self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000"];
     
     if (self.isCurrent && !self.isEdited){
         UserStore *userStore = [[UserStore alloc] init];

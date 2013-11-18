@@ -18,7 +18,6 @@
 - (id)initWithShareDay:(TTShareDay *)shares;
 - (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user;
 - (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user andIsEdited:(NSNumber *)isEdited;
-- (id)initWithShareDay:(TTShareDay *)shares andIsEdited:(NSNumber *)isEdited;
 
 @property (nonatomic) CGRect frame;
 @property (nonatomic, retain) TTShareDay *shares;
