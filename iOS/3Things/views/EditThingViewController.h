@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+
 #import "TTShareDay.h"
 #import "PhotoPromptViewController.h"
 #import "TTNetManager.h"

@@ -98,6 +98,8 @@
         forControlEvents:UIControlEventTouchDown];
     [nextButton setTitle:(self.thingIndex.intValue != 2) ? @"Next" : @"Share" forState:UIControlStateNormal];
     nextButton.frame = CGRectMake(screenFrame.size.width*.75, textFieldFrame.origin.y+textFieldFrame.size.height-4, 50, 40.0);
+    nextButton.layer.borderWidth=1.0f;
+    nextButton.layer.borderColor=[[UIColor blackColor] CGColor];
     [self.view addSubview:nextButton];
     
     NSString *imgURL = [[self.shares.theThings objectAtIndex:[self.thingIndex intValue]] objectForKey:@"localImageURL"];
