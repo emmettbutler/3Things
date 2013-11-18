@@ -44,6 +44,7 @@
     firstNameField.borderStyle = UITextBorderStyleRoundedRect;
     firstNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     firstNameField.returnKeyType = UIReturnKeyNext;
+    [firstNameField becomeFirstResponder];
     [self.view addSubview:firstNameField];
     
     CGRect emailFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-120, 280.0f, 31.0f);

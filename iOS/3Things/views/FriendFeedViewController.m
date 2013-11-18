@@ -89,6 +89,7 @@
     TTLog(@"Search view was dismissed");
     [self.searchViewController.view removeFromSuperview];
     [searchBox endEditing:YES];
+    searchBox.text = @"";
 }
 
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url

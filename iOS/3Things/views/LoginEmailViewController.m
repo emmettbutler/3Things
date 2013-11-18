@@ -41,6 +41,7 @@
     idField.autocorrectionType = UITextAutocorrectionTypeNo;
     idField.borderStyle = UITextBorderStyleRoundedRect;
     idField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [idField becomeFirstResponder];
     [self.view addSubview:idField];
     
     CGRect pwFieldFrame = CGRectMake(20.0f, screenFrame.size.height/2-50, 280.0f, 31.0f);
