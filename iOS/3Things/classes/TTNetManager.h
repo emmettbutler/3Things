@@ -15,6 +15,7 @@
 #define BUTTON_COLOR @"f2f2f2"
 #define HEADER_TEXT_COLOR @"648431"
 #define HEADER_FONT @"STHeitiTC-Light"
+#define SCRIPT_FONT @"Baskerville-Italic"
 #define HEADER_FONT_SIZE 15
 #define BUTTON_TEXT_BLUE_COLOR @"669099"
 #define BUTTON_TEXT_SIZE 10

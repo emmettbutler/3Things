@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA083D9C183AD4E0005D5B24 /* TTDate.m in Sources */ = {isa = PBXBuildFile; fileRef = AA083D9B183AD4E0005D5B24 /* TTDate.m */; };
 		AA0910621801BDA100F9D8B8 /* UserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910611801BDA100F9D8B8 /* UserStore.m */; };
 		AA09109D1801CB9300F9D8B8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA09109C1801CB9300F9D8B8 /* ImageIO.framework */; };
 		AA09109F1801CC2D00F9D8B8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = AA09109E1801CC2D00F9D8B8 /* placeholder.png */; };
@@ -51,6 +52,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA083D9A183AD4E0005D5B24 /* TTDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDate.h; sourceTree = "<group>"; };
+		AA083D9B183AD4E0005D5B24 /* TTDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTDate.m; sourceTree = "<group>"; };
 		AA0910601801BDA100F9D8B8 /* UserStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserStore.h; sourceTree = "<group>"; };
 		AA0910611801BDA100F9D8B8 /* UserStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserStore.m; sourceTree = "<group>"; };
 		AA09109C1801CB9300F9D8B8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -150,6 +153,8 @@
 				AA98E1C2182851E80045F827 /* TTNetManager.h */,
 				AAB0A176183A997A006A8B29 /* BackgroundLayer.h */,
 				AAB0A177183A997A006A8B29 /* BackgroundLayer.m */,
+				AA083D9A183AD4E0005D5B24 /* TTDate.h */,
+				AA083D9B183AD4E0005D5B24 /* TTDate.m */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 				AAF28C5C17DAA90A0067FD79 /* main.m in Sources */,
 				AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */,
 				AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */,
+				AA083D9C183AD4E0005D5B24 /* TTDate.m in Sources */,
 				AABB2ECB18007A3500EEA446 /* UserHistoryViewController.m in Sources */,
 				AA1E52D1182AE49F000EBBBA /* User.m in Sources */,
 				AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */,

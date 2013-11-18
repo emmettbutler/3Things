@@ -16,6 +16,7 @@
 #import "ThingDetailViewController.h"
 #import "My3ThingsViewController.h"
 #import "ErrorThrowingViewController.h"
+#import "TTDate.h"
 #import "EditThingViewController.h"
 
 @interface SingleDayViewController ()
@@ -114,6 +115,14 @@
     text.font = [UIFont fontWithName:HEADER_FONT size:THING_TEXT_SIZE];
     text.editable = NO;
     [self.view addSubview:text];
+    
+    UITextView *timeAgo = [[UITextView alloc] initWithFrame:CGRectMake(110, 80, 90, 30)];
+    NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:[self.shares.date timeIntervalSince1970]];
+    timeAgo.text = [NSString stringWithFormat:@"%@ ago", [date timeAgo]];
+    timeAgo.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
+    timeAgo.font = [UIFont fontWithName:SCRIPT_FONT size:11];
+    timeAgo.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"444444"];
+    [self.view addSubview:timeAgo];
     
     int imgWidth = 55;
     NSURL *url = [NSURL URLWithString:[self.user profileImageURL]];
