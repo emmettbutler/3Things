@@ -11,6 +11,7 @@
 #import "TTShareDay.h"
 
 #define TTLog( s, ... ) NSLog( @"<%@:(%d)> [3Things] %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#define COLOR_YELLOW @"f5e34f"
 
 @class TTNetManager;
 @protocol TTNetManagerDelegate <NSObject>
@@ -32,6 +33,7 @@ typedef enum _kStorage {
 +(TTNetManager *)sharedInstance;
 -(NSString *)urlEncodeString:(NSString *)string;
 -(id)init;
+-(UIColor*)colorWithHexString:(NSString*)hex;
 -(void)loginToken:(NSString *)access_token;
 -(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth;
 -(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth withMethod:(NSString *)httpMethod;
