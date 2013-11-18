@@ -20,14 +20,26 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"b2b2b2" opacity:.9];
+    int totalHeight = 65, visibleHeight = 30;
+    
+    self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
+    self.frame = CGRectMake(0, self.screenFrame.size.height-totalHeight, self.screenFrame.size.width, totalHeight+30 /* why? */);
+    //self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000"];
+    
+    UIView *bar = [[UIView alloc] initWithFrame:CGRectMake(0, totalHeight-visibleHeight, self.frame.size.width, visibleHeight+30)];
+    bar.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"b2b2b2" opacity:.9];
+    [self.view addSubview:bar];
 
+    int buttonWidth = 65;
+    
     UIButton *reviewButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [reviewButton addTarget:self
                    action:@selector(reviewWasTouched)
          forControlEvents:UIControlEventTouchDown];
     [reviewButton setTitle:@"Review" forState:UIControlStateNormal];
-    reviewButton.frame = CGRectMake(130, -3, 80, 60);
+    reviewButton.frame = CGRectMake(self.frame.size.width/2-buttonWidth/2, 0, buttonWidth, buttonWidth);
+    reviewButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
+    reviewButton.layer.cornerRadius = buttonWidth/2;
     [self.view addSubview:reviewButton];
     
     UIButton *friendsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -37,7 +49,7 @@
     [friendsButton setTitle:@"FRIENDS" forState:UIControlStateNormal];
     friendsButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE];
     [friendsButton setTintColor:[[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW]];
-    friendsButton.frame = CGRectMake(230, -3, 80, 60);
+    friendsButton.frame = CGRectMake(230, (totalHeight-visibleHeight), 80, 60);
     [self.view addSubview:friendsButton];
     
     UIButton *calendarButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -47,7 +59,7 @@
     [calendarButton setTitle:@"CALENDAR" forState:UIControlStateNormal];
     calendarButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE];
     [calendarButton setTintColor:[[TTNetManager sharedInstance] colorWithHexString:@"FFFFFF"]];
-    calendarButton.frame = CGRectMake(10, -3, 100, 60);
+    calendarButton.frame = CGRectMake(10, totalHeight-visibleHeight, 100, 60);
     [self.view addSubview:calendarButton];
 }
 

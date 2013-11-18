@@ -68,7 +68,7 @@
     navViewController.navDelegate = self;
     [self addChildViewController:navViewController];
     [self.view addSubview:navViewController.view];
-    navViewController.view.frame = CGRectMake(0, screenFrame.size.height-30, screenFrame.size.width, 50);
+    navViewController.view.frame = navViewController.frame;
     [navViewController didMoveToParentViewController:self];
 }
 

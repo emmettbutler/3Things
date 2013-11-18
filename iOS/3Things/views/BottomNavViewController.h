@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @class BottomNavViewController;
 @protocol BottomNavViewControllerDelegate <NSObject>
@@ -20,6 +21,8 @@ id <BottomNavViewControllerDelegate> navDelegate;
 
 @interface BottomNavViewController : UIViewController
 
+@property (nonatomic) CGRect frame;
+@property (nonatomic) CGRect screenFrame;
 @property (nonatomic, assign) id <BottomNavViewControllerDelegate> navDelegate;
 
 @end

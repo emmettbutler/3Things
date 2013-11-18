@@ -16,6 +16,7 @@
 @interface EditThingViewController : UIViewController <UITextViewDelegate, PhotoPromptViewControllerDelegate, TTNetManagerDelegate>
 {
     CGRect screenFrame, textFieldFrame;
+    UIImageView *picView;
 }
 
 - (id) initWithThingIndex:(NSNumber *)thingIndex andShares:(TTShareDay *)shares;

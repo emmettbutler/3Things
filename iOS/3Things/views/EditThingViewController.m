@@ -118,14 +118,19 @@
     [self.view addSubview:nextButton];
     
     NSString *imgURL = [[self.shares.theThings objectAtIndex:[self.thingIndex intValue]] objectForKey:@"localImageURL"];
+    self.thingLocalImageURL = imgURL;
     if (![imgURL isEqualToString:@""]){
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
          {
-            TTLog(@"Thing image loaded successfully");
-            UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(100, textFieldFrame.origin.y+textFieldFrame.size.height+8, 40, 40)];
-            picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
-            [self.view addSubview:picView];
+             TTLog(@"Thing image loaded successfully");
+             int imgWidth = 40;
+             picView = [[UIImageView alloc] initWithFrame:CGRectMake(70, textFieldFrame.origin.y+textFieldFrame.size.height+8, imgWidth, imgWidth)];
+             picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
+             CALayer *imageLayer = picView.layer;
+             [imageLayer setCornerRadius:picView.frame.size.width/2];
+             [imageLayer setMasksToBounds:YES];
+             [self.view addSubview:picView];
          }
                 failureBlock:^(NSError *error )
          {
@@ -176,8 +181,11 @@
 - (void)photoWasSelected:(UIImage *)selectedImage {
     TTLog(@"got image: %@", selectedImage);
     int imgWidth = 40;
-    UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(100, textFieldFrame.origin.y+textFieldFrame.size.height+8, imgWidth, imgWidth)];
+    picView = [[UIImageView alloc] initWithFrame:CGRectMake(70, textFieldFrame.origin.y+textFieldFrame.size.height+8, imgWidth, imgWidth)];
     picView.image = selectedImage;
+    CALayer *imageLayer = picView.layer;
+    [imageLayer setCornerRadius:imgWidth/2];
+    [imageLayer setMasksToBounds:YES];
     [self.view addSubview:picView];
 }
 - (void)photoWasSaved:(NSURL *)savedPhotoURL {
