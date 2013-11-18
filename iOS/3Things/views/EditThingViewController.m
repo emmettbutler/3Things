@@ -13,6 +13,7 @@
 #import "ShareDayStore.h"
 #import "UserStore.h"
 #import "PhotoPromptViewController.h"
+#import "BackgroundLayer.h"
 
 @interface EditThingViewController ()
 
@@ -46,31 +47,31 @@
 	
     self.navigationController.navigationBarHidden = NO;
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
+    CGRect frame = CGRectMake(0, 0, 0, 0);
+    frame.size = CGSizeMake(screenFrame.size.width, 60);
     
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelWasTouched)];
-	[[self navigationItem] setLeftBarButtonItem:button];
+    CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
+    bgLayer.frame = CGRectMake(0, frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height-216-frame.size.height);
+    [self.view.layer insertSublayer:bgLayer atIndex:0];
+    
+    self.navigationItem.hidesBackButton = YES;
     [[self navigationItem] setTitle:[NSString stringWithFormat:@"Share your %@ thing", [self getNumberWord]]];
     self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     
-	screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
-    
 	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:screenFrame];
-	CGRect frame = CGRectMake(0, 0, 0, 0);
-    frame.size = CGSizeMake(screenFrame.size.width, 60);
 	[navBar setFrame:frame];
 	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
     
 	[self.view addSubview:navBar];
     
-    textFieldFrame = CGRectMake(screenFrame.size.width*.025, frame.size.height+10, screenFrame.size.width*.95, screenFrame.size.height-320);
+    textFieldFrame = CGRectMake(screenFrame.size.width*.05, frame.size.height+20, screenFrame.size.width*.9, screenFrame.size.height-320);
     _textField = [[UITextView alloc] initWithFrame:textFieldFrame];
     _textField.textAlignment = NSTextAlignmentLeft;
     _textField.editable = YES;
     _textField.delegate = self;
-    _textField.layer.borderWidth = 1.0f;
-    _textField.layer.borderColor = [[UIColor grayColor] CGColor];
-    _textField.layer.cornerRadius = 10.0f;
+    _textField.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eaeaea"];
     [_textField becomeFirstResponder];
     [_textField setFont:[UIFont systemFontOfSize:15]];
     [_textField setText:self.thingText];
