@@ -17,17 +17,20 @@
 {
     CGRect screenFrame, textFieldFrame;
     UIImageView *picView;
+    UIButton *nextButton;
 }
 
 - (id) initWithThingIndex:(NSNumber *)thingIndex andShares:(TTShareDay *)shares;
 - (NSString *)getNumberWord;
 - (Thing *)saveThingWithIndex:(NSNumber *)index;
 - (void) registerCurrentThing;
+- (void)toggleNextButton;
 
 @property (nonatomic) UITextView *textField;
 @property (nonatomic) TTShareDay *shares;
 @property (nonatomic) NSNumber *thingIndex;
 @property (nonatomic) NSString *thingText;
+@property (nonatomic) BOOL textIsBlank;
 @property (nonatomic) NSString *thingLocalImageURL;
 @property (nonatomic) BOOL firstEdit;
 @property (nonatomic) BOOL photoPromptIsHidden;

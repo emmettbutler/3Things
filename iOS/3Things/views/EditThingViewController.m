@@ -76,6 +76,11 @@
     [_textField becomeFirstResponder];
     [_textField setFont:[UIFont systemFontOfSize:15]];
     [_textField setText:self.thingText];
+    if ([self.thingText isEqualToString:@""]){
+        self.textIsBlank = YES;
+    } else {
+        self.textIsBlank = NO;
+    }
     [self.view addSubview:_textField];
     
     float buttonY = textFieldFrame.origin.y+textFieldFrame.size.height+18;
@@ -105,7 +110,7 @@
     saveButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     [self.view addSubview:saveButton];
     
-    UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    nextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [nextButton addTarget:self
                    action:(self.thingIndex.intValue != 2) ? @selector(nextWasTouched) : @selector(shareWasTouched)
         forControlEvents:UIControlEventTouchDown];
@@ -144,6 +149,7 @@
 }
 
 - (void)nextWasTouched {
+    if (self.textIsBlank) return;
     [self registerCurrentThing];
     
     [[self navigationController] pushViewController:
@@ -159,6 +165,7 @@
 }
 
 - (void)shareWasTouched {
+    if (self.textIsBlank) return;
     [self registerCurrentThing];
     [self saveDay];
     
@@ -287,6 +294,23 @@
     thing.localImageURL = [[self.shares.theThings objectAtIndex:[index intValue]] objectForKey:@"localImageURL"];
     thing.index = index;
     return thing;
+}
+
+-(void)textViewDidChange:(UITextView *)textView {
+    if ([textView.text isEqualToString:@""]){
+        self.textIsBlank = YES;
+    } else {
+        self.textIsBlank = NO;
+    }
+    [self toggleNextButton];
+}
+
+-(void)toggleNextButton{
+    if (self.textIsBlank) {
+        nextButton.titleLabel.textColor = [UIColor colorWithWhite:1 alpha:1];
+    } else {
+        nextButton.titleLabel.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    }
 }
 
 - (void) registerCurrentThing {
