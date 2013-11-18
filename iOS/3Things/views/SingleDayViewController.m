@@ -5,6 +5,7 @@
 //  Created by Emmett Butler on 11/11/13.
 //  Copyright (c) 2013 Emmett Butler. All rights reserved.
 //
+#import <QuartzCore/QuartzCore.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 
 #import "SingleDayViewController.h"
@@ -66,7 +67,7 @@
     }
     
     CGRect myFrame = CGRectMake(10, 70, 280, 420);
-    CGRect scrollFrame = CGRectMake(10, 100, myFrame.size.width*.9, myFrame.size.height-100);
+    CGRect scrollFrame = CGRectMake(10, 100, myFrame.size.width*.9, myFrame.size.height-95);
     self.frame = myFrame;
 
     UICollectionViewFlowLayout* flow = [[UICollectionViewFlowLayout alloc] init];
@@ -85,7 +86,7 @@
     CGRect headFrame = CGRectMake(0, 0, 0, 0);
     headFrame.size = CGSizeMake(myFrame.size.width*.9, 60);
     
-    UIView *topBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, myFrame.size.width, 30)];
+    UIView *topBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 15, myFrame.size.width, 30)];
     topBarView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
     dayOfWeekView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
@@ -102,9 +103,24 @@
     [topBarView addSubview:dayOfMonthView];
     [self.view addSubview:topBarView];
     
-    int imgWidth = 40;
+    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 55, myFrame.size.width, 20)];
+    text.textAlignment = NSTextAlignmentCenter;
+    text.text = [self.user name];
+    text.editable = NO;
+    [self.view addSubview:text];
+    
+    UITextView *text2 = [[UITextView alloc] initWithFrame:CGRectMake(0, 75, myFrame.size.width, 20)];
+    text2.textAlignment = NSTextAlignmentCenter;
+    text2.editable = NO;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM/dd"];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    text2.text = [formatter stringFromDate:self.shares.date];
+    [self.view addSubview:text2];
+    
+    int imgWidth = 55;
     NSURL *url = [NSURL URLWithString:[self.user profileImageURL]];
-    UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(myFrame.size.width/2-imgWidth/2, 0, imgWidth, 50)];
+    UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(myFrame.size.width/2-imgWidth/2, 5, imgWidth, imgWidth)];
     if (![[url absoluteString] isEqualToString:@""] && url != NULL) {
         NSString *imgURL = [self.user profileImageLocalURL];
         if (![imgURL isEqualToString:@""] && imgURL != NULL){
@@ -123,22 +139,10 @@
         [profilePicView setImageWithURL:url
                        placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     }
+    CALayer *imageLayer = profilePicView.layer;
+    [imageLayer setCornerRadius:profilePicView.frame.size.width/2];
+    [imageLayer setMasksToBounds:YES];
     [self.view addSubview:profilePicView];
-    
-    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 50, myFrame.size.width, 20)];
-    text.textAlignment = NSTextAlignmentCenter;
-    text.text = [self.user name];
-    text.editable = NO;
-    [self.view addSubview:text];
-    
-    UITextView *text2 = [[UITextView alloc] initWithFrame:CGRectMake(0, 70, myFrame.size.width, 20)];
-    text2.textAlignment = NSTextAlignmentCenter;
-    text2.editable = NO;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MM/dd"];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
-    text2.text = [formatter stringFromDate:self.shares.date];
-    [self.view addSubview:text2];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
