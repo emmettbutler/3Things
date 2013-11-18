@@ -49,6 +49,10 @@
         self.completedThings = [NSNumber numberWithInt:self.isCurrent ? 0 : 3];
         self.shares = shares;
         self.user = user;
+        if (self.user == nil) {
+            UserStore *userStore = [[UserStore alloc] init];
+            self.user = [userStore getAuthenticatedUser];
+        }
         TTLog(@"Entering single day view: %@", self.shares.theThings);
     }
     return self;
