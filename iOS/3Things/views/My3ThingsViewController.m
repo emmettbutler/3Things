@@ -18,6 +18,7 @@
 #import "ErrorPromptViewController.h"
 #import "TTNetManager.h"
 #import "Thing.h"
+#import "BackgroundLayer.h"
 #import "SingleDayViewController.h"
 
 @interface My3ThingsViewController ()
@@ -74,6 +75,10 @@
     self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
 
+    CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
+    bgLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+    [self.view.layer insertSublayer:bgLayer atIndex:0];
+    
     if (self.isCurrent) {
         [[self navigationItem] setTitle:@"REVIEW YOUR THREE THINGS"];
     } else {

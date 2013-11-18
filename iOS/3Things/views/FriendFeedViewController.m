@@ -13,6 +13,7 @@
 #import "UserStore.h"
 #import "UserHistoryViewController.h"
 #import "My3ThingsViewController.h"
+#import "BackgroundLayer.h"
 
 @interface FriendFeedViewController ()
 
@@ -34,6 +35,10 @@
     
 	CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
+    CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
+    bgLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-50);
+    [self.view.layer insertSublayer:bgLayer atIndex:0];
+    
 	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:screenFrame];
 	CGRect frame = CGRectMake(0, 0, 0, 0);
     frame.size = CGSizeMake(screenFrame.size.width, 60);
@@ -47,7 +52,7 @@
     [[TTNetManager sharedInstance] getFriendFeedForUser:nil];
     
     int searchBoxHeight = 50;
-    CGRect scrollFrame = CGRectMake(frame.size.width*.075, frame.size.height+70, frame.size.width*.85, screenFrame.size.height-frame.size.height-searchBoxHeight);
+    CGRect scrollFrame = CGRectMake(frame.size.width*.075, frame.size.height+50, frame.size.width*.85, screenFrame.size.height-frame.size.height-searchBoxHeight);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;

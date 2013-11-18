@@ -57,7 +57,7 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eff0f1"];
     //self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000"];
     
     if (self.isCurrent && !self.isEdited){
@@ -71,7 +71,7 @@
     self.frame = myFrame;
 
     UICollectionViewFlowLayout* flow = [[UICollectionViewFlowLayout alloc] init];
-    CGRect collectionFrame = CGRectMake(0, 100, scrollFrame.size.width+30, scrollFrame.size.height-20);
+    CGRect collectionFrame = CGRectMake(0, 100, scrollFrame.size.width+20, scrollFrame.size.height-20);
     [flow setItemSize:CGSizeMake(collectionFrame.size.width, (collectionFrame.size.height)/3)];
     [flow setMinimumLineSpacing:1];
     self.collectionView = [[UICollectionView alloc] initWithFrame:collectionFrame collectionViewLayout:flow];
@@ -110,6 +110,7 @@
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 60, myFrame.size.width, 20)];
     text.textAlignment = NSTextAlignmentCenter;
     text.text = [[self.user name] uppercaseString];
+    text.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
     text.font = [UIFont fontWithName:HEADER_FONT size:THING_TEXT_SIZE];
     text.editable = NO;
     [self.view addSubview:text];
@@ -163,6 +164,8 @@
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     
+    container.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eff0f1"];
+    
     NSString *text = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"text"];
     if ([text isEqualToString:@""]) {
         text = @"Share something...";
@@ -182,7 +185,7 @@
     }
     [thingTextView setText:text];
     thingTextView.font = [UIFont fontWithName:HEADER_FONT size:THING_TEXT_SIZE];
-    //thingTextView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"00FFFF"];
+    thingTextView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
     thingTextView.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"555555"];
     [container addSubview:thingTextView];
     
