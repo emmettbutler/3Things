@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PhotoPromptViewController.h"
 
-@interface SignupCodeViewController : UIViewController <PhotoPromptViewControllerDelegate>
+@interface SignupCodeViewController : UIViewController <PhotoPromptViewControllerDelegate, UITextFieldDelegate>
 {
     UITextField *codeField;
     NSString *confirmationCode;

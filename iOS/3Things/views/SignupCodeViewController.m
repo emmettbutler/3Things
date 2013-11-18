@@ -45,10 +45,17 @@
     CGRect codeFieldFrame = CGRectMake(50.0f, screenRect.size.height/6-50, 160.0f, 31.0f);
     codeField = [[UITextField alloc] initWithFrame:codeFieldFrame];
     codeField.placeholder = @"######";
+    codeField.delegate = self;
+    codeField.returnKeyType = UIReturnKeyGo;
     codeField.autocorrectionType = UITextAutocorrectionTypeNo;
     codeField.borderStyle = UITextBorderStyleRoundedRect;
     codeField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:codeField];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self confirmWasTouched];
+    return YES;
 }
 
 - (void)continueWasTouched {
