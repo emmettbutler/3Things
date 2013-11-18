@@ -37,9 +37,8 @@
 	
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
-	[[self navigationItem] setLeftBarButtonItem:button];
-    [[self navigationItem] setTitle:@"User History"];
+    self.navigationItem.hidesBackButton = YES;
+    [[self navigationItem] setTitle:@"USER HISTORY"];
     
 	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     

@@ -27,7 +27,9 @@
     self.feedData = nil;
     self.parsedFeed = [[NSMutableArray alloc] init];
 	
+    self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     self.navigationController.navigationBarHidden = NO;
+    self.navigationItem.hidesBackButton = YES;
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
 	CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
@@ -39,6 +41,7 @@
 	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
 	[self.view addSubview:navBar];
+    [[self navigationItem] setTitle:@"THREE THINGS"];
     
     [TTNetManager sharedInstance].netDelegate = self;
     [[TTNetManager sharedInstance] getFriendFeedForUser:nil];

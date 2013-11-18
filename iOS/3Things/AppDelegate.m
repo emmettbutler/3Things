@@ -25,6 +25,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [TTNetManager sharedInstance];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes: @{
+                                                            UITextAttributeTextColor: [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR],
+                                                            UITextAttributeFont: [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE]
+                                                            }];
 
     UserStore *userStore = [[UserStore alloc] init];
     if ([[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"%d", kAccessToken]] != NULL) {

@@ -71,12 +71,11 @@
     [super viewDidLoad];
 	
     self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
 
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
-	[[self navigationItem] setLeftBarButtonItem:button];
     if (self.isCurrent) {
-        [[self navigationItem] setTitle:@"Review your three things"];
+        [[self navigationItem] setTitle:@"REVIEW YOUR THREE THINGS"];
     }
     
 	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
@@ -87,6 +86,7 @@
 	[navBar setFrame:frame];
 	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
+    self.navigationItem.hidesBackButton = YES;
 	[self.view addSubview:navBar];
     
     float mainButtonHeight = 65;

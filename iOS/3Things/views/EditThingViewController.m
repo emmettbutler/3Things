@@ -52,11 +52,11 @@
     frame.size = CGSizeMake(screenFrame.size.width, 60);
     
     CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
-    bgLayer.frame = CGRectMake(0, frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height-216-frame.size.height);
+    bgLayer.frame = CGRectMake(0, frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height-KEYBOARD_HEIGHT-frame.size.height);
     [self.view.layer insertSublayer:bgLayer atIndex:0];
     
     self.navigationItem.hidesBackButton = YES;
-    [[self navigationItem] setTitle:[NSString stringWithFormat:@"Share your %@ thing", [self getNumberWord]]];
+    [[self navigationItem] setTitle:[NSString stringWithFormat:@"SHARE YOUR %@ THING", [self getNumberWord]]];
     self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     
 	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:screenFrame];
@@ -66,41 +66,55 @@
     
 	[self.view addSubview:navBar];
     
-    textFieldFrame = CGRectMake(screenFrame.size.width*.05, frame.size.height+20, screenFrame.size.width*.9, screenFrame.size.height-320);
+    textFieldFrame = CGRectMake(screenFrame.size.width*.05, frame.size.height+20, screenFrame.size.width*.9, screenFrame.size.height-KEYBOARD_HEIGHT-frame.size.height-60);
     _textField = [[UITextView alloc] initWithFrame:textFieldFrame];
     _textField.textAlignment = NSTextAlignmentLeft;
     _textField.editable = YES;
     _textField.delegate = self;
+    _textField.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"555555"];
     _textField.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eaeaea"];
     [_textField becomeFirstResponder];
     [_textField setFont:[UIFont systemFontOfSize:15]];
     [_textField setText:self.thingText];
     [self.view addSubview:_textField];
     
+    float buttonY = textFieldFrame.origin.y+textFieldFrame.size.height+18;
+    float buttonHeight = 32;
+    
     UIButton *imgButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [imgButton addTarget:self
                action:@selector(imgButtonWasTouched)
      forControlEvents:UIControlEventTouchDown];
     [imgButton setTitle:@"Photo" forState:UIControlStateNormal];
-    imgButton.frame = CGRectMake(screenFrame.size.width*.05, textFieldFrame.origin.y+textFieldFrame.size.height-4, 50, 40.0);
+    imgButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:BUTTON_TEXT_SIZE];
+    imgButton.titleLabel.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    imgButton.frame = CGRectMake(screenFrame.size.width*.05, buttonY, 50, buttonHeight);
+    imgButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_COLOR];
+    imgButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     [self.view addSubview:imgButton];
     
     UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [saveButton addTarget:self
                    action:@selector(saveWasTouched)
          forControlEvents:UIControlEventTouchDown];
-    [saveButton setTitle:@"Save" forState:UIControlStateNormal];
-    saveButton.frame = CGRectMake(screenFrame.size.width*.55, textFieldFrame.origin.y+textFieldFrame.size.height-4, 50, 40.0);
+    [saveButton setTitle:@"SAVE" forState:UIControlStateNormal];
+    saveButton.frame = CGRectMake(screenFrame.size.width*.6, buttonY, 50, buttonHeight);
+    saveButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:BUTTON_TEXT_SIZE];
+    saveButton.titleLabel.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    saveButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_COLOR];
+    saveButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     [self.view addSubview:saveButton];
     
     UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [nextButton addTarget:self
                    action:(self.thingIndex.intValue != 2) ? @selector(nextWasTouched) : @selector(shareWasTouched)
         forControlEvents:UIControlEventTouchDown];
-    [nextButton setTitle:(self.thingIndex.intValue != 2) ? @"Next" : @"Share" forState:UIControlStateNormal];
-    nextButton.frame = CGRectMake(screenFrame.size.width*.75, textFieldFrame.origin.y+textFieldFrame.size.height-4, 50, 40.0);
-    nextButton.layer.borderWidth=1.0f;
-    nextButton.layer.borderColor=[[UIColor blackColor] CGColor];
+    [nextButton setTitle:(self.thingIndex.intValue != 2) ? @"NEXT" : @"SHARE" forState:UIControlStateNormal];
+    nextButton.frame = CGRectMake(screenFrame.size.width*.795, buttonY, 50, buttonHeight);
+    nextButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:BUTTON_TEXT_SIZE];
+    nextButton.titleLabel.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    nextButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_COLOR];
+    nextButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     [self.view addSubview:nextButton];
     
     NSString *imgURL = [[self.shares.theThings objectAtIndex:[self.thingIndex intValue]] objectForKey:@"localImageURL"];
@@ -197,11 +211,11 @@
 {
     switch (self.thingIndex.intValue) {
         case 0:
-            return @"first";
+            return @"FIRST";
         case 1:
-            return @"second";
+            return @"SECOND";
         case 2:
-            return @"third";
+            return @"THIRD";
         default:
             return @"fifteenth";
     }
