@@ -39,23 +39,29 @@
     
     CGRect firstNameFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-170, 280.0f, 31.0f);
     firstNameField = [[UITextField alloc] initWithFrame:firstNameFieldFrame];
+    firstNameField.delegate = self;
     firstNameField.placeholder = @"Name";
     firstNameField.borderStyle = UITextBorderStyleRoundedRect;
     firstNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    firstNameField.returnKeyType = UIReturnKeyNext;
     [self.view addSubview:firstNameField];
     
     CGRect emailFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-120, 280.0f, 31.0f);
     emailField = [[UITextField alloc] initWithFrame:emailFieldFrame];
+    emailField.delegate = self;
     emailField.placeholder = @"Email";
     emailField.autocorrectionType = UITextAutocorrectionTypeNo;
     emailField.borderStyle = UITextBorderStyleRoundedRect;
+    emailField.returnKeyType = UIReturnKeyNext;
     emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:emailField];
     
     CGRect pwFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-70, 280.0f, 31.0f);
     pwField = [[UITextField alloc] initWithFrame:pwFieldFrame];
+    pwField.delegate = self;
     pwField.placeholder = @"Password";
     pwField.secureTextEntry = YES;
+    pwField.returnKeyType = UIReturnKeyNext;
     pwField.borderStyle = UITextBorderStyleRoundedRect;
     pwField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:pwField];
@@ -63,7 +69,9 @@
     CGRect pwConfirmFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-20, 280.0f, 31.0f);
     pwConfirmField = [[UITextField alloc] initWithFrame:pwConfirmFieldFrame];
     pwConfirmField.placeholder = @"Confirm Password";
+    pwConfirmField.delegate = self;
     pwConfirmField.secureTextEntry = YES;
+    pwConfirmField.returnKeyType = UIReturnKeyGo;
     pwConfirmField.borderStyle = UITextBorderStyleRoundedRect;
     pwConfirmField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:pwConfirmField];
@@ -161,6 +169,22 @@
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
         [self presentViewController:navController animated:YES completion:NULL];
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    if (theTextField == firstNameField) {
+        [firstNameField resignFirstResponder];
+        [emailField becomeFirstResponder];
+    } else if(theTextField == emailField) {
+        [emailField resignFirstResponder];
+        [pwField becomeFirstResponder];
+    } else if (theTextField == pwField){
+        [pwField resignFirstResponder];
+        [pwConfirmField becomeFirstResponder];
+    } else if (theTextField == pwConfirmField) {
+        [self loginWasTouched];
+    }
+    return YES;
 }
 
 - (BOOL) fieldsAreValid {
