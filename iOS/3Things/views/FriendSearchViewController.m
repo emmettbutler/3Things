@@ -22,10 +22,9 @@
     [super viewDidLoad];
     
     self.friendData = nil;
-    self.view.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
     
     CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
-    CGRect popupFrame = CGRectMake(0, 110, screenFrame.size.width, screenFrame.size.height);
+    CGRect popupFrame = CGRectMake(0, 110, screenFrame.size.width, screenFrame.size.height-142);
     self.frame = popupFrame;
     
     [TTNetManager sharedInstance].netDelegate = self;
