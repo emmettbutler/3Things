@@ -36,6 +36,8 @@
     CGRect idFieldFrame = CGRectMake(20.0f, screenFrame.size.height/2-100, 280.0f, 31.0f);
     idField = [[UITextField alloc] initWithFrame:idFieldFrame];
     idField.placeholder = @"Username or email";
+    idField.delegate = self;
+    idField.returnKeyType = UIReturnKeyNext;
     idField.autocorrectionType = UITextAutocorrectionTypeNo;
     idField.borderStyle = UITextBorderStyleRoundedRect;
     idField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -44,10 +46,22 @@
     CGRect pwFieldFrame = CGRectMake(20.0f, screenFrame.size.height/2-50, 280.0f, 31.0f);
     pwField = [[UITextField alloc] initWithFrame:pwFieldFrame];
     pwField.placeholder = @"Password";
+    pwField.delegate = self;
+    pwField.returnKeyType = UIReturnKeyGo;
     pwField.secureTextEntry = YES;
     pwField.borderStyle = UITextBorderStyleRoundedRect;
     pwField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:pwField];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    if (theTextField == idField){
+        [idField resignFirstResponder];
+        [pwField becomeFirstResponder];
+    } else if (theTextField == pwField) {
+        [self loginWasTouched];
+    }
+    return YES;
 }
 
 - (void)loginWasTouched {
