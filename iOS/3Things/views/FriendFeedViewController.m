@@ -47,7 +47,7 @@
     [[TTNetManager sharedInstance] getFriendFeedForUser:nil];
     
     int searchBoxHeight = 50;
-    CGRect scrollFrame = CGRectMake(frame.size.width*.075, frame.size.height+70, frame.size.width*.85, screenFrame.size.height-frame.size.height-searchBoxHeight);
+    CGRect scrollFrame = CGRectMake(frame.size.width*.075, frame.size.height+70, frame.size.width*.85, screenFrame.size.height-frame.size.height-60-searchBoxHeight);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;

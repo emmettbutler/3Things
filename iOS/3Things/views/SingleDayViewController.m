@@ -88,35 +88,31 @@
     
     UIView *topBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 15, myFrame.size.width, 30)];
     topBarView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
-    UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(10, 3, 80, 30)];
     dayOfWeekView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEEE"];
     NSString *dayOfWeek = [dateFormatter stringFromDate:self.shares.date];
     dayOfWeekView.text = [dayOfWeek uppercaseString];
+    dayOfWeekView.font = [UIFont fontWithName:HEADER_FONT size:THING_TEXT_SIZE-2];
+    dayOfWeekView.textColor = [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR];
     [topBarView addSubview:dayOfWeekView];
-    UITextView *dayOfMonthView = [[UITextView alloc] initWithFrame:CGRectMake(180, 0, 100, 30)];
+    UITextView *dayOfMonthView = [[UITextView alloc] initWithFrame:CGRectMake(175, 3, 100, 30)];
     dayOfMonthView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    dayOfMonthView.font = [UIFont fontWithName:HEADER_FONT size:THING_TEXT_SIZE-2];
+    dayOfMonthView.textColor = [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR];
     [dateFormatter setDateFormat:@"MMMM dd"];
     NSString *dayOfMonth = [dateFormatter stringFromDate:self.shares.date];
-    dayOfMonthView.text = [NSString stringWithFormat:@"%@", dayOfMonth];
+    dayOfMonthView.text = [NSString stringWithFormat:@"%@", [dayOfMonth uppercaseString]];
     [topBarView addSubview:dayOfMonthView];
     [self.view addSubview:topBarView];
     
-    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 55, myFrame.size.width, 20)];
+    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 60, myFrame.size.width, 20)];
     text.textAlignment = NSTextAlignmentCenter;
-    text.text = [self.user name];
+    text.text = [[self.user name] uppercaseString];
+    text.font = [UIFont fontWithName:HEADER_FONT size:THING_TEXT_SIZE];
     text.editable = NO;
     [self.view addSubview:text];
-    
-    UITextView *text2 = [[UITextView alloc] initWithFrame:CGRectMake(0, 75, myFrame.size.width, 20)];
-    text2.textAlignment = NSTextAlignmentCenter;
-    text2.editable = NO;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MM/dd"];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
-    text2.text = [formatter stringFromDate:self.shares.date];
-    [self.view addSubview:text2];
     
     int imgWidth = 55;
     NSURL *url = [NSURL URLWithString:[self.user profileImageURL]];
