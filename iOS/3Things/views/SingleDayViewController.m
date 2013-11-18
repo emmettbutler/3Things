@@ -175,7 +175,7 @@
         }
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(30, 15, frame.size.width*.7, 48)];
+    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 15, frame.size.width*.7, 48)];
     int maxLen = 75;
     if ([text length] > maxLen) {
         text = [NSString stringWithFormat:@"%@...", [text substringToIndex:maxLen]];
@@ -192,8 +192,12 @@
         [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
          {
              TTLog(@"thing image loaded at index %d", indexPath.row);
-             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(200, 0, 40, 40)];
+             int imgSize = 55;
+             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(210, 20, imgSize, imgSize)];
              picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
+             CALayer *imageLayer = picView.layer;
+             [imageLayer setCornerRadius:picView.frame.size.width/2];
+             [imageLayer setMasksToBounds:YES];
              [container addSubview:picView];
          }
                 failureBlock:^(NSError *error )
