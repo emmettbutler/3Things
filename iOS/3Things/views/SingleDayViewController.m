@@ -160,6 +160,11 @@
     [thingTextView setFont:[UIFont systemFontOfSize:20]];
     [container addSubview:thingTextView];
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEEE"];
+    NSString *dayOfWeek = [dateFormatter stringFromDate:self.shares.date];
+    TTLog(@"Day of week: %@", dayOfWeek);
+    
     NSString *imgURL = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"localImageURL"];
     if (![imgURL isEqualToString:@""]){
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
