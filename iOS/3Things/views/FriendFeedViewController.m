@@ -40,14 +40,14 @@
 	[navBar setFrame:frame];
 	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
-	[self.view addSubview:navBar];
     [[self navigationItem] setTitle:@"THREE THINGS"];
+	[self.view addSubview:navBar];
     
     [TTNetManager sharedInstance].netDelegate = self;
     [[TTNetManager sharedInstance] getFriendFeedForUser:nil];
     
     int searchBoxHeight = 50;
-    CGRect scrollFrame = CGRectMake(frame.size.width*.075, frame.size.height+70, frame.size.width*.85, screenFrame.size.height-frame.size.height-60-searchBoxHeight);
+    CGRect scrollFrame = CGRectMake(frame.size.width*.075, frame.size.height+70, frame.size.width*.85, screenFrame.size.height-frame.size.height-searchBoxHeight);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;

@@ -203,8 +203,7 @@ TTNetManager *instance;
     return retval;
 }
 
-// http://stackoverflow.com/questions/6207329/how-to-set-hex-color-code-for-background
--(UIColor*)colorWithHexString:(NSString*)hex
+-(UIColor *)colorWithHexString:(NSString *)hex opacity:(CGFloat)op
 {
     NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
@@ -237,7 +236,13 @@ TTNetManager *instance;
     return [UIColor colorWithRed:((float) r / 255.0f)
                            green:((float) g / 255.0f)
                             blue:((float) b / 255.0f)
-                           alpha:1.0f];
+                           alpha:(float)op];
+}
+
+// http://stackoverflow.com/questions/6207329/how-to-set-hex-color-code-for-background
+-(UIColor*)colorWithHexString:(NSString*)hex
+{
+    return [self colorWithHexString:hex opacity:1];
 }
 
 @end

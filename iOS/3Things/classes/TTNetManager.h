@@ -43,6 +43,7 @@ typedef enum _kStorage {
 -(NSString *)urlEncodeString:(NSString *)string;
 -(id)init;
 -(UIColor*)colorWithHexString:(NSString*)hex;
+-(UIColor *)colorWithHexString:(NSString *)hex opacity:(CGFloat)op;
 -(void)loginToken:(NSString *)access_token;
 -(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth;
 -(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth withMethod:(NSString *)httpMethod;
