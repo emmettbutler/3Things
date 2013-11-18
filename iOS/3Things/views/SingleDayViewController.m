@@ -56,8 +56,8 @@
 {
     [super viewDidLoad];
     
-    //self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
-    self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000"];
+    self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    //self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000"];
     
     if (self.isCurrent && !self.isEdited){
         UserStore *userStore = [[UserStore alloc] init];
@@ -70,8 +70,11 @@
     self.frame = myFrame;
 
     UICollectionViewFlowLayout* flow = [[UICollectionViewFlowLayout alloc] init];
-    [flow setItemSize:CGSizeMake(scrollFrame.size.width, (scrollFrame.size.height)/3)];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:scrollFrame collectionViewLayout:flow];
+    CGRect collectionFrame = CGRectMake(0, 100, scrollFrame.size.width+30, scrollFrame.size.height-20);
+    [flow setItemSize:CGSizeMake(collectionFrame.size.width, (collectionFrame.size.height)/3)];
+    [flow setMinimumLineSpacing:1];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:collectionFrame collectionViewLayout:flow];
+    self.collectionView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"ececec"];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.scrollEnabled = NO;
@@ -81,6 +84,23 @@
     
     CGRect headFrame = CGRectMake(0, 0, 0, 0);
     headFrame.size = CGSizeMake(myFrame.size.width*.9, 60);
+    
+    UIView *topBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, myFrame.size.width, 30)];
+    topBarView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
+    UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    dayOfWeekView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEEE"];
+    NSString *dayOfWeek = [dateFormatter stringFromDate:self.shares.date];
+    dayOfWeekView.text = [dayOfWeek uppercaseString];
+    [topBarView addSubview:dayOfWeekView];
+    UITextView *dayOfMonthView = [[UITextView alloc] initWithFrame:CGRectMake(180, 0, 100, 30)];
+    dayOfMonthView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    [dateFormatter setDateFormat:@"MMMM dd"];
+    NSString *dayOfMonth = [dateFormatter stringFromDate:self.shares.date];
+    dayOfMonthView.text = [NSString stringWithFormat:@"%@", dayOfMonth];
+    [topBarView addSubview:dayOfMonthView];
+    [self.view addSubview:topBarView];
     
     int imgWidth = 40;
     NSURL *url = [NSURL URLWithString:[self.user profileImageURL]];
@@ -155,15 +175,16 @@
         }
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
+    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(30, 15, frame.size.width*.7, 48)];
+    int maxLen = 75;
+    if ([text length] > maxLen) {
+        text = [NSString stringWithFormat:@"%@...", [text substringToIndex:maxLen]];
+    }
     [thingTextView setText:text];
-    [thingTextView setFont:[UIFont systemFontOfSize:20]];
+    thingTextView.font = [UIFont fontWithName:HEADER_FONT size:THING_TEXT_SIZE];
+    //thingTextView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"00FFFF"];
+    thingTextView.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"555555"];
     [container addSubview:thingTextView];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEEE"];
-    NSString *dayOfWeek = [dateFormatter stringFromDate:self.shares.date];
-    TTLog(@"Day of week: %@", dayOfWeek);
     
     NSString *imgURL = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"localImageURL"];
     if (![imgURL isEqualToString:@""]){
