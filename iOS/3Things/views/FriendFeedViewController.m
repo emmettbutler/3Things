@@ -52,12 +52,12 @@
     [[TTNetManager sharedInstance] getFriendFeedForUser:nil];
     
     int searchBoxHeight = 50;
-    CGRect scrollFrame = CGRectMake(frame.size.width*.075, frame.size.height+50, frame.size.width*.85, screenFrame.size.height-frame.size.height-searchBoxHeight);
+    CGRect scrollFrame = CGRectMake(11, frame.size.height+50, frame.size.width*.9, screenFrame.size.height-frame.size.height-searchBoxHeight);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    self.tableView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
     
@@ -162,9 +162,11 @@
     
     [container addSubview:dayView.view];
     
-    container.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    container.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     
     cell.backgroundView = container;
+    cell.backgroundColor = [UIColor clearColor];
+    cell.selectedBackgroundView = [[UIView alloc] init];
     return cell;
 }
 
