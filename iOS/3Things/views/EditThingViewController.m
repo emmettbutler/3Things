@@ -84,6 +84,13 @@
     }
     [self.view addSubview:_textField];
     
+    int closeButtonSize = 30, closeButtonMargin = 5;
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [closeButton addTarget:self action:@selector(closeWasTouched) forControlEvents:UIControlEventTouchDown];
+    closeButton.frame = CGRectMake(textFieldFrame.origin.x+textFieldFrame.size.width-(closeButtonMargin+closeButtonSize), textFieldFrame.origin.y+closeButtonMargin, closeButtonSize, closeButtonSize);
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"Close.png"] forState:UIControlStateNormal];
+    [self.view addSubview:closeButton];
+    
     float buttonY = textFieldFrame.origin.y+textFieldFrame.size.height+18;
     float buttonHeight = 32;
     
@@ -317,6 +324,10 @@
     [self.shares.theThings replaceObjectAtIndex:self.thingIndex.intValue
                                      withObject:@{@"text": self.textField.text,
                                          @"localImageURL": (self.thingLocalImageURL == nil) ? @"" : self.thingLocalImageURL}];
+}
+
+- (void) closeWasTouched {
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 @end
