@@ -35,11 +35,10 @@
     UIButton *reviewButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [reviewButton addTarget:self
                    action:@selector(reviewWasTouched)
-         forControlEvents:UIControlEventTouchDown];
-    [reviewButton setTitle:@"Review" forState:UIControlStateNormal];
+         forControlEvents:UIControlEventTouchUpInside];
     reviewButton.frame = CGRectMake(self.frame.size.width/2-buttonWidth/2, 0, buttonWidth, buttonWidth);
-    reviewButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
-    reviewButton.layer.cornerRadius = buttonWidth/2;
+    [reviewButton setBackgroundImage:[UIImage imageNamed:@"Compose_Icon.png"] forState:UIControlStateNormal];
+    [reviewButton setBackgroundImage:[UIImage imageNamed:@"Compose_Icon_depressed.png"] forState:UIControlStateHighlighted];
     [self.view addSubview:reviewButton];
     
     UIButton *friendsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];

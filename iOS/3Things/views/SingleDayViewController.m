@@ -54,6 +54,7 @@
             self.user = [userStore getAuthenticatedUser];
         }
         TTLog(@"Entering single day view: %@", self.shares.theThings);
+        TTLog(@"Time: %@", self.shares);
     }
     return self;
 }
