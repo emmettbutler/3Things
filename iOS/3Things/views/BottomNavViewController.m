@@ -44,21 +44,21 @@
     UIButton *friendsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [friendsButton addTarget:self
                      action:@selector(friendsWasTouched)
-           forControlEvents:UIControlEventTouchDown];
-    [friendsButton setTitle:@"FRIENDS" forState:UIControlStateNormal];
-    friendsButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE];
-    [friendsButton setTintColor:[[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW]];
-    friendsButton.frame = CGRectMake(230, (totalHeight-visibleHeight), 80, 60);
+           forControlEvents:UIControlEventTouchUpInside];
+    friendsButton.frame = CGRectMake(224, (totalHeight-visibleHeight)+10, 80, 30);
+    [friendsButton setBackgroundImage:[UIImage imageNamed:@"Friends_bottom_Menu.png"] forState:UIControlStateNormal];
+    [friendsButton setBackgroundImage:[UIImage imageNamed:@"Friends_bottom_Menu_depressed.png"] forState:UIControlStateHighlighted];
     [self.view addSubview:friendsButton];
     
     UIButton *calendarButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [calendarButton addTarget:self
                       action:@selector(calendarWasTouched)
-            forControlEvents:UIControlEventTouchDown];
+            forControlEvents:UIControlEventTouchUpInside];
     [calendarButton setTitle:@"CALENDAR" forState:UIControlStateNormal];
     calendarButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE];
     [calendarButton setTintColor:[[TTNetManager sharedInstance] colorWithHexString:@"FFFFFF"]];
     calendarButton.frame = CGRectMake(10, totalHeight-visibleHeight, 100, 60);
+    
     [self.view addSubview:calendarButton];
 }
 
