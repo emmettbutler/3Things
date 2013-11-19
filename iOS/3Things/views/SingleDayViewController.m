@@ -63,12 +63,14 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eff0f1"];
-    //self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000"];
     
-    if (self.isCurrent && !self.isEdited){
-        UserStore *userStore = [[UserStore alloc] init];
-        [TTNetManager sharedInstance].netDelegate = self;
-        [[TTNetManager sharedInstance] getTodayForUser:[userStore getAuthenticatedUser]];
+    if (!self.isCurrent && !self.isEdited){
+        ShareDayStore *dayStore = [[ShareDayStore alloc] init];
+        if ([dayStore getToday] == NULL) {
+            UserStore *userStore = [[UserStore alloc] init];
+            [TTNetManager sharedInstance].netDelegate = self;
+            [[TTNetManager sharedInstance] getTodayForUser:[userStore getAuthenticatedUser]];
+        }
     }
     
     CGRect myFrame = CGRectMake(10, 70, 280, 420);
@@ -236,7 +238,9 @@
         TTLog(@"json response: %@", json);
         self.feedData = json;
         self.shares = [[TTShareDay alloc] initWithSharesDictionary:[[[json objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:0]];
-        ((My3ThingsViewController *)self.parentViewController).shares = self.shares;
+        if ([self.parentViewController isKindOfClass:[My3ThingsViewController class]]){
+            ((My3ThingsViewController *)self.parentViewController).shares = self.shares;
+        }
         [self.collectionView reloadData];
     }
 }

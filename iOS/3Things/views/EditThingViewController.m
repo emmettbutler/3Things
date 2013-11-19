@@ -243,21 +243,20 @@
     if (item == NULL){
         item = [dayStore createShareDay];
     }
+    // TODO - should this exclude empty Things? (@"")
     for (int i = 0; i < 3; i++){
-        if (![[[self.shares.theThings objectAtIndex:i] objectForKey:@"text"] isEqualToString:@""]) {
-            Thing *toRemove = NULL;
-            for (Thing* oldThing in item.things){
-                if ([oldThing.index intValue] == i){
-                    toRemove = oldThing;
-                }
+        Thing *toRemove = NULL;
+        for (Thing* oldThing in item.things){
+            if ([oldThing.index intValue] == i){
+                toRemove = oldThing;
             }
-            if (toRemove != NULL){
-                [item removeThingsObject:toRemove];
-            }
-            Thing *thing = [self saveThingWithIndex:[NSNumber numberWithInt:i]];
-            TTLog(@"added thing %d with text %@", i, thing.text);
-            [item addThingsObject:thing];
         }
+        if (toRemove != NULL){
+            [item removeThingsObject:toRemove];
+        }
+        Thing *thing = [self saveThingWithIndex:[NSNumber numberWithInt:i]];
+        TTLog(@"added thing %d with text %@", i, thing.text);
+        [item addThingsObject:thing];
     }
     item.date = [dayStore getDateOnly];
     UserStore *userStore = [[UserStore alloc] init];
