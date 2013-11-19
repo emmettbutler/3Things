@@ -57,6 +57,7 @@
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
     
@@ -160,6 +161,8 @@
     [dayView didMoveToParentViewController:self];
     
     [container addSubview:dayView.view];
+    
+    container.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     
     cell.backgroundView = container;
     return cell;

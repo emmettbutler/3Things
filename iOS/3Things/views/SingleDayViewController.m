@@ -63,7 +63,8 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eff0f1"];
+    //self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eff0f1"];
+    self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"000000" opacity:0];
     
     if (!self.isCurrent && !self.isEdited){
         ShareDayStore *dayStore = [[ShareDayStore alloc] init];
@@ -74,16 +75,21 @@
         }
     }
     
-    CGRect myFrame = CGRectMake(10, 70, 280, 420);
-    CGRect scrollFrame = CGRectMake(10, 100, myFrame.size.width*.9, myFrame.size.height-95);
+    float width = .97;
+    CGRect myFrame = CGRectMake(10, 70, 290, 420);
+    CGRect scrollFrame = CGRectMake(10, 100, myFrame.size.width*width, myFrame.size.height-95);
     self.frame = myFrame;
+    
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, myFrame.size.width*width, 100)];
+    bgView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eff0f1"];
+    [self.view addSubview:bgView];
 
     UICollectionViewFlowLayout* flow = [[UICollectionViewFlowLayout alloc] init];
     CGRect collectionFrame = CGRectMake(0, 100, scrollFrame.size.width+20, scrollFrame.size.height-20);
-    [flow setItemSize:CGSizeMake(collectionFrame.size.width, (collectionFrame.size.height)/3)];
+    [flow setItemSize:CGSizeMake(collectionFrame.size.width-20, (collectionFrame.size.height)/3)];
     [flow setMinimumLineSpacing:1];
     self.collectionView = [[UICollectionView alloc] initWithFrame:collectionFrame collectionViewLayout:flow];
-    self.collectionView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"ececec"];
+    self.collectionView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.scrollEnabled = NO;
@@ -91,10 +97,10 @@
     [self.collectionView reloadData];
     [self.view addSubview:self.collectionView];
     
-    CGRect headFrame = CGRectMake(0, 0, 0, 0);
-    headFrame.size = CGSizeMake(myFrame.size.width*.9, 60);
+    CGRect headFrame = CGRectMake(10, 0, 0, 0);
+    headFrame.size = CGSizeMake(myFrame.size.width*width, 60);
     
-    UIView *topBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 15, myFrame.size.width, 30)];
+    UIView *topBarView = [[UIView alloc] initWithFrame:CGRectMake(10, 15, headFrame.size.width, 30)];
     topBarView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(10, 3, 80, 30)];
     dayOfWeekView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
@@ -184,6 +190,25 @@
     
     container.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eff0f1"];
     
+    UIImageView *flagView = [[UIImageView alloc] initWithFrame:CGRectMake(-6, 20, 40, 40)];
+    NSString *image = @"";
+    switch ([indexPath row]){
+        case 0:
+            image = @"Flag_1.png";
+            break;
+        case 1:
+            image = @"Flag_2.png";
+            break;
+        case 2:
+            image = @"Flag_3.png";
+            break;
+        default:
+            image = @"HUGE ERROR";
+            break;
+    }
+    [flagView setImage:[UIImage imageNamed:image]];
+    [container addSubview:flagView];
+    
     NSString *text = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"text"];
     if ([text isEqualToString:@""]) {
         text = @"Share something...";
@@ -196,7 +221,7 @@
         }
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 15, frame.size.width*.7, 48)];
+    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(40, 15, frame.size.width*.6, 48)];
     int maxLen = 75;
     if ([text length] > maxLen) {
         text = [NSString stringWithFormat:@"%@...", [text substringToIndex:maxLen]];
