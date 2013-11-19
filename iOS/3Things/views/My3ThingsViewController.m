@@ -52,6 +52,10 @@
     if (self) {
         self.isCurrent = [isCurrent boolValue];
         self.user = user;
+        if (self.user == nil){
+            UserStore *userStore = [[UserStore alloc] init];
+            self.user = [userStore getAuthenticatedUser];
+        }
         self.isEdited = [isEdited boolValue];
         
         ShareDayStore *itemStore = [[ShareDayStore alloc] init];
