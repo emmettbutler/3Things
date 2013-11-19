@@ -13,6 +13,7 @@
 #import "ShareDayStore.h"
 #import "UserStore.h"
 #import "PhotoPromptViewController.h"
+#import "TTButton.h"
 #import "BackgroundLayer.h"
 
 @interface EditThingViewController ()
@@ -86,15 +87,13 @@
     float buttonY = textFieldFrame.origin.y+textFieldFrame.size.height+18;
     float buttonHeight = 32;
     
-    UIButton *imgButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    TTButton *imgButton = [TTButton buttonWithType:UIButtonTypeRoundedRect];
     [imgButton addTarget:self
                action:@selector(imgButtonWasTouched)
      forControlEvents:UIControlEventTouchDown];
-    [imgButton setTitle:@"Photo" forState:UIControlStateNormal];
-    imgButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:BUTTON_TEXT_SIZE];
-    imgButton.titleLabel.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
     imgButton.frame = CGRectMake(screenFrame.size.width*.05, buttonY, 50, buttonHeight);
     imgButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_COLOR];
+    [imgButton setBackgroundImage:[UIImage imageNamed:@"Camera.png"] forState:UIControlStateNormal];
     imgButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     [self.view addSubview:imgButton];
     
