@@ -222,7 +222,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(40, 15, frame.size.width*.6, 48)];
-    int maxLen = 75;
+    int maxLen = 65;
     if ([text length] > maxLen) {
         text = [NSString stringWithFormat:@"%@...", [text substringToIndex:maxLen]];
     }
@@ -283,6 +283,11 @@
         ThingDetailViewController *detailView = [[ThingDetailViewController alloc] initWithThing:[self.shares.theThings objectAtIndex:indexPath.row]];
         [[self navigationController] pushViewController:detailView animated:YES];
     }
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touch started in singleDay");
 }
 
 @end

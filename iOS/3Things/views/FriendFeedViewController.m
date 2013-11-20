@@ -9,7 +9,6 @@
 #import "FriendFeedViewController.h"
 #import "My3ThingsViewController.h"
 #import "SingleDayViewController.h"
-#import "TTNetManager.h"
 #import "UserStore.h"
 #import "UserHistoryViewController.h"
 #import "My3ThingsViewController.h"
@@ -52,11 +51,13 @@
     [[TTNetManager sharedInstance] getFriendFeedForUser:nil];
     
     int searchBoxHeight = 50;
-    CGRect scrollFrame = CGRectMake(11, frame.size.height+50, frame.size.width*.9, screenFrame.size.height-frame.size.height-searchBoxHeight);
-    self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
+    CGRect scrollFrame = CGRectMake(11, frame.size.height+5, frame.size.width*.9, screenFrame.size.height-frame.size.height-searchBoxHeight);
+    self.tableView = [[TTTableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
+    self.tableView.touchDelegate = self;
     self.tableView.dataSource = self;
+    self.tableView.userInteractionEnabled = YES;
     self.tableView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
@@ -68,6 +69,7 @@
     searchBox.borderStyle = UITextBorderStyleRoundedRect;
     searchBox.clearButtonMode = UITextFieldViewModeWhileEditing;
     [searchBox addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    searchBox.hidden = YES;
     [self.view addSubview:searchBox];
     
     BottomNavViewController *navViewController = [[BottomNavViewController alloc] init];
@@ -192,6 +194,48 @@
 
 -(void) calendarWasTouched {
     [[self navigationController] pushViewController:[[UserHistoryViewController alloc] init] animated:YES];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touch outside of table");
+}
+
+-(void)tableTouchesBegan:(NSSet *)touches
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint touchLocation = [touch locationInView:self.view];
+    NSLog(@"Touch in table");
+    if (touchLocation.y < self.tableView.frame.origin.y+60){
+        dragging = YES;
+        touchLastY = touchLocation.y;
+        if(searchBox.hidden){
+            oldY = self.tableView.frame.origin.y;
+        }
+    }
+}
+
+-(void)tableTouchesMoved:(NSSet *)touches
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint touchLocation = [touch locationInView:self.view];
+    if(dragging){
+        CGRect frame = self.tableView.frame;
+        if (searchBox.hidden && touchLastY < touchLocation.y){
+            searchBox.hidden = NO;
+            frame.origin.y = 110;
+            self.tableView.frame = frame;
+        } else if (searchBox.hidden == NO  && touchLastY > touchLocation.y) {
+            frame.origin.y = oldY;
+            searchBox.hidden = YES;
+            self.tableView.frame = frame;
+        }
+        dragging = NO;
+    }
+}
+
+-(void)tableTouchesEnded:(NSSet *)touches
+{
 }
 
 @end

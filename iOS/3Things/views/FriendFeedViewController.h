@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BottomNavViewController.h"
 #import "TTNetManager.h"
+#import "TTTableView.h"
 #import "FriendSearchViewController.h"
 
 @class FriendFeedViewController;
@@ -24,12 +25,15 @@ id <FriendFeedViewControllerDelegate> feedDelegate;
                                                         BottomNavViewControllerDelegate,
                                                         TTNetManagerDelegate,
                                                         UITextFieldDelegate,
-                                                        FriendSearchViewControllerDelegate>
+                                                        FriendSearchViewControllerDelegate,
+                                                        TTTableViewTouchDelegate>
 {
     UITextField *searchBox;
+    BOOL dragging;
+    float oldY, touchLastY;
 }
 
-@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) TTTableView *tableView;
 @property (nonatomic, retain) NSDictionary *feedData;
 @property (nonatomic, retain) NSMutableArray *parsedFeed;
 @property (nonatomic, assign) id <FriendFeedViewControllerDelegate> feedDelegate;
