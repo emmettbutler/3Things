@@ -11,6 +11,7 @@
 
 @implementation TTNetManager
 @synthesize netDelegate;
+@synthesize rootURL;
 
 TTNetManager *instance;
 
@@ -67,27 +68,25 @@ TTNetManager *instance;
         TTLog(@"Error encoding JSON for day POST: %@", error);
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [self apiConnectionWithURL:url andData:jsonString authorized:YES];
-    }
-    
-    for (NSDictionary *thing in shares.theThings) {
-        NSString *img = [thing objectForKey:@"localImageURL"];
-        TTLog(@"Attempting to get thing image");
-        if (![img isEqualToString:@""]){
-            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-            [library assetForURL:[NSURL URLWithString:img] resultBlock:^(ALAsset *asset )
-                {
-                    NSString *url = [NSString stringWithFormat:@"%@/images/today/%d", rootURL, [shares.theThings indexOfObject:thing]];
-                    TTLog(@"Uploading thing image to %@", url);
-                    [self apiConnectionWithURL:url
-                                      andImage:[UIImage imageWithCGImage:[asset thumbnail]]];
-                }
-                    failureBlock:^(NSError *error )
-                {
-                    TTLog(@"Error loading asset");
-                }];
+        for (NSDictionary *thing in shares.theThings) {
+            NSString *img = [thing objectForKey:@"localImageURL"];
+            TTLog(@"Attempting to get thing image");
+            if (![img isEqualToString:@""]){
+                ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+                [library assetForURL:[NSURL URLWithString:img] resultBlock:^(ALAsset *asset )
+                 {
+                     TTLog(@"Uploading thing image to %@", url);
+                     [self apiConnectionWithURL:url andData:jsonString andImage:[UIImage imageWithCGImage:[asset thumbnail]] authorized:YES];
+                 }
+                        failureBlock:^(NSError *error )
+                 {
+                     TTLog(@"Error loading asset");
+                 }];
+            }
         }
     }
+    
+    
 }
 
 -(void)getTodayForUser:(User *)user
@@ -150,7 +149,7 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:auth withMethod:@"GET"];
 }
 
--(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data authorized:(BOOL)auth{
+-(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data andImage:(UIImage *)image authorized:(BOOL)auth{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                        timeoutInterval:10];
@@ -159,12 +158,33 @@ TTNetManager *instance;
     [postData appendData:[requestString dataUsingEncoding:NSUTF8StringEncoding]];
     
     [request setHTTPMethod:@"POST"];
-    [request setValue:[NSString stringWithFormat:@"%d", [postData length]] forHTTPHeaderField:@"Content-Length"];
+    
+    NSString *boundary = @"-----------------------------asidugyasd87gya9sd87ygah9s7ygha", *FileParamConstant = @"thingimage";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    NSMutableData *body = [NSMutableData data];
+    
     if (auth){
         [request setValue:[NSString stringWithFormat:@"bearer %@", self.currentAccessToken] forHTTPHeaderField:@"Authorization"];
     }
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:postData];
+    
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"day\"; filename=\"day.json\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"%@\r\n", data] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    if (imageData) {
+        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%d.jpg\"\r\n", FileParamConstant, 0] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:imageData];
+        [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    [request setHTTPBody:body];
+    NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     
     __block NSError *err = nil;
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
@@ -183,14 +203,18 @@ TTNetManager *instance;
     [request setTimeoutInterval:30];
     [request setHTTPMethod:@"POST"];
     
+    NSString *boundary = @"-----------------------------asidugyasd87gya9sd87ygah9s7ygha", *FileParamConstant = @"userfile";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
     NSMutableData *body = [NSMutableData data];
     NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
     if (imageData) {
-        //[body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        //[body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"image.jpg\"\r\n", FileParamConstant] dataUsingEncoding:NSUTF8StringEncoding]];
-        //[body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"image.jpg\"\r\n", FileParamConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
         [body appendData:imageData];
-        //[body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
     [request setHTTPBody:body];
@@ -216,6 +240,7 @@ TTNetManager *instance;
             self.currentAccessToken = nil;
             rootURL = @"http://localhost:5000";
             //rootURL = @"http://nameless-sierra-7477.herokuapp.com";
+            self.rootURL = rootURL;
         }
         return self;
     }

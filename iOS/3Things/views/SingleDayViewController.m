@@ -232,24 +232,17 @@
     thingTextView.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"555555"];
     [container addSubview:thingTextView];
     
-    NSString *imgURL = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"localImageURL"];
-    if (![imgURL isEqualToString:@""]){
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
-         {
-             TTLog(@"thing image loaded at index %d", indexPath.row);
-             int imgSize = 55;
-             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(210, 20, imgSize, imgSize)];
-             picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
-             CALayer *imageLayer = picView.layer;
-             [imageLayer setCornerRadius:picView.frame.size.width/2];
-             [imageLayer setMasksToBounds:YES];
-             [container addSubview:picView];
-         }
-                failureBlock:^(NSError *error )
-         {
-             TTLog(@"Error loading thing image at index %d", indexPath.row);
-         }];
+    NSString *imgID = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"imageID"];
+    if (![imgID isEqualToString:@""] && imgID != NULL){
+        int imgSize = 55;
+        UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(210, 20, imgSize, imgSize)];
+        CALayer *imageLayer = picView.layer;
+        [imageLayer setCornerRadius:picView.frame.size.width/2];
+        [imageLayer setMasksToBounds:YES];
+        [container addSubview:picView];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [[TTNetManager sharedInstance] rootURL], imgID]];
+        [picView setImageWithURL:url
+                placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     }
     cell.backgroundView = container;
     return cell;

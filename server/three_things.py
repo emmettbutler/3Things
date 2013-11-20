@@ -19,7 +19,7 @@ def get_app():
         (r"/users/([^\/]+)/days", controllers_main.UserDaysController),
         (r"/users/([^\/]+)/today", controllers_main.UserTodayController),
         (r"/days", controllers_main.DaysController),
-        (r"/images/today/(^\/]+)", controllers_main.DaysImageController)
+        (r"/images/([^\/]+)", controllers_main.ImagesController)
     ])
     MONGO_URL = os.environ.get('MONGOHQ_URL')
     print "MONGO URL: %s" % MONGO_URL

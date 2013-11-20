@@ -6,6 +6,8 @@ import hashlib
 import uuid
 from datetime import datetime
 from bson.objectid import ObjectId
+from bson.binary import Binary
+from gridfs import GridFS
 from PIL import Image
 import StringIO
 
@@ -228,9 +230,11 @@ class UserDaysController(Base3ThingsHandler):
         if str(self.cur_user['_id']) != user_id:
             raise tornado.web.HTTPError(403, "Not allowed to post days for other user")
 
+        day_json = self.request.files['day'][0]['body']
+
         try:
-            print "Decoding request body\n%s" % self.request.body
-            sent_day = json.loads(self.request.body)
+            print "Decoding request body\n%s" % day_json
+            sent_day = json.loads(day_json)
         except:
             raise tornado.web.HTTPError(400, "Could not decode request body as JSON")
 
@@ -247,7 +251,21 @@ class UserDaysController(Base3ThingsHandler):
         date = datetime.fromtimestamp(int(sent_day['time'])).date()
         date = datetime.combine(date, datetime.min.time())
 
-        day = yield self._insert_day(date, sent_day)
+        images = ["", "", ""]
+        if 'thingimage' in self.request.files:
+            for image in self.request.files['thingimage']:
+                ctype = image["content_type"]
+                fs = GridFS(self.application.db)
+                images.insert(
+                    int(image['filename'].split('.')[0]),
+                    fs.put(
+                        image['body'],
+                        content_type=ctype,
+                        filename=image["filename"]
+                    )
+                )
+
+        day = yield self._insert_day(date, sent_day, images)
 
         self.finish()
 
@@ -259,7 +277,7 @@ class UserDaysController(Base3ThingsHandler):
         raise Return(list(history))
 
     @coroutine
-    def _insert_day(self, date, sent_day):
+    def _insert_day(self, date, sent_day, images):
         if len(sent_day['things']) < 3:
             raise tornado.web.HTTPError(400, "Missing some Things")
         updating_day = False
@@ -283,6 +301,9 @@ class UserDaysController(Base3ThingsHandler):
             else:
                 self.set_status(304)
                 raise Return(None)
+
+        for i,thing in enumerate(sent_day['things']):
+            thing['imageID'] = images[i]
 
         record = dict(record.items() + sent_day.items())
         days = self.application.db.days.insert(record)
@@ -376,8 +397,10 @@ class UserFriendController(Base3ThingsHandler):
         )
 
 
-class DaysImageController(Base3ThingsHandler):
-    def post(self):
-        img_body = self.request.body
-        img = Image.open(StringIO.StringIO(img_body))
-        img.save("testing", img.format)
+class ImagesController(Base3ThingsHandler):
+    @coroutine
+    def get(self, _id):
+        fs = GridFS(self.application.db)
+        img = fs.get(ObjectId(_id))
+        self.set_header('Content-Type', img.content_type)
+        self.finish(img.read())
