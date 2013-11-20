@@ -49,7 +49,7 @@ typedef enum _kStorage {
 -(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth;
 -(void)apiConnectionWithURL:(NSString *)url andImage:(UIImage *)image;
 -(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth withMethod:(NSString *)httpMethod;
--(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data andImage:(UIImage *)image authorized:(BOOL)auth;
+-(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data andImages:(NSArray *)images authorized:(BOOL)auth;
 -(void)registerUser:(NSString *)email withName:(NSString *)uname andPassword:(NSString *)pw andPasswordConf:(NSString *)pwConf;
 -(void)loginUser:(NSString *)email withPassword:(NSString *)pw;
 -(void)getFriendFeedForUser:(NSString *)userID;

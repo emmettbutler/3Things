@@ -67,6 +67,7 @@ TTNetManager *instance;
     if (!data) {
         TTLog(@"Error encoding JSON for day POST: %@", error);
     } else {
+        NSMutableArray *images = [NSMutableArray arrayWithCapacity:3];
         NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         for (NSDictionary *thing in shares.theThings) {
             NSString *img = [thing objectForKey:@"localImageURL"];
@@ -75,8 +76,10 @@ TTNetManager *instance;
                 ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
                 [library assetForURL:[NSURL URLWithString:img] resultBlock:^(ALAsset *asset )
                  {
-                     TTLog(@"Uploading thing image to %@", url);
-                     [self apiConnectionWithURL:url andData:jsonString andImage:[UIImage imageWithCGImage:[asset thumbnail]] authorized:YES];
+                     [images insertObject:[UIImage imageWithCGImage:[asset thumbnail]] atIndex:[shares.theThings indexOfObject:thing]];
+                     if ([shares.theThings indexOfObject:thing] == 2){
+                         [self apiConnectionWithURL:url andData:jsonString andImages:images authorized:YES];
+                     }
                  }
                         failureBlock:^(NSError *error )
                  {
@@ -149,7 +152,7 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:auth withMethod:@"GET"];
 }
 
--(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data andImage:(UIImage *)image authorized:(BOOL)auth{
+-(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data andImages:(NSArray *)images authorized:(BOOL)auth{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                        timeoutInterval:10];
@@ -173,13 +176,15 @@ TTNetManager *instance;
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"day\"; filename=\"day.json\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"%@\r\n", data] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
-    if (imageData) {
-        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%d.jpg\"\r\n", FileParamConstant, 0] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:imageData];
-        [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    for (UIImage *image in images) {
+        NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+        if (imageData) {
+            [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%d.jpg\"\r\n", FileParamConstant, [images indexOfObject:image]] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:imageData];
+            [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        }
     }
     
     [request setHTTPBody:body];
