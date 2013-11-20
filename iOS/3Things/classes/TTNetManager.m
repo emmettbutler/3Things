@@ -7,6 +7,7 @@
 //
 
 #import "TTNetManager.h"
+#import <AssetsLibrary/ALAsset.h>
 
 @implementation TTNetManager
 @synthesize netDelegate;
@@ -62,11 +63,30 @@ TTNetManager *instance;
     NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDict
                                                    options:NSJSONWritingPrettyPrinted
                                                      error:&error];
-    if (! data) {
+    if (!data) {
         TTLog(@"Error encoding JSON for day POST: %@", error);
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         [self apiConnectionWithURL:url andData:jsonString authorized:YES];
+    }
+    
+    for (NSDictionary *thing in shares.theThings) {
+        NSString *img = [thing objectForKey:@"localImageURL"];
+        TTLog(@"Attempting to get thing image");
+        if (![img isEqualToString:@""]){
+            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+            [library assetForURL:[NSURL URLWithString:img] resultBlock:^(ALAsset *asset )
+                {
+                    NSString *url = [NSString stringWithFormat:@"%@/images/today/%d", rootURL, [shares.theThings indexOfObject:thing]];
+                    TTLog(@"Uploading thing image to %@", url);
+                    [self apiConnectionWithURL:url
+                                      andImage:[UIImage imageWithCGImage:[asset thumbnail]]];
+                }
+                    failureBlock:^(NSError *error )
+                {
+                    TTLog(@"Error loading asset");
+                }];
+        }
     }
 }
 
@@ -154,12 +174,48 @@ TTNetManager *instance;
      ];
 }
 
+-(void)apiConnectionWithURL:(NSString *)url andImage:(UIImage *)image
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                       timeoutInterval:10];
+    [request setHTTPShouldHandleCookies:NO];
+    [request setTimeoutInterval:30];
+    [request setHTTPMethod:@"POST"];
+    
+    NSMutableData *body = [NSMutableData data];
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    if (imageData) {
+        //[body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        //[body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"image.jpg\"\r\n", FileParamConstant] dataUsingEncoding:NSUTF8StringEncoding]];
+        //[body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:imageData];
+        //[body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    [request setHTTPBody:body];
+    
+    // set the content-length
+    NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    __block NSError *err = nil;
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
+     ^(NSURLResponse *response, NSData *data, NSError *error){
+         err = error;
+         if (error){
+             TTLog(@"Error uploading image: %@", error);
+         }
+     }
+     ];
+}
+
 -(id)init{
     @synchronized(self){
         if(self = [super init]){
             self.currentAccessToken = nil;
-            //rootURL = @"http://localhost:5000";
-            rootURL = @"http://nameless-sierra-7477.herokuapp.com";
+            rootURL = @"http://localhost:5000";
+            //rootURL = @"http://nameless-sierra-7477.herokuapp.com";
         }
         return self;
     }

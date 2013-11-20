@@ -6,6 +6,8 @@ import hashlib
 import uuid
 from datetime import datetime
 from bson.objectid import ObjectId
+from PIL import Image
+import StringIO
 
 import tornado.web
 import tornado.gen
@@ -372,3 +374,10 @@ class UserFriendController(Base3ThingsHandler):
             {'_id': ObjectId(user_id)},
             {"$pull": {"friends": ObjectId(friend_id)}}
         )
+
+
+class DaysImageController(Base3ThingsHandler):
+    def post(self):
+        img_body = self.request.body
+        img = Image.open(StringIO.StringIO(img_body))
+        img.save("testing", img.format)
