@@ -71,21 +71,25 @@ TTNetManager *instance;
         NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         for (NSDictionary *thing in shares.theThings) {
             NSString *img = [thing objectForKey:@"localImageURL"];
+            int index = [shares.theThings indexOfObject:thing];
             TTLog(@"Attempting to get thing image");
-            if (![img isEqualToString:@""]){
-                ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-                [library assetForURL:[NSURL URLWithString:img] resultBlock:^(ALAsset *asset )
-                 {
-                     [images insertObject:[UIImage imageWithCGImage:[asset thumbnail]] atIndex:[shares.theThings indexOfObject:thing]];
-                     if ([shares.theThings indexOfObject:thing] == 2){
-                         [self apiConnectionWithURL:url andData:jsonString andImages:images authorized:YES];
-                     }
-                 }
-                        failureBlock:^(NSError *error )
-                 {
-                     TTLog(@"Error loading asset");
-                 }];
+            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+            [library assetForURL:[NSURL URLWithString:img] resultBlock:^(ALAsset *asset )
+            {
+                UIImage *theImage = [UIImage imageWithCGImage:[asset thumbnail]];
+                if (theImage != NULL) {
+                    [images insertObject:theImage atIndex:index];
+                } else {
+                    [images insertObject:[NSNull null] atIndex:index];
+                }
+                if (index == 2){
+                    [self apiConnectionWithURL:url andData:jsonString andImages:images authorized:YES];
+                }
             }
+                failureBlock:^(NSError *error )
+            {
+                TTLog(@"Error loading asset");
+            }];
         }
     }
     
@@ -177,13 +181,15 @@ TTNetManager *instance;
     [body appendData:[[NSString stringWithFormat:@"%@\r\n", data] dataUsingEncoding:NSUTF8StringEncoding]];
     
     for (UIImage *image in images) {
-        NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
-        if (imageData) {
-            [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%d.jpg\"\r\n", FileParamConstant, [images indexOfObject:image]] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:imageData];
-            [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        if (image != (UIImage *)[NSNull null]){
+            NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+            if (imageData) {
+                [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%d.jpg\"\r\n", FileParamConstant, [images indexOfObject:image]] dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:imageData];
+                [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+            }
         }
     }
     
