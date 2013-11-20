@@ -31,11 +31,10 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
         if not token:
             raise tornado.web.HTTPError(403, "Missing authorization header")
         if token.split()[0] == "bearer":
-            db = self.application.dbclient.three_things
-            stored_token = db.access_tokens.find({'token': token.split()[1]})
+            stored_token = self.application.db.access_tokens.find({'token': token.split()[1]})
             try:
                 stored_token = stored_token.next()
-                existing_users = db.users.find({'_id': stored_token['user']})
+                existing_users = self.application.db.users.find({'_id': stored_token['user']})
                 try:
                     self.cur_user = existing_users.next()
                 except StopIteration:
@@ -44,8 +43,7 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
                 raise tornado.web.HTTPError(401, "Invalid access token")
 
     def _user_response(self, user_id):
-        db = self.application.dbclient.three_things
-        user = list(db.users.find({'_id': ObjectId(user_id)}))
+        user = list(self.application.db.users.find({'_id': ObjectId(user_id)}))
         if len(user) > 0:
             user = user[0]
         else:
@@ -95,12 +93,11 @@ class RegistrationHandler(Base3ThingsHandler):
 
     @coroutine
     def _register_user(self, identifier, fname, pw, callback=None):
-        db = self.application.dbclient.three_things
-        existing_users = db.users.find({'email': identifier})
+        existing_users = self.application.db.users.find({'email': identifier})
         if existing_users.count() != 0:
             raise Return(False)
         encrypted = self._set_password(pw)
-        db.users.insert({
+        self.application.db.users.insert({
             'email': identifier,
             'name': fname,
             'password': encrypted,
@@ -140,8 +137,7 @@ class LoginHandler(Base3ThingsHandler):
 
     @coroutine
     def _login_user(self, email, pw):
-        db = self.application.dbclient.three_things
-        users = db.users.find({'email': email})
+        users = self.application.db.users.find({'email': email})
         try:
             user = users.next()
             if user['email'] != email:
@@ -156,8 +152,7 @@ class LoginHandler(Base3ThingsHandler):
     @coroutine
     def _generate_token(self, user):
         token = str(uuid.uuid4()).replace('-', '')
-        db = self.application.dbclient.three_things
-        db.access_tokens.insert({'user': user['_id'], 'token': token})
+        self.application.db.access_tokens.insert({'user': user['_id'], 'token': token})
         raise Return(token)
 
     def _check_password(self, _raw_password, enc_password):
@@ -183,13 +178,12 @@ class DaysController(Base3ThingsHandler):
 
     @coroutine
     def _get_friend_feed(self, for_user):
-        db = self.application.dbclient.three_things
-        user = list(db.users.find({'_id': for_user}))
+        user = list(self.application.db.users.find({'_id': for_user}))
         if len(user) == 0:
             raise tornado.web.HTTPError(400, "User %s not found" % for_user)
         friends = user[0]['friends'] if 'friends' in user[0] else []
         cond = {'user': {"$in": friends + [for_user]}}
-        history = list(db.days.find(cond).limit(20).sort("date", -1))
+        history = list(self.application.db.days.find(cond).limit(20).sort("date", -1))
         for item in history:
             item['user'] = self._user_response(item['user'])
         return history
@@ -209,8 +203,7 @@ class UserTodayController(Base3ThingsHandler):
     @coroutine
     def _get_user_today(self, user_id):
         date = datetime.combine(datetime.now(), datetime.min.time())
-        db = self.application.dbclient.three_things
-        history = db.days.find({'date': date, 'user': ObjectId(user_id)})
+        history = self.application.db.days.find({'date': date, 'user': ObjectId(user_id)})
         if history.count() == 0:
             raise tornado.web.HTTPError(404, "No history found for user %s" % user_id)
         raise Return(list(history))
@@ -258,8 +251,7 @@ class UserDaysController(Base3ThingsHandler):
 
     @coroutine
     def _get_user_history(self, user_id):
-        db = self.application.dbclient.three_things
-        history = db.days.find({'user': ObjectId(user_id)}).sort("date", -1)
+        history = self.application.db.days.find({'user': ObjectId(user_id)}).sort("date", -1)
         if history.count() == 0:
             raise tornado.web.HTTPError(404, "No history found for user %s" % user_id)
         raise Return(list(history))
@@ -278,21 +270,20 @@ class UserDaysController(Base3ThingsHandler):
 
         record = {'user': self.cur_user['_id'], 'date': date}
 
-        db = self.application.dbclient.three_things
-        existing_day = db.days.find(record)
+        existing_day = self.application.db.days.find(record)
         try:
             existing_day = existing_day.next()
         except StopIteration:
             pass
         else:
             if updating_day:
-                db.days.remove(existing_day)
+                self.application.db.days.remove(existing_day)
             else:
                 self.set_status(304)
                 raise Return(None)
 
         record = dict(record.items() + sent_day.items())
-        days = db.days.insert(record)
+        days = self.application.db.days.insert(record)
         raise Return(days)
 
 
@@ -307,9 +298,8 @@ class UsersController(Base3ThingsHandler):
     @coroutine
     def _user_search(self, query):
         regex = re.compile(query, re.IGNORECASE)
-        db = self.application.dbclient.three_things
         cond = {"name": regex} if query else {}
-        users = list(db.users.find(cond).limit(20))
+        users = list(self.application.db.users.find(cond).limit(20))
         ret = []
         for user in users:
             ret.append({'name': user['name'], '_id': user['_id']})
@@ -333,8 +323,7 @@ class UserFriendsController(Base3ThingsHandler):
 
     @coroutine
     def _get_user_friends(self, user_id):
-        db = self.application.dbclient.three_things
-        user = list(db.users.find({'_id': ObjectId(user_id)}))
+        user = list(self.application.db.users.find({'_id': ObjectId(user_id)}))
         if len(user) > 0:
             user = user[0]
         else:
@@ -372,16 +361,14 @@ class UserFriendController(Base3ThingsHandler):
     # TODO - friending should be a two-way relationship??
     @coroutine
     def _add_friend_for_user(self, user_id, friend_id):
-        db = self.application.dbclient.three_things
-        user = db.users.update(
+        user = self.application.db.users.update(
             {'_id': ObjectId(user_id)},
             {"$addToSet": {"friends": ObjectId(friend_id)}}
         )
 
     @coroutine
     def _remove_friend_for_user(self, user_id, friend_id):
-        db = self.application.dbclient.three_things
-        user = db.users.update(
+        user = self.application.db.users.update(
             {'_id': ObjectId(user_id)},
             {"$pull": {"friends": ObjectId(friend_id)}}
         )

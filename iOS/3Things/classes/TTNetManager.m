@@ -158,7 +158,8 @@ TTNetManager *instance;
     @synchronized(self){
         if(self = [super init]){
             self.currentAccessToken = nil;
-            rootURL = @"http://localhost:8888";
+            //rootURL = @"http://localhost:5000";
+            rootURL = @"http://nameless-sierra-7477.herokuapp.com";
         }
         return self;
     }

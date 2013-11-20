@@ -1,3 +1,6 @@
+import os
+from urlparse import urlparse
+
 import tornado.ioloop
 import tornado.web
 from pymongo import MongoClient
@@ -17,10 +20,21 @@ def get_app():
         (r"/users/([^\/]+)/today", controllers_main.UserTodayController),
         (r"/days", controllers_main.DaysController)
     ])
-    application.dbclient = MongoClient('localhost', 27017)
+    MONGO_URL = os.environ.get('MONGOHQ_URL')
+    print "MONGO URL: %s" % MONGO_URL
+    if MONGO_URL:
+        print "trying to connect..."
+        application.dbclient = MongoClient(MONGO_URL)
+        print "connected"
+        application.db = getattr(application.dbclient, urlparse(MONGO_URL).path[1:])
+        print "got db"
+    else:
+        application.dbclient = MongoClient("localhost", 27017)
+        application.db = getattr(application.dbclient, 'three_things')
     return application
 
 if __name__ == "__main__":
     application = get_app()
-    application.listen(8888)
+    port = int(os.environ.get("PORT", 5000))
+    application.listen(port)
     tornado.ioloop.IOLoop.instance().start()
