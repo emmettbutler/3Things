@@ -8,18 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@class TTTableView;
-@protocol TTTableViewTouchDelegate <NSObject>
+@class TTView;
+@protocol TTViewTouchDelegate <NSObject>
 @required
 - (void)tableTouchesEnded:(NSSet *)touches;
 - (void)tableTouchesMoved:(NSSet *)touches;
 - (void)tableTouchesBegan:(NSSet *)touches;
 @end
 
-id <TTTableViewTouchDelegate> touchDelegate;
+id <TTViewTouchDelegate> touchDelegate;
 
-@interface TTTableView : UITableView
+@interface TTView : UIView
 
-@property (nonatomic, assign) id <TTTableViewTouchDelegate> touchDelegate;
+@property (nonatomic, assign) id <TTViewTouchDelegate> touchDelegate;
 
 @end

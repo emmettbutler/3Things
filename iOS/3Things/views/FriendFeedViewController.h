@@ -26,14 +26,15 @@ id <FriendFeedViewControllerDelegate> feedDelegate;
                                                         TTNetManagerDelegate,
                                                         UITextFieldDelegate,
                                                         FriendSearchViewControllerDelegate,
-                                                        TTTableViewTouchDelegate>
+                                                        TTViewTouchDelegate>
 {
     UITextField *searchBox;
+    TTView *touchView;
     BOOL dragging;
     float oldY, touchLastY;
 }
 
-@property (nonatomic, retain) TTTableView *tableView;
+@property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) NSDictionary *feedData;
 @property (nonatomic, retain) NSMutableArray *parsedFeed;
 @property (nonatomic, assign) id <FriendFeedViewControllerDelegate> feedDelegate;

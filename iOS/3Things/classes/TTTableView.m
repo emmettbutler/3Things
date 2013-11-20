@@ -8,7 +8,7 @@
 
 #import "TTTableView.h"
 
-@implementation TTTableView
+@implementation TTView
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];

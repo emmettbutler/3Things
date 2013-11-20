@@ -52,15 +52,19 @@
     
     int searchBoxHeight = 50;
     CGRect scrollFrame = CGRectMake(11, frame.size.height+5, frame.size.width*.9, screenFrame.size.height-frame.size.height-searchBoxHeight);
-    self.tableView = [[TTTableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
-    self.tableView.touchDelegate = self;
     self.tableView.dataSource = self;
     self.tableView.userInteractionEnabled = YES;
     self.tableView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
+    
+    touchView = [[TTView alloc] initWithFrame:CGRectMake(scrollFrame.origin.x, scrollFrame.origin.y, scrollFrame.size.width, 70)];
+    touchView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
+    touchView.touchDelegate = self;
+    [self.view addSubview:touchView];
     
     CGRect searchFieldFrame = CGRectMake(0, 60, screenFrame.size.width, searchBoxHeight);
     searchBox = [[UITextField alloc] initWithFrame:searchFieldFrame];
@@ -206,7 +210,7 @@
     UITouch *touch = [touches anyObject];
     CGPoint touchLocation = [touch locationInView:self.view];
     NSLog(@"Touch in table");
-    if (touchLocation.y < self.tableView.frame.origin.y+60){
+    if (touchLocation.y < self.tableView.frame.origin.y+90){
         dragging = YES;
         touchLastY = touchLocation.y;
         if(searchBox.hidden){
@@ -221,12 +225,17 @@
     CGPoint touchLocation = [touch locationInView:self.view];
     if(dragging){
         CGRect frame = self.tableView.frame;
+        CGRect touchFrame = touchView.frame;
         if (searchBox.hidden && touchLastY < touchLocation.y){
             searchBox.hidden = NO;
             frame.origin.y = 110;
+            touchFrame.origin.y = 110;
+            touchView.frame = touchFrame;
             self.tableView.frame = frame;
         } else if (searchBox.hidden == NO  && touchLastY > touchLocation.y) {
             frame.origin.y = oldY;
+            touchFrame.origin.y = oldY;
+            touchView.frame = touchFrame;
             searchBox.hidden = YES;
             self.tableView.frame = frame;
         }
