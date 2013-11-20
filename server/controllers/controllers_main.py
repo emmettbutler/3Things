@@ -8,7 +8,6 @@ from datetime import datetime
 from bson.objectid import ObjectId
 from bson.binary import Binary
 from gridfs import GridFS
-from PIL import Image
 import StringIO
 
 import tornado.web

@@ -199,52 +199,12 @@ TTNetManager *instance;
      ];
 }
 
--(void)apiConnectionWithURL:(NSString *)url andImage:(UIImage *)image
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
-                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                       timeoutInterval:10];
-    [request setHTTPShouldHandleCookies:NO];
-    [request setTimeoutInterval:30];
-    [request setHTTPMethod:@"POST"];
-    
-    NSString *boundary = @"-----------------------------asidugyasd87gya9sd87ygah9s7ygha", *FileParamConstant = @"userfile";
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
-    
-    NSMutableData *body = [NSMutableData data];
-    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
-    if (imageData) {
-        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"image.jpg\"\r\n", FileParamConstant] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:imageData];
-        [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    }
-    
-    [request setHTTPBody:body];
-    
-    // set the content-length
-    NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    
-    __block NSError *err = nil;
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
-     ^(NSURLResponse *response, NSData *data, NSError *error){
-         err = error;
-         if (error){
-             TTLog(@"Error uploading image: %@", error);
-         }
-     }
-     ];
-}
-
 -(id)init{
     @synchronized(self){
         if(self = [super init]){
             self.currentAccessToken = nil;
-            rootURL = @"http://localhost:5000";
-            //rootURL = @"http://nameless-sierra-7477.herokuapp.com";
+            //rootURL = @"http://localhost:5000";
+            rootURL = @"http://nameless-sierra-7477.herokuapp.com";
             self.rootURL = rootURL;
         }
         return self;
