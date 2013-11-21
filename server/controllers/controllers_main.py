@@ -206,6 +206,7 @@ class UserTodayController(Base3ThingsHandler):
 
     @coroutine
     def _get_user_today(self, user_id):
+        # TODO - this probably needs to be timezone-aware (must take timezone as a parameter?)
         date = datetime.combine(datetime.utcnow(), datetime.min.time())
         history = self.application.db.days.find({'date': date, 'user': ObjectId(user_id)})
         if history.count() == 0:

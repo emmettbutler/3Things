@@ -63,7 +63,6 @@
 {
     [super viewDidLoad];
     
-    //self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eff0f1"];
     self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"000000" opacity:0];
     
     if (!self.isCurrent && !self.isEdited){
