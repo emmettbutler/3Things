@@ -205,7 +205,7 @@ class UserTodayController(Base3ThingsHandler):
 
     @coroutine
     def _get_user_today(self, user_id):
-        date = datetime.combine(datetime.now(), datetime.min.time())
+        date = datetime.combine(datetime.utcnow(), datetime.min.time())
         history = self.application.db.days.find({'date': date, 'user': ObjectId(user_id)})
         if history.count() == 0:
             raise tornado.web.HTTPError(404, "No history found for user %s" % user_id)
@@ -282,7 +282,7 @@ class UserDaysController(Base3ThingsHandler):
         updating_day = False
 
         # if the day being sent isn't today, error
-        if datetime.combine(datetime.now(), datetime.min.time()) != date:
+        if datetime.combine(datetime.utcnow(), datetime.min.time()) != date:
             raise tornado.web.HTTPError(400, "Attempting to set a day that isn't today")
         else:
             updating_day = True
@@ -296,6 +296,7 @@ class UserDaysController(Base3ThingsHandler):
             pass
         else:
             if updating_day:
+                print "updated day"
                 self.application.db.days.remove(existing_day)
             else:
                 self.set_status(304)
