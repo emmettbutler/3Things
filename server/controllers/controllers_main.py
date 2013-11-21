@@ -5,6 +5,7 @@ import random
 import hashlib
 import uuid
 from datetime import datetime
+from dateutil.parser import parse
 from bson.objectid import ObjectId
 from bson.binary import Binary
 from gridfs import GridFS
@@ -247,8 +248,7 @@ class UserDaysController(Base3ThingsHandler):
         if 'time' not in sent_day:
             raise tornado.web.HTTPError(400, "Invalid JSON document")
 
-        date = datetime.fromtimestamp(int(sent_day['time'])).date()
-        date = datetime.combine(date, datetime.min.time())
+        date_time = parse(sent_day['time'])
 
         images = ["", "", ""]
         if 'thingimage' in self.request.files:
@@ -264,7 +264,7 @@ class UserDaysController(Base3ThingsHandler):
                     )
                 )
 
-        day = yield self._insert_day(date, sent_day, images)
+        day = yield self._insert_day(date_time, sent_day, images)
 
         self.finish()
 
@@ -281,16 +281,18 @@ class UserDaysController(Base3ThingsHandler):
             raise tornado.web.HTTPError(400, "Missing some Things")
         updating_day = True
 
+        date_only = datetime.combine(date, datetime.min.time())
+
         # if the day being sent isn't today, error
-        if datetime.combine(datetime.utcnow(), datetime.min.time()) != date:
+        if datetime.combine(datetime.utcnow(), datetime.min.time()) != date_only:
             raise tornado.web.HTTPError(400, "Attempting to set a day that isn't today")
 
         for i,thing in enumerate(sent_day['things']):
             thing['imageID'] = images[i]
 
-        record = {'user': self.cur_user['_id'], 'date': date}
-
+        record = {'user': self.cur_user['_id'], 'date': date_only}
         self.application.db.days.remove(record)
+        record['time'] = date
 
         record = dict(record.items() + sent_day.items())
         days = self.application.db.days.insert(record)

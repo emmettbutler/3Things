@@ -7,11 +7,17 @@
 //
 
 #import "TTDate.h"
+#import "TTNetManager.h"
 
 @implementation NSDate (TTDateExtensions)
 
 -(NSString *)timeAgo {
     NSDate *todayDate = [NSDate date];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    TTLog(@"Date: %@", [dateFormatter stringFromDate:self]);
     
     double ti = [self timeIntervalSinceDate:todayDate];
     ti = ti * -1;

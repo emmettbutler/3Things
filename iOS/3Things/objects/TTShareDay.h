@@ -13,6 +13,7 @@
 @interface TTShareDay : NSObject
 
 @property (nonatomic) NSDate *date;
+@property (nonatomic) NSDate *time;
 @property (nonatomic) User *user;
 @property (nonatomic) NSMutableArray *theThings;
 

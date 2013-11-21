@@ -35,13 +35,14 @@
             }
         } else {
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+            [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             self.date = [dateFormatter dateFromString:[shares objectForKey:@"date"]];
+            self.time = [dateFormatter dateFromString:[shares objectForKey:@"time"]];
             for (int i = 0; i < 3; i++){
                 [self.theThings addObject:[[shares objectForKey:@"things"] objectAtIndex:i]];
             }
-            TTLog(@"Constructed day from dictionary: %@", self.theThings);
+            TTLog(@"Constructed day from dictionary");
         }
     }
     return self;

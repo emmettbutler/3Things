@@ -57,7 +57,11 @@ TTNetManager *instance;
     TTLog(@"Current access token: %@", self.currentAccessToken);
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    [jsonDict setObject:[NSString stringWithFormat:@"%d", (int)[[NSDate date] timeIntervalSince1970] ] forKey:@"time"];
+    //[jsonDict setObject:[NSString stringWithFormat:@"%d", (int)[[NSDate date] timeIntervalSince1970]] forKey:@"time"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [jsonDict setObject:[dateFormatter stringFromDate:[NSDate date]] forKey:@"time"];
     [jsonDict setObject:shares.theThings forKey:@"things"];
     
     NSError *error;
@@ -92,8 +96,6 @@ TTNetManager *instance;
             }];
         }
     }
-    
-    
 }
 
 -(void)getTodayForUser:(User *)user
