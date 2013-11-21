@@ -282,10 +282,7 @@ class UserDaysController(Base3ThingsHandler):
         updating_day = True
 
         date_only = datetime.combine(date, datetime.min.time())
-
-        # if the day being sent isn't today, error
-        if datetime.combine(datetime.utcnow(), datetime.min.time()) != date_only:
-            raise tornado.web.HTTPError(400, "Attempting to set a day that isn't today")
+        date_only.replace(tzinfo=date.tzinfo)
 
         for i,thing in enumerate(sent_day['things']):
             thing['imageID'] = images[i]

@@ -36,7 +36,7 @@
         } else {
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
-            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
             self.date = [dateFormatter dateFromString:[shares objectForKey:@"date"]];
             self.time = [dateFormatter dateFromString:[shares objectForKey:@"time"]];
             for (int i = 0; i < 3; i++){

@@ -31,7 +31,7 @@
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     NSDate *date = [dateFormatter dateFromString:day];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user.userID = %@ AND date = %@", user.userID, date];
     NSArray *result = [self allItems:@"ShareDay" withSort:@"date" andPredicate:predicate];

@@ -60,7 +60,7 @@ TTNetManager *instance;
     //[jsonDict setObject:[NSString stringWithFormat:@"%d", (int)[[NSDate date] timeIntervalSince1970]] forKey:@"time"];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     [jsonDict setObject:[dateFormatter stringFromDate:[NSDate date]] forKey:@"time"];
     [jsonDict setObject:shares.theThings forKey:@"things"];
     
