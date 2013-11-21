@@ -279,6 +279,7 @@
         [item addThingsObject:thing];
     }
     item.date = [dayStore getDateOnly];
+    item.time = [NSDate date];
     UserStore *userStore = [[UserStore alloc] init];
     item.user = [userStore getAuthenticatedUser];
     [dayStore saveChanges];
@@ -302,6 +303,7 @@
         [item addThingsObject:[self saveThingWithIndex:[NSNumber numberWithInt:i]]];
     }
     item.date = [dayStore getDateOnly];
+    item.time = [NSDate date];
     item.user = [userStore getAuthenticatedUser];
     [dayStore saveChanges];
 }

@@ -17,10 +17,10 @@
 		AA0910B21801EEFB00F9D8B8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */; };
 		AA1E52D1182AE49F000EBBBA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52D0182AE49F000EBBBA /* User.m */; };
 		AA1E52DD182AE669000EBBBA /* Thing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52DC182AE669000EBBBA /* Thing.m */; };
-		AA1E52E0182AEB3E000EBBBA /* ShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52DF182AEB3E000EBBBA /* ShareDay.m */; };
 		AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */; };
 		AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */; };
 		AA2FFBD21833B26200B9865A /* FriendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2FFBD11833B26200B9865A /* FriendSearchViewController.m */; };
+		AA33AFD2183EC3490004DF3D /* ShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AA33AFD1183EC3490004DF3D /* ShareDay.m */; };
 		AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E13661803579B00D65980 /* BottomNavViewController.m */; };
 		AA79308E183C043E006B4213 /* Compose_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA79308C183C043E006B4213 /* Compose_Icon.png */; };
 		AA79308F183C043E006B4213 /* Compose_Icon_depressed.png in Resources */ = {isa = PBXBuildFile; fileRef = AA79308D183C043E006B4213 /* Compose_Icon_depressed.png */; };
@@ -82,14 +82,14 @@
 		AA1E52D0182AE49F000EBBBA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		AA1E52DB182AE669000EBBBA /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thing.h; sourceTree = "<group>"; };
 		AA1E52DC182AE669000EBBBA /* Thing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Thing.m; sourceTree = "<group>"; };
-		AA1E52DE182AEB3E000EBBBA /* ShareDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDay.h; sourceTree = "<group>"; };
-		AA1E52DF182AEB3E000EBBBA /* ShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDay.m; sourceTree = "<group>"; };
 		AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorPromptViewController.m; sourceTree = "<group>"; };
 		AA230A011809BA620025BCF5 /* ErrorPromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorPromptViewController.h; sourceTree = "<group>"; };
 		AA230A031809BB0D0025BCF5 /* ErrorThrowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorThrowingViewController.h; sourceTree = "<group>"; };
 		AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorThrowingViewController.m; sourceTree = "<group>"; };
 		AA2FFBD01833B26200B9865A /* FriendSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendSearchViewController.h; sourceTree = "<group>"; };
 		AA2FFBD11833B26200B9865A /* FriendSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendSearchViewController.m; sourceTree = "<group>"; };
+		AA33AFD0183EC3490004DF3D /* ShareDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDay.h; sourceTree = "<group>"; };
+		AA33AFD1183EC3490004DF3D /* ShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDay.m; sourceTree = "<group>"; };
 		AA4E13651803579B00D65980 /* BottomNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomNavViewController.h; sourceTree = "<group>"; };
 		AA4E13661803579B00D65980 /* BottomNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomNavViewController.m; sourceTree = "<group>"; };
 		AA79308C183C043E006B4213 /* Compose_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Compose_Icon.png; path = assets/Compose_Icon.png; sourceTree = "<group>"; };
@@ -229,8 +229,6 @@
 		AABB2EB918006FD600EEA446 /* objects */ = {
 			isa = PBXGroup;
 			children = (
-				AA1E52DE182AEB3E000EBBBA /* ShareDay.h */,
-				AA1E52DF182AEB3E000EBBBA /* ShareDay.m */,
 				AA1E52DB182AE669000EBBBA /* Thing.h */,
 				AA1E52DC182AE669000EBBBA /* Thing.m */,
 				AA1E52CF182AE49F000EBBBA /* User.h */,
@@ -245,6 +243,8 @@
 				AA0910611801BDA100F9D8B8 /* UserStore.m */,
 				AABB2EBA18006FD600EEA446 /* TTShareDay.h */,
 				AABB2EBB18006FD600EEA446 /* TTShareDay.m */,
+				AA33AFD0183EC3490004DF3D /* ShareDay.h */,
+				AA33AFD1183EC3490004DF3D /* ShareDay.m */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -399,7 +399,6 @@
 			files = (
 				AA9A8535180331D00071FD38 /* ThingDetailViewController.m in Sources */,
 				AAB0A178183A997A006A8B29 /* BackgroundLayer.m in Sources */,
-				AA1E52E0182AEB3E000EBBBA /* ShareDay.m in Sources */,
 				AAF28C5C17DAA90A0067FD79 /* main.m in Sources */,
 				AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */,
 				AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */,
@@ -411,6 +410,7 @@
 				AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */,
 				AABB2EC018006FD600EEA446 /* FriendFeedViewController.m in Sources */,
 				AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */,
+				AA33AFD2183EC3490004DF3D /* ShareDay.m in Sources */,
 				AA98E1C4182851E80045F827 /* TTNetManager.m in Sources */,
 				AABB2EC518006FD600EEA446 /* SplashViewController.m in Sources */,
 				AABB2F1D1800B0F600EEA446 /* ShareDayStore.m in Sources */,

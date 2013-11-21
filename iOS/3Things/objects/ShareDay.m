@@ -2,7 +2,7 @@
 //  ShareDay.m
 //  3Things
 //
-//  Created by Emmett Butler on 11/6/13.
+//  Created by Emmett Butler on 11/21/13.
 //  Copyright (c) 2013 Emmett Butler. All rights reserved.
 //
 
@@ -14,7 +14,8 @@
 @implementation ShareDay
 
 @dynamic date;
-@dynamic user;
+@dynamic time;
 @dynamic things;
+@dynamic user;
 
 @end

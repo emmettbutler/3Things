@@ -2,7 +2,7 @@
 //  ShareDay.h
 //  3Things
 //
-//  Created by Emmett Butler on 11/6/13.
+//  Created by Emmett Butler on 11/21/13.
 //  Copyright (c) 2013 Emmett Butler. All rights reserved.
 //
 
@@ -14,8 +14,9 @@
 @interface ShareDay : NSManagedObject
 
 @property (nonatomic, retain) NSDate * date;
-@property (nonatomic, retain) User *user;
+@property (nonatomic, retain) NSDate * time;
 @property (nonatomic, retain) NSSet *things;
+@property (nonatomic, retain) User *user;
 @end
 
 @interface ShareDay (CoreDataGeneratedAccessors)

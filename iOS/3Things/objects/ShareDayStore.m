@@ -50,7 +50,8 @@
     UserStore *userStore = [[UserStore alloc] init];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(date = %@) AND (user.userID = %@)", dateOnly, [[userStore getAuthenticatedUser] userID]];
     NSArray *result = [self allItems:@"ShareDay" withSort:@"date" andPredicate:predicate];
-    return result.count == 0 ? NULL : [result objectAtIndex:0];
+    ShareDay *ret = result.count == 0 ? NULL : [result objectAtIndex:0];
+    return ret;
 }
 
 @end

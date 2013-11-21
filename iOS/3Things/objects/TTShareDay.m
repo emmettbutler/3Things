@@ -30,6 +30,7 @@
             [components setMinute: 0];
             [components setSecond: 0];
             self.date = [myCalendar dateFromComponents:components];
+            self.time = [NSDate date];
             for (int i = 0; i < 3; i++) {
                 [self.theThings addObject:@{@"text": @"", @"localImageURL": @""}];
             }
@@ -55,6 +56,7 @@
         [ret.theThings replaceObjectAtIndex:[thing.index intValue] withObject:newThing];
     }
     [ret setDate:shares.date];
+    [ret setTime:shares.time];
     ret.user = shares.user;
     return ret;
 }
