@@ -279,31 +279,18 @@ class UserDaysController(Base3ThingsHandler):
     def _insert_day(self, date, sent_day, images):
         if len(sent_day['things']) < 3:
             raise tornado.web.HTTPError(400, "Missing some Things")
-        updating_day = False
+        updating_day = True
 
         # if the day being sent isn't today, error
         if datetime.combine(datetime.utcnow(), datetime.min.time()) != date:
             raise tornado.web.HTTPError(400, "Attempting to set a day that isn't today")
-        else:
-            updating_day = True
-
-        record = {'user': self.cur_user['_id'], 'date': date}
-
-        existing_day = self.application.db.days.find(record)
-        try:
-            existing_day = existing_day.next()
-        except StopIteration:
-            pass
-        else:
-            if updating_day:
-                print "updated day"
-                self.application.db.days.remove(existing_day)
-            else:
-                self.set_status(304)
-                raise Return(None)
 
         for i,thing in enumerate(sent_day['things']):
             thing['imageID'] = images[i]
+
+        record = {'user': self.cur_user['_id'], 'date': date}
+
+        self.application.db.days.remove(record)
 
         record = dict(record.items() + sent_day.items())
         days = self.application.db.days.insert(record)
