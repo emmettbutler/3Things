@@ -105,7 +105,7 @@
     UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(10, 3, 80, 30)];
     dayOfWeekView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
     [dateFormatter setDateFormat:@"EEEE"];
     NSString *dayOfWeek = [dateFormatter stringFromDate:self.shares.date];
     dayOfWeekView.text = [dayOfWeek uppercaseString];

@@ -30,7 +30,7 @@
 - (NSArray *)allItemsForUser:(User *)user andDay:(NSString *)day
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *date = [dateFormatter dateFromString:day];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user.userID = %@ AND date = %@", user.userID, date];
