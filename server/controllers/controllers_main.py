@@ -329,7 +329,6 @@ class UserFriendsController(Base3ThingsHandler):
     @coroutine
     @authenticated
     def get(self, user_id):
-        self.application.db.days.remove()
         ret = yield self._get_user_friends(user_id)
         self.set_status(200)
         self._send_response(ret)
