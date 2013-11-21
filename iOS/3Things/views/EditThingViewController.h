@@ -16,7 +16,7 @@
 @interface EditThingViewController : UIViewController <UITextViewDelegate, PhotoPromptViewControllerDelegate, TTNetManagerDelegate>
 {
     CGRect screenFrame, textFieldFrame;
-    UIImageView *picView;
+    UIButton *picView;
     UIButton *nextButton;
 }
 

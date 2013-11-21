@@ -159,12 +159,12 @@
     dateView.textAlignment = NSTextAlignmentLeft;
     NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
     // TODO - there is some kind of UTC weirdness going on here.........
-    [formatter2 setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [formatter2 setTimeZone:[NSTimeZone defaultTimeZone]];
     [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *date = [formatter2 dateFromString:[day objectForKey:@"date"]];
     NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
     [formatter1 setDateFormat:@"MM/dd"];
-    [formatter1 setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [formatter1 setTimeZone:[NSTimeZone defaultTimeZone]];
     dateView.text = [formatter1 stringFromDate:date];
     dateView.editable = NO;
     [container addSubview:dateView];

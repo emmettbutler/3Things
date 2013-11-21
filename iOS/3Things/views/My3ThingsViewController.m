@@ -109,7 +109,7 @@
     self.dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:[NSNumber numberWithBool:self.isCurrent] andUser:self.user andIsEdited:[NSNumber numberWithBool:self.isEdited]];
     [self addChildViewController:self.dayView];
     [self.view addSubview:self.dayView.view];
-    self.dayView.view.frame = CGRectMake(9, 90, self.dayView.frame.size.width, self.dayView.frame.size.height);
+    self.dayView.view.frame = CGRectMake(9, 65, self.dayView.frame.size.width, self.dayView.frame.size.height);
     [self.dayView didMoveToParentViewController:self];
 
     if (self.isCurrent){

@@ -136,8 +136,13 @@
          {
              TTLog(@"Thing image loaded successfully");
              int imgWidth = 40;
-             picView = [[UIImageView alloc] initWithFrame:CGRectMake(70, textFieldFrame.origin.y+textFieldFrame.size.height+8, imgWidth, imgWidth)];
-             picView.image = [UIImage imageWithCGImage:[asset thumbnail]];
+             
+             picView = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+             [picView addTarget:self
+                         action:@selector(removeImageWasTouched)
+               forControlEvents:UIControlEventTouchUpInside];
+             picView.frame = CGRectMake(70, textFieldFrame.origin.y+textFieldFrame.size.height+8, imgWidth, imgWidth);
+             [picView setBackgroundImage:[UIImage imageWithCGImage:[asset thumbnail]] forState:UIControlStateNormal];
              CALayer *imageLayer = picView.layer;
              [imageLayer setCornerRadius:picView.frame.size.width/2];
              [imageLayer setMasksToBounds:YES];
@@ -152,6 +157,11 @@
 
 - (void)cancelWasTouched {
     [[self navigationController] popViewControllerAnimated:YES];
+}
+
+-(void)removeImageWasTouched {
+    [picView removeFromSuperview];
+    self.thingLocalImageURL = @"";
 }
 
 - (void)nextWasTouched {
@@ -194,10 +204,14 @@
 - (void)photoWasSelected:(UIImage *)selectedImage {
     TTLog(@"got image: %@", selectedImage);
     int imgWidth = 40;
-    picView = [[UIImageView alloc] initWithFrame:CGRectMake(70, textFieldFrame.origin.y+textFieldFrame.size.height+8, imgWidth, imgWidth)];
-    picView.image = selectedImage;
+    picView = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [picView addTarget:self
+                action:@selector(removeImageWasTouched)
+      forControlEvents:UIControlEventTouchUpInside];
+    picView.frame = CGRectMake(70, textFieldFrame.origin.y+textFieldFrame.size.height+8, imgWidth, imgWidth);
+    [picView setBackgroundImage:selectedImage forState:UIControlStateNormal];
     CALayer *imageLayer = picView.layer;
-    [imageLayer setCornerRadius:imgWidth/2];
+    [imageLayer setCornerRadius:picView.frame.size.width/2];
     [imageLayer setMasksToBounds:YES];
     [self.view addSubview:picView];
 }
