@@ -130,11 +130,12 @@
     [self.view addSubview:text];
     
     if (!self.isCurrent){
-        UITextView *timeAgo = [[UITextView alloc] initWithFrame:CGRectMake(110, 80, 90, 30)];
+        UITextView *timeAgo = [[UITextView alloc] initWithFrame:CGRectMake(0, 80, self.frame.size.width, 30)];
         NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:[self.shares.time timeIntervalSince1970]];
-        timeAgo.text = [NSString stringWithFormat:@"%@ ago", [date timeAgo]];
         timeAgo.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
         timeAgo.font = [UIFont fontWithName:SCRIPT_FONT size:11];
+        timeAgo.textAlignment = NSTextAlignmentCenter;
+        timeAgo.text = [NSString stringWithFormat:@"%@ ago", [date timeAgo]];
         timeAgo.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"444444"];
         [self.view addSubview:timeAgo];
     }
