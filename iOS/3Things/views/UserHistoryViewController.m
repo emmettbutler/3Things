@@ -75,19 +75,20 @@
         [profilePicView setImageWithURL:url
                        placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     }
-    [self.view addSubview:profilePicView];
+    //[self.view addSubview:profilePicView];
     
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, frame.size.height+(topSectionHeight-30), frame.size.width, frame.size.height)];
     text.textAlignment = NSTextAlignmentCenter;
     text.text = [self.user name];
-    [self.view addSubview:text];
+    //[self.view addSubview:text];
     
-    CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+topSectionHeight, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-topSectionHeight);
+    CGRect scrollFrame = CGRectMake(0, frame.size.height+5, frame.size.width, self.screenFrame.size.height-frame.size.height);
     self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
     
@@ -135,7 +136,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.feedData == nil) return 1;
+    if (self.feedData == nil) return 0;
     TTLog(@"Feed month count: %d", [[self.feedData allKeys] count]);
     return [[self.feedData allKeys] count];
 }
@@ -154,17 +155,39 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 20;
+    return 23;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = [[UITableViewHeaderFooterView alloc] init];
+    
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+    NSNumber *thisMonth = [sortedKeys objectAtIndex:section];
+    
+    NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+    NSString *monthName = [[formatter2 monthSymbols] objectAtIndex:[thisMonth intValue] - 1];
+    
+    UITextView *monthNameView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.screenFrame.size.width, 23)];
+    monthNameView.text = [monthName uppercaseString];
+    monthNameView.editable = NO;
+    monthNameView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
+    monthNameView.textAlignment = UITextAlignmentCenter;
+    monthNameView.font = [UIFont fontWithName:HEADER_FONT size:13];
+    monthNameView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    [header addSubview:monthNameView];
+    
+    UIView *bar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.screenFrame.size.width, 1)];
+    bar.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    [header addSubview:bar];
+    header.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
+    
     return header;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    return 100;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -184,29 +207,60 @@
     NSNumber *thisMonth = [sortedKeys objectAtIndex:indexPath.section];
     NSArray *monthDays = [self.feedData objectForKey:thisMonth];
     NSDictionary *day = [monthDays objectAtIndex:indexPath.row];
-      
-    UITextView *dateView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 20)];
-    dateView.textAlignment = NSTextAlignmentLeft;
+    
     NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
     [formatter2 setTimeZone:[NSTimeZone defaultTimeZone]];
     [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *date = [formatter2 dateFromString:[day objectForKey:@"date"]];
-    NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
-    [formatter1 setDateFormat:@"MM/dd"];
-    [formatter1 setTimeZone:[NSTimeZone defaultTimeZone]];
-    dateView.text = [formatter1 stringFromDate:date];
-    dateView.editable = NO;
+    
+    UIView *dateView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, frame.size.width, 20)];
+    UITextView *dayOfMonthView = [[UITextView alloc] initWithFrame:CGRectMake(3, 0, 70, 90)];
+    NSDateFormatter *dayOfMonthFormatter = [[NSDateFormatter alloc] init];
+    [dayOfMonthFormatter setDateFormat:@"d"];
+    [dayOfMonthFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
+    dayOfMonthView.text = [dayOfMonthFormatter stringFromDate:date];
+    dayOfMonthView.font = [UIFont fontWithName:HEADER_FONT size:34];
+    dayOfMonthView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    dayOfMonthView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    dayOfMonthView.editable = NO;
+    [dateView addSubview:dayOfMonthView];
+    UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(8, 50, 40, 25)];
+    dayOfWeekView.textAlignment = NSTextAlignmentLeft;
+    NSDateFormatter *dayOfWeekFormatter = [[NSDateFormatter alloc] init];
+    [dayOfWeekFormatter setDateFormat:@"ccc"];
+    [dayOfWeekFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
+    dayOfWeekView.text = [[dayOfWeekFormatter stringFromDate:date] uppercaseString];
+    dayOfWeekView.font = [UIFont fontWithName:HEADER_FONT size:13];
+    dayOfWeekView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    dayOfWeekView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    dayOfWeekView.editable = NO;
+    [dateView addSubview:dayOfWeekView];
     [container addSubview:dateView];
     
     for (int j = 0; j < 3; j++) {
-        UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(40, j*20, frame.size.width, 20)];
+        UITextView *thingView = [[UITextView alloc] initWithFrame:CGRectMake(60, 10+(j*20), frame.size.width, 22)];
+        
+        UITextView *numberView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 22)];
+        numberView.text = [NSString stringWithFormat:@"%d", j+1];
+        numberView.editable = NO;
+        numberView.font = [UIFont fontWithName:HEADER_FONT size:11];
+        numberView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
+        numberView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+        [thingView addSubview:numberView];
+        
+        UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(12, 0, frame.size.width, 22)];
         text.textAlignment = NSTextAlignmentLeft;
         NSDictionary *thing = [[day objectForKey:@"things"] objectAtIndex:j];
-        text.text = [NSString stringWithFormat:@"%d. %@", j+1, [thing objectForKey:@"text"]];
+        text.text = [NSString stringWithFormat:@"%@", [thing objectForKey:@"text"]];
+        text.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
         text.allowsEditingTextAttributes = NO;
+        text.font = [UIFont fontWithName:HEADER_FONT size:11];
         text.editable = NO;
-        [container addSubview:text];
+        [thingView addSubview:text];
+        
+        [container addSubview:thingView];
     }
+    container.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
     cell.backgroundView = container;
     return cell;
 }
@@ -214,7 +268,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSDictionary *day = [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:indexPath.row];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+    NSNumber *thisMonth = [sortedKeys objectAtIndex:indexPath.section];
+    NSArray *monthDays = [self.feedData objectForKey:thisMonth];
+    NSDictionary *day = [monthDays objectAtIndex:indexPath.row];
+    
     [[self navigationController] pushViewController:
      [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] initWithSharesDictionary:day]
                                           andIsCurrent:[NSNumber numberWithBool:NO] andUser:self.user]

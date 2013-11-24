@@ -13,8 +13,10 @@
 #define TTLog( s, ... ) NSLog( @"<%@:(%d)> [3Things] %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
 #define COLOR_YELLOW @"f5e34f"
 #define BUTTON_COLOR @"f2f2f2"
+#define COLOR_LIGHT_GRAY @"eff0f0"
 #define HEADER_TEXT_COLOR @"648431"
-#define HEADER_FONT @"STHeitiTC-Light"
+#define HEADER_FONT @"AvenirNext-Regular"
+#define HEADER_FONT_BOLD @"AvenirNext-Bold"
 #define SCRIPT_FONT @"Baskerville-Italic"
 #define HEADER_FONT_SIZE 15
 #define BUTTON_TEXT_BLUE_COLOR @"669099"
