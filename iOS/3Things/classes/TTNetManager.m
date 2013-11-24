@@ -57,7 +57,6 @@ TTNetManager *instance;
     TTLog(@"Current access token: %@", self.currentAccessToken);
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    //[jsonDict setObject:[NSString stringWithFormat:@"%d", (int)[[NSDate date] timeIntervalSince1970]] forKey:@"time"];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];

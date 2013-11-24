@@ -108,27 +108,53 @@
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
         TTLog(@"json response: %@", json);
-        self.feedData = json;
+        NSMutableArray *data = [[json objectForKey:@"data"] objectForKey:@"history"];
+        
+        self.feedData = [[NSMutableDictionary alloc] init];
+        
+        NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+        [formatter2 setTimeZone:[NSTimeZone defaultTimeZone]];
+        [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+        [formatter1 setDateFormat:@"MM"];
+        [formatter1 setTimeZone:[NSTimeZone defaultTimeZone]];
+        
+        for (int i = 0; i < [data count]; i++){
+            NSDictionary *day = [data objectAtIndex:i];
+            NSDate *date = [formatter2 dateFromString:[day objectForKey:@"date"]];
+            NSString *monthString = [formatter1 stringFromDate:date];
+            NSNumber *month = [NSNumber numberWithInt:[monthString intValue]];
+            if ([self.feedData objectForKey:month] == nil) {
+                [self.feedData setObject:[[NSMutableArray alloc] init] forKey:month];
+            }
+            [[self.feedData objectForKey:month] addObject:day];
+        }
         
         [self.tableView reloadData];
     }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    if (self.feedData == nil) return 1;
+    TTLog(@"Feed month count: %d", [[self.feedData allKeys] count]);
+    return [[self.feedData allKeys] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.feedData == nil) {
         return 2;
     } else {
-        return [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] count];
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+        NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+        NSNumber *thisMonth = [sortedKeys objectAtIndex:section];
+        NSArray *monthDays = [self.feedData objectForKey:thisMonth];
+        return [monthDays count];
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0;
+    return 20;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -153,8 +179,12 @@
     
     if (self.feedData == nil) return cell;
     
-    NSDictionary *day = [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:indexPath.row];
-    
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+    NSNumber *thisMonth = [sortedKeys objectAtIndex:indexPath.section];
+    NSArray *monthDays = [self.feedData objectForKey:thisMonth];
+    NSDictionary *day = [monthDays objectAtIndex:indexPath.row];
+      
     UITextView *dateView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 20)];
     dateView.textAlignment = NSTextAlignmentLeft;
     NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];

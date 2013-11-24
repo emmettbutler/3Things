@@ -20,7 +20,7 @@
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic, retain) User *user;
 @property (nonatomic) UITableView *tableView;
-@property (nonatomic, retain) NSDictionary *feedData;
+@property (nonatomic, retain) NSMutableDictionary *feedData;
 @property (nonatomic, retain) NSNumber *tableHeight;
 
 @end
