@@ -254,7 +254,7 @@
     int addedImages = 0;
     
     for (int j = 0; j < 3; j++) {
-        UITextView *thingView = [[UITextView alloc] initWithFrame:CGRectMake(60, 10+(j*20), 130, 22)];
+        UITextView *thingView = [[UITextView alloc] initWithFrame:CGRectMake(60, 10+(j*20), (images == 0) ? 240 : 155, 22)];
         
         UITextView *numberView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 22)];
         numberView.text = [NSString stringWithFormat:@"%d", j+1];
@@ -266,14 +266,14 @@
         
         NSDictionary *thing = [[day objectForKey:@"things"] objectAtIndex:j];
         
-        UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(12, 0, frame.size.width, 22)];
+        UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(12, 0, frame.size.width, 26)];
         text.textAlignment = NSTextAlignmentLeft;
         text.text = [NSString stringWithFormat:@"%@", [thing objectForKey:@"text"]];
         text.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
         text.allowsEditingTextAttributes = NO;
         text.font = [UIFont fontWithName:HEADER_FONT size:11];
         text.editable = NO;
-        int maxLen = 24;
+        int maxLen = images == 0 ? 48 : 30;
         if ([text.text length] > maxLen) {
             text.text = [NSString stringWithFormat:@"%@...", [text.text substringToIndex:maxLen]];
         }
