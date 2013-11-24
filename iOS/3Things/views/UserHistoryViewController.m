@@ -38,7 +38,12 @@
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
     self.navigationItem.hidesBackButton = YES;
-    [[self navigationItem] setTitle:@"USER HISTORY"];
+    
+    UIView *titleView = [[UIView alloc] init];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -35, 120, 40)];
+    [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
+    [titleView addSubview:logoView];
+    self.navigationItem.titleView = titleView;
     
 	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     

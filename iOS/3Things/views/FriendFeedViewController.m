@@ -38,20 +38,20 @@
     bgLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-50);
     [self.view.layer insertSublayer:bgLayer atIndex:0];
     
-	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:screenFrame];
 	CGRect frame = CGRectMake(0, 0, 0, 0);
     frame.size = CGSizeMake(screenFrame.size.width, 60);
-	[navBar setFrame:frame];
-	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
-    [[self navigationItem] setTitle:@"THREE THINGS"];
-	[self.view addSubview:navBar];
+    
+    UIView *titleView = [[UIView alloc] init];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -20, 120, 40)];
+    [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
+    [titleView addSubview:logoView];
+    self.navigationItem.titleView = titleView;
     
     [TTNetManager sharedInstance].netDelegate = self;
     [[TTNetManager sharedInstance] getFriendFeedForUser:nil];
     
     int searchBoxHeight = 50;
-    CGRect scrollFrame = CGRectMake(11, frame.size.height+5, frame.size.width*.9, screenFrame.size.height-frame.size.height-35);
+    CGRect scrollFrame = CGRectMake(11, 0, frame.size.width*.9, screenFrame.size.height-35);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
