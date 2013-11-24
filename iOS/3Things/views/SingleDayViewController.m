@@ -221,8 +221,8 @@
         }
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(40, 15, frame.size.width*.6, 48)];
-    int maxLen = 65;
+    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(40, 15, frame.size.width*.6, 68)];
+    int maxLen = 85;
     if ([text length] > maxLen) {
         text = [NSString stringWithFormat:@"%@...", [text substringToIndex:maxLen]];
     }

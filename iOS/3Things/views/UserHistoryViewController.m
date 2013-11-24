@@ -40,7 +40,7 @@
     self.navigationItem.hidesBackButton = YES;
     
     UIView *titleView = [[UIView alloc] init];
-    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -35, 120, 40)];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -24, 120, 40)];
     [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
     [titleView addSubview:logoView];
     self.navigationItem.titleView = titleView;
@@ -177,7 +177,7 @@
     monthNameView.text = [monthName uppercaseString];
     monthNameView.editable = NO;
     monthNameView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
-    monthNameView.textAlignment = UITextAlignmentCenter;
+    monthNameView.textAlignment = NSTextAlignmentCenter;
     monthNameView.font = [UIFont fontWithName:HEADER_FONT size:13];
     monthNameView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
     [header addSubview:monthNameView];
@@ -242,8 +242,19 @@
     [dateView addSubview:dayOfWeekView];
     [container addSubview:dateView];
     
+    int images = 0;
+    for (int j = 0; j < 3; j++){
+        NSDictionary *thing = [[day objectForKey:@"things"] objectAtIndex:j];
+        NSString *imgID = [thing objectForKey:@"imageID"];
+        if (![imgID isEqualToString:@""] && imgID != NULL){
+            images++;
+        }
+    }
+    TTLog(@"Images: %d", images);
+    int addedImages = 0;
+    
     for (int j = 0; j < 3; j++) {
-        UITextView *thingView = [[UITextView alloc] initWithFrame:CGRectMake(60, 10+(j*20), frame.size.width, 22)];
+        UITextView *thingView = [[UITextView alloc] initWithFrame:CGRectMake(60, 10+(j*20), 130, 22)];
         
         UITextView *numberView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 22)];
         numberView.text = [NSString stringWithFormat:@"%d", j+1];
@@ -253,17 +264,52 @@
         numberView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
         [thingView addSubview:numberView];
         
+        NSDictionary *thing = [[day objectForKey:@"things"] objectAtIndex:j];
+        
         UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(12, 0, frame.size.width, 22)];
         text.textAlignment = NSTextAlignmentLeft;
-        NSDictionary *thing = [[day objectForKey:@"things"] objectAtIndex:j];
         text.text = [NSString stringWithFormat:@"%@", [thing objectForKey:@"text"]];
         text.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
         text.allowsEditingTextAttributes = NO;
         text.font = [UIFont fontWithName:HEADER_FONT size:11];
         text.editable = NO;
+        int maxLen = 24;
+        if ([text.text length] > maxLen) {
+            text.text = [NSString stringWithFormat:@"%@...", [text.text substringToIndex:maxLen]];
+        }
         [thingView addSubview:text];
         
         [container addSubview:thingView];
+        
+        int picTop = 20, picLeft = 225, picHeight = 60, picWidthSmall = 60, picWidthTiny = 30;
+        
+        NSString *imgID = [thing objectForKey:@"imageID"];
+        if (![imgID isEqualToString:@""] && imgID != NULL){
+            TTLog(@"Added images: %d", addedImages);
+            UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(picLeft, picTop, picWidthSmall, picHeight)];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [[TTNetManager sharedInstance] rootURL], imgID]];
+            [picView setImageWithURL:url
+                    placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+            if (images == 1) {
+                
+            } else if(images == 2) {
+                if (addedImages == 0) {
+                    picView.frame = CGRectMake(picLeft, picTop, picWidthSmall, picWidthSmall);
+                } else if (addedImages == 1) {
+                    picView.frame = CGRectMake(picLeft+picWidthSmall+1, picTop, picWidthTiny, picWidthTiny);
+                }
+            } else if(images == 3) {
+                if (j == 0) {
+                    picView.frame = CGRectMake(picLeft, picTop, picWidthSmall, picWidthSmall);
+                } else if (j == 1) {
+                    picView.frame = CGRectMake(picLeft+picWidthSmall+1, picTop, picWidthTiny, picWidthTiny);
+                } else if (j == 2) {
+                    picView.frame = CGRectMake(picLeft+picWidthSmall+1, picTop+picWidthTiny, picWidthTiny, picWidthTiny);
+                }
+            }
+            addedImages += 1;
+            [container addSubview:picView];
+        }
     }
     container.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
     cell.backgroundView = container;
