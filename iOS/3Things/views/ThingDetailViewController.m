@@ -31,12 +31,16 @@
     self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
     self.navigationController.navigationBarHidden = YES;
+    self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
     
     BOOL hasImage = NO;
     
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
-    singleTap.numberOfTapsRequired = 1;
-    singleTap.numberOfTouchesRequired = 1;
+    int closeButtonSize = 20, closeButtonMargin = 5;
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [closeButton addTarget:self action:@selector(closeWasTouched) forControlEvents:UIControlEventTouchDown];
+    closeButton.frame = CGRectMake(self.screenFrame.size.width-closeButtonSize-closeButtonMargin, closeButtonMargin+20, closeButtonSize, closeButtonSize);
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"Close.png"] forState:UIControlStateNormal];
+    [self.view addSubview:closeButton];
     
     NSString *imgURL = [self.thing objectForKey:@"localImageURL"];
     if (![imgURL isEqualToString:@""]){
@@ -45,11 +49,9 @@
         [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
          {
              TTLog(@"thing image loaded successfully");
-             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, self.screenFrame.size.width, 300)];
+             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 60, self.screenFrame.size.width, 300)];
              picView.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
              [self.view addSubview:picView];
-             
-             [picView addGestureRecognizer:singleTap];
              [picView setUserInteractionEnabled:YES];
          }
                 failureBlock:^(NSError *error )
@@ -58,20 +60,20 @@
          }];
     }
     
-    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, hasImage ? 320 : 30, self.screenFrame.size.width, 80)];
+    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(self.screenFrame.size.width*.05, hasImage ? 370 : 60, self.screenFrame.size.width*.9, 100)];
     text.textAlignment = NSTextAlignmentCenter;
-    text.font = [UIFont systemFontOfSize:18];
+    text.font = [UIFont fontWithName:HEADER_FONT size:11];
     text.editable = NO;
+    [text setTextColor:[UIColor blackColor]];
     text.text = [self.thing objectForKey:@"text"];
-    [text setTextColor:[UIColor whiteColor]];
-    [text setBackgroundColor:[UIColor blackColor]];
+    TTLog(@"thing text: %@", [self.thing objectForKey:@"text"]);
+    text.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.view addSubview:text];
 
-    [text addGestureRecognizer:singleTap];
     [text setUserInteractionEnabled:YES];
 }
 
-- (void)imageTapped:(UIGestureRecognizer *)gestureRecognizer {
+- (void)closeWasTouched {
     self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
