@@ -150,7 +150,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (self.feedData == nil) return 0;
-    TTLog(@"Feed month count: %d", [[self.feedData allKeys] count]);
     return [[self.feedData allKeys] count];
 }
 
@@ -258,7 +257,6 @@
             images++;
         }
     }
-    TTLog(@"Images: %d", images);
     int addedImages = 0;
     
     for (int j = 0; j < 3; j++) {
@@ -293,7 +291,6 @@
         
         NSString *imgID = [thing objectForKey:@"imageID"];
         if (![imgID isEqualToString:@""] && imgID != NULL){
-            TTLog(@"Added images: %d", addedImages);
             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(picLeft, picTop, picWidthSmall, picHeight)];
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [[TTNetManager sharedInstance] rootURL], imgID]];
             [picView setImageWithURL:url

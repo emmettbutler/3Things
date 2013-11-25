@@ -140,7 +140,6 @@
     } else {
         if (!self.errViewIsShown){
             self.errViewIsShown = YES;
-            TTLog(@"Error: 3 things not completed for the day. Must complete 3 things before sharing.");
             ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"Enter your 3 things before sharing"];
             [self addChildViewController:errViewController];
             [self.view addSubview:errViewController.view];

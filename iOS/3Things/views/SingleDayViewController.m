@@ -54,7 +54,6 @@
             self.user = [userStore getAuthenticatedUser];
         }
         TTLog(@"Entering single day view: %@", self.shares.theThings);
-        TTLog(@"Time: %@", self.shares);
     }
     return self;
 }
@@ -161,7 +160,6 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    TTLog(@"In collectionView cellForItem");
     static NSString *MyIdentifier = @"MyReuseIdentifier";
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MyIdentifier forIndexPath:indexPath];
     if (cell == nil) {
@@ -265,7 +263,6 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (((ErrorThrowingViewController *)self.parentViewController).errViewIsShown) return;
-    TTLog(@"Entering editor: %@", self.shares.theThings);
     if (self.isCurrent) {
         UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andShares:self.shares];
         [[self navigationController] pushViewController:editView animated:YES];

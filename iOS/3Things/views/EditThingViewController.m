@@ -190,7 +190,6 @@
 }
 
 - (void)imgButtonWasTouched {
-    TTLog(@"Got callback for image prompt");
     [self.view endEditing:YES];
     PhotoPromptViewController *promptViewController = [[PhotoPromptViewController alloc] init];
     promptViewController.promptDelegate = self;
@@ -216,7 +215,6 @@
     [self.view addSubview:picView];
 }
 - (void)photoWasSaved:(NSURL *)savedPhotoURL {
-    TTLog(@"got image url: %@", savedPhotoURL);
     self.thingLocalImageURL = [savedPhotoURL absoluteString];
 }
 
@@ -257,7 +255,6 @@
 }
 
 - (void)savePartialDay{
-    TTLog(@"In edit view, in save partial: %@", self.shares.theThings);
     ShareDayStore *dayStore = [[ShareDayStore alloc] init];
     ShareDay *item = [dayStore getToday];
     if (item == NULL){
@@ -336,7 +333,6 @@
 
 - (void) registerCurrentThing {
     TTLog(@"Registering current thing");
-    TTLog(@"Image URL: %@", self.thingLocalImageURL);
     [self.shares.theThings replaceObjectAtIndex:self.thingIndex.intValue
                                      withObject:@{@"text": self.textField.text,
                                          @"localImageURL": (self.thingLocalImageURL == nil) ? @"" : self.thingLocalImageURL}];

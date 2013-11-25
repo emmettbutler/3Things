@@ -81,8 +81,6 @@ TTNetManager *instance;
 {
     NSString *url = [NSString stringWithFormat:@"%@/users/%@/days", rootURL, userID];
     TTLog(@"Attempting to post day to URL %@", url);
-    TTLog(@"Posting day: %@", shares);
-    TTLog(@"Current access token: %@", self.currentAccessToken);
     
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

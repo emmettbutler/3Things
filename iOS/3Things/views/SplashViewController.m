@@ -94,8 +94,6 @@
             [errViewController didMoveToParentViewController:self];
         }
     } else {
-        TTLog(@"Signup information received:\n    fname: %@\n   email: %@",
-              firstNameField.text, emailField.text);
         [TTNetManager sharedInstance].netDelegate = self;
         [[TTNetManager sharedInstance] registerUser:emailField.text
                                            withName:firstNameField.text
@@ -149,7 +147,6 @@
 }
 
 - (void)photoWasSelected:(UIImage *)selectedImage {
-    TTLog(@"got image: %@", selectedImage);
 }
 - (void)photoWasSaved:(NSURL *)savedPhotoURL {
     TTLog(@"got image url: %@", savedPhotoURL);

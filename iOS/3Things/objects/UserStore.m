@@ -46,7 +46,6 @@
 - (User *)getAuthenticatedUser
 {
     NSNumber *identifier = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kAuthUserID]];
-    TTLog(@"Looking up authenticated user by id %@", identifier);
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@)", identifier];
     NSArray *result = [self allItems:@"User" withSort:@"userID" andPredicate:predicate];
     return result.count == 0 ? NULL : [result objectAtIndex:0];

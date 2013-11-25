@@ -40,7 +40,6 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    TTLog(@"Search dismiss activated");
     [searchDelegate dismissSearchWasTouched];
 }
 
@@ -102,7 +101,6 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TTLog(@"Selected search item %d", indexPath.row);
-    TTLog(@"Search dismiss activated");
     
     UserStore *userStore = [[UserStore alloc] init];
     NSDictionary *user = [[self.friendData objectForKey:@"data"] objectAtIndex:indexPath.row];

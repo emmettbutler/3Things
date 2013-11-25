@@ -52,7 +52,6 @@
 
 - (void)emailLoginWasTouched
 {
-    TTLog(@"Chose login via email");
     [self setModalPresentationStyle:UIModalPresentationPageSheet];
     UIViewController *viewController = [[LoginEmailViewController alloc] init];
     [self presentViewController:viewController animated:YES completion:NULL];
@@ -60,7 +59,6 @@
 
 - (void)newAccountWasTouched
 {
-    TTLog(@"New account was selected");
     [self setModalPresentationStyle:UIModalPresentationPageSheet];
     UIViewController *viewController = [[SplashViewController alloc] init];
     [self presentViewController:viewController animated:YES completion:NULL];

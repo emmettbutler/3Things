@@ -17,7 +17,6 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-    TTLog(@"Date: %@", [dateFormatter stringFromDate:self]);
     
     double ti = [self timeIntervalSinceDate:todayDate];
     ti = ti * -1;

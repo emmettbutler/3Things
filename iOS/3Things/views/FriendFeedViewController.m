@@ -85,7 +85,6 @@
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
-    TTLog(@"Search box selected");
     self.searchViewController = [[FriendSearchViewController alloc] init];
     [self addChildViewController:self.searchViewController];
     [self.view addSubview:self.searchViewController.view];
@@ -96,12 +95,10 @@
 }
 
 -(void)textFieldDidChange:(UITextField *)field {
-    TTLog(@"Textfield changed: %@", field.text);
     [self.feedDelegate searchQueryChanged:field.text];
 }
 
 -(void)dismissSearchWasTouched {
-    TTLog(@"Search view was dismissed");
     [self.searchViewController.view removeFromSuperview];
     [searchBox endEditing:YES];
     searchBox.text = @"";

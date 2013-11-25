@@ -36,7 +36,7 @@
     
     BOOL hasImage = NO;
     
-    int closeButtonSize = 20, closeButtonMargin = 5;
+    int closeButtonSize = 30, closeButtonMargin = 5;
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [closeButton addTarget:self action:@selector(closeWasTouched) forControlEvents:UIControlEventTouchDown];
     closeButton.frame = CGRectMake(self.screenFrame.size.width-closeButtonSize-closeButtonMargin, closeButtonMargin+20, closeButtonSize, closeButtonSize);
@@ -59,7 +59,6 @@
     text.editable = NO;
     [text setTextColor:[UIColor blackColor]];
     text.text = [self.thing objectForKey:@"text"];
-    TTLog(@"thing text: %@", [self.thing objectForKey:@"text"]);
     text.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.view addSubview:text];
 

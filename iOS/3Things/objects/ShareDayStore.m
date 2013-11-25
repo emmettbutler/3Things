@@ -23,7 +23,6 @@
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(user.userID = %@)", user.userID];
     NSArray *result = [self allItems:@"ShareDay" withSort:@"date" andPredicate:predicate];
-    TTLog(@"allItemsForUser count: %d", [result count]);
     return result;
 }
 
@@ -35,7 +34,6 @@
     NSDate *date = [dateFormatter dateFromString:day];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user.userID = %@ AND date = %@", user.userID, date];
     NSArray *result = [self allItems:@"ShareDay" withSort:@"date" andPredicate:predicate];
-    TTLog(@"allItemsForUser:andDay count: %d", [result count]);
     return result;
 }
 

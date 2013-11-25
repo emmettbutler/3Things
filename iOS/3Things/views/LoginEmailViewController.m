@@ -66,7 +66,6 @@
 }
 
 - (void)loginWasTouched {
-    TTLog(@"Login selected");
     if ([self loginIsValid]){
         [TTNetManager sharedInstance].netDelegate = self;
         [[TTNetManager sharedInstance] loginUser:idField.text withPassword:pwField.text andImage:nil];
