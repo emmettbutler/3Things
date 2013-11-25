@@ -107,13 +107,21 @@
 
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
 {
+    TTLog(@"Data received: %@", url);
     if (error == NULL) {
+        UserStore *userStore = [[UserStore alloc] init];
+        if (![[url absoluteString] isEqualToString:
+              [NSString stringWithFormat:@"%@/users/%@/days", [TTNetManager sharedInstance].rootURL, [userStore getAuthenticatedUser].userID]]) {
+            return;
+        }
         NSError *jsonError = nil;
         NSDictionary *json = [NSJSONSerialization
                               JSONObjectWithData:data
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
         TTLog(@"json response: %@", json);
+        // please forgive me for the following
+        if (json == NULL) return;  // hack
         NSMutableArray *data = [[json objectForKey:@"data"] objectForKey:@"history"];
         
         self.feedData = [[NSMutableDictionary alloc] init];
