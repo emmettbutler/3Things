@@ -33,12 +33,40 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:NO];
 }
 
--(void)loginUser:(NSString *)email withPassword:(NSString *)pw
+-(void)loginUser:(NSString *)email withPassword:(NSString *)pw andImage:(NSString *)imageURL
 {
-    NSString *url = [NSString stringWithFormat:@"%@/login?email=%@&pw=%@",
-                     rootURL, email, pw];
-    TTLog(@"Attempting to login user with URL: '%@'", url);
-    [self apiConnectionWithURL:url authorized:NO];
+    NSString *url = [NSString stringWithFormat:@"%@/login", rootURL];
+    NSError *error;
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    
+    [jsonDict setObject:email forKey:@"email"];
+    [jsonDict setObject:pw forKey:@"pw"];
+    
+    NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDict
+                                                   options:NSJSONWritingPrettyPrinted
+                                                     error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    
+    if (imageURL == nil) {
+        TTLog(@"Attempting to login user with URL: '%@'", url);
+        [self apiConnectionWithURL:url andData:jsonString andImages:nil authorized:NO fileName:@"userpic" jsonFilename:@"login"];
+        return;
+    }
+    
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library assetForURL:[NSURL URLWithString:imageURL] resultBlock:^(ALAsset *asset )
+     {
+         UIImage *theImage = [UIImage imageWithCGImage:[asset thumbnail]];
+         [images addObject:theImage];
+         TTLog(@"Attempting to login user with URL: '%@'", url);
+         [self apiConnectionWithURL:url andData:jsonString andImages:images authorized:NO fileName:@"userpic" jsonFilename:@"login"];
+     }
+            failureBlock:^(NSError *error )
+     {
+         TTLog(@"Error loading asset");
+     }];
 }
 
 -(void)friendSearch:(NSString *)query
@@ -86,7 +114,7 @@ TTNetManager *instance;
                     [images insertObject:[NSNull null] atIndex:index];
                 }
                 if (index == 2){
-                    [self apiConnectionWithURL:url andData:jsonString andImages:images authorized:YES];
+                    [self apiConnectionWithURL:url andData:jsonString andImages:images authorized:YES fileName:@"thingimage" jsonFilename:@"day"];
                 }
             }
                 failureBlock:^(NSError *error )
@@ -157,7 +185,7 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:auth withMethod:@"GET"];
 }
 
--(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data andImages:(NSArray *)images authorized:(BOOL)auth{
+-(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data andImages:(NSArray *)images authorized:(BOOL)auth fileName:(NSString *)filename jsonFilename:(NSString *)jsonFilename{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                        timeoutInterval:10];
@@ -167,7 +195,7 @@ TTNetManager *instance;
     
     [request setHTTPMethod:@"POST"];
     
-    NSString *boundary = @"-----------------------------asidugyasd87gya9sd87ygah9s7ygha", *FileParamConstant = @"thingimage";
+    NSString *boundary = @"-----------------------------asidugyasd87gya9sd87ygah9s7ygha", *FileParamConstant = filename;
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
     [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
     
@@ -178,24 +206,28 @@ TTNetManager *instance;
     }
     
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"day\"; filename=\"day.json\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"day.json\"\r\n\r\n", jsonFilename] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"%@\r\n", data] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    BOOL hasEnded = NO;
-    for (UIImage *image in images) {
-        if (image != (UIImage *)[NSNull null]){
-            NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
-            if (imageData) {
-                [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%d.jpg\"\r\n", FileParamConstant, [images indexOfObject:image]] dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:imageData];
-                hasEnded = YES;
-                [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    BOOL hasEnded = YES, addedImage = NO;
+    if (images != nil) {
+        hasEnded = NO;
+        for (UIImage *image in images) {
+            if (image != (UIImage *)[NSNull null]){
+                NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+                if (imageData) {
+                    addedImage = YES;
+                    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%d.jpg\"\r\n", FileParamConstant, [images indexOfObject:image]] dataUsingEncoding:NSUTF8StringEncoding]];
+                    [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                    [body appendData:imageData];
+                    hasEnded = YES;
+                    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+                }
             }
         }
     }
-    if (!hasEnded) {
+    if (hasEnded) {
         [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
@@ -203,10 +235,9 @@ TTNetManager *instance;
     NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     
-    __block NSError *err = nil;
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *error){
-         err = error;
+         [self.netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
      }
      ];
 }

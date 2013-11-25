@@ -14,10 +14,11 @@
 -(User *)newUserFromDictionary:(NSDictionary *)userDict {
     NSManagedObject *user = [self createItem:@"User"];
     ((User *)user).name = [userDict objectForKey:@"name"];
+    ((User *)user).profileImageURL = [userDict objectForKey:@"profileImageID"];
     return (User *)user;
 }
 
-- (User *)createUser:(NSString *)uid withName:(NSString *)name andLocalImgURL:(NSString *)localProfImgURL
+- (User *)createUser:(NSString *)uid withName:(NSString *)name andImgURL:(NSString *)profImgURL
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@)", uid];
     NSArray *result = [self allItems:@"User" withSort:@"userID" andPredicate:predicate];
@@ -25,8 +26,8 @@
     if (result.count == 0) {
         NSManagedObject *newItem = [self createItem:@"User"];
         ((User *)newItem).name = name;
-        ((User *)newItem).profileImageLocalURL = localProfImgURL;
-        ((User *)newItem).profileImageURL = @"";
+        ((User *)newItem).profileImageLocalURL = @"";
+        ((User *)newItem).profileImageURL = profImgURL;
         ((User *)newItem).userID = uid;
         TTLog(@"Found no user, created %@", (User *)newItem);
         [self saveChanges];
@@ -62,10 +63,7 @@
                      andPassword:(NSString *)pw
                        andUserID:(NSString *)uid {
     UserStore *userStore = [[UserStore alloc] init];
-    [userStore createUser:uid withName:uname andLocalImgURL:imageURL];
-    if (imageURL != NULL) {
-        [[NSUserDefaults standardUserDefaults] setObject:imageURL forKey:@"cur_user_prof_pic"];
-    }
+    [userStore createUser:uid withName:uname andImgURL:imageURL];
     [[NSUserDefaults standardUserDefaults] setObject:uid forKey:[NSString stringWithFormat:@"%d", kAuthUserID]];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

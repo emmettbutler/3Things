@@ -52,7 +52,7 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
             user = user[0]
         else:
             raise tornado.web.HTTPError(404, "User %s not found" % user_id)
-        return {'name': user['name'], '_id': user['_id']}
+        return {'name': user['name'], '_id': user['_id'], 'profileImageID': user['profileImageID']}
 
 
 class RegistrationHandler(Base3ThingsHandler):
@@ -121,26 +121,36 @@ class RegistrationHandler(Base3ThingsHandler):
 
 class LoginHandler(Base3ThingsHandler):
     @coroutine
-    def get(self):
-        email = self.get_argument("email", default="")
-        pw = self.get_argument("pw", default="")
+    def post(self):
+        login_json = self.request.files['login'][0]['body']
+        image = None
+        if 'userpic' in self.request.files:
+            image = self.request.files['userpic'][0]
+
+        try:
+            sent_login = json.loads(login_json)
+        except:
+            raise tornado.web.HTTPError(400, "Could not decode request body as JSON")
+
+        email = sent_login['email']
+        pw = sent_login['pw']
 
         if not email:
-            raise tornado.web.HTTPError(400, "Missing 'email' query parameter")
+            raise tornado.web.HTTPError(400, "Missing 'email' parameter")
         if not pw:
-            raise tornado.web.HTTPError(400, "Missing 'pw' query parameter")
+            raise tornado.web.HTTPError(400, "Missing 'pw' parameter")
 
-        user = yield self._login_user(email, pw)
+        user = yield self._login_user(email, pw, image)
         if not user:
             raise tornado.web.HTTPError(403, "Email or password is incorrect")
 
         self.set_status(200)
         token = yield self._generate_token(user)
-        ret = {"access_token": token, "name": user['name'], "uid": user['_id']}
+        ret = {"access_token": token, "name": user['name'], "uid": user['_id'], "profileImageID": user['profileImageID']}
         self._send_response(ret)
 
     @coroutine
-    def _login_user(self, email, pw):
+    def _login_user(self, email, pw, image=None):
         users = self.application.db.users.find({'email': email})
         try:
             user = users.next()
@@ -148,6 +158,19 @@ class LoginHandler(Base3ThingsHandler):
                 raise Return(None)
             if not self._check_password(pw, user['password']):
                 raise Return(None)
+            if image:
+                ctype = image["content_type"]
+                fs = GridFS(self.application.db)
+                image = fs.put(
+                    image['body'],
+                    content_type=ctype,
+                    filename=image["filename"]
+                )
+
+                user = dict(user.items() + {'profileImageID': image}.items())
+                self.application.db.users.update(
+                    {'email': email}, user
+                )
             raise Return(user)
         except StopIteration:
             raise Return(None)

@@ -143,24 +143,8 @@
     int imgWidth = 55;
     NSURL *url = [NSURL URLWithString:[self.user profileImageURL]];
     UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(myFrame.size.width/2-imgWidth/2, 5, imgWidth, imgWidth)];
-    if (![[url absoluteString] isEqualToString:@""] && url != NULL) {
-        NSString *imgURL = [self.user profileImageLocalURL];
-        if (![imgURL isEqualToString:@""] && imgURL != NULL){
-            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-            [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
-             {
-                 TTLog(@"Profile image loaded from %@", imgURL);
-                 profilePicView.image = [UIImage imageWithCGImage:[asset thumbnail]];
-             }
-                    failureBlock:^(NSError *error )
-             {
-                 TTLog(@"Error loading profile image");
-             }];
-        }
-    } else {
-        [profilePicView setImageWithURL:url
-                       placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
-    }
+    [profilePicView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [TTNetManager sharedInstance].rootURL, [url absoluteString]]]
+                   placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     CALayer *imageLayer = profilePicView.layer;
     [imageLayer setCornerRadius:profilePicView.frame.size.width/2];
     [imageLayer setMasksToBounds:YES];

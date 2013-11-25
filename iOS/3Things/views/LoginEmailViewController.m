@@ -69,7 +69,7 @@
     TTLog(@"Login selected");
     if ([self loginIsValid]){
         [TTNetManager sharedInstance].netDelegate = self;
-        [[TTNetManager sharedInstance] loginUser:idField.text withPassword:pwField.text];
+        [[TTNetManager sharedInstance] loginUser:idField.text withPassword:pwField.text andImage:nil];
     }
 }
 
@@ -84,7 +84,7 @@
         NSString *uid = [[json objectForKey:@"data"] objectForKey:@"uid"];
         
         [[TTNetManager sharedInstance] loginToken:[[json objectForKey:@"data"] objectForKey:@"access_token"]];
-        [UserStore initCurrentUserWithImage:nil
+        [UserStore initCurrentUserWithImage:[[json objectForKey:@"data"] objectForKey:@"profileImageID"]
                                    andEmail:idField.text
                                 andUserName:[[json objectForKey:@"data"] objectForKey:@"name"]
                                 andPassword:nil

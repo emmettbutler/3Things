@@ -138,7 +138,7 @@
                 TTLog(@"json response: %@", json);
                 NSString *uid = [[json objectForKey:@"data"] objectForKey:@"uid"];
                 [[TTNetManager sharedInstance] loginToken:[[json objectForKey:@"data"] objectForKey:@"access_token"]];
-                [UserStore initCurrentUserWithImage:self.profLocalImageURL
+                [UserStore initCurrentUserWithImage:[[json objectForKey:@"data"] objectForKey:@"profileImageID"]
                                            andEmail:self.userEmail
                                         andUserName:firstNameField.text
                                         andPassword:self.userPassword
@@ -154,7 +154,8 @@
 - (void)photoWasSaved:(NSURL *)savedPhotoURL {
     TTLog(@"got image url: %@", savedPhotoURL);
     self.profLocalImageURL = [savedPhotoURL absoluteString];
-    [[TTNetManager sharedInstance] loginUser:self.userEmail withPassword:self.userPassword];
+    [TTNetManager sharedInstance].netDelegate = self;
+    [[TTNetManager sharedInstance] loginUser:self.userEmail withPassword:self.userPassword andImage:self.profLocalImageURL];
 }
 
 - (void)continueWasTouched {
