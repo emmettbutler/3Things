@@ -32,7 +32,7 @@
     self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
     self.navigationController.navigationBarHidden = YES;
-    self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
+    self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"cccccc"];
     
     BOOL hasImage = NO;
     
@@ -55,7 +55,7 @@
     
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(self.screenFrame.size.width*.05, hasImage ? 370 : 60, self.screenFrame.size.width*.9, 100)];
     text.textAlignment = NSTextAlignmentCenter;
-    text.font = [UIFont fontWithName:HEADER_FONT size:11];
+    text.font = [UIFont fontWithName:HEADER_FONT size:13];
     text.editable = NO;
     [text setTextColor:[UIColor blackColor]];
     text.text = [self.thing objectForKey:@"text"];
