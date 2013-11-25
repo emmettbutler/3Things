@@ -254,6 +254,8 @@ class UserDaysController(Base3ThingsHandler):
         if str(self.cur_user['_id']) != user_id:
             raise tornado.web.HTTPError(403, "Not allowed to post days for other user")
 
+        if 'day' not in self.request.files:
+            raise tornado.web.HTTPError(400, "Day JSON not found")
         day_json = self.request.files['day'][0]['body']
 
         try:

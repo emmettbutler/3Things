@@ -209,9 +209,8 @@ TTNetManager *instance;
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"day.json\"\r\n\r\n", jsonFilename] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"%@\r\n", data] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    BOOL hasEnded = YES, addedImage = NO;
+    BOOL hasEnded = NO, addedImage = NO;
     if (images != nil) {
-        hasEnded = NO;
         for (UIImage *image in images) {
             if (image != (UIImage *)[NSNull null]){
                 NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
@@ -227,7 +226,7 @@ TTNetManager *instance;
             }
         }
     }
-    if (hasEnded) {
+    if (!hasEnded) {
         [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
