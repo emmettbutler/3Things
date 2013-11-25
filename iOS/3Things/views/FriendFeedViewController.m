@@ -61,7 +61,7 @@
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
     
-    touchView = [[TTView alloc] initWithFrame:CGRectMake(scrollFrame.origin.x, scrollFrame.origin.y, scrollFrame.size.width, 70)];
+    touchView = [[TTView alloc] initWithFrame:CGRectMake(scrollFrame.origin.x, scrollFrame.origin.y+50, scrollFrame.size.width, 70)];
     touchView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     touchView.touchDelegate = self;
     [self.view addSubview:touchView];
@@ -228,13 +228,13 @@
         CGRect touchFrame = touchView.frame;
         if (searchBox.hidden && touchLastY < touchLocation.y){
             searchBox.hidden = NO;
-            frame.origin.y = 110;
+            frame.origin.y = 50;
             touchFrame.origin.y = 110;
             touchView.frame = touchFrame;
             self.tableView.frame = frame;
         } else if (searchBox.hidden == NO  && touchLastY > touchLocation.y) {
             frame.origin.y = oldY;
-            touchFrame.origin.y = oldY;
+            touchFrame.origin.y = oldY+50;
             touchView.frame = touchFrame;
             searchBox.hidden = YES;
             self.tableView.frame = frame;
