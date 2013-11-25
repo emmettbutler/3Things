@@ -197,9 +197,6 @@ class DaysController(Base3ThingsHandler):
     @coroutine
     @authenticated
     def get(self):
-        self.application.db.users.remove()
-        self.application.db.access_tokens.remove()
-        self.application.db.days.remove()
         history = yield self._get_friend_feed(self.cur_user['_id'])
         print "Sending friend feed for user %s" % self.cur_user['_id']
         ret = {"history": history}
