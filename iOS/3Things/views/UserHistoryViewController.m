@@ -281,7 +281,7 @@
         text.allowsEditingTextAttributes = NO;
         text.font = [UIFont fontWithName:HEADER_FONT size:11];
         text.editable = NO;
-        int maxLen = images == 0 ? 48 : 30;
+        int maxLen = images == 0 ? 48 : 26;
         if ([text.text length] > maxLen) {
             text.text = [NSString stringWithFormat:@"%@...", [text.text substringToIndex:maxLen]];
         }

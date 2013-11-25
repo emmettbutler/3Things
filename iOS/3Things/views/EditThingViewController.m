@@ -111,7 +111,7 @@
     [saveButton setTitle:@"SAVE" forState:UIControlStateNormal];
     saveButton.frame = CGRectMake(screenFrame.size.width*.6, buttonY, 50, buttonHeight);
     saveButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:BUTTON_TEXT_SIZE];
-    saveButton.titleLabel.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    [saveButton setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
     saveButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_COLOR];
     saveButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     [self.view addSubview:saveButton];
@@ -123,10 +123,10 @@
     [nextButton setTitle:(self.thingIndex.intValue != 2) ? @"NEXT" : @"SHARE" forState:UIControlStateNormal];
     nextButton.frame = CGRectMake(screenFrame.size.width*.795, buttonY, 50, buttonHeight);
     nextButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:BUTTON_TEXT_SIZE];
-    nextButton.titleLabel.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
     nextButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_COLOR];
     nextButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     [self.view addSubview:nextButton];
+    [nextButton setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
     
     NSString *imgURL = [[self.shares.theThings objectAtIndex:[self.thingIndex intValue]] objectForKey:@"localImageURL"];
     self.thingLocalImageURL = imgURL;

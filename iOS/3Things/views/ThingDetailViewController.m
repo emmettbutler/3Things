@@ -9,6 +9,7 @@
 #import "ThingDetailViewController.h"
 #import "TTNetManager.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface ThingDetailViewController ()
 
@@ -42,22 +43,14 @@
     [closeButton setBackgroundImage:[UIImage imageNamed:@"Close.png"] forState:UIControlStateNormal];
     [self.view addSubview:closeButton];
     
-    NSString *imgURL = [self.thing objectForKey:@"localImageURL"];
-    if (![imgURL isEqualToString:@""]){
+    NSString *imgID = [self.thing objectForKey:@"imageID"];
+    UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 60, self.screenFrame.size.width, 300)];
+    [self.view addSubview:picView];
+    if (![imgID isEqualToString:@""] && imgID != NULL){
         hasImage = YES;
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
-         {
-             TTLog(@"thing image loaded successfully");
-             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 60, self.screenFrame.size.width, 300)];
-             picView.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-             [self.view addSubview:picView];
-             [picView setUserInteractionEnabled:YES];
-         }
-                failureBlock:^(NSError *error )
-         {
-             TTLog(@"Error loading thing image");
-         }];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [[TTNetManager sharedInstance] rootURL], imgID]];
+        [picView setImageWithURL:url
+                placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     }
     
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(self.screenFrame.size.width*.05, hasImage ? 370 : 60, self.screenFrame.size.width*.9, 100)];
