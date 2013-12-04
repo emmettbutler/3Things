@@ -31,17 +31,10 @@
                                                             UITextAttributeFont: [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE]
                                                             }];
 
-    UserStore *userStore = [[UserStore alloc] init];
     if ([[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"%d", kAccessToken]] != NULL) {
         // get the stored access token from defauls, put it in TTNetManager's memory, re-save it
         [[TTNetManager sharedInstance] loginToken:[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kAccessToken]]];
-        BOOL dayComplete = [[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kDayComplete]] boolValue];
-        TTLog(@"DayComplete: %d", dayComplete);
-        if (dayComplete == YES) {
-            self.viewController = [[FriendFeedViewController alloc] init];
-        } else {
-            self.viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES] andUser:[userStore getAuthenticatedUser]];
-        }
+        self.viewController = [[FriendFeedViewController alloc] init];
         UIViewController *viewController = self.viewController;
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
         self.window.rootViewController = navController;

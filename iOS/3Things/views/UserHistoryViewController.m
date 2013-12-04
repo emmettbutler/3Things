@@ -157,7 +157,7 @@
     if (self.feedData == nil) {
         return 2;
     } else {
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
         NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
         NSNumber *thisMonth = [sortedKeys objectAtIndex:section];
         NSArray *monthDays = [self.feedData objectForKey:thisMonth];
@@ -173,7 +173,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = [[UITableViewHeaderFooterView alloc] init];
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
     NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
     NSNumber *thisMonth = [sortedKeys objectAtIndex:section];
     
@@ -214,7 +214,7 @@
     
     if (self.feedData == nil) return cell;
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
     NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
     NSNumber *thisMonth = [sortedKeys objectAtIndex:indexPath.section];
     NSArray *monthDays = [self.feedData objectForKey:thisMonth];
@@ -324,7 +324,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
     NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
     NSNumber *thisMonth = [sortedKeys objectAtIndex:indexPath.section];
     NSArray *monthDays = [self.feedData objectForKey:thisMonth];

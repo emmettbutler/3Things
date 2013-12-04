@@ -46,6 +46,7 @@
     self = [super init];
     if (self) {
         self.isCurrent = [isCurrent boolValue];
+        self.isEdited = NO;
         self.completedThings = [NSNumber numberWithInt:self.isCurrent ? 0 : 3];
         self.shares = shares;
         self.user = user;
@@ -252,6 +253,7 @@
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
         TTLog(@"json response: %@", json);
+        if (json == NULL) return;
         self.feedData = json;
         self.shares = [[TTShareDay alloc] initWithSharesDictionary:[[[json objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:0]];
         if ([self.parentViewController isKindOfClass:[My3ThingsViewController class]]){
