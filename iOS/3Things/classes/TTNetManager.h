@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FacebookSDK/FacebookSDK.h>
 #import "User.h"
 #import "TTShareDay.h"
 

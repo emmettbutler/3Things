@@ -15,7 +15,7 @@
 		AA0910AC1801EC2500F9D8B8 /* TTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A51801EC2500F9D8B8 /* TTDataStore.m */; };
 		AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A71801EC2500F9D8B8 /* ThingStore.m */; };
 		AA0910B21801EEFB00F9D8B8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */; };
-		AA1A927E18562A710066F159 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1A927D18562A710066F159 /* FacebookSDK.framework */; };
+		AA1A9280185659B40066F159 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1A927F185659B40066F159 /* FacebookSDK.framework */; };
 		AA1E52D1182AE49F000EBBBA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52D0182AE49F000EBBBA /* User.m */; };
 		AA1E52DD182AE669000EBBBA /* Thing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52DC182AE669000EBBBA /* Thing.m */; };
 		AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */; };
@@ -79,7 +79,7 @@
 		AA0910A81801EC2500F9D8B8 /* ThingStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingStore.h; sourceTree = "<group>"; };
 		AA0910AF1801EDAF00F9D8B8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		AA1A927D18562A710066F159 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		AA1A927F185659B40066F159 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		AA1E52CF182AE49F000EBBBA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		AA1E52D0182AE49F000EBBBA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		AA1E52DB182AE669000EBBBA /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thing.h; sourceTree = "<group>"; };
@@ -165,7 +165,7 @@
 				AA09109D1801CB9300F9D8B8 /* ImageIO.framework in Frameworks */,
 				AABB2F111800A43600EEA446 /* CoreData.framework in Frameworks */,
 				AAF28C5017DAA90A0067FD79 /* UIKit.framework in Frameworks */,
-				AA1A927E18562A710066F159 /* FacebookSDK.framework in Frameworks */,
+				AA1A9280185659B40066F159 /* FacebookSDK.framework in Frameworks */,
 				AABAA1F018144437004547EE /* SDWebImage.framework in Frameworks */,
 				AAF28C5217DAA90A0067FD79 /* Foundation.framework in Frameworks */,
 				AAF28C5417DAA90A0067FD79 /* CoreGraphics.framework in Frameworks */,
@@ -272,7 +272,7 @@
 		AAF28C4E17DAA90A0067FD79 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AA1A927D18562A710066F159 /* FacebookSDK.framework */,
+				AA1A927F185659B40066F159 /* FacebookSDK.framework */,
 				AAB0A179183A9BF4006A8B29 /* QuartzCore.framework */,
 				AABAA1EF18144437004547EE /* SDWebImage.framework */,
 				AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */,

@@ -10,6 +10,7 @@
 #import "SplashViewController.h"
 #import "UserStore.h"
 #import "FriendFeedViewController.h"
+#import "AppDelegate.h"
 #import "My3ThingsViewController.h"
 
 @interface LoginTypePickerViewController ()
@@ -29,7 +30,7 @@
     
     UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [shareButton addTarget:self
-                    action:@selector(emailLoginWasTouched)
+                    action:@selector(doFBLogin:)
           forControlEvents:UIControlEventTouchDown];
     [shareButton setTitle:@"Sign in with Facebook" forState:UIControlStateNormal];
     shareButton.frame = CGRectMake(0, 240, screenFrame.size.width, 40.0);
@@ -79,6 +80,12 @@
     pwField.borderStyle = UITextBorderStyleRoundedRect;
     pwField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:pwField];
+}
+
+- (void)doFBLogin:(id)sender
+{
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate openSession];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
