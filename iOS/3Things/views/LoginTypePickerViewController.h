@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTNetManager.h"
 
-@interface LoginTypePickerViewController : UIViewController
+@interface LoginTypePickerViewController : UIViewController <UITextFieldDelegate, TTNetManagerDelegate>
+{
+    UITextField *idField, *pwField;
+}
+
+-(BOOL) loginIsValid;
 
 @end
