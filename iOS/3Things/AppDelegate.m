@@ -194,8 +194,9 @@
             [[TTNetManager sharedInstance] loginToken:[[json objectForKey:@"data"] objectForKey:@"access_token"]];
             [UserStore initCurrentUserWithUserName:name andUserID:uid andFBID:fbid];
             
+            UserStore *userStore = [[UserStore alloc] init];
             // TODO - go to compose view if the user has no posts
-            self.viewController = [[My3ThingsViewController alloc] init];
+            self.viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES] andUser:[userStore getAuthenticatedUser]];
             UIViewController *viewController = self.viewController;
             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
             self.window.rootViewController = navController;
