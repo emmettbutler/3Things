@@ -58,7 +58,12 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
             user = user[0]
         else:
             raise tornado.web.HTTPError(404, "User %s not found" % user_id)
-        return {'name': user['name'], '_id': user['_id'], 'profileImageID': user['profileImageID'] if 'profileImageID' in user else ""}
+        return {
+            'name': user['name'],
+                '_id': user['_id'],
+                'profileImageID': user['profileImageID'] if 'profileImageID' in user else "",
+                'fbid': user['fbid'] if 'fbid' in user else ""
+            }
 
 
 class FacebookHandler(Base3ThingsHandler):
@@ -83,7 +88,7 @@ class FacebookHandler(Base3ThingsHandler):
 
         self.set_status(200)
         token = yield self._generate_token(user)
-        ret = {"access_token": token, "name": user['name'], "uid": user['_id']}
+        ret = {"access_token": token, "name": user['name'], "uid": user['_id'], "fbid": user['fbid']}
         self._send_response(ret)
 
     @coroutine

@@ -16,7 +16,7 @@
 		AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A71801EC2500F9D8B8 /* ThingStore.m */; };
 		AA0910B21801EEFB00F9D8B8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */; };
 		AA1A9280185659B40066F159 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1A927F185659B40066F159 /* FacebookSDK.framework */; };
-		AA1E52D1182AE49F000EBBBA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52D0182AE49F000EBBBA /* User.m */; };
+		AA1A9283185685CB0066F159 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1A9282185685CB0066F159 /* User.m */; };
 		AA1E52DD182AE669000EBBBA /* Thing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52DC182AE669000EBBBA /* Thing.m */; };
 		AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */; };
 		AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */; };
@@ -79,8 +79,8 @@
 		AA0910AF1801EDAF00F9D8B8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		AA1A927F185659B40066F159 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
-		AA1E52CF182AE49F000EBBBA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		AA1E52D0182AE49F000EBBBA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		AA1A9281185685CB0066F159 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		AA1A9282185685CB0066F159 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		AA1E52DB182AE669000EBBBA /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thing.h; sourceTree = "<group>"; };
 		AA1E52DC182AE669000EBBBA /* Thing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Thing.m; sourceTree = "<group>"; };
 		AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorPromptViewController.m; sourceTree = "<group>"; };
@@ -229,8 +229,6 @@
 			children = (
 				AA1E52DB182AE669000EBBBA /* Thing.h */,
 				AA1E52DC182AE669000EBBBA /* Thing.m */,
-				AA1E52CF182AE49F000EBBBA /* User.h */,
-				AA1E52D0182AE49F000EBBBA /* User.m */,
 				AA0910A51801EC2500F9D8B8 /* TTDataStore.m */,
 				AA0910A61801EC2500F9D8B8 /* TTDataStore.h */,
 				AA0910A71801EC2500F9D8B8 /* ThingStore.m */,
@@ -243,6 +241,8 @@
 				AABB2EBB18006FD600EEA446 /* TTShareDay.m */,
 				AA33AFD0183EC3490004DF3D /* ShareDay.h */,
 				AA33AFD1183EC3490004DF3D /* ShareDay.m */,
+				AA1A9281185685CB0066F159 /* User.h */,
+				AA1A9282185685CB0066F159 /* User.m */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -403,7 +403,6 @@
 				AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */,
 				AA083D9C183AD4E0005D5B24 /* TTDate.m in Sources */,
 				AABB2ECB18007A3500EEA446 /* UserHistoryViewController.m in Sources */,
-				AA1E52D1182AE49F000EBBBA /* User.m in Sources */,
 				AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */,
 				AA7930A5183C55AC006B4213 /* TTTableView.m in Sources */,
 				AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */,
@@ -417,6 +416,7 @@
 				AA0910621801BDA100F9D8B8 /* UserStore.m in Sources */,
 				AA0910A21801D2C700F9D8B8 /* PhotoPromptViewController.m in Sources */,
 				AABB2F141800ADA000EEA446 /* 3Things.xcdatamodeld in Sources */,
+				AA1A9283185685CB0066F159 /* User.m in Sources */,
 				AA7E5503183188F500D7DE8C /* SingleDayViewController.m in Sources */,
 				AAF46B43180C97A300FE79A9 /* LoginTypePickerViewController.m in Sources */,
 				AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */,

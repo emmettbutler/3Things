@@ -12,6 +12,7 @@
 #import "UserStore.h"
 #import "ShareDayStore.h"
 #import "TTNetManager.h"
+#import "AppDelegate.h"
 #import "Thing.h"
 #import "ThingDetailViewController.h"
 #import "My3ThingsViewController.h"
@@ -59,10 +60,26 @@
     return self;
 }
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)sessionStateChanged:(NSNotification*)notification {
+    TTLog(@"Facebook session changed, everything is broken");
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    /*[[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(sessionStateChanged:)
+     name:FBSessionStateChangedNotification
+     object:nil];
+    */
+     
     self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"000000" opacity:0];
     
     if (!self.isCurrent && !self.isEdited){
@@ -142,9 +159,19 @@
     
     int imgWidth = 55;
     NSURL *url = [NSURL URLWithString:[self.user profileImageURL]];
-    UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(myFrame.size.width/2-imgWidth/2, 5, imgWidth, imgWidth)];
-    [profilePicView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [TTNetManager sharedInstance].rootURL, [url absoluteString]]]
-                   placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    
+    UIView *profilePicView;
+    CGRect picFrame = CGRectMake(myFrame.size.width/2-imgWidth/2, 5, imgWidth, imgWidth);
+    if ([self.user facebookID] != nil) {
+        TTLog(@"user facebook ID: %@", [self.user facebookID]);
+        profilePicView = [[FBProfilePictureView alloc] initWithProfileID:[self.user facebookID] pictureCropping:FBProfilePictureCroppingSquare];
+        profilePicView.frame = picFrame;
+    } else {
+        profilePicView = [[UIImageView alloc] initWithFrame:picFrame];
+        [(UIImageView *)profilePicView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [TTNetManager sharedInstance].rootURL, [url absoluteString]]]
+                       placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    }
+    
     CALayer *imageLayer = profilePicView.layer;
     [imageLayer setCornerRadius:profilePicView.frame.size.width/2];
     [imageLayer setMasksToBounds:YES];

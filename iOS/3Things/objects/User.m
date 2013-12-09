@@ -2,7 +2,7 @@
 //  User.m
 //  3Things
 //
-//  Created by Emmett Butler on 11/6/13.
+//  Created by Emmett Butler on 12/9/13.
 //  Copyright (c) 2013 Emmett Butler. All rights reserved.
 //
 
@@ -17,6 +17,7 @@
 @dynamic profileImageLocalURL;
 @dynamic profileImageURL;
 @dynamic userID;
+@dynamic facebookID;
 @dynamic shareDays;
 
 @end

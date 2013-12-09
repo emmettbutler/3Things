@@ -14,6 +14,8 @@
 #import "User.h"
 #import "TTNetManager.h"
 
+//NSString *const SCSessionStateChangedNotification = @"com.facebook.ThreeThings:FBSessionStateChangedNotification";
+
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -187,12 +189,10 @@
                                   error:&jsonError];
             TTLog(@"json response: %@", json);
             NSString *uid = [[json objectForKey:@"data"] objectForKey:@"uid"];
+            NSString *name = [[json objectForKey:@"data"] objectForKey:@"name"];
+            NSString *fbid = [[json objectForKey:@"data"] objectForKey:@"fbid"];
             [[TTNetManager sharedInstance] loginToken:[[json objectForKey:@"data"] objectForKey:@"access_token"]];
-            [UserStore initCurrentUserWithImage:nil
-                                       andEmail:nil
-                                    andUserName:[[json objectForKey:@"data"] objectForKey:@"name"]
-                                    andPassword:nil
-                                      andUserID:uid];
+            [UserStore initCurrentUserWithUserName:name andUserID:uid andFBID:fbid];
         }
     }
 }
@@ -212,6 +212,7 @@
                  }
             }];
             
+            // TODO - go to compose view if the user has no posts
             self.viewController = [[FriendFeedViewController alloc] init];
             UIViewController *viewController = self.viewController;
             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -221,20 +222,17 @@
             break;
         case FBSessionStateClosed:
         case FBSessionStateClosedLoginFailed:
-            // Once the user has logged in, we want them to
-            // be looking at the root view.
-            /*[self.navController popToRootViewControllerAnimated:NO];
-            
-            [FBSession.activeSession closeAndClearTokenInformation];
-            
-            [self showLoginView];
-             */
             TTLog(@"Facebook login failed");
             break;
         default:
             break;
     }
     
+    /*[[NSNotificationCenter defaultCenter]
+     postNotificationName:SCSessionStateChangedNotification
+     object:session];
+    */
+     
     if (error) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Error"

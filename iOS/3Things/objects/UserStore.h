@@ -21,5 +21,6 @@
                      andUserName:(NSString *)uname
                      andPassword:(NSString *)pw
                        andUserID:(NSString *)uid;
++ (void)initCurrentUserWithUserName:(NSString *)uname andUserID:(NSString *)uid andFBID:(NSString *)facebookID;
 
 @end

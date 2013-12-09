@@ -11,6 +11,8 @@
 #import "TTNetManager.h"
 #import <FacebookSDK/FacebookSDK.h>
 
+//extern NSString *const FBSessionStateChangedNotification;
+
 @class SplashViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, TTNetManagerDelegate>

@@ -15,6 +15,7 @@
     NSManagedObject *user = [self createItem:@"User"];
     ((User *)user).name = [userDict objectForKey:@"name"];
     ((User *)user).profileImageURL = [userDict objectForKey:@"profileImageID"];
+    ((User *)user).facebookID = [userDict objectForKey:@"fbid"];
     return (User *)user;
 }
 
@@ -28,6 +29,24 @@
         ((User *)newItem).name = name;
         ((User *)newItem).profileImageLocalURL = @"";
         ((User *)newItem).profileImageURL = profImgURL;
+        ((User *)newItem).userID = uid;
+        TTLog(@"Found no user, created %@", (User *)newItem);
+        [self saveChanges];
+        return (User *)newItem;
+    } else {
+        return [result objectAtIndex:0];
+    }
+}
+
+- (User *)createUser:(NSString *)uid withName:(NSString *)name andFBID:(NSString *)facebookID
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@)", uid];
+    NSArray *result = [self allItems:@"User" withSort:@"userID" andPredicate:predicate];
+    TTLog(@"In createUser: facebook searching for uid %@:  %@", uid, result);
+    if (result.count == 0) {
+        NSManagedObject *newItem = [self createItem:@"User"];
+        ((User *)newItem).name = name;
+        ((User *)newItem).facebookID = facebookID;
         ((User *)newItem).userID = uid;
         TTLog(@"Found no user, created %@", (User *)newItem);
         [self saveChanges];
@@ -63,6 +82,14 @@
                        andUserID:(NSString *)uid {
     UserStore *userStore = [[UserStore alloc] init];
     [userStore createUser:uid withName:uname andImgURL:imageURL];
+    [[NSUserDefaults standardUserDefaults] setObject:uid forKey:[NSString stringWithFormat:@"%d", kAuthUserID]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(void) initCurrentUserWithUserName:(NSString *)uname andUserID:(NSString *)uid andFBID:(NSString *)facebookID
+{
+    UserStore *userStore = [[UserStore alloc] init];
+    [userStore createUser:uid withName:uname andFBID:facebookID];
     [[NSUserDefaults standardUserDefaults] setObject:uid forKey:[NSString stringWithFormat:@"%d", kAuthUserID]];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

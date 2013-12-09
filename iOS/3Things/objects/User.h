@@ -2,7 +2,7 @@
 //  User.h
 //  3Things
 //
-//  Created by Emmett Butler on 11/6/13.
+//  Created by Emmett Butler on 12/9/13.
 //  Copyright (c) 2013 Emmett Butler. All rights reserved.
 //
 
@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString * profileImageLocalURL;
 @property (nonatomic, retain) NSString * profileImageURL;
 @property (nonatomic, retain) NSString * userID;
+@property (nonatomic, retain) NSString * facebookID;
 @property (nonatomic, retain) NSSet *shareDays;
 @end
 
