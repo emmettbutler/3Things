@@ -195,7 +195,7 @@
             [UserStore initCurrentUserWithUserName:name andUserID:uid andFBID:fbid];
             
             // TODO - go to compose view if the user has no posts
-            self.viewController = [[FriendFeedViewController alloc] init];
+            self.viewController = [[My3ThingsViewController alloc] init];
             UIViewController *viewController = self.viewController;
             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
             self.window.rootViewController = navController;
