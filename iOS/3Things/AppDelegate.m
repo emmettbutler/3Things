@@ -193,6 +193,13 @@
             NSString *fbid = [[json objectForKey:@"data"] objectForKey:@"fbid"];
             [[TTNetManager sharedInstance] loginToken:[[json objectForKey:@"data"] objectForKey:@"access_token"]];
             [UserStore initCurrentUserWithUserName:name andUserID:uid andFBID:fbid];
+            
+            // TODO - go to compose view if the user has no posts
+            self.viewController = [[FriendFeedViewController alloc] init];
+            UIViewController *viewController = self.viewController;
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+            self.window.rootViewController = navController;
+            TTLog(@"Facebook login successful");
         }
     }
 }
@@ -211,13 +218,6 @@
                      [[TTNetManager sharedInstance] registerUserWithFacebookID:user.id andName:user.name];
                  }
             }];
-            
-            // TODO - go to compose view if the user has no posts
-            self.viewController = [[FriendFeedViewController alloc] init];
-            UIViewController *viewController = self.viewController;
-            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-            self.window.rootViewController = navController;
-            TTLog(@"Facebook login successful");
         }
             break;
         case FBSessionStateClosed:

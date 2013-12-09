@@ -52,8 +52,11 @@
         self.shares = shares;
         self.user = user;
         if (self.user == nil) {
+            TTLog(@"Getting authenticated user");
             UserStore *userStore = [[UserStore alloc] init];
             self.user = [userStore getAuthenticatedUser];
+        } else {
+            TTLog(@"User: %@", self.user);
         }
         TTLog(@"Entering single day view: %@", self.shares.theThings);
     }
@@ -158,15 +161,15 @@
     }
     
     int imgWidth = 55;
-    NSURL *url = [NSURL URLWithString:[self.user profileImageURL]];
     
     UIView *profilePicView;
     CGRect picFrame = CGRectMake(myFrame.size.width/2-imgWidth/2, 5, imgWidth, imgWidth);
+    TTLog(@"user facebook ID: %@", [self.user facebookID]);
     if ([self.user facebookID] != nil) {
-        TTLog(@"user facebook ID: %@", [self.user facebookID]);
         profilePicView = [[FBProfilePictureView alloc] initWithProfileID:[self.user facebookID] pictureCropping:FBProfilePictureCroppingSquare];
         profilePicView.frame = picFrame;
     } else {
+        NSURL *url = [NSURL URLWithString:[self.user profileImageURL]];
         profilePicView = [[UIImageView alloc] initWithFrame:picFrame];
         [(UIImageView *)profilePicView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [TTNetManager sharedInstance].rootURL, [url absoluteString]]]
                        placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
