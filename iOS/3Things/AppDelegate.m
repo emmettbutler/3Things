@@ -183,10 +183,10 @@
 {
     switch (state) {
         case FBSessionStateOpen: {
-            /*UIViewController *topViewController = [self.navigationController topViewController];
-            if ([[topViewController modalViewController] isKindOfClass:[SCLoginViewController class]]) {
-                [topViewController dismissModalViewControllerAnimated:YES];
-            }*/
+            self.viewController = [[FriendFeedViewController alloc] init];
+            UIViewController *viewController = self.viewController;
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+            self.window.rootViewController = navController;
             TTLog(@"Facebook login successful");
         }
             break;
@@ -226,6 +226,14 @@
        FBSessionState state, NSError *error) {
          [self sessionStateChanged:session state:state error:error];
      }];
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return [FBSession.activeSession handleOpenURL:url];
 }
 
 @end
