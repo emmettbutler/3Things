@@ -30,6 +30,12 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
         self.set_header('Content-Type', "application/json")
         self.write(ThreeThingsResponse(response).write_out())
 
+    @coroutine
+    def _generate_token(self, user):
+        token = str(uuid.uuid4()).replace('-', '')
+        self.application.db.access_tokens.insert({'user': user['_id'], 'token': token})
+        raise Return(token)
+
     def _authenticate(self):
         token = self.request.headers.get("Authorization")
         if not token:
@@ -52,7 +58,53 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
             user = user[0]
         else:
             raise tornado.web.HTTPError(404, "User %s not found" % user_id)
-        return {'name': user['name'], '_id': user['_id'], 'profileImageID': user['profileImageID']}
+        return {'name': user['name'], '_id': user['_id'], 'profileImageID': user['profileImageID'] if 'profileImageID' in user else ""}
+
+
+class FacebookHandler(Base3ThingsHandler):
+    @coroutine
+    def get(self):
+        fb_id = self.get_argument("fbid", default="")
+        fname = self.get_argument("name", default="")
+
+        existing_users = self.application.db.users.find({'fbid': fb_id})
+        # if there is no user, create one
+        if existing_users.count() == 0:
+            user_registered = yield self._register_user_from_fb(fb_id, fname)
+            if not user_registered:
+                self.set_status(304)
+                self.finish()
+                return
+
+        # login the user either way
+        user = yield self._login_user_from_fb(fb_id)
+        if not user:
+            raise tornado.web.HTTPError(403, "Facebook ID %s does not exist in DB" % fb_id)
+
+        self.set_status(200)
+        token = yield self._generate_token(user)
+        ret = {"access_token": token, "name": user['name'], "uid": user['_id']}
+        self._send_response(ret)
+
+    @coroutine
+    def _register_user_from_fb(self, identifier, name):
+        self.application.db.users.insert({
+            'fbid': identifier,
+            'name': name,
+            'friends': []})
+        raise Return(True)
+
+    @coroutine
+    def _login_user_from_fb(self, fb_id, image=None):
+        users = self.application.db.users.find({'fbid': fb_id})
+        try:
+            user = users.next()
+            if user['fbid'] != fb_id:
+                raise Return(None)
+            raise Return(user)
+        except StopIteration:
+            raise Return(None)
+        raise Return(None)
 
 
 class RegistrationHandler(Base3ThingsHandler):
@@ -77,7 +129,6 @@ class RegistrationHandler(Base3ThingsHandler):
             self.set_status(304)
             self.finish()
             return
-
         code = self._generate_confirmation_code(email)
         ret = {"conf_code": code, "email": email, "name": fname}
         self.set_status(201)
@@ -175,12 +226,6 @@ class LoginHandler(Base3ThingsHandler):
         except StopIteration:
             raise Return(None)
         raise Return(None)
-
-    @coroutine
-    def _generate_token(self, user):
-        token = str(uuid.uuid4()).replace('-', '')
-        self.application.db.access_tokens.insert({'user': user['_id'], 'token': token})
-        raise Return(token)
 
     def _check_password(self, _raw_password, enc_password):
         """

@@ -11,6 +11,7 @@ from controllers import controllers_main
 def get_app():
     application = tornado.web.Application([
         (r"/register", controllers_main.RegistrationHandler),
+        (r"/fblogin", controllers_main.FacebookHandler),
         (r"/login", controllers_main.LoginHandler),
         (r"/users", controllers_main.UsersController),
         (r"/users/([^\/]+)", controllers_main.UserController),

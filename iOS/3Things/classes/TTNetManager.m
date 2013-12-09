@@ -33,6 +33,16 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:NO];
 }
 
+-(void)registerUserWithFacebookID:(NSString *)facebookID andName:(NSString *)name
+{
+    name = [self urlEncodeString:name];
+    facebookID = [self urlEncodeString:facebookID];
+    NSString *url = [NSString stringWithFormat:@"%@/fblogin?fbid=%@&name=%@",
+                     rootURL, facebookID, name];
+    TTLog(@"Attempting to register Facebook user with URL: '%@'", url);
+    [self apiConnectionWithURL:url authorized:NO];
+}
+
 -(void)loginUser:(NSString *)email withPassword:(NSString *)pw andImage:(NSString *)imageURL
 {
     NSString *url = [NSString stringWithFormat:@"%@/login", rootURL];
@@ -243,8 +253,8 @@ TTNetManager *instance;
     @synchronized(self){
         if(self = [super init]){
             self.currentAccessToken = nil;
-            //rootURL = @"http://localhost:5000";
-            rootURL = @"http://nameless-sierra-7477.herokuapp.com";
+            rootURL = @"http://localhost:5000";
+            //rootURL = @"http://nameless-sierra-7477.herokuapp.com";
             self.rootURL = rootURL;
         }
         return self;

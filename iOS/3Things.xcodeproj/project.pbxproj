@@ -61,7 +61,6 @@
 		AAF28C6417DAA90A0067FD79 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF28C6317DAA90A0067FD79 /* Default@2x.png */; };
 		AAF28C6617DAA90A0067FD79 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF28C6517DAA90A0067FD79 /* Default-568h@2x.png */; };
 		AAF46B43180C97A300FE79A9 /* LoginTypePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF46B42180C97A300FE79A9 /* LoginTypePickerViewController.m */; };
-		AAF46B46180CA19C00FE79A9 /* LoginEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF46B45180CA19C00FE79A9 /* LoginEmailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -151,8 +150,6 @@
 		AAF28C6517DAA90A0067FD79 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		AAF46B41180C97A200FE79A9 /* LoginTypePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTypePickerViewController.h; sourceTree = "<group>"; };
 		AAF46B42180C97A300FE79A9 /* LoginTypePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTypePickerViewController.m; sourceTree = "<group>"; };
-		AAF46B44180CA19C00FE79A9 /* LoginEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginEmailViewController.h; sourceTree = "<group>"; };
-		AAF46B45180CA19C00FE79A9 /* LoginEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginEmailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,8 +218,6 @@
 				AABB2EB818006FD600EEA446 /* SplashViewController.m */,
 				AAF46B41180C97A200FE79A9 /* LoginTypePickerViewController.h */,
 				AAF46B42180C97A300FE79A9 /* LoginTypePickerViewController.m */,
-				AAF46B44180CA19C00FE79A9 /* LoginEmailViewController.h */,
-				AAF46B45180CA19C00FE79A9 /* LoginEmailViewController.m */,
 				AA2FFBD01833B26200B9865A /* FriendSearchViewController.h */,
 				AA2FFBD11833B26200B9865A /* FriendSearchViewController.m */,
 			);
@@ -429,7 +424,6 @@
 				AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */,
 				AA2FFBD21833B26200B9865A /* FriendSearchViewController.m in Sources */,
 				AA1E52DD182AE669000EBBBA /* Thing.m in Sources */,
-				AAF46B46180CA19C00FE79A9 /* LoginEmailViewController.m in Sources */,
 				AA0910AC1801EC2500F9D8B8 /* TTDataStore.m in Sources */,
 				AABB2EC318006FD600EEA446 /* My3ThingsViewController.m in Sources */,
 			);

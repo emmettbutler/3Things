@@ -13,7 +13,7 @@
 
 @class SplashViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, TTNetManagerDelegate>
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

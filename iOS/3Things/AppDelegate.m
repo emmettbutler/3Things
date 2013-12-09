@@ -26,18 +26,16 @@
     
     [TTNetManager sharedInstance];
     
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-        TTLog(@"Facebook session found");
-    } else {
-        TTLog(@"No facebook session found");
-    }
-    
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                                             UITextAttributeTextColor: [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR],
                                                             UITextAttributeFont: [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE]
                                                             }];
 
-    if ([[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"%d", kAccessToken]] != NULL) {
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"%d", kAccessToken]] != NULL ||
+     FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+            TTLog(@"Facebook session found");
+        }
         // get the stored access token from defauls, put it in TTNetManager's memory, re-save it
         [[TTNetManager sharedInstance] loginToken:[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kAccessToken]]];
         self.viewController = [[FriendFeedViewController alloc] init];
@@ -177,12 +175,43 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
+{
+    TTLog(@"Data received from %@", url);
+    if([url.path isEqualToString:@"/fblogin"]){
+        if([((NSHTTPURLResponse *)res) statusCode] == 200){
+            NSError *jsonError = nil;
+            NSDictionary *json = [NSJSONSerialization
+                                  JSONObjectWithData:data
+                                  options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
+                                  error:&jsonError];
+            TTLog(@"json response: %@", json);
+            NSString *uid = [[json objectForKey:@"data"] objectForKey:@"uid"];
+            [[TTNetManager sharedInstance] loginToken:[[json objectForKey:@"data"] objectForKey:@"access_token"]];
+            [UserStore initCurrentUserWithImage:nil
+                                       andEmail:nil
+                                    andUserName:[[json objectForKey:@"data"] objectForKey:@"name"]
+                                    andPassword:nil
+                                      andUserID:uid];
+        }
+    }
+}
+
 - (void)sessionStateChanged:(FBSession *)session
                       state:(FBSessionState) state
                       error:(NSError *)error
 {
     switch (state) {
         case FBSessionStateOpen: {
+            [[FBRequest requestForMe] startWithCompletionHandler:
+             ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
+                 if (!error) {
+                     TTLog(@"user name: %@, id: %@", user.name, user.id);
+                     [TTNetManager sharedInstance].netDelegate = self;
+                     [[TTNetManager sharedInstance] registerUserWithFacebookID:user.id andName:user.name];
+                 }
+            }];
+            
             self.viewController = [[FriendFeedViewController alloc] init];
             UIViewController *viewController = self.viewController;
             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
