@@ -20,6 +20,7 @@
 #define SCRIPT_FONT @"Baskerville-Italic"
 #define HEADER_FONT_SIZE 15
 #define BUTTON_TEXT_BLUE_COLOR @"669099"
+#define COLOR_FACEBOOK @"38609e"
 #define BUTTON_TEXT_SIZE 10
 #define THING_TEXT_SIZE 12
 #define BUTTON_CORNER_RADIUS 3
