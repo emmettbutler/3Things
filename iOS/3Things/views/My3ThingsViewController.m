@@ -79,6 +79,22 @@
     self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
 
+    UIView *titleView = [[UIView alloc] init];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -20, 120, 40)];
+    [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
+    [titleView addSubview:logoView];
+    self.navigationItem.titleView = titleView;
+    
+    if (self.isCurrent) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SHARE" style:UIBarButtonItemStylePlain target:self action:@selector(shareWasTouched)];
+        [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                              [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR],
+                                                              UITextAttributeTextColor,
+                                                              [UIFont fontWithName:HEADER_FONT size:14.0],
+                                                              UITextAttributeFont,
+                                                              nil] forState:UIControlStateNormal];
+    }
+    
     CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
     bgLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     [self.view.layer insertSublayer:bgLayer atIndex:0];
@@ -112,16 +128,6 @@
     [self.view addSubview:self.dayView.view];
     self.dayView.view.frame = CGRectMake(9, 65, self.dayView.frame.size.width, self.dayView.frame.size.height);
     [self.dayView didMoveToParentViewController:self];
-
-    if (self.isCurrent){
-        UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [shareButton addTarget:self
-                        action:@selector(shareWasTouched)
-              forControlEvents:UIControlEventTouchDown];
-        [shareButton setTitle:@"Share" forState:UIControlStateNormal];
-        shareButton.frame = CGRectMake(80.0, self.screenFrame.size.height-40, 160.0, 40.0);
-        [self.view addSubview:shareButton];
-    }
 }
 
 - (void)backWasTouched {
