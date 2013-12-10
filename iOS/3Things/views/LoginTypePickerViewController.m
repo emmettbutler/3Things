@@ -42,14 +42,6 @@
     [shareButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
     [self.view addSubview:shareButton];
     
-    UIButton *newAccountButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [newAccountButton addTarget:self
-                    action:@selector(newAccountWasTouched)
-          forControlEvents:UIControlEventTouchDown];
-    [newAccountButton setTitle:@"I need an account" forState:UIControlStateNormal];
-    newAccountButton.frame = CGRectMake(0, 360, screenFrame.size.width, 40.0);
-    [self.view addSubview:newAccountButton];
-    
     int logoWidth = 240;
     UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(screenFrame.size.width/2-logoWidth/2, 55, 240, 80)];
     [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
@@ -63,21 +55,22 @@
     text.backgroundColor = self.view.backgroundColor;
     text.editable = NO;
     [self.view addSubview:text];
-
-    UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [loginButton addTarget:self
-                    action:@selector(loginWasTouched)
-          forControlEvents:UIControlEventTouchDown];
-    [loginButton setTitle:@"SIGN IN" forState:UIControlStateNormal];
-    loginButton.frame = CGRectMake(20, 380, 60, 40);
-    loginButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:BUTTON_TEXT_SIZE];
-    loginButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_COLOR];
-    loginButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
-    [self.view addSubview:loginButton];
     
-    CGRect idFieldFrame = CGRectMake(20.0f, screenFrame.size.height/2, 280.0f, 31.0f);
+    float textFieldWidth = screenFrame.size.width*.85, textFieldHeight = 35;
+    
+    int unameFieldY = 300;
+    UITextView *unameText = [[UITextView alloc] initWithFrame:CGRectMake(screenFrame.size.width/2-textFieldWidth/2, unameFieldY-24, 70, 30)];
+    unameText.textAlignment = NSTextAlignmentLeft;
+    unameText.text = @"USERNAME";
+    unameText.font = [UIFont fontWithName:HEADER_FONT size:9];
+    unameText.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    unameText.backgroundColor = self.view.backgroundColor;
+    unameText.editable = NO;
+    [self.view addSubview:unameText];
+    
+    CGRect idFieldFrame = CGRectMake(screenFrame.size.width/2-textFieldWidth/2, unameFieldY, textFieldWidth, textFieldHeight);
     idField = [[UITextField alloc] initWithFrame:idFieldFrame];
-    idField.placeholder = @"Username or email";
+    idField.placeholder = @"";
     idField.delegate = self;
     idField.font = [UIFont fontWithName:HEADER_FONT size:11];
     idField.returnKeyType = UIReturnKeyNext;
@@ -85,12 +78,21 @@
     idField.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     idField.borderStyle = UITextBorderStyleRoundedRect;
     idField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    //[idField becomeFirstResponder];
     [self.view addSubview:idField];
     
-    CGRect pwFieldFrame = CGRectMake(20.0f, screenFrame.size.height/2+50, 280.0f, 31.0f);
+    int pwFieldY = 360;
+    UITextView *pwText = [[UITextView alloc] initWithFrame:CGRectMake(screenFrame.size.width/2-textFieldWidth/2, pwFieldY-24, 70, 30)];
+    pwText.textAlignment = NSTextAlignmentLeft;
+    pwText.text = @"PASSWORD";
+    pwText.font = [UIFont fontWithName:HEADER_FONT size:9];
+    pwText.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    pwText.backgroundColor = self.view.backgroundColor;
+    pwText.editable = NO;
+    [self.view addSubview:pwText];
+    
+    CGRect pwFieldFrame = CGRectMake(screenFrame.size.width/2-textFieldWidth/2, pwFieldY, textFieldWidth, textFieldHeight);
     pwField = [[UITextField alloc] initWithFrame:pwFieldFrame];
-    pwField.placeholder = @"Password";
+    pwField.placeholder = @"";
     pwField.delegate = self;
     pwField.font = [UIFont fontWithName:HEADER_FONT size:11];
     pwField.returnKeyType = UIReturnKeyGo;
@@ -99,6 +101,28 @@
     pwField.borderStyle = UITextBorderStyleRoundedRect;
     pwField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:pwField];
+    
+    UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [loginButton addTarget:self
+                    action:@selector(loginWasTouched)
+          forControlEvents:UIControlEventTouchDown];
+    [loginButton setTitle:@"SIGN IN" forState:UIControlStateNormal];
+    loginButton.frame = CGRectMake(screenFrame.size.width/2-textFieldWidth/2, pwFieldY+70, textFieldWidth/2, 40);
+    loginButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
+    loginButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    loginButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    [self.view addSubview:loginButton];
+    [loginButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
+    
+    UIButton *newAccountButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [newAccountButton addTarget:self
+                         action:@selector(newAccountWasTouched)
+               forControlEvents:UIControlEventTouchDown];
+    [newAccountButton setTitle:@"I NEED AN ACCOUNT" forState:UIControlStateNormal];
+    newAccountButton.frame = CGRectMake(0, pwFieldY+70, 480, 30.0);
+    newAccountButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:11];
+    [self.view addSubview:newAccountButton];
+    [newAccountButton setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
 }
 
 - (void)doFBLogin:(id)sender
@@ -118,6 +142,8 @@
 }
 
 - (void)loginWasTouched {
+    [pwField resignFirstResponder];
+    [idField resignFirstResponder];
     if ([self loginIsValid]){
         [TTNetManager sharedInstance].netDelegate = self;
         [[TTNetManager sharedInstance] loginUser:idField.text withPassword:pwField.text andImage:nil];
