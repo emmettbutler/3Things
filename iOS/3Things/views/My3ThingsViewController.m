@@ -78,22 +78,6 @@
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
-
-    UIView *titleView = [[UIView alloc] init];
-    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -20, 120, 40)];
-    [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
-    [titleView addSubview:logoView];
-    self.navigationItem.titleView = titleView;
-    
-    if (self.isCurrent) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SHARE" style:UIBarButtonItemStylePlain target:self action:@selector(shareWasTouched)];
-        [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                              [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR],
-                                                              UITextAttributeTextColor,
-                                                              [UIFont fontWithName:HEADER_FONT size:14.0],
-                                                              UITextAttributeFont,
-                                                              nil] forState:UIControlStateNormal];
-    }
     
     CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
     bgLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
@@ -117,6 +101,22 @@
 	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
     self.navigationItem.hidesBackButton = YES;
 	[self.view addSubview:navBar];
+    
+    UIView *titleView = [[UIView alloc] init];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -20, 120, 40)];
+    [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
+    [titleView addSubview:logoView];
+    self.navigationItem.titleView = titleView;
+    
+    if (self.isCurrent) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SHARE" style:UIBarButtonItemStylePlain target:self action:@selector(shareWasTouched)];
+        [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                              [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR],
+                                                              UITextAttributeTextColor,
+                                                              [UIFont fontWithName:HEADER_FONT size:14.0],
+                                                              UITextAttributeFont,
+                                                              nil] forState:UIControlStateNormal];
+    }
     
     float mainButtonHeight = 65;
     

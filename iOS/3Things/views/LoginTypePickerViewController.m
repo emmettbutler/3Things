@@ -47,7 +47,7 @@
     [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
     [self.view addSubview:logoView];
     
-    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 240, screenFrame.size.width, 60)];
+    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 210, screenFrame.size.width, 60)];
     text.textAlignment = NSTextAlignmentCenter;
     text.text = @"OR DO IT THE OLD FASHIONED WAY";
     text.font = [UIFont fontWithName:HEADER_FONT size:11];
@@ -58,7 +58,7 @@
     
     float textFieldWidth = screenFrame.size.width*.85, textFieldHeight = 35;
     
-    int unameFieldY = 300;
+    int unameFieldY = 280;
     UITextView *unameText = [[UITextView alloc] initWithFrame:CGRectMake(screenFrame.size.width/2-textFieldWidth/2, unameFieldY-24, 70, 30)];
     unameText.textAlignment = NSTextAlignmentLeft;
     unameText.text = @"USERNAME";
@@ -80,7 +80,7 @@
     idField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:idField];
     
-    int pwFieldY = 360;
+    int pwFieldY = 340;
     UITextView *pwText = [[UITextView alloc] initWithFrame:CGRectMake(screenFrame.size.width/2-textFieldWidth/2, pwFieldY-24, 70, 30)];
     pwText.textAlignment = NSTextAlignmentLeft;
     pwText.text = @"PASSWORD";

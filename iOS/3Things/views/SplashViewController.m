@@ -130,6 +130,26 @@
     [loginButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
 }
 
+- (void) textFieldDidBeginEditing:(UITextField *)textField
+{
+    CGRect frame = self.view.frame;
+    if (textField == firstNameField) {
+    } else if (textField == emailField) {
+    } else if (textField == pwField) {
+        frame.origin.y = -120;
+    } else if (textField == pwConfirmField) {
+        frame.origin.y = -150;
+    }
+    self.view.frame = frame;
+}
+
+- (void) textFieldDidEndEditing:(UITextField *)textField
+{
+    CGRect frame = self.view.frame;
+    frame.origin.y = 0;
+    self.view.frame = frame;
+}
+
 - (void)loginWasTouched
 {
     [self.view endEditing:YES];
