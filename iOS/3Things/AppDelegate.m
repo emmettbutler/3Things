@@ -33,7 +33,9 @@
                                                             UITextAttributeFont: [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE]
                                                             }];
 
-    if ([[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"%d", kAccessToken]] != NULL ||
+    NSString *storedToken = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"%d", kAccessToken]];
+    TTLog(@"Stored token: %@", storedToken);
+    if (storedToken != NULL ||
      FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
         if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
             TTLog(@"Facebook session found");

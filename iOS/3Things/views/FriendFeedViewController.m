@@ -10,6 +10,7 @@
 #import "My3ThingsViewController.h"
 #import "SingleDayViewController.h"
 #import "UserStore.h"
+#import "AppDelegate.h"
 #import "UserHistoryViewController.h"
 #import "My3ThingsViewController.h"
 #import "LoginTypePickerViewController.h"
@@ -114,6 +115,7 @@
 
 -(void)logoutWasTouched
 {
+    [FBSession.activeSession closeAndClearTokenInformation];
     [[TTNetManager sharedInstance] logoutToken];
     [[self navigationController] pushViewController:[[LoginTypePickerViewController alloc] init] animated:YES];
 }
