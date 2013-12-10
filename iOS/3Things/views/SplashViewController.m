@@ -25,57 +25,109 @@
     
     self.profLocalImageURL = nil;
     self.didSelectImage = NO;
-    self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button addTarget:self
-               action:@selector(loginWasTouched)
-     forControlEvents:UIControlEventTouchDown];
-    [button setTitle:@"Login" forState:UIControlStateNormal];
-    button.frame = CGRectMake(80.0, 30.0, 160.0, 40.0);
-    [self.view addSubview:button];
+    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 40, screenFrame.size.width, 60)];
+    text.textAlignment = NSTextAlignmentCenter;
+    text.text = @"CREATE AN ACCOUNT";
+    text.font = [UIFont fontWithName:HEADER_FONT size:16];
+    text.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    text.backgroundColor = self.view.backgroundColor;
+    text.editable = NO;
+    [self.view addSubview:text];
     
-    CGRect firstNameFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-170, 280.0f, 31.0f);
+    float textFieldWidth = screenFrame.size.width*.85, textFieldHeight = 35;
+    
+    int fNameFieldY = 110, fieldSpacing = 60;
+    
+    UITextView *fnameText = [[UITextView alloc] initWithFrame:CGRectMake(screenFrame.size.width/2-textFieldWidth/2, fNameFieldY-24, 70, 30)];
+    fnameText.textAlignment = NSTextAlignmentLeft;
+    fnameText.text = @"NAME";
+    fnameText.font = [UIFont fontWithName:HEADER_FONT size:9];
+    fnameText.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    fnameText.backgroundColor = self.view.backgroundColor;
+    fnameText.editable = NO;
+    [self.view addSubview:fnameText];
+    
+    CGRect firstNameFieldFrame = CGRectMake(screenFrame.size.width/2-textFieldWidth/2, fNameFieldY, textFieldWidth, textFieldHeight);
     firstNameField = [[UITextField alloc] initWithFrame:firstNameFieldFrame];
     firstNameField.delegate = self;
-    firstNameField.placeholder = @"Name";
+    firstNameField.placeholder = @"";
     firstNameField.borderStyle = UITextBorderStyleRoundedRect;
     firstNameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     firstNameField.returnKeyType = UIReturnKeyNext;
-    [firstNameField becomeFirstResponder];
     [self.view addSubview:firstNameField];
     
-    CGRect emailFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-120, 280.0f, 31.0f);
+    UITextView *emailText = [[UITextView alloc] initWithFrame:CGRectMake(screenFrame.size.width/2-textFieldWidth/2, fNameFieldY+fieldSpacing-24, 70, 30)];
+    emailText.textAlignment = NSTextAlignmentLeft;
+    emailText.text = @"EMAIL";
+    emailText.font = [UIFont fontWithName:HEADER_FONT size:9];
+    emailText.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    emailText.backgroundColor = self.view.backgroundColor;
+    emailText.editable = NO;
+    [self.view addSubview:emailText];
+    
+    CGRect emailFieldFrame = CGRectMake(screenFrame.size.width/2-textFieldWidth/2, fNameFieldY+fieldSpacing, textFieldWidth, textFieldHeight);
     emailField = [[UITextField alloc] initWithFrame:emailFieldFrame];
     emailField.delegate = self;
-    emailField.placeholder = @"Email";
+    emailField.placeholder = @"";
     emailField.autocorrectionType = UITextAutocorrectionTypeNo;
     emailField.borderStyle = UITextBorderStyleRoundedRect;
     emailField.returnKeyType = UIReturnKeyNext;
     emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:emailField];
     
-    CGRect pwFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-70, 280.0f, 31.0f);
+    UITextView *pwText = [[UITextView alloc] initWithFrame:CGRectMake(screenFrame.size.width/2-textFieldWidth/2, fNameFieldY+fieldSpacing*2-24, 70, 30)];
+    pwText.textAlignment = NSTextAlignmentLeft;
+    pwText.text = @"PASSWORD";
+    pwText.font = [UIFont fontWithName:HEADER_FONT size:9];
+    pwText.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    pwText.backgroundColor = self.view.backgroundColor;
+    pwText.editable = NO;
+    [self.view addSubview:pwText];
+    
+    CGRect pwFieldFrame = CGRectMake(screenFrame.size.width/2-textFieldWidth/2, fNameFieldY+fieldSpacing*2, textFieldWidth, textFieldHeight);
     pwField = [[UITextField alloc] initWithFrame:pwFieldFrame];
     pwField.delegate = self;
-    pwField.placeholder = @"Password";
+    pwField.placeholder = @"";
     pwField.secureTextEntry = YES;
     pwField.returnKeyType = UIReturnKeyNext;
     pwField.borderStyle = UITextBorderStyleRoundedRect;
     pwField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:pwField];
     
-    CGRect pwConfirmFieldFrame = CGRectMake(20.0f, screenRect.size.height/2-20, 280.0f, 31.0f);
+    UITextView *pwcText = [[UITextView alloc] initWithFrame:CGRectMake(screenFrame.size.width/2-textFieldWidth/2, fNameFieldY+fieldSpacing*3-24, 120, 30)];
+    pwcText.textAlignment = NSTextAlignmentLeft;
+    pwcText.text = @"CONFIRM PASSWORD";
+    pwcText.font = [UIFont fontWithName:HEADER_FONT size:9];
+    pwcText.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    pwcText.backgroundColor = self.view.backgroundColor;
+    pwcText.editable = NO;
+    [self.view addSubview:pwcText];
+    
+    CGRect pwConfirmFieldFrame = CGRectMake(screenFrame.size.width/2-textFieldWidth/2, fNameFieldY+fieldSpacing*3, textFieldWidth, textFieldHeight);
     pwConfirmField = [[UITextField alloc] initWithFrame:pwConfirmFieldFrame];
-    pwConfirmField.placeholder = @"Confirm Password";
+    pwConfirmField.placeholder = @"";
     pwConfirmField.delegate = self;
     pwConfirmField.secureTextEntry = YES;
     pwConfirmField.returnKeyType = UIReturnKeyGo;
     pwConfirmField.borderStyle = UITextBorderStyleRoundedRect;
     pwConfirmField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:pwConfirmField];
+    
+    UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [loginButton addTarget:self
+                    action:@selector(loginWasTouched)
+          forControlEvents:UIControlEventTouchDown];
+    [loginButton setTitle:@"SIGN UP" forState:UIControlStateNormal];
+    loginButton.frame = CGRectMake(screenFrame.size.width/2-textFieldWidth/4, fNameFieldY+fieldSpacing*3+70, textFieldWidth/2, 40);
+    loginButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
+    loginButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    loginButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    [self.view addSubview:loginButton];
+    [loginButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
 }
 
 - (void)loginWasTouched
