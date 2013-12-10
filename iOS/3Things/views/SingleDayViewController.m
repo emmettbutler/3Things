@@ -165,7 +165,7 @@
     UIView *profilePicView;
     CGRect picFrame = CGRectMake(myFrame.size.width/2-imgWidth/2, 5, imgWidth, imgWidth);
     TTLog(@"user facebook ID: %@", [self.user facebookID]);
-    if (![[self.user facebookID] isEqualToString:@""]) {
+    if ([self.user facebookID] != NULL && ![[self.user facebookID] isEqualToString:@""]) {
         profilePicView = [[FBProfilePictureView alloc] initWithProfileID:[self.user facebookID] pictureCropping:FBProfilePictureCroppingSquare];
         profilePicView.frame = picFrame;
     } else {
