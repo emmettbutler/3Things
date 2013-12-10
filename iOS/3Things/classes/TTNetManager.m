@@ -22,6 +22,13 @@ TTNetManager *instance;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+-(void)logoutToken
+{
+    self.currentAccessToken = NULL;
+    [[NSUserDefaults standardUserDefaults] setObject:NULL forKey:[NSString stringWithFormat:@"%d", kAccessToken]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 -(void)registerUser:(NSString *)email withName:(NSString *)uname andPassword:(NSString *)pw andPasswordConf:(NSString *)pwConf
 {
     uname = [self urlEncodeString:uname];

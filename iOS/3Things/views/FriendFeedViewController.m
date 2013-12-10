@@ -12,6 +12,7 @@
 #import "UserStore.h"
 #import "UserHistoryViewController.h"
 #import "My3ThingsViewController.h"
+#import "LoginTypePickerViewController.h"
 #import "BackgroundLayer.h"
 
 @interface FriendFeedViewController ()
@@ -30,6 +31,13 @@
     self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     self.navigationController.navigationBarHidden = NO;
     self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"LOGOUT" style:UIBarButtonItemStylePlain target:self action:@selector(logoutWasTouched)];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                          [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR],
+                                                          UITextAttributeTextColor,
+                                                          [UIFont fontWithName:HEADER_FONT size:14.0],
+                                                          UITextAttributeFont,
+                                                          nil] forState:UIControlStateNormal];
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
 	CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
@@ -102,6 +110,12 @@
     [self.searchViewController.view removeFromSuperview];
     [searchBox endEditing:YES];
     searchBox.text = @"";
+}
+
+-(void)logoutWasTouched
+{
+    [[TTNetManager sharedInstance] logoutToken];
+    [[self navigationController] pushViewController:[[LoginTypePickerViewController alloc] init] animated:YES];
 }
 
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
