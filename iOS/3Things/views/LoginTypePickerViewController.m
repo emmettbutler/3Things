@@ -119,7 +119,7 @@
                          action:@selector(newAccountWasTouched)
                forControlEvents:UIControlEventTouchDown];
     [newAccountButton setTitle:@"I NEED AN ACCOUNT" forState:UIControlStateNormal];
-    newAccountButton.frame = CGRectMake(0, pwFieldY+70, 480, 30.0);
+    newAccountButton.frame = CGRectMake(150, pwFieldY+75, 170, 30.0);
     newAccountButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:11];
     [self.view addSubview:newAccountButton];
     [newAccountButton setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
@@ -139,6 +139,20 @@
         [self loginWasTouched];
     }
     return YES;
+}
+
+- (void) textFieldDidBeginEditing:(UITextField *)textField
+{
+    CGRect frame = self.view.frame;
+    frame.origin.y = -216;
+    self.view.frame = frame;
+}
+
+- (void) textFieldDidEndEditing:(UITextField *)textField
+{
+    CGRect frame = self.view.frame;
+    frame.origin.y = 0;
+    self.view.frame = frame;
 }
 
 - (void)loginWasTouched {
