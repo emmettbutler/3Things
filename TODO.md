@@ -7,4 +7,4 @@ TODO Items
 - [x] Find friends screen
 - [x] user search endpoint
 - [x] Friend/unfriend API endpoints
-- [ ] sign up with facebook
+- [x] sign up with facebook
