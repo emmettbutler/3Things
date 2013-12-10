@@ -128,6 +128,18 @@
     loginButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     [self.view addSubview:loginButton];
     [loginButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
+    
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [backButton addTarget:self
+                    action:@selector(backWasTouched)
+          forControlEvents:UIControlEventTouchDown];
+    [backButton setTitle:@"BACK" forState:UIControlStateNormal];
+    backButton.frame = CGRectMake(screenFrame.size.width/2-textFieldWidth/4, fNameFieldY+fieldSpacing*3+120, textFieldWidth/2, 40);
+    backButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
+    backButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    backButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    [self.view addSubview:backButton];
+    [backButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
 }
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField
@@ -256,6 +268,11 @@
         [self loginWasTouched];
     }
     return YES;
+}
+
+-(void)backWasTouched
+{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^(void){}];
 }
 
 - (BOOL) fieldsAreValid {

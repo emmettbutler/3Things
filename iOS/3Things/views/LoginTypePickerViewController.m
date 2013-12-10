@@ -161,6 +161,17 @@
     if ([self loginIsValid]){
         [TTNetManager sharedInstance].netDelegate = self;
         [[TTNetManager sharedInstance] loginUser:idField.text withPassword:pwField.text andImage:nil];
+    } else {
+        if (!self.errViewIsShown) {
+            TTLog(@"Error: not all required fields are present in signin data");
+            self.errViewIsShown = YES;
+            ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"Please fill in all fields"];
+            [self addChildViewController:errViewController];
+            [self.view addSubview:errViewController.view];
+            errViewController.errDelegate = self;
+            errViewController.view.frame = errViewController.frame;
+            [errViewController didMoveToParentViewController:self];
+        }
     }
 }
 

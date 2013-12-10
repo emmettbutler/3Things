@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TTNetManager.h"
+#import "ErrorThrowingViewController.h"
 
-@interface LoginTypePickerViewController : UIViewController <UITextFieldDelegate, TTNetManagerDelegate>
+@interface LoginTypePickerViewController : ErrorThrowingViewController <UITextFieldDelegate, TTNetManagerDelegate>
 {
     UITextField *idField, *pwField;
 }
