@@ -88,7 +88,7 @@
         TTLog(@"json response: %@", json);
         self.friendData = json;
         [self.tableView reloadData];
-//        if ([url.path isEqualToString:[NSString stringWithFormat:@"/users/%@/friends/facebook", [[userStore getAuthenticatedUser] userID]]]) {
+        if ([url.path isEqualToString:[NSString stringWithFormat:@"/users/%@/friends/facebook", [[userStore getAuthenticatedUser] userID]]]) {
         } else {
         }
     }
