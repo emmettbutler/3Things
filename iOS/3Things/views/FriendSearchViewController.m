@@ -22,7 +22,7 @@
 {
     [super viewDidLoad];
     
-    self.friendData = nil;
+    self.friendData = [[NSMutableArray alloc] init];
     
     CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     CGRect popupFrame = CGRectMake(0, 110, screenFrame.size.width, screenFrame.size.height-142);
@@ -61,10 +61,8 @@
             UserStore *userStore = [[UserStore alloc] init];
             [[TTNetManager sharedInstance] getRegisteredFacebookFriends:[userStore getAuthenticatedUser] withFriendIDs:friendIDs];
         }];
-    } else {
-        TTLog(@"No Facebook session found");
-        [[TTNetManager sharedInstance] friendSearch:@""];
     }
+    [[TTNetManager sharedInstance] friendSearch:@""];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -86,11 +84,26 @@
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
         TTLog(@"json response: %@", json);
-        self.friendData = json;
-        [self.tableView reloadData];
-        if ([url.path isEqualToString:[NSString stringWithFormat:@"/users/%@/friends/facebook", [[userStore getAuthenticatedUser] userID]]]) {
-        } else {
+        for (NSDictionary *user in (NSArray *)[json objectForKey:@"data"]){
+            BOOL found = NO;
+            NSString *thisUserID = [user objectForKey:@"_id"];
+            for (NSDictionary *existingUser in self.friendData){
+                if ([thisUserID isEqualToString:[existingUser objectForKey:@"_id"]]){
+                    found = YES;
+                }
+            }
+            if ([thisUserID isEqualToString:[[userStore getAuthenticatedUser] userID]]) {
+                found = YES;
+            }
+            if (!found) {
+                if ([url.path isEqualToString:[NSString stringWithFormat:@"/users/%@/friends/facebook", [[userStore getAuthenticatedUser] userID]]]) {
+                    [self.friendData insertObject:user atIndex:0];
+                } else {
+                    [self.friendData addObject:user];
+                }
+            }
         }
+        [self.tableView reloadData];
     }
 }
 
@@ -102,7 +115,7 @@
     if (self.friendData == nil){
         return 2;
     } else {
-        return [[self.friendData objectForKey:@"data"] count];
+        return [self.friendData count];
     }
 }
 
@@ -121,7 +134,7 @@
 
     if (self.friendData == nil) return cell;
     
-    NSDictionary *user = [[self.friendData objectForKey:@"data"] objectAtIndex:indexPath.row];
+    NSDictionary *user = [self.friendData objectAtIndex:indexPath.row];
     
     UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
     [thingTextView setText:[user objectForKey:@"name"]];
@@ -136,7 +149,7 @@
     TTLog(@"Selected search item %d", indexPath.row);
     
     UserStore *userStore = [[UserStore alloc] init];
-    NSDictionary *user = [[self.friendData objectForKey:@"data"] objectAtIndex:indexPath.row];
+    NSDictionary *user = [self.friendData objectAtIndex:indexPath.row];
     [[TTNetManager sharedInstance] addFriend:[user objectForKey:@"_id"] forUser:[userStore getAuthenticatedUser]];
     
     [searchDelegate dismissSearchWasTouched];

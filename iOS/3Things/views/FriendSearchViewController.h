@@ -25,6 +25,6 @@ id <FriendSearchViewControllerDelegate> searchDelegate;
 @property (nonatomic) CGRect frame;
 @property (nonatomic, assign) id <FriendSearchViewControllerDelegate> searchDelegate;
 @property (nonatomic) UITableView *tableView;
-@property (nonatomic, retain) NSDictionary *friendData;
+@property (nonatomic, retain) NSMutableArray *friendData;
 
 @end
