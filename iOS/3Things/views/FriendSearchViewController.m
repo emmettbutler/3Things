@@ -38,6 +38,7 @@
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
     
+    UserStore *userStore = [[UserStore alloc] init];
     TTLog(@"Checking FB session: %@", FBSession.activeSession);
     if (FBSession.activeSession.isOpen || FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded){
         TTLog(@"Session open");
@@ -58,11 +59,10 @@
             for (NSDictionary<FBGraphUser>* friend in friends) {
                 [friendIDs addObject:friend.id];
             }
-            UserStore *userStore = [[UserStore alloc] init];
             [[TTNetManager sharedInstance] getRegisteredFacebookFriends:[userStore getAuthenticatedUser] withFriendIDs:friendIDs];
         }];
     }
-    [[TTNetManager sharedInstance] friendSearch:@""];
+    [[TTNetManager sharedInstance] friendSearch:@"" forUser:[userStore getAuthenticatedUser]];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -71,7 +71,8 @@
 
 - (void)searchQueryChanged:(NSString *)text
 {
-    [[TTNetManager sharedInstance] friendSearch:text];
+    UserStore *userStore = [[UserStore alloc] init];
+    [[TTNetManager sharedInstance] friendSearch:text forUser:[userStore getAuthenticatedUser]];
 }
 
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url {

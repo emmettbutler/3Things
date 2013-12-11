@@ -382,20 +382,22 @@ class UsersController(Base3ThingsHandler):
     @coroutine
     def get(self):
         query = self.get_argument("q", default="")
-        ret = yield self._user_search(query)
+        uid = self.get_argument("uid", default="")
+        ret = yield self._user_search(query, uid)
         self.set_status(200)
         self._send_response(ret)
 
     @coroutine
-    def _user_search(self, query):
+    def _user_search(self, query, user_id):
         regex = re.compile(query, re.IGNORECASE)
         cond = {"name": regex} if query else {}
         cond['fbid'] = ""
         users = list(self.application.db.users.find(cond).limit(20))
+        thisuser = list(self.application.db.users.find({"_id": ObjectId(user_id)}))[0]
         ret = []
         for user in users:
-            ret.append({'name': user['name'], '_id': user['_id']})
-        print ret
+            if user['_id'] not in thisuser['friends']:
+                ret.append({'name': user['name'], '_id': user['_id']})
         raise Return(ret)
 
 
@@ -477,9 +479,10 @@ class FacebookFriendFindController(Base3ThingsHandler):
         friend_ids = json.loads(friend_ids)['friends']
 
         ret = []
+        thisuser = list(self.application.db.users.find({"_id": user_id}))[0]
         for friend in friend_ids:
             user = self._user_response(facebook_id=friend)
-            if user:
+            if user and user['_id'] not in thisuser['friends']:
                 ret.append(user)
         self.set_status(200)
         self._send_response(ret)

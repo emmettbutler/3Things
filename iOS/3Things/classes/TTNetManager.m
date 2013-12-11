@@ -86,10 +86,10 @@ TTNetManager *instance;
      }];
 }
 
--(void)friendSearch:(NSString *)query
+-(void)friendSearch:(NSString *)query forUser:(User *)user
 {
-    NSString *url = [NSString stringWithFormat:@"%@/users?q=%@",
-                     rootURL, query];
+    NSString *url = [NSString stringWithFormat:@"%@/users?q=%@&uid=%@",
+                     rootURL, query, [user userID]];
     TTLog(@"Attempting to search for users");
     [self apiConnectionWithURL:url authorized:NO];
 }
