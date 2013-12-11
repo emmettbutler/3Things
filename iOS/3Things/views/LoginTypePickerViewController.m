@@ -33,13 +33,22 @@
     [shareButton addTarget:self
                     action:@selector(doFBLogin:)
           forControlEvents:UIControlEventTouchDown];
-    [shareButton setTitle:@"SIGN IN WITH FACEBOOK" forState:UIControlStateNormal];
-    int fbButtonWidth = 200;
+    [shareButton setTitle:@"" forState:UIControlStateNormal];
+    int fbButtonWidth = 230;
     shareButton.frame = CGRectMake(screenFrame.size.width/2-fbButtonWidth/2, 150, fbButtonWidth, 40.0);
     shareButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_FACEBOOK];
-    shareButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
     shareButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
-    [shareButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
+    UIView *buttonView = [[UIView alloc] init];
+    UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Facebook_logo_white.png"]];
+    logo.frame = CGRectMake(20, 5, 27, 27);
+    [buttonView addSubview:logo];
+    UITextView *buttonText = [[UITextView alloc] initWithFrame:CGRectMake(50, 4, 200, 30)];
+    buttonText.text = @"SIGN IN WITH FACEBOOK";
+    buttonText.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    buttonText.font = [UIFont fontWithName:HEADER_FONT size:12];
+    buttonText.textColor = [UIColor colorWithWhite:1 alpha:1];
+    [buttonView addSubview:buttonText];
+    [shareButton addSubview:buttonView];
     [self.view addSubview:shareButton];
     
     int logoWidth = 240;
