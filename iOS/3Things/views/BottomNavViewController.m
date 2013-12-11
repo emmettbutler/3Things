@@ -51,14 +51,23 @@
     [self.view addSubview:friendsButton];
     
     UIButton *calendarButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [calendarButton addTarget:self
-                      action:@selector(calendarWasTouched)
-            forControlEvents:UIControlEventTouchUpInside];
-    [calendarButton setTitle:@"CALENDAR" forState:UIControlStateNormal];
-    calendarButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE];
+    [calendarButton addTarget:self action:@selector(calendarWasTouched) forControlEvents:UIControlEventTouchUpInside];
+    [calendarButton addTarget:self action:@selector(calendarTouchBegan) forControlEvents:UIControlEventTouchDown];
+    [calendarButton setTitle:@"" forState:UIControlStateNormal];
     [calendarButton setTintColor:[[TTNetManager sharedInstance] colorWithHexString:@"FFFFFF"]];
-    calendarButton.frame = CGRectMake(10, totalHeight-visibleHeight, 100, 60);
-    
+    calendarButton.frame = CGRectMake(10, totalHeight-visibleHeight+10, 100, 60);
+    UIView *buttonView = [[UIView alloc] init];
+    calImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Cal_Icon.png"]];
+    calImageView.frame = CGRectMake(75, 10, 20, 10);
+    [buttonView addSubview:calImageView];
+    calTextView = [[UITextView alloc] init];
+    calTextView.frame = CGRectMake(0, 0, 90, 20);
+    calTextView.text = @"CALENDAR";
+    calTextView.font = [UIFont fontWithName:HEADER_FONT size:12];
+    calTextView.textColor = [UIColor colorWithWhite:1 alpha:1];
+    calTextView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    [buttonView addSubview:calTextView];
+    [calendarButton addSubview:buttonView];
     [self.view addSubview:calendarButton];
 }
 
@@ -70,7 +79,15 @@
     [self.navDelegate friendsWasTouched];
 }
 
+- (void)calendarTouchBegan
+{
+    calTextView.textColor = [UIColor colorWithWhite:.5 alpha:1];
+    calImageView.image = [UIImage imageNamed:@"Cal_Icon_depressed.png"];
+}
+
 - (void)calendarWasTouched{
+    calTextView.textColor = [UIColor colorWithWhite:1 alpha:1];
+    calImageView.image = [UIImage imageNamed:@"Cal_Icon.png"];
     [self.navDelegate calendarWasTouched];
 }
 
