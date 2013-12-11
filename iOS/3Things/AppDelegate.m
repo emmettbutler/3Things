@@ -28,6 +28,15 @@
     
     [TTNetManager sharedInstance];
     
+    if (FBSession.activeSession.state == FBSessionStateCreated){
+        [FBSession openActiveSessionWithReadPermissions:nil
+                                           allowLoginUI:YES
+                                      completionHandler:
+         ^(FBSession *session,
+           FBSessionState state, NSError *error) {
+         }];
+    }
+    
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                                             UITextAttributeTextColor: [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR],
                                                             UITextAttributeFont: [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE]
@@ -249,6 +258,7 @@
 
 - (void)openSession
 {
+    TTLog(@"Opening FB session");
     [FBSession openActiveSessionWithReadPermissions:nil
                                        allowLoginUI:YES
                                   completionHandler:

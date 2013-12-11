@@ -9,6 +9,7 @@
 #import "FriendSearchViewController.h"
 #import "FriendFeedViewController.h"
 #import "UserStore.h"
+#import "AppDelegate.h"
 
 @interface FriendSearchViewController ()
 
@@ -37,6 +38,29 @@
     self.tableView.dataSource = self;
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
+    
+    TTLog(@"Checking FB session: %@", FBSession.activeSession);
+    if (FBSession.activeSession.isOpen || FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded){
+        TTLog(@"Session open");
+        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded)
+        {
+            // We have a cached token (permissions all look good), we need to re-open the fb sdk session
+            [FBSession.activeSession openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
+                                    completionHandler:^(FBSession *session,
+                                                        FBSessionState state, NSError *error) {
+                                    }];
+        }
+        FBRequest* friendsRequest = [FBRequest requestForMyFriends];
+        [friendsRequest startWithCompletionHandler: ^(FBRequestConnection *connection,
+                                                      NSDictionary* result,
+                                                      NSError *error) {
+            NSArray* friends = [result objectForKey:@"data"];
+            TTLog(@"friends count: %d, error %@", [friends count], error);
+            for (NSDictionary<FBGraphUser>* friend in friends) {
+                //TTLog(@"I have a friend named %@ with id %@", friend.name, friend.id);
+            }
+        }];
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
