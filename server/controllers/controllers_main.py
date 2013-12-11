@@ -391,7 +391,6 @@ class UsersController(Base3ThingsHandler):
     def _user_search(self, query, user_id):
         regex = re.compile(query, re.IGNORECASE)
         cond = {"name": regex} if query else {}
-        cond['fbid'] = ""
         users = list(self.application.db.users.find(cond).limit(20))
         thisuser = list(self.application.db.users.find({"_id": ObjectId(user_id)}))[0]
         ret = []
