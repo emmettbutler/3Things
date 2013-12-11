@@ -175,6 +175,20 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:YES withMethod:@"DELETE"];
 }
 
+-(void)getRegisteredFacebookFriends:(User *)user withFriendIDs:(NSArray *)friendIDs
+{
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    NSError *error;
+    [jsonDict setObject:friendIDs forKey:@"friends"];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDict
+                                                   options:NSJSONWritingPrettyPrinted
+                                                     error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *url = [NSString stringWithFormat:@"%@/users/%@/friends/facebook", rootURL, user.userID];
+    TTLog(@"Attempting to retrieve registered facebook friends for user %@", user.userID);
+    [self apiConnectionWithURL:url andData:jsonString authorized:YES];
+}
+
 -(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth withMethod:(NSString *)httpMethod
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
@@ -198,6 +212,11 @@ TTNetManager *instance;
 
 -(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth{
     [self apiConnectionWithURL:url authorized:auth withMethod:@"GET"];
+}
+
+-(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data authorized:(BOOL)auth
+{
+    [self apiConnectionWithURL:url andData:data andImages:nil authorized:auth fileName:@"data" jsonFilename:@"jsondata"];
 }
 
 -(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data andImages:(NSArray *)images authorized:(BOOL)auth fileName:(NSString *)filename jsonFilename:(NSString *)jsonFilename{
@@ -260,8 +279,8 @@ TTNetManager *instance;
     @synchronized(self){
         if(self = [super init]){
             self.currentAccessToken = nil;
-            //rootURL = @"http://localhost:5000";
-            rootURL = @"http://nameless-sierra-7477.herokuapp.com";
+            rootURL = @"http://localhost:5000";
+            //rootURL = @"http://nameless-sierra-7477.herokuapp.com";
             self.rootURL = rootURL;
         }
         return self;

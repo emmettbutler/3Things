@@ -29,7 +29,6 @@
     self.frame = popupFrame;
     
     [TTNetManager sharedInstance].netDelegate = self;
-    [[TTNetManager sharedInstance] friendSearch:@""];
     
     CGRect scrollFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
@@ -44,7 +43,6 @@
         TTLog(@"Session open");
         if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded)
         {
-            // We have a cached token (permissions all look good), we need to re-open the fb sdk session
             [FBSession.activeSession openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
                                     completionHandler:^(FBSession *session,
                                                         FBSessionState state, NSError *error) {
@@ -55,11 +53,17 @@
                                                       NSDictionary* result,
                                                       NSError *error) {
             NSArray* friends = [result objectForKey:@"data"];
+            NSMutableArray *friendIDs = [[NSMutableArray alloc] init];
             TTLog(@"friends count: %d, error %@", [friends count], error);
             for (NSDictionary<FBGraphUser>* friend in friends) {
-                //TTLog(@"I have a friend named %@ with id %@", friend.name, friend.id);
+                [friendIDs addObject:friend.id];
             }
+            UserStore *userStore = [[UserStore alloc] init];
+            [[TTNetManager sharedInstance] getRegisteredFacebookFriends:[userStore getAuthenticatedUser] withFriendIDs:friendIDs];
         }];
+    } else {
+        TTLog(@"No Facebook session found");
+        [[TTNetManager sharedInstance] friendSearch:@""];
     }
 }
 
@@ -74,6 +78,8 @@
 
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url {
     if (error == NULL) {
+        UserStore *userStore = [[UserStore alloc] init];
+        TTLog(@"Data received from %@", url);
         NSError *jsonError = nil;
         NSDictionary *json = [NSJSONSerialization
                               JSONObjectWithData:data
@@ -82,6 +88,9 @@
         TTLog(@"json response: %@", json);
         self.friendData = json;
         [self.tableView reloadData];
+//        if ([url.path isEqualToString:[NSString stringWithFormat:@"/users/%@/friends/facebook", [[userStore getAuthenticatedUser] userID]]]) {
+        } else {
+        }
     }
 }
 

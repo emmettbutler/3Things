@@ -29,12 +29,12 @@
     [TTNetManager sharedInstance];
     
     if (FBSession.activeSession.state == FBSessionStateCreated){
-        [FBSession openActiveSessionWithReadPermissions:nil
+        /*[FBSession openActiveSessionWithReadPermissions:nil
                                            allowLoginUI:YES
                                       completionHandler:
          ^(FBSession *session,
            FBSessionState state, NSError *error) {
-         }];
+         }];*/
     }
     
     [[UINavigationBar appearance] setTitleTextAttributes: @{

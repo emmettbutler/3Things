@@ -52,12 +52,18 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
             except StopIteration:
                 raise tornado.web.HTTPError(401, "Invalid access token")
 
-    def _user_response(self, user_id):
-        user = list(self.application.db.users.find({'_id': ObjectId(user_id)}))
+    def _user_response(self, user_id=None, facebook_id=None):
+        if not user_id and not facebook_id:
+            raise ValueError("No valid identifier found")
+        cond = {'_id': ObjectId(user_id)}
+        if facebook_id:
+            cond = {'fbid': facebook_id}
+
+        user = list(self.application.db.users.find(cond))
         if len(user) > 0:
             user = user[0]
         else:
-            raise tornado.web.HTTPError(404, "User %s not found" % user_id)
+            return None
         return {
             'name': user['name'],
                 '_id': user['_id'],
@@ -457,6 +463,24 @@ class UserFriendController(Base3ThingsHandler):
             {'_id': ObjectId(user_id)},
             {"$pull": {"friends": ObjectId(friend_id)}}
         )
+
+
+class FacebookFriendFindController(Base3ThingsHandler):
+    @authenticated
+    def post(self, user_id):
+        friend_ids = self.request.files['jsondata'][0]['body']
+        if not friend_ids:
+            raise tornado.web.HTTPError(400, "Missing friend_ids parameter")
+
+        friend_ids = json.loads(friend_ids)['friends']
+
+        ret = []
+        for friend in friend_ids:
+            user = self._user_response(facebook_id=friend)
+            if user:
+                ret.append(user)
+        self.set_status(200)
+        self._send_response(ret)
 
 
 class ImagesController(Base3ThingsHandler):
