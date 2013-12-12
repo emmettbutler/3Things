@@ -187,9 +187,10 @@
     
     CGRect picFrame = CGRectMake(20, 15, 40, 40);
     UIView *profilePicView;
+    TTLog(@"User: %@", user);
     if ([user objectForKey:@"fbid"] != NULL && ![[user objectForKey:@"fbid"] isEqualToString:@""]) {
         TTLog(@"Using facebook profile image");
-        profilePicView = [[FBProfilePictureView alloc] initWithProfileID:[user objectForKey:@"facebookID"] pictureCropping:FBProfilePictureCroppingSquare];
+        profilePicView = [[FBProfilePictureView alloc] initWithProfileID:[user objectForKey:@"fbid"] pictureCropping:FBProfilePictureCroppingSquare];
         profilePicView.frame = picFrame;
     } else {
         TTLog(@"Looking up profile image %@", [user objectForKey:@"profileImageID"]);

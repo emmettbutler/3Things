@@ -128,6 +128,13 @@
     [self.searchView removeFromSuperview];
     [searchBox endEditing:YES];
     searchBox.text = @"";
+    CGRect frame = self.tableView.frame;
+    CGRect touchFrame = touchView.frame;
+    frame.origin.y = oldY;
+    touchFrame.origin.y = oldY+50;
+    touchView.frame = touchFrame;
+    searchBox.hidden = YES;
+    self.tableView.frame = frame;
 }
 
 -(void)logoutWasTouched
@@ -267,11 +274,7 @@
             // that right there is a hack
             [self textFieldDidBeginEditing:searchBox];
         } else if (searchBox.hidden == NO  && touchLastY > touchLocation.y) {
-            frame.origin.y = oldY;
-            touchFrame.origin.y = oldY+50;
-            touchView.frame = touchFrame;
-            searchBox.hidden = YES;
-            self.tableView.frame = frame;
+            
         }
         dragging = NO;
     }
