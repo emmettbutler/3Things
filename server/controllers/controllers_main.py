@@ -52,12 +52,14 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
             except StopIteration:
                 raise tornado.web.HTTPError(401, "Invalid access token")
 
-    def _user_response(self, user_id=None, facebook_id=None):
+    def _user_response(self, user_id=None, facebook_id=None, query=None):
         if not user_id and not facebook_id:
             raise ValueError("No valid identifier found")
         cond = {'_id': ObjectId(user_id)}
         if facebook_id:
             cond = {'fbid': facebook_id}
+        if query:
+            cond['name'] = re.compile(query, re.IGNORECASE)
 
         user = list(self.application.db.users.find(cond))
         if len(user) > 0:
@@ -65,7 +67,7 @@ class Base3ThingsHandler(tornado.web.RequestHandler):
         else:
             return None
         return {
-            'name': user['name'],
+                'name': user['name'],
                 '_id': user['_id'],
                 'profileImageID': user['profileImageID'] if 'profileImageID' in user else "",
                 'fbid': user['fbid'] if 'fbid' in user else ""
@@ -396,7 +398,12 @@ class UsersController(Base3ThingsHandler):
         ret = []
         for user in users:
             if user['_id'] not in thisuser['friends']:
-                ret.append({'name': user['name'], '_id': user['_id']})
+                ret.append({
+                    'name': user['name'],
+                    '_id': user['_id'],
+                    'profileImageID': user['profileImageID'] if 'profileImageID' in user else "",
+                    'fbid': user['fbid'] if 'fbid' in user else ""
+                })
         raise Return(ret)
 
 
@@ -470,7 +477,7 @@ class UserFriendController(Base3ThingsHandler):
 
 class FacebookFriendFindController(Base3ThingsHandler):
     @authenticated
-    def post(self, user_id):
+    def post(self, user_id, query):
         friend_ids = self.request.files['jsondata'][0]['body']
         if not friend_ids:
             raise tornado.web.HTTPError(400, "Missing friend_ids parameter")
@@ -478,9 +485,12 @@ class FacebookFriendFindController(Base3ThingsHandler):
         friend_ids = json.loads(friend_ids)['friends']
 
         ret = []
-        thisuser = list(self.application.db.users.find({"_id": user_id}))[0]
+        thisuser = list(self.application.db.users.find({"_id": ObjectId(user_id)}))
+        if not thisuser:
+            raise tornado.web.HTTPError(400, "User '%s' not found" % user_id)
+        thisuser = thisuser[0]
         for friend in friend_ids:
-            user = self._user_response(facebook_id=friend)
+            user = self._user_response(facebook_id=friend, query=query)
             if user and user['_id'] not in thisuser['friends']:
                 ret.append(user)
         self.set_status(200)

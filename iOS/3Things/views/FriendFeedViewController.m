@@ -25,7 +25,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+ 
+    inSearch = NO;
     self.feedData = nil;
     self.parsedFeed = [[NSMutableArray alloc] init];
 	
@@ -75,17 +76,23 @@
     touchView.touchDelegate = self;
     [self.view addSubview:touchView];
     
-    CGRect searchFieldFrame = CGRectMake(0, 60, screenFrame.size.width, searchBoxHeight);
+    CGRect searchFieldFrame = CGRectMake(0, 65, screenFrame.size.width, searchBoxHeight-5);
     searchBox = [[UITextField alloc] initWithFrame:searchFieldFrame];
     searchBox.placeholder = @"Search";
     searchBox.delegate = self;
+    searchBox.font = [UIFont fontWithName:SCRIPT_FONT size:15];
     searchBox.borderStyle = UITextBorderStyleRoundedRect;
     searchBox.clearButtonMode = UITextFieldViewModeWhileEditing;
     [searchBox addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     searchBox.hidden = YES;
+    searchBox.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"dddddd"];
+    searchBox.layer.masksToBounds = YES;
+    searchBox.layer.borderColor = [[[TTNetManager sharedInstance] colorWithHexString:@"ababab"] CGColor];
+    searchBox.layer.borderWidth = 4;
+    searchBox.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:searchBox];
     
-    BottomNavViewController *navViewController = [[BottomNavViewController alloc] init];
+    navViewController = [[BottomNavViewController alloc] init];
     navViewController.navDelegate = self;
     [self addChildViewController:navViewController];
     [self.view addSubview:navViewController.view];
@@ -93,14 +100,23 @@
     [navViewController didMoveToParentViewController:self];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    [self dismissSearchWasTouched];
+    return YES;
+}
+
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
+    inSearch = YES;
+    [navViewController.view removeFromSuperview];
     self.searchViewController = [[FriendSearchViewController alloc] init];
     [self addChildViewController:self.searchViewController];
-    [self.view addSubview:self.searchViewController.view];
+    self.searchView = self.searchViewController.view;
+    [self.view addSubview:self.searchView];
     self.searchViewController.searchDelegate = self;
     self.feedDelegate = self.searchViewController;
     self.searchViewController.view.frame = self.searchViewController.frame;
     [self.searchViewController didMoveToParentViewController:self];
+    [self.view addSubview:navViewController.view];
 }
 
 -(void)textFieldDidChange:(UITextField *)field {
@@ -108,7 +124,8 @@
 }
 
 -(void)dismissSearchWasTouched {
-    [self.searchViewController.view removeFromSuperview];
+    TTLog(@"Dismiss was called");
+    [self.searchView removeFromSuperview];
     [searchBox endEditing:YES];
     searchBox.text = @"";
 }
@@ -206,7 +223,9 @@
 }
 
 -(void) friendsWasTouched {
-    TTLog(@"Friend feed selected on friends page. Do nothing???");
+    if (inSearch){
+        [[self navigationController] pushViewController:[[FriendFeedViewController alloc] init] animated:YES];
+    }
 }
 
 -(void) calendarWasTouched {
@@ -245,6 +264,8 @@
             touchFrame.origin.y = 110;
             touchView.frame = touchFrame;
             self.tableView.frame = frame;
+            // that right there is a hack
+            [self textFieldDidBeginEditing:searchBox];
         } else if (searchBox.hidden == NO  && touchLastY > touchLocation.y) {
             frame.origin.y = oldY;
             touchFrame.origin.y = oldY+50;

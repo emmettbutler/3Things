@@ -9,7 +9,10 @@
 #import "FriendSearchViewController.h"
 #import "FriendFeedViewController.h"
 #import "UserStore.h"
+#import "BackgroundLayer.h"
 #import "AppDelegate.h"
+#import "TTNetManager.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface FriendSearchViewController ()
 
@@ -22,15 +25,42 @@
 {
     [super viewDidLoad];
     
+    lastSearchTime = 0;
     self.friendData = [[NSMutableArray alloc] init];
     
     CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
-    CGRect popupFrame = CGRectMake(0, 110, screenFrame.size.width, screenFrame.size.height-142);
+    CGRect popupFrame = CGRectMake(0, 110, screenFrame.size.width, screenFrame.size.height);
     self.frame = popupFrame;
     
     [TTNetManager sharedInstance].netDelegate = self;
     
-    CGRect scrollFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    CGRect inviteFrame = CGRectMake(0, self.frame.size.height-300, self.frame.size.width, 300);
+    UIView *inviteView = [[UIView alloc] initWithFrame:inviteFrame];
+    CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
+    bgLayer.frame = inviteFrame;
+    inviteView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"e0e1e2"];
+    [inviteView.layer insertSublayer:bgLayer atIndex:0];
+    UITextView *prompt = [[UITextView alloc] init];
+    prompt.frame = CGRectMake(0, 20, self.frame.size.width, 30);
+    prompt.textAlignment = NSTextAlignmentCenter;
+    prompt.text = @"Can't find who you're looking for?";
+    prompt.font = [UIFont fontWithName:SCRIPT_FONT size:17];
+    prompt.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    [inviteView addSubview:prompt];
+    UIButton *inviteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [inviteButton addTarget:self
+                    action:@selector(inviteWasTouched)
+          forControlEvents:UIControlEventTouchDown];
+    [inviteButton setTitle:@"INVITE VIA FACEBOOK" forState:UIControlStateNormal];
+    inviteButton.frame = CGRectMake(screenFrame.size.width/2-170/2, 70, 170, 35);
+    inviteButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
+    inviteButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"c3c3c3"];
+    inviteButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    [inviteView addSubview:inviteButton];
+    [inviteButton setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
+    [self.view addSubview:inviteView];
+    
+    CGRect scrollFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height-270);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
@@ -59,10 +89,14 @@
             for (NSDictionary<FBGraphUser>* friend in friends) {
                 [friendIDs addObject:friend.id];
             }
-            [[TTNetManager sharedInstance] getRegisteredFacebookFriends:[userStore getAuthenticatedUser] withFriendIDs:friendIDs];
+            [[TTNetManager sharedInstance] getRegisteredFacebookFriends:[userStore getAuthenticatedUser] withFriendIDs:friendIDs andQuery:@""];
         }];
     }
     [[TTNetManager sharedInstance] friendSearch:@"" forUser:[userStore getAuthenticatedUser]];
+}
+
+- (void)inviteWasTouched
+{
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -71,8 +105,22 @@
 
 - (void)searchQueryChanged:(NSString *)text
 {
+    lastSearchTime = [[NSDate date] timeIntervalSince1970];
+    self.friendData = [[NSMutableArray alloc] init];
     UserStore *userStore = [[UserStore alloc] init];
     [[TTNetManager sharedInstance] friendSearch:text forUser:[userStore getAuthenticatedUser]];
+    FBRequest* friendsRequest = [FBRequest requestForMyFriends];
+    [friendsRequest startWithCompletionHandler: ^(FBRequestConnection *connection,
+                                                  NSDictionary* result,
+                                                  NSError *error) {
+        NSArray* friends = [result objectForKey:@"data"];
+        NSMutableArray *friendIDs = [[NSMutableArray alloc] init];
+        TTLog(@"friends count: %d, error %@", [friends count], error);
+        for (NSDictionary<FBGraphUser>* friend in friends) {
+            [friendIDs addObject:friend.id];
+        }
+        [[TTNetManager sharedInstance] getRegisteredFacebookFriends:[userStore getAuthenticatedUser] withFriendIDs:friendIDs andQuery:text];
+    }];
 }
 
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url {
@@ -121,7 +169,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 90;
+    return 70;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -137,10 +185,37 @@
     
     NSDictionary *user = [self.friendData objectAtIndex:indexPath.row];
     
-    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
-    [thingTextView setText:[user objectForKey:@"name"]];
-    [thingTextView setFont:[UIFont systemFontOfSize:20]];
+    CGRect picFrame = CGRectMake(20, 15, 40, 40);
+    UIView *profilePicView;
+    if ([user objectForKey:@"fbid"] != NULL && ![[user objectForKey:@"fbid"] isEqualToString:@""]) {
+        TTLog(@"Using facebook profile image");
+        profilePicView = [[FBProfilePictureView alloc] initWithProfileID:[user objectForKey:@"facebookID"] pictureCropping:FBProfilePictureCroppingSquare];
+        profilePicView.frame = picFrame;
+    } else {
+        TTLog(@"Looking up profile image %@", [user objectForKey:@"profileImageID"]);
+        NSURL *url = [NSURL URLWithString:[user objectForKey:@"profileImageID"]];
+        profilePicView = [[UIImageView alloc] initWithFrame:picFrame];
+        NSURL *picURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [TTNetManager sharedInstance].rootURL, [url absoluteString]]];
+        TTLog(@"Looking up image %@", picURL);
+        [(UIImageView *)profilePicView setImageWithURL:picURL
+                                      placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    }
+    CALayer *imageLayer = profilePicView.layer;
+    [imageLayer setCornerRadius:profilePicView.frame.size.width/2];
+    [imageLayer setMasksToBounds:YES];
+    [container addSubview:profilePicView];
+    
+    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(70, 18, 160, 40)];
+    [thingTextView setText:[[user objectForKey:@"name"] uppercaseString]];
+    thingTextView.font = [UIFont fontWithName:HEADER_FONT size:14];
+    thingTextView.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"333333"];
     [container addSubview:thingTextView];
+    
+    UITextView *followText = [[UITextView alloc] initWithFrame:CGRectMake(230, 15, 100, 40)];
+    [followText setText:@"FOLLOW"];
+    followText.font = [UIFont fontWithName:HEADER_FONT size:14];
+    followText.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    [container addSubview:followText];
     
     cell.backgroundView = container;
     return cell;

@@ -21,6 +21,9 @@
 id <FriendSearchViewControllerDelegate> searchDelegate;
 
 @interface FriendSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TTNetManagerDelegate, FriendFeedViewControllerDelegate>
+{
+    int lastSearchTime;
+}
 
 @property (nonatomic) CGRect frame;
 @property (nonatomic, assign) id <FriendSearchViewControllerDelegate> searchDelegate;

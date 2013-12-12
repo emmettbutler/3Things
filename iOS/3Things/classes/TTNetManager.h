@@ -50,7 +50,7 @@ typedef enum _kStorage {
 -(UIColor *)colorWithHexString:(NSString *)hex opacity:(CGFloat)op;
 -(void)loginToken:(NSString *)access_token;
 -(void)logoutToken;
--(void)getRegisteredFacebookFriends:(User *)user withFriendIDs:(NSArray *)friendIDs;
+-(void)getRegisteredFacebookFriends:(User *)user withFriendIDs:(NSArray *)friendIDs andQuery:(NSString *)query;
 -(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth;
 -(void)apiConnectionWithURL:(NSString *)url authorized:(BOOL)auth withMethod:(NSString *)httpMethod;
 -(void)apiConnectionWithURL:(NSString *)url andData:(NSString *)data andImages:(NSArray *)images authorized:(BOOL)auth fileName:(NSString *)filename jsonFilename:(NSString *)jsonFilename;

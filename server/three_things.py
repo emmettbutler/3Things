@@ -16,7 +16,7 @@ def get_app():
         (r"/users", controllers_main.UsersController),
         (r"/users/([^\/]+)", controllers_main.UserController),
         (r"/users/([^\/]+)/friends", controllers_main.UserFriendsController),
-        (r"/users/([^\/]+)/friends/facebook", controllers_main.FacebookFriendFindController),
+        (r"/users/([^\/]+)/friends/facebook/([^\/]+)", controllers_main.FacebookFriendFindController),
         (r"/users/([^\/]+)/friends/([^\/]+)", controllers_main.UserFriendController),
         (r"/users/([^\/]+)/days", controllers_main.UserDaysController),
         (r"/users/([^\/]+)/today", controllers_main.UserTodayController),

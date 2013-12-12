@@ -30,8 +30,9 @@ id <FriendFeedViewControllerDelegate> feedDelegate;
 {
     UITextField *searchBox;
     TTView *touchView;
-    BOOL dragging;
+    BOOL dragging, inSearch;
     float oldY, touchLastY;
+    BottomNavViewController *navViewController;
 }
 
 @property (nonatomic, retain) UITableView *tableView;
@@ -39,5 +40,6 @@ id <FriendFeedViewControllerDelegate> feedDelegate;
 @property (nonatomic, retain) NSMutableArray *parsedFeed;
 @property (nonatomic, assign) id <FriendFeedViewControllerDelegate> feedDelegate;
 @property (nonatomic, retain) FriendSearchViewController *searchViewController;
+@property (nonatomic, retain) UIView *searchView;
 
 @end

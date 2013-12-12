@@ -175,7 +175,7 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:YES withMethod:@"DELETE"];
 }
 
--(void)getRegisteredFacebookFriends:(User *)user withFriendIDs:(NSArray *)friendIDs
+-(void)getRegisteredFacebookFriends:(User *)user withFriendIDs:(NSArray *)friendIDs andQuery:(NSString *)query
 {
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     NSError *error;
@@ -184,7 +184,7 @@ TTNetManager *instance;
                                                    options:NSJSONWritingPrettyPrinted
                                                      error:&error];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSString *url = [NSString stringWithFormat:@"%@/users/%@/friends/facebook", rootURL, user.userID];
+    NSString *url = [NSString stringWithFormat:@"%@/users/%@/friends/facebook/%@", rootURL, user.userID, query];
     TTLog(@"Attempting to retrieve registered facebook friends for user %@", user.userID);
     [self apiConnectionWithURL:url andData:jsonString authorized:YES];
 }
