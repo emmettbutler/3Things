@@ -97,6 +97,25 @@
 
 - (void)inviteWasTouched
 {
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys: nil];
+    
+    [FBWebDialogs presentRequestsDialogModallyWithSession:FBSession.activeSession
+                                                  message:@"Come share with us!"
+                                                    title:@"Three Things"
+                                               parameters:params
+                                                  handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                                                      if (error) {
+                                                          // Case A: Error launching the dialog or sending request.
+                                                          NSLog(@"Error sending request.");
+                                                      } else {
+                                                          if (result == FBWebDialogResultDialogNotCompleted) {
+                                                              // Case B: User clicked the "x" icon
+                                                              NSLog(@"User canceled request.");
+                                                          } else {
+                                                              NSLog(@"Request Sent.");
+                                                          }
+                                                      }}
+                                              friendCache:nil];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
