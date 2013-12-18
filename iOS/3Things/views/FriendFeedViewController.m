@@ -101,7 +101,8 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    [self dismissSearchWasTouched];
+    //[self dismissSearchWasTouched];
+    [searchBox endEditing:YES];
     return YES;
 }
 
@@ -125,6 +126,8 @@
 
 -(void)dismissSearchWasTouched {
     TTLog(@"Dismiss was called");
+    [self.searchViewController.inviteView removeFromSuperview];
+    [self.searchViewController.tableView removeFromSuperview];
     [self.searchView removeFromSuperview];
     [searchBox endEditing:YES];
     searchBox.text = @"";

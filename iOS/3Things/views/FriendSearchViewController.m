@@ -35,18 +35,18 @@
     [TTNetManager sharedInstance].netDelegate = self;
     
     CGRect inviteFrame = CGRectMake(0, self.frame.size.height-300, self.frame.size.width, 300);
-    UIView *inviteView = [[UIView alloc] initWithFrame:inviteFrame];
+    self.inviteView = [[UIView alloc] initWithFrame:inviteFrame];
     CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
     bgLayer.frame = inviteFrame;
-    inviteView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"e0e1e2"];
-    [inviteView.layer insertSublayer:bgLayer atIndex:0];
+    self.inviteView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"e0e1e2"];
+    [self.inviteView.layer insertSublayer:bgLayer atIndex:0];
     UITextView *prompt = [[UITextView alloc] init];
     prompt.frame = CGRectMake(0, 20, self.frame.size.width, 30);
     prompt.textAlignment = NSTextAlignmentCenter;
     prompt.text = @"Can't find who you're looking for?";
     prompt.font = [UIFont fontWithName:SCRIPT_FONT size:17];
     prompt.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
-    [inviteView addSubview:prompt];
+    [self.inviteView addSubview:prompt];
     UIButton *inviteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [inviteButton addTarget:self
                     action:@selector(inviteWasTouched)
@@ -56,9 +56,9 @@
     inviteButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
     inviteButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"c3c3c3"];
     inviteButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
-    [inviteView addSubview:inviteButton];
+    [self.inviteView addSubview:inviteButton];
     [inviteButton setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
-    [self.view addSubview:inviteView];
+    [self.view addSubview:self.inviteView];
     
     CGRect scrollFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height-270);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
@@ -100,7 +100,7 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [searchDelegate dismissSearchWasTouched];
+    //[searchDelegate dismissSearchWasTouched];
 }
 
 - (void)searchQueryChanged:(NSString *)text

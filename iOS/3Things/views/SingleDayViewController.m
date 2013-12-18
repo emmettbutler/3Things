@@ -85,6 +85,7 @@
      
     self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"000000" opacity:0];
     
+    TTLog(@"current: %d, edited: %d", self.isCurrent, self.isEdited);
     if (!self.isCurrent && !self.isEdited){
         ShareDayStore *dayStore = [[ShareDayStore alloc] init];
         if ([dayStore getToday] == NULL) {

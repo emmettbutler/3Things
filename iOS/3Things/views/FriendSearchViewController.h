@@ -29,5 +29,6 @@ id <FriendSearchViewControllerDelegate> searchDelegate;
 @property (nonatomic, assign) id <FriendSearchViewControllerDelegate> searchDelegate;
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *friendData;
+@property (nonatomic, retain) UIView *inviteView;
 
 @end
