@@ -95,6 +95,18 @@
     [[TTNetManager sharedInstance] friendSearch:@"" forUser:[userStore getAuthenticatedUser]];
 }
 
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [kv[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        params[kv[0]] = val;
+    }
+    return params;
+}
+
 - (void)inviteWasTouched
 {
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys: nil];
@@ -112,6 +124,15 @@
                                                               // Case B: User clicked the "x" icon
                                                               NSLog(@"User canceled request.");
                                                           } else {
+                                                              NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
+                                                              if (![urlParams valueForKey:@"request"]) {
+                                                                  // User clicked the Cancel button
+                                                                  NSLog(@"User canceled request.");
+                                                              } else {
+                                                                  // User clicked the Send button
+                                                                  NSString *requestID = [urlParams valueForKey:@"request"];
+                                                                  NSLog(@"Request ID: %@", requestID);
+                                                              }
                                                               NSLog(@"Request Sent.");
                                                           }
                                                       }}

@@ -33,7 +33,7 @@
 
 - (id)initWithShareDay:(TTShareDay *)shares {
     UserStore *userStore = [[UserStore alloc] init];
-    return [self initWithShareDay:shares andIsCurrent:[NSNumber numberWithBool:NO] andUser:[userStore getAuthenticatedUser]];
+    return [self initWithShareDay:shares andIsCurrent:@(NO) andUser:[userStore getAuthenticatedUser]];
 }
 
 - (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user andIsEdited:(NSNumber *)isEdited {
@@ -48,7 +48,7 @@
     if (self) {
         self.isCurrent = [isCurrent boolValue];
         self.isEdited = NO;
-        self.completedThings = [NSNumber numberWithInt:self.isCurrent ? 0 : 3];
+        self.completedThings = @(self.isCurrent ? 0 : 3);
         self.shares = shares;
         self.user = user;
         if (self.user == nil) {
@@ -228,11 +228,11 @@
     if ([text isEqualToString:@""]) {
         text = @"Share something...";
     } else {
-        self.completedThings = [NSNumber numberWithInt:[self.completedThings intValue] + 1];
+        self.completedThings = @([self.completedThings intValue] + 1);
         if([self.completedThings intValue] == 3) {
-            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
+            [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
         } else {
-            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
+            [[NSUserDefaults standardUserDefaults] setObject:@(NO) forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
         }
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
@@ -297,7 +297,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (((ErrorThrowingViewController *)self.parentViewController).errViewIsShown) return;
     if (self.isCurrent) {
-        UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:[NSNumber numberWithInt:indexPath.row] andShares:self.shares];
+        UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:@(indexPath.row) andShares:self.shares];
         [[self navigationController] pushViewController:editView animated:YES];
     } else {
         ThingDetailViewController *detailView = [[ThingDetailViewController alloc] initWithThing:[self.shares.theThings objectAtIndex:indexPath.row]];

@@ -63,7 +63,7 @@
 	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:screenFrame];
 	[navBar setFrame:frame];
 	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
+	[navBar setItems:@[self.navigationItem]];
     
 	[self.view addSubview:navBar];
     
@@ -170,14 +170,14 @@
     
     [[self navigationController] pushViewController:
      [[EditThingViewController alloc] initWithThingIndex:
-      [NSNumber numberWithInt:self.thingIndex.intValue + 1] andShares:self.shares] animated:YES];
+      @(self.thingIndex.intValue + 1) andShares:self.shares] animated:YES];
 }
 
 - (void)saveWasTouched {
     [self registerCurrentThing];
     [self savePartialDay];
     [[self navigationController] pushViewController:
-     [[My3ThingsViewController alloc] initWithShareDay:self.shares andIsEdited:[NSNumber numberWithBool:YES]] animated:YES];
+     [[My3ThingsViewController alloc] initWithShareDay:self.shares andIsEdited:@(YES)] animated:YES];
 }
 
 - (void)shareWasTouched {
@@ -219,7 +219,7 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    TTLog(@"is first edit? %@", [NSNumber numberWithBool:self.firstEdit]);
+    TTLog(@"is first edit? %@", @(self.firstEdit));
     if (self.firstEdit) {
         textView.text = @"";
         self.firstEdit = NO;
@@ -271,7 +271,7 @@
         if (toRemove != NULL){
             [item removeThingsObject:toRemove];
         }
-        Thing *thing = [self saveThingWithIndex:[NSNumber numberWithInt:i]];
+        Thing *thing = [self saveThingWithIndex:@(i)];
         TTLog(@"added thing %d with text %@", i, thing.text);
         [item addThingsObject:thing];
     }
@@ -297,7 +297,7 @@
     }
     [item removeThings:toRemove];
     for (int i = 0; i < 3; i++){
-        [item addThingsObject:[self saveThingWithIndex:[NSNumber numberWithInt:i]]];
+        [item addThingsObject:[self saveThingWithIndex:@(i)]];
     }
     item.date = [dayStore getDateOnly];
     item.time = [NSDate date];

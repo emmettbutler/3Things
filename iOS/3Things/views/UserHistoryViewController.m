@@ -52,7 +52,7 @@
     frame.size = CGSizeMake(self.screenFrame.size.width, 60);
 	[navBar setFrame:frame];
 	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
+	[navBar setItems:@[self.navigationItem]];
     
 	[self.view addSubview:navBar];
     
@@ -88,7 +88,7 @@
     //[self.view addSubview:text];
     
     CGRect scrollFrame = CGRectMake(0, frame.size.height+5, frame.size.width, self.screenFrame.size.height-frame.size.height);
-    self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
+    self.tableHeight = @(scrollFrame.size.height);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
@@ -137,7 +137,7 @@
             NSDictionary *day = [data objectAtIndex:i];
             NSDate *date = [formatter2 dateFromString:[day objectForKey:@"date"]];
             NSString *monthString = [formatter1 stringFromDate:date];
-            NSNumber *month = [NSNumber numberWithInt:[monthString intValue]];
+            NSNumber *month = @([monthString intValue]);
             if ([self.feedData objectForKey:month] == nil) {
                 [self.feedData setObject:[[NSMutableArray alloc] init] forKey:month];
             }
@@ -158,7 +158,7 @@
         return 2;
     } else {
         NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-        NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+        NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
         NSNumber *thisMonth = [sortedKeys objectAtIndex:section];
         NSArray *monthDays = [self.feedData objectForKey:thisMonth];
         return [monthDays count];
@@ -174,7 +174,7 @@
     UITableViewHeaderFooterView *header = [[UITableViewHeaderFooterView alloc] init];
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-    NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+    NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
     NSNumber *thisMonth = [sortedKeys objectAtIndex:section];
     
     NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
@@ -215,7 +215,7 @@
     if (self.feedData == nil) return cell;
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-    NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+    NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
     NSNumber *thisMonth = [sortedKeys objectAtIndex:indexPath.section];
     NSArray *monthDays = [self.feedData objectForKey:thisMonth];
     NSDictionary *day = [monthDays objectAtIndex:indexPath.row];
@@ -325,14 +325,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-    NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+    NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
     NSNumber *thisMonth = [sortedKeys objectAtIndex:indexPath.section];
     NSArray *monthDays = [self.feedData objectForKey:thisMonth];
     NSDictionary *day = [monthDays objectAtIndex:indexPath.row];
     
     [[self navigationController] pushViewController:
      [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] initWithSharesDictionary:day]
-                                          andIsCurrent:[NSNumber numberWithBool:NO] andUser:self.user]
+                                          andIsCurrent:@(NO) andUser:self.user]
       animated:YES];
 }
 
@@ -342,7 +342,7 @@
 
 - (void)reviewWasTouched {
     TTLog(@"User history screen got review callback");
-    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES] andUser:self.user] animated:YES];
+    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:self.user] animated:YES];
 }
 
 - (void)friendsWasTouched {

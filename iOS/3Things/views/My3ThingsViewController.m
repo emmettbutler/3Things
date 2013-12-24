@@ -34,16 +34,16 @@
 
 - (id)initWithShareDay:(TTShareDay *)shares {
     UserStore *userStore = [[UserStore alloc] init];
-    return [self initWithShareDay:shares andIsCurrent:[NSNumber numberWithBool:NO] andUser:[userStore getAuthenticatedUser]];
+    return [self initWithShareDay:shares andIsCurrent:@(NO) andUser:[userStore getAuthenticatedUser]];
 }
 
 - (id) initWithShareDay:(TTShareDay *)shares andIsEdited:(NSNumber *)isEdited {
-    self = [self initWithShareDay:shares andIsCurrent:[NSNumber numberWithBool:YES] andUser:nil andIsEdited:isEdited];
+    self = [self initWithShareDay:shares andIsCurrent:@(YES) andUser:nil andIsEdited:isEdited];
     return self;
 }
 
 -(id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user {
-    return [self initWithShareDay:shares andIsCurrent:isCurrent andUser:user andIsEdited:[NSNumber numberWithBool:NO]];
+    return [self initWithShareDay:shares andIsCurrent:isCurrent andUser:user andIsEdited:@(NO)];
 }
 
 -(id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user andIsEdited:(NSNumber *)isEdited
@@ -98,7 +98,7 @@
     frame.size = CGSizeMake(self.screenFrame.size.width, 60);
 	[navBar setFrame:frame];
 	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-	[navBar setItems:[NSArray arrayWithObject:self.navigationItem]];
+	[navBar setItems:@[self.navigationItem]];
     self.navigationItem.hidesBackButton = YES;
 	[self.view addSubview:navBar];
     
@@ -121,9 +121,9 @@
     float mainButtonHeight = 65;
     
     CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight+40, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-80);
-    self.tableHeight = [NSNumber numberWithFloat:scrollFrame.size.height];
+    self.tableHeight = @(scrollFrame.size.height);
     
-    self.dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:[NSNumber numberWithBool:self.isCurrent] andUser:self.user andIsEdited:[NSNumber numberWithBool:self.isEdited]];
+    self.dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:@(self.isCurrent) andUser:self.user andIsEdited:@(self.isEdited)];
     [self addChildViewController:self.dayView];
     [self.view addSubview:self.dayView.view];
     self.dayView.view.frame = CGRectMake(9, 65, self.dayView.frame.size.width, self.dayView.frame.size.height);

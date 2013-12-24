@@ -206,7 +206,7 @@
             viewController = [[FriendFeedViewController alloc] init];
         } else {
             UserStore *userStore = [[UserStore alloc] init];
-            viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:[NSNumber numberWithBool:YES] andUser:[userStore getAuthenticatedUser]];
+            viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]];
         }
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
         [self presentViewController:navController animated:YES completion:NULL];

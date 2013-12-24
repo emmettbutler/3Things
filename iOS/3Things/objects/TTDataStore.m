@@ -43,7 +43,7 @@
     [request setPredicate:predicate];
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:_sort ascending:NO];
-    [request setSortDescriptors:[NSArray arrayWithObject:sort]];
+    [request setSortDescriptors:@[sort]];
     
     NSError *error = nil;
     NSArray *result = [context executeFetchRequest:request error:&error];

@@ -14,12 +14,12 @@
     
     NSArray *colors =  [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, colorThree.CGColor, colorFour.CGColor, nil];
     
-    NSNumber *stopOne = [NSNumber numberWithFloat:0.0];
-    NSNumber *stopTwo = [NSNumber numberWithFloat:0.02];
-    NSNumber *stopThree     = [NSNumber numberWithFloat:0.99];
-    NSNumber *stopFour = [NSNumber numberWithFloat:1.0];
+    NSNumber *stopOne = @(0.0);
+    NSNumber *stopTwo = @(0.02);
+    NSNumber *stopThree = @(0.99);
+    NSNumber *stopFour = @(1.0);
     
-    NSArray *locations = [NSArray arrayWithObjects:stopOne, stopTwo, stopThree, stopFour, nil];
+    NSArray *locations = @[stopOne, stopTwo, stopThree, stopFour];
     CAGradientLayer *headerLayer = [CAGradientLayer layer];
     headerLayer.colors = colors;
     headerLayer.locations = locations;
