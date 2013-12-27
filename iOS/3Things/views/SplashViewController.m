@@ -136,10 +136,10 @@
     [backButton setTitle:@"BACK" forState:UIControlStateNormal];
     backButton.frame = CGRectMake(screenFrame.size.width/2-textFieldWidth/4, fNameFieldY+fieldSpacing*3+120, textFieldWidth/2, 40);
     backButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
-    backButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
-    backButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    //backButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    //backButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     [self.view addSubview:backButton];
-    [backButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
+    [backButton setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
 }
 
 - (void) textFieldDidBeginEditing:(UITextField *)textField
