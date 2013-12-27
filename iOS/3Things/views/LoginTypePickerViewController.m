@@ -174,7 +174,7 @@
         if (!self.errViewIsShown) {
             TTLog(@"Error: not all required fields are present in signin data");
             self.errViewIsShown = YES;
-            ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"Please fill in all fields"];
+            ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"YOU DIDN'T FILL IN ALL THE FIELDS"];
             [self addChildViewController:errViewController];
             [self.view addSubview:errViewController.view];
             errViewController.errDelegate = self;

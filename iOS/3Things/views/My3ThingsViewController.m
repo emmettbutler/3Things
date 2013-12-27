@@ -146,7 +146,7 @@
     } else {
         if (!self.errViewIsShown){
             self.errViewIsShown = YES;
-            ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"Enter your 3 things before sharing"];
+            ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"YOU DIDN'T FILL IN ALL THE FIELDS"];
             [self addChildViewController:errViewController];
             [self.view addSubview:errViewController.view];
             errViewController.errDelegate = self;

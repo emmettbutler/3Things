@@ -17,6 +17,9 @@
 id <ErrorPromptViewControllerDelegate> errDelegate;
 
 @interface ErrorPromptViewController : UIViewController
+{
+    UIView *smoke;
+}
 
 -(id)initWithPromptText:(NSString *)promptText;
 
