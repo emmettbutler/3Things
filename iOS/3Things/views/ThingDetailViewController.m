@@ -43,7 +43,7 @@
     [closeButton setBackgroundImage:[UIImage imageNamed:@"Close.png"] forState:UIControlStateNormal];
     [self.view addSubview:closeButton];
     
-    NSString *imgID = [self.thing objectForKey:@"imageID"];
+    NSString *imgID = self.thing[@"imageID"];
     UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 60, self.screenFrame.size.width, 300)];
     [self.view addSubview:picView];
     if (![imgID isEqualToString:@""] && imgID != NULL){
@@ -58,7 +58,7 @@
     text.font = [UIFont fontWithName:HEADER_FONT size:13];
     text.editable = NO;
     [text setTextColor:[UIColor blackColor]];
-    text.text = [self.thing objectForKey:@"text"];
+    text.text = self.thing[@"text"];
     text.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.view addSubview:text];
 

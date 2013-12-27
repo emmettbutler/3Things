@@ -83,7 +83,7 @@
         [friendsRequest startWithCompletionHandler: ^(FBRequestConnection *connection,
                                                       NSDictionary* result,
                                                       NSError *error) {
-            NSArray* friends = [result objectForKey:@"data"];
+            NSArray* friends = result[@"data"];
             NSMutableArray *friendIDs = [[NSMutableArray alloc] init];
             TTLog(@"friends count: %d, error %@", [friends count], error);
             for (NSDictionary<FBGraphUser>* friend in friends) {
@@ -153,7 +153,7 @@
     [friendsRequest startWithCompletionHandler: ^(FBRequestConnection *connection,
                                                   NSDictionary* result,
                                                   NSError *error) {
-        NSArray* friends = [result objectForKey:@"data"];
+        NSArray* friends = result[@"data"];
         NSMutableArray *friendIDs = [[NSMutableArray alloc] init];
         TTLog(@"friends count: %d, error %@", [friends count], error);
         for (NSDictionary<FBGraphUser>* friend in friends) {
@@ -173,11 +173,11 @@
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
         TTLog(@"json response: %@", json);
-        for (NSDictionary *user in (NSArray *)[json objectForKey:@"data"]){
+        for (NSDictionary *user in (NSArray *)json[@"data"]){
             BOOL found = NO;
-            NSString *thisUserID = [user objectForKey:@"_id"];
+            NSString *thisUserID = user[@"_id"];
             for (NSDictionary *existingUser in self.friendData){
-                if ([thisUserID isEqualToString:[existingUser objectForKey:@"_id"]]){
+                if ([thisUserID isEqualToString:existingUser[@"_id"]]){
                     found = YES;
                 }
             }
@@ -223,18 +223,18 @@
 
     if (self.friendData == nil) return cell;
     
-    NSDictionary *user = [self.friendData objectAtIndex:indexPath.row];
+    NSDictionary *user = self.friendData[indexPath.row];
     
     CGRect picFrame = CGRectMake(20, 15, 40, 40);
     UIView *profilePicView;
     TTLog(@"User: %@", user);
-    if ([user objectForKey:@"fbid"] != NULL && ![[user objectForKey:@"fbid"] isEqualToString:@""]) {
+    if (user[@"fbid"] != NULL && ![user[@"fbid"] isEqualToString:@""]) {
         TTLog(@"Using facebook profile image");
-        profilePicView = [[FBProfilePictureView alloc] initWithProfileID:[user objectForKey:@"fbid"] pictureCropping:FBProfilePictureCroppingSquare];
+        profilePicView = [[FBProfilePictureView alloc] initWithProfileID:user[@"fbid"] pictureCropping:FBProfilePictureCroppingSquare];
         profilePicView.frame = picFrame;
     } else {
-        TTLog(@"Looking up profile image %@", [user objectForKey:@"profileImageID"]);
-        NSURL *url = [NSURL URLWithString:[user objectForKey:@"profileImageID"]];
+        TTLog(@"Looking up profile image %@", user[@"profileImageID"]);
+        NSURL *url = [NSURL URLWithString:user[@"profileImageID"]];
         profilePicView = [[UIImageView alloc] initWithFrame:picFrame];
         NSURL *picURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [TTNetManager sharedInstance].rootURL, [url absoluteString]]];
         TTLog(@"Looking up image %@", picURL);
@@ -247,7 +247,7 @@
     [container addSubview:profilePicView];
     
     UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(70, 18, 160, 40)];
-    [thingTextView setText:[[user objectForKey:@"name"] uppercaseString]];
+    [thingTextView setText:[user[@"name"] uppercaseString]];
     thingTextView.font = [UIFont fontWithName:HEADER_FONT size:14];
     thingTextView.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"333333"];
     [container addSubview:thingTextView];
@@ -266,8 +266,8 @@
     TTLog(@"Selected search item %d", indexPath.row);
     
     UserStore *userStore = [[UserStore alloc] init];
-    NSDictionary *user = [self.friendData objectAtIndex:indexPath.row];
-    [[TTNetManager sharedInstance] addFriend:[user objectForKey:@"_id"] forUser:[userStore getAuthenticatedUser]];
+    NSDictionary *user = self.friendData[indexPath.row];
+    [[TTNetManager sharedInstance] addFriend:user[@"_id"] forUser:[userStore getAuthenticatedUser]];
     
     [searchDelegate dismissSearchWasTouched];
 }

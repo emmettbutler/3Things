@@ -13,9 +13,9 @@
 
 -(User *)newUserFromDictionary:(NSDictionary *)userDict {
     NSManagedObject *user = [self createItem:@"User"];
-    ((User *)user).name = [userDict objectForKey:@"name"];
-    ((User *)user).profileImageURL = [userDict objectForKey:@"profileImageID"];
-    ((User *)user).facebookID = [userDict objectForKey:@"fbid"];
+    ((User *)user).name = userDict[@"name"];
+    ((User *)user).profileImageURL = userDict[@"profileImageID"];
+    ((User *)user).facebookID = userDict[@"fbid"];
     return (User *)user;
 }
 
@@ -34,7 +34,7 @@
         [self saveChanges];
         return (User *)newItem;
     } else {
-        return [result objectAtIndex:0];
+        return result[0];
     }
 }
 
@@ -52,7 +52,7 @@
         [self saveChanges];
         return (User *)newItem;
     } else {
-        return [result objectAtIndex:0];
+        return result[0];
     }
 }
 
@@ -67,7 +67,7 @@
     NSNumber *identifier = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kAuthUserID]];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(userID = %@)", identifier];
     NSArray *result = [self allItems:@"User" withSort:@"userID" andPredicate:predicate];
-    return result.count == 0 ? NULL : [result objectAtIndex:0];
+    return result.count == 0 ? NULL : result[0];
 }
 
 +(void) initCurrentUser {

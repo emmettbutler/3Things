@@ -192,12 +192,12 @@
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
         TTLog(@"json response: %@", json);
-        NSString *uid = [[json objectForKey:@"data"] objectForKey:@"uid"];
+        NSString *uid = json[@"data"][@"uid"];
         
-        [[TTNetManager sharedInstance] loginToken:[[json objectForKey:@"data"] objectForKey:@"access_token"]];
-        [UserStore initCurrentUserWithImage:[[json objectForKey:@"data"] objectForKey:@"profileImageID"]
+        [[TTNetManager sharedInstance] loginToken:json[@"data"][@"access_token"]];
+        [UserStore initCurrentUserWithImage:json[@"data"][@"profileImageID"]
                                    andEmail:idField.text
-                                andUserName:[[json objectForKey:@"data"] objectForKey:@"name"]
+                                andUserName:json[@"data"][@"name"]
                                 andPassword:nil
                                   andUserID:uid];
         [self setModalPresentationStyle:UIModalPresentationPageSheet];

@@ -33,8 +33,8 @@
         self.thingText = @"Share something...";
         self.photoPromptIsHidden = NO;
         NSString *text;
-        if (![[[self.shares.theThings objectAtIndex:[thingIndex intValue]] objectForKey:@"text"] isEqualToString:@""]){
-            text = [[shares.theThings objectAtIndex:[thingIndex intValue]] objectForKey:@"text"];
+        if (![self.shares.theThings[[thingIndex intValue]][@"text"] isEqualToString:@""]){
+            text = shares.theThings[[thingIndex intValue]][@"text"];
             self.firstEdit = NO;
             self.thingText = text;
         }
@@ -128,7 +128,7 @@
     [self.view addSubview:nextButton];
     [nextButton setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
     
-    NSString *imgURL = [[self.shares.theThings objectAtIndex:[self.thingIndex intValue]] objectForKey:@"localImageURL"];
+    NSString *imgURL = self.shares.theThings[[self.thingIndex intValue]][@"localImageURL"];
     self.thingLocalImageURL = imgURL;
     if (![imgURL isEqualToString:@""]){
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -308,8 +308,8 @@
 - (Thing *)saveThingWithIndex:(NSNumber *)index {
     ThingStore *thingStore = [[ThingStore alloc] init];
     Thing *thing = [thingStore createThing];
-    thing.text = [[self.shares.theThings objectAtIndex:[index intValue]] objectForKey:@"text"];
-    thing.localImageURL = [[self.shares.theThings objectAtIndex:[index intValue]] objectForKey:@"localImageURL"];
+    thing.text = self.shares.theThings[[index intValue]][@"text"];
+    thing.localImageURL = self.shares.theThings[[index intValue]][@"localImageURL"];
     thing.index = index;
     return thing;
 }

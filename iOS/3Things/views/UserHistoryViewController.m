@@ -122,7 +122,7 @@
         TTLog(@"json response: %@", json);
         // please forgive me for the following
         if (json == NULL) return;  // hack
-        NSMutableArray *data = [[json objectForKey:@"data"] objectForKey:@"history"];
+        NSMutableArray *data = json[@"data"][@"history"];
         
         self.feedData = [[NSMutableDictionary alloc] init];
         
@@ -134,14 +134,14 @@
         [formatter1 setTimeZone:[NSTimeZone defaultTimeZone]];
         
         for (int i = 0; i < [data count]; i++){
-            NSDictionary *day = [data objectAtIndex:i];
-            NSDate *date = [formatter2 dateFromString:[day objectForKey:@"date"]];
+            NSDictionary *day = data[i];
+            NSDate *date = [formatter2 dateFromString:day[@"date"]];
             NSString *monthString = [formatter1 stringFromDate:date];
             NSNumber *month = @([monthString intValue]);
-            if ([self.feedData objectForKey:month] == nil) {
+            if (self.feedData[month] == nil) {
                 [self.feedData setObject:[[NSMutableArray alloc] init] forKey:month];
             }
-            [[self.feedData objectForKey:month] addObject:day];
+            [self.feedData[month] addObject:day];
         }
         
         [self.tableView reloadData];
@@ -159,8 +159,8 @@
     } else {
         NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
         NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
-        NSNumber *thisMonth = [sortedKeys objectAtIndex:section];
-        NSArray *monthDays = [self.feedData objectForKey:thisMonth];
+        NSNumber *thisMonth = sortedKeys[section];
+        NSArray *monthDays = self.feedData[thisMonth];
         return [monthDays count];
     }
 }
@@ -175,10 +175,10 @@
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
     NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
-    NSNumber *thisMonth = [sortedKeys objectAtIndex:section];
+    NSNumber *thisMonth = sortedKeys[section];
     
     NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
-    NSString *monthName = [[formatter2 monthSymbols] objectAtIndex:[thisMonth intValue] - 1];
+    NSString *monthName = [formatter2 monthSymbols][[thisMonth intValue] - 1];
     
     UITextView *monthNameView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.screenFrame.size.width, 23)];
     monthNameView.text = [monthName uppercaseString];
@@ -216,14 +216,14 @@
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
     NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
-    NSNumber *thisMonth = [sortedKeys objectAtIndex:indexPath.section];
-    NSArray *monthDays = [self.feedData objectForKey:thisMonth];
-    NSDictionary *day = [monthDays objectAtIndex:indexPath.row];
+    NSNumber *thisMonth = sortedKeys[indexPath.section];
+    NSArray *monthDays = self.feedData[thisMonth];
+    NSDictionary *day = monthDays[indexPath.row];
     
     NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
     [formatter2 setTimeZone:[NSTimeZone defaultTimeZone]];
     [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date = [formatter2 dateFromString:[day objectForKey:@"date"]];
+    NSDate *date = [formatter2 dateFromString:day[@"date"]];
     
     UIView *dateView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, frame.size.width, 20)];
     UITextView *dayOfMonthView = [[UITextView alloc] initWithFrame:CGRectMake(3, 0, 70, 90)];
@@ -251,8 +251,8 @@
     
     int images = 0;
     for (int j = 0; j < 3; j++){
-        NSDictionary *thing = [[day objectForKey:@"things"] objectAtIndex:j];
-        NSString *imgID = [thing objectForKey:@"imageID"];
+        NSDictionary *thing = day[@"things"][j];
+        NSString *imgID = thing[@"imageID"];
         if (![imgID isEqualToString:@""] && imgID != NULL){
             images++;
         }
@@ -270,11 +270,11 @@
         numberView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
         [thingView addSubview:numberView];
         
-        NSDictionary *thing = [[day objectForKey:@"things"] objectAtIndex:j];
+        NSDictionary *thing = day[@"things"][j];
         
         UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(12, 0, frame.size.width, 26)];
         text.textAlignment = NSTextAlignmentLeft;
-        text.text = [NSString stringWithFormat:@"%@", [thing objectForKey:@"text"]];
+        text.text = [NSString stringWithFormat:@"%@", thing[@"text"]];
         text.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
         text.allowsEditingTextAttributes = NO;
         text.font = [UIFont fontWithName:HEADER_FONT size:11];
@@ -289,7 +289,7 @@
         
         int picTop = 20, picLeft = 225, picHeight = 60, picWidthSmall = 60, picWidthTiny = 30;
         
-        NSString *imgID = [thing objectForKey:@"imageID"];
+        NSString *imgID = thing[@"imageID"];
         if (![imgID isEqualToString:@""] && imgID != NULL){
             UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(picLeft, picTop, picWidthSmall, picHeight)];
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [[TTNetManager sharedInstance] rootURL], imgID]];
@@ -326,9 +326,9 @@
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
     NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
-    NSNumber *thisMonth = [sortedKeys objectAtIndex:indexPath.section];
-    NSArray *monthDays = [self.feedData objectForKey:thisMonth];
-    NSDictionary *day = [monthDays objectAtIndex:indexPath.row];
+    NSNumber *thisMonth = sortedKeys[indexPath.section];
+    NSArray *monthDays = self.feedData[thisMonth];
+    NSDictionary *day = monthDays[indexPath.row];
     
     [[self navigationController] pushViewController:
      [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] initWithSharesDictionary:day]

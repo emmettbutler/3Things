@@ -37,7 +37,7 @@
         _sort = @"id";
     }
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *description = [[model entitiesByName] objectForKey:entityType];
+    NSEntityDescription *description = [model entitiesByName][entityType];
     [request setEntity:description];
 
     [request setPredicate:predicate];

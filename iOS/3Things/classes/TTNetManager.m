@@ -116,7 +116,7 @@ TTNetManager *instance;
         NSMutableArray *images = [NSMutableArray arrayWithCapacity:3];
         NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         for (NSDictionary *thing in shares.theThings) {
-            NSString *img = [thing objectForKey:@"localImageURL"];
+            NSString *img = thing[@"localImageURL"];
             int index = [shares.theThings indexOfObject:thing];
             TTLog(@"Attempting to get thing image");
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];

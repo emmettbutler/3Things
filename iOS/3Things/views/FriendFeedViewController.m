@@ -157,13 +157,12 @@
                               error:&jsonError];
         TTLog(@"json response: %@", json);
         self.feedData = json;
-        for (int i = 0; i < [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] count]; i++){
+        for (int i = 0; i < [self.feedData[@"data"][@"history"] count]; i++){
             NSMutableDictionary *dayAndUser = [[NSMutableDictionary alloc] init];
-            TTShareDay *shareDay = [[TTShareDay alloc] initWithSharesDictionary:
-                                    [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:i]];
+            TTShareDay *shareDay = [[TTShareDay alloc] initWithSharesDictionary:self.feedData[@"data"][@"history"][i]];
             [dayAndUser setObject:shareDay forKey:@"day"];
             UserStore *userStore = [[UserStore alloc] init];
-            User *user = [userStore newUserFromDictionary:[[[[self.feedData objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:i] objectForKey:@"user"]];
+            User *user = [userStore newUserFromDictionary:self.feedData[@"data"][@"history"][i][@"user"]];
             [dayAndUser setObject:user forKey:@"user"];
             [self.parsedFeed addObject:dayAndUser];
         }
@@ -179,7 +178,7 @@
     if (self.feedData == nil){
         return 2;
     } else {
-        return [[[self.feedData objectForKey:@"data"] objectForKey:@"history"] count];
+        return [self.feedData[@"data"][@"history"] count];
     }
 }
 
@@ -198,9 +197,8 @@
     
     if (self.feedData == nil) return cell;
     
-    NSMutableDictionary *dayAndUser = [self.parsedFeed objectAtIndex:indexPath.row];
-    SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:
-                                        [dayAndUser objectForKey:@"day"] andIsCurrent:@(NO) andUser:[dayAndUser objectForKey:@"user"]];
+    NSMutableDictionary *dayAndUser = self.parsedFeed[indexPath.row];
+    SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:dayAndUser[@"day"] andIsCurrent:@(NO) andUser:dayAndUser[@"user"]];
     [self addChildViewController:dayView];
     [container addSubview:dayView.view];
     dayView.view.frame = CGRectMake(0, 0, dayView.frame.size.width, frame.size.height);
@@ -219,11 +217,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-     NSMutableDictionary *dayAndUser = [self.parsedFeed objectAtIndex:indexPath.row];
+     NSMutableDictionary *dayAndUser = self.parsedFeed[indexPath.row];
     [[self navigationController] pushViewController:
-     [[My3ThingsViewController alloc] initWithShareDay:[dayAndUser objectForKey:@"day"]
+     [[My3ThingsViewController alloc] initWithShareDay:dayAndUser[@"day"]
                                           andIsCurrent:@(NO)
-                                               andUser:[dayAndUser objectForKey:@"user"]]
+                                               andUser:dayAndUser[@"user"]]
                                            animated:YES];
 }
 

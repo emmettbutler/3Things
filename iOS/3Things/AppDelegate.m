@@ -199,10 +199,10 @@
                                   options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                                   error:&jsonError];
             TTLog(@"json response: %@", json);
-            NSString *uid = [[json objectForKey:@"data"] objectForKey:@"uid"];
-            NSString *name = [[json objectForKey:@"data"] objectForKey:@"name"];
-            NSString *fbid = [[json objectForKey:@"data"] objectForKey:@"fbid"];
-            [[TTNetManager sharedInstance] loginToken:[[json objectForKey:@"data"] objectForKey:@"access_token"]];
+            NSString *uid = json[@"data"][@"uid"];
+            NSString *name = json[@"data"][@"name"];
+            NSString *fbid = json[@"data"][@"fbid"];
+            [[TTNetManager sharedInstance] loginToken:json[@"data"][@"access_token"]];
             [UserStore initCurrentUserWithUserName:name andUserID:uid andFBID:fbid];
             
             UserStore *userStore = [[UserStore alloc] init];

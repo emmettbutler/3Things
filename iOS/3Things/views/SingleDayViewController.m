@@ -224,7 +224,7 @@
     [flagView setImage:[UIImage imageNamed:image]];
     [container addSubview:flagView];
     
-    NSString *text = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"text"];
+    NSString *text = self.shares.theThings[indexPath.row][@"text"];
     if ([text isEqualToString:@""]) {
         text = @"Share something...";
     } else {
@@ -253,8 +253,8 @@
     [imageLayer setCornerRadius:picView.frame.size.width/2];
     [imageLayer setMasksToBounds:YES];
     [container addSubview:picView];
-    NSString *imgID = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"imageID"];
-    NSString *imgURL = [[self.shares.theThings objectAtIndex:indexPath.row] objectForKey:@"localImageURL"];
+    NSString *imgID = self.shares.theThings[indexPath.row][@"imageID"];
+    NSString *imgURL = self.shares.theThings[indexPath.row][@"localImageURL"];
     if (![imgID isEqualToString:@""] && imgID != NULL){
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [[TTNetManager sharedInstance] rootURL], imgID]];
         [picView setImageWithURL:url
@@ -286,7 +286,7 @@
         TTLog(@"json response: %@", json);
         if (json == NULL) return;
         self.feedData = json;
-        self.shares = [[TTShareDay alloc] initWithSharesDictionary:[[[json objectForKey:@"data"] objectForKey:@"history"] objectAtIndex:0]];
+        self.shares = [[TTShareDay alloc] initWithSharesDictionary:json[@"data"][@"history"][@(0)]];
         if ([self.parentViewController isKindOfClass:[My3ThingsViewController class]]){
             ((My3ThingsViewController *)self.parentViewController).shares = self.shares;
         }
@@ -300,7 +300,7 @@
         UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:@(indexPath.row) andShares:self.shares];
         [[self navigationController] pushViewController:editView animated:YES];
     } else {
-        ThingDetailViewController *detailView = [[ThingDetailViewController alloc] initWithThing:[self.shares.theThings objectAtIndex:indexPath.row]];
+        ThingDetailViewController *detailView = [[ThingDetailViewController alloc] initWithThing:self.shares.theThings[indexPath.row]];
         [[self navigationController] pushViewController:detailView animated:YES];
     }
 }

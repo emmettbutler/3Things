@@ -159,7 +159,7 @@
 - (BOOL)hasEnteredAllThings {
     if (self.shares.theThings.count == 0) return NO;
     for (int i = 0; i < 3; i++){
-        if ([self.shares.theThings objectAtIndex:i] == NULL) {
+        if (self.shares.theThings[i] == NULL) {
             return NO;
         }
     }

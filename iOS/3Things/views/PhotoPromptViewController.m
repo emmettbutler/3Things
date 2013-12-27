@@ -82,7 +82,7 @@
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     [picker dismissViewControllerAnimated:YES completion:NULL];
     
-    if ([info objectForKey:UIImagePickerControllerReferenceURL] == nil) {
+    if (info[UIImagePickerControllerReferenceURL] == nil) {
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         // Request to save the image to camera roll
         [library writeImageToSavedPhotosAlbum:[chosenImage CGImage] orientation:(ALAssetOrientation)[chosenImage imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
@@ -93,7 +93,7 @@
             }  
         }];
     } else {
-        [self.promptDelegate photoWasSaved:[info objectForKey:UIImagePickerControllerReferenceURL]];
+        [self.promptDelegate photoWasSaved:info[UIImagePickerControllerReferenceURL]];
     }
     
     [self.promptDelegate photoWasSelected:chosenImage];

@@ -38,10 +38,10 @@
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
             [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-            self.date = [dateFormatter dateFromString:[shares objectForKey:@"date"]];
-            self.time = [dateFormatter dateFromString:[shares objectForKey:@"time"]];
+            self.date = [dateFormatter dateFromString:shares[@"date"]];
+            self.time = [dateFormatter dateFromString:shares[@"time"]];
             for (int i = 0; i < 3; i++){
-                [self.theThings addObject:[[shares objectForKey:@"things"] objectAtIndex:i]];
+                [self.theThings addObject:shares[@"things"][i]];
             }
             TTLog(@"Constructed day from dictionary");
         }
