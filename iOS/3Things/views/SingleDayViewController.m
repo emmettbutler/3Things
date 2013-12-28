@@ -100,9 +100,13 @@
     CGRect scrollFrame = CGRectMake(10, 100, myFrame.size.width*width, myFrame.size.height-95);
     self.frame = myFrame;
     
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, myFrame.size.width*width, 100)];
-    bgView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eff0f1"];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(40, 0, myFrame.size.width*width, 100)];
+    bgView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.view addSubview:bgView];
+    
+    UIView *innerBGView = [[UIView alloc] initWithFrame:CGRectMake(10, 30, myFrame.size.width*width, 100)];
+    innerBGView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eff0f1"];
+    [self.view addSubview:innerBGView];
 
     UICollectionViewFlowLayout* flow = [[UICollectionViewFlowLayout alloc] init];
     CGRect collectionFrame = CGRectMake(0, 100, scrollFrame.size.width+20, scrollFrame.size.height-20);
