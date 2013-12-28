@@ -32,7 +32,7 @@
     self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
     self.navigationController.navigationBarHidden = YES;
-    self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"cccccc"];
+    self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"000000"];
     
     BOOL hasImage = NO;
     
@@ -57,7 +57,7 @@
     text.textAlignment = NSTextAlignmentCenter;
     text.font = [UIFont fontWithName:HEADER_FONT size:13];
     text.editable = NO;
-    [text setTextColor:[UIColor blackColor]];
+    [text setTextColor:[UIColor whiteColor]];
     text.text = self.thing[@"text"];
     text.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.view addSubview:text];
