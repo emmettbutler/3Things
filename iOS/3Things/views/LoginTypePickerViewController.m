@@ -184,6 +184,10 @@
     }
 }
 
+-(BOOL)shouldShowNavBar {
+    return NO;
+}
+
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url {
     if([((NSHTTPURLResponse *)res) statusCode] == 200){
         NSError *jsonError = nil;

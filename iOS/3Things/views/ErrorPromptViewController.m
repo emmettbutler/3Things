@@ -81,7 +81,9 @@
 - (void)okWasTouched{
     [self.errDelegate dismissWasTouched];
     [smoke removeFromSuperview];
-    [[self.parentViewController navigationController] setNavigationBarHidden:NO animated:NO];
+    if (![self.errDelegate respondsToSelector:@selector(shouldShowNavBar)] || [self.errDelegate shouldShowNavBar]) {
+        [[self.parentViewController navigationController] setNavigationBarHidden:NO animated:NO];
+    }
     [self.view removeFromSuperview];
 }
 

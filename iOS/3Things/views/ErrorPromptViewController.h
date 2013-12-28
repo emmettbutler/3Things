@@ -12,6 +12,7 @@
 @protocol ErrorPromptViewControllerDelegate <NSObject>
 @optional
 - (void)dismissWasTouched;
+- (BOOL)shouldShowNavBar;
 @end
 
 id <ErrorPromptViewControllerDelegate> errDelegate;
