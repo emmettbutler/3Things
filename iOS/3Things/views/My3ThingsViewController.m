@@ -96,6 +96,20 @@
 	[navBar setItems:@[self.navigationItem]];
     self.navigationItem.hidesBackButton = YES;
 	[self.view addSubview:navBar];
+    
+	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
+    
+    float mainButtonHeight = 65;
+    
+    CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight+40, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-80);
+    self.tableHeight = @(scrollFrame.size.height);
+    
+    self.dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:@(self.isCurrent) andUser:self.user andIsEdited:@(self.isEdited)];
+    [self addChildViewController:self.dayView];
+    [self.view addSubview:self.dayView.view];
+    self.dayView.view.frame = CGRectMake(9, 65, self.dayView.frame.size.width, self.dayView.frame.size.height);
+    [self.dayView didMoveToParentViewController:self];
+    
     if (self.isCurrent) {
         [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                               [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR],
@@ -114,7 +128,12 @@
               forControlEvents:UIControlEventTouchDown];
         [shareButton setTitle:@"SHARE" forState:UIControlStateNormal];
         shareButton.frame = CGRectMake(self.screenFrame.size.width*((1-buttonSizeMul)/2), buttonY, self.screenFrame.size.width*buttonSizeMul, 40.0);
-        shareButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+        TTLog(@"Completed things: %d", [self.dayView.completedThings intValue]);
+        if([self hasEnteredAllThings]){
+            shareButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+        } else {
+            shareButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"BBBBBB"];
+        }
         shareButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
         shareButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
         [self.view addSubview:shareButton];
@@ -124,19 +143,6 @@
         [[self navigationItem] setLeftBarButtonItem:button];
         [[UIBarButtonItem appearance] setTintColor:[[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR]];
     }
-    
-	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
-    
-    float mainButtonHeight = 65;
-    
-    CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight+40, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-80);
-    self.tableHeight = @(scrollFrame.size.height);
-    
-    self.dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:@(self.isCurrent) andUser:self.user andIsEdited:@(self.isEdited)];
-    [self addChildViewController:self.dayView];
-    [self.view addSubview:self.dayView.view];
-    self.dayView.view.frame = CGRectMake(9, 65, self.dayView.frame.size.width, self.dayView.frame.size.height);
-    [self.dayView didMoveToParentViewController:self];
 }
 
 - (void)backWasTouched {
@@ -153,7 +159,7 @@
         [[self navigationController] pushViewController:
          [[UserHistoryViewController alloc] init] animated:YES];
     } else {
-        if (!self.errViewIsShown){
+        /*if (!self.errViewIsShown){
             self.errViewIsShown = YES;
             ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"YOU DIDN'T FILL IN ALL THE FIELDS"];
             [self addChildViewController:errViewController];
@@ -161,23 +167,23 @@
             errViewController.errDelegate = self;
             errViewController.view.frame = errViewController.frame;
             [errViewController didMoveToParentViewController:self];
-        }
+        }*/
     }
-}
-
-- (BOOL)hasEnteredAllThings {
-    if (self.shares.theThings.count == 0) return NO;
-    for (int i = 0; i < 3; i++){
-        if (self.shares.theThings[i] == NULL) {
-            return NO;
-        }
-    }
-    return YES;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (BOOL)hasEnteredAllThings {
+    if (self.shares.theThings.count == 0) return NO;
+        for (int i = 0; i < 3; i++){
+            if (self.shares.theThings[i] == NULL) {
+                return NO;
+            }
+        }
+    return YES;
 }
 
 @end
