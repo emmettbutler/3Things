@@ -20,10 +20,6 @@
 id <BottomNavViewControllerDelegate> navDelegate;
 
 @interface BottomNavViewController : UIViewController
-{
-    UIImageView *calImageView;
-    UITextView *calTextView;
-}
 
 @property (nonatomic) CGRect frame;
 @property (nonatomic) CGRect screenFrame;
