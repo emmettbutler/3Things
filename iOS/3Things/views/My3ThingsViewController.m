@@ -83,17 +83,12 @@
     bgLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     [self.view.layer insertSublayer:bgLayer atIndex:0];
     
-    if (self.isCurrent) {
-        [[self navigationItem] setTitle:@"REVIEW YOUR THREE THINGS"];
-    } else {
-        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
-        [[self navigationItem] setLeftBarButtonItem:button];
-        [[UIBarButtonItem appearance] setTintColor:[[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR]];
-    }
-    
-	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
-    
-	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:self.screenFrame];
+    UIView *titleView = [[UIView alloc] init];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -20, 120, 40)];
+    [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
+    [titleView addSubview:logoView];
+    self.navigationItem.titleView = titleView;
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:self.screenFrame];
 	CGRect frame = CGRectMake(0, 0, 0, 0);
     frame.size = CGSizeMake(self.screenFrame.size.width, 60);
 	[navBar setFrame:frame];
@@ -101,13 +96,6 @@
 	[navBar setItems:@[self.navigationItem]];
     self.navigationItem.hidesBackButton = YES;
 	[self.view addSubview:navBar];
-    
-    UIView *titleView = [[UIView alloc] init];
-    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -20, 120, 40)];
-    [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
-    [titleView addSubview:logoView];
-    self.navigationItem.titleView = titleView;
-    
     if (self.isCurrent) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SHARE" style:UIBarButtonItemStylePlain target:self action:@selector(shareWasTouched)];
         [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -116,7 +104,13 @@
                                                               [UIFont fontWithName:HEADER_FONT size:14.0],
                                                               UITextAttributeFont,
                                                               nil] forState:UIControlStateNormal];
+    } else {
+        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
+        [[self navigationItem] setLeftBarButtonItem:button];
+        [[UIBarButtonItem appearance] setTintColor:[[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR]];
     }
+    
+	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
     float mainButtonHeight = 65;
     
