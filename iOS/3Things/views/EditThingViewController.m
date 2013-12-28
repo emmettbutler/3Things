@@ -260,6 +260,7 @@
     if (item == NULL){
         item = [dayStore createShareDay];
     }
+    int completedThings = 0;
     // TODO - should this exclude empty Things? (@"")
     for (int i = 0; i < 3; i++){
         Thing *toRemove = NULL;
@@ -272,8 +273,15 @@
             [item removeThingsObject:toRemove];
         }
         Thing *thing = [self saveThingWithIndex:@(i)];
+        if (![thing.text isEqualToString:@""]) {
+            completedThings++;
+        }
         TTLog(@"added thing %d with text %@", i, thing.text);
         [item addThingsObject:thing];
+    }
+    if (completedThings == 3){
+        [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     item.date = [dayStore getDateOnly];
     item.time = [NSDate date];
@@ -302,6 +310,8 @@
     item.date = [dayStore getDateOnly];
     item.time = [NSDate date];
     item.user = [userStore getAuthenticatedUser];
+    [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [dayStore saveChanges];
 }
 

@@ -129,10 +129,10 @@
         [shareButton setTitle:@"SHARE" forState:UIControlStateNormal];
         shareButton.frame = CGRectMake(self.screenFrame.size.width*((1-buttonSizeMul)/2), buttonY, self.screenFrame.size.width*buttonSizeMul, 40.0);
         TTLog(@"Completed things: %d", [self.dayView.completedThings intValue]);
-        if([self hasEnteredAllThings]){
-            shareButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
-        } else {
+        if([[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kDayComplete]] boolValue] == NO){
             shareButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"BBBBBB"];
+        } else {
+            shareButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
         }
         shareButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
         shareButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
