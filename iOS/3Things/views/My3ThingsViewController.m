@@ -103,6 +103,22 @@
                                                               [UIFont fontWithName:HEADER_FONT size:14.0],
                                                               UITextAttributeFont,
                                                               nil] forState:UIControlStateNormal];
+        float buttonSizeMul = .85;
+        float buttonY = self.screenFrame.size.height-50;
+        if (self.screenFrame.size.height < 540) {
+            buttonY = self.screenFrame.size.height-25;
+        }
+        UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [shareButton addTarget:self
+                        action:@selector(shareWasTouched)
+              forControlEvents:UIControlEventTouchDown];
+        [shareButton setTitle:@"SHARE" forState:UIControlStateNormal];
+        shareButton.frame = CGRectMake(self.screenFrame.size.width*((1-buttonSizeMul)/2), buttonY, self.screenFrame.size.width*buttonSizeMul, 40.0);
+        shareButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+        shareButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+        shareButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
+        [self.view addSubview:shareButton];
+        [shareButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
     } else {
         UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
         [[self navigationItem] setLeftBarButtonItem:button];
@@ -121,26 +137,6 @@
     [self.view addSubview:self.dayView.view];
     self.dayView.view.frame = CGRectMake(9, 65, self.dayView.frame.size.width, self.dayView.frame.size.height);
     [self.dayView didMoveToParentViewController:self];
-
-    if (self.isCurrent){
-        float buttonSizeMul = .85;
-        TTLog(@"Screen height: %0.2f", self.screenFrame.size.height);
-        float buttonY = self.screenFrame.size.height-50;
-        if (self.screenFrame.size.height < 540) {
-            buttonY = self.screenFrame.size.height-25;
-        }
-        UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [shareButton addTarget:self
-                        action:@selector(shareWasTouched)
-              forControlEvents:UIControlEventTouchDown];
-        [shareButton setTitle:@"SHARE" forState:UIControlStateNormal];
-        shareButton.frame = CGRectMake(self.screenFrame.size.width*((1-buttonSizeMul)/2), buttonY, self.screenFrame.size.width*buttonSizeMul, 40.0);
-        shareButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
-        shareButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
-        shareButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
-        [self.view addSubview:shareButton];
-        [shareButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
-    }
 }
 
 - (void)backWasTouched {
