@@ -276,12 +276,50 @@ class DaysController(Base3ThingsHandler):
 
 class DayCommentsController(Base3ThingsHandler):
     @coroutine
-    @authenticated
     def get(self, day_id):
-        ret = {"day_id": day_id}
+        index = self.get_argument("index", default="")
+        if not index:
+            raise tornado.web.HTTPError(400, "'index' argument not found")
+
         print "Getting comments for thing in day %s" % day_id
+        comments = yield self._get_comments(day_id, int(index))
+        ret = {"day_id": day_id, "index": index, "comments": comments}
         self.set_status(200)
         self._send_response(ret)
+
+    @coroutine
+    @authenticated
+    def post(self, day_id):
+        index = self.get_argument("index", default="")
+        if not index:
+            raise tornado.web.HTTPError(400, "'index' argument not found")
+
+        sent_comment = None
+        comment_json = self.request.files['jsondata'][0]['body']
+        try:
+            sent_comment = json.loads(comment_json)
+        except:
+            raise tornado.web.HTTPError(400, "Could not decode request body as JSON")
+
+        self._post_comment(sent_comment['day_id'], sent_comment['index'], sent_comment['text'], sent_comment['uid'])
+        ret = {"day_id": day_id, "index": index, "comment": comment_text, "user_id": user_id}
+        self.set_status(200)
+        self._send_response(ret)
+
+    @coroutine
+    def _get_comments(self, day_id, index):
+        comments = list(self.application.db.comments.find({"day_id": day_id, "index": index}))
+        return comments
+
+    @coroutine
+    def _post_comment(self, day_id, index, comment_text, user_id):
+        comment = {
+            'day_id': day_id,
+            'index': index,
+            'text': comment_text,
+            'uid': user_id
+        }
+        self.application.db.comments.insert(comment)
 
 
 class UserTodayController(Base3ThingsHandler):

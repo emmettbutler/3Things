@@ -103,6 +103,31 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:YES];
 }
 
+-(void)postCommentForThing:(NSNumber *)index withDay:(NSString *)dayID andUser:(User *)user andText:(NSString *)text
+{
+    NSString *url = [NSString stringWithFormat:@"%@/days/%@/comments?index=%d", rootURL, dayID, [index intValue]];
+    TTLog(@"Attempting to post comment to URL %@", url);
+    
+    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    jsonDict[@"time"] = [dateFormatter stringFromDate:[NSDate date]];
+    jsonDict[@"text"] = text;
+    jsonDict[@"uid"] = user.identifier;
+    
+    NSError *error;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDict
+                                                   options:NSJSONWritingPrettyPrinted
+                                                     error:&error];
+    if (!data) {
+        TTLog(@"Error encoding JSON for day POST: %@", error);
+    } else {
+        NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [self apiConnectionWithURL:url andData:jsonString authorized:YES];
+    }
+}
+
 -(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID
 {
     NSString *url = [NSString stringWithFormat:@"%@/users/%@/days", rootURL, userID];

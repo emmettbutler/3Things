@@ -65,6 +65,7 @@ typedef enum _kStorage {
 -(void)addFriend:(NSString *)friendID forUser:(User *)user;
 -(void)removeFriend:(NSString *)friendID forUser:(User *)user;
 -(void)getCommentsForThing:(NSNumber *)index withDay:(NSString *)dayID;
+-(void)postCommentForThing:(NSNumber *)index withDay:(NSString *)dayID andUser:(User *)user andText:(NSString *)text;
 
 @property (nonatomic, retain) NSString *currentAccessToken;
 @property (nonatomic, retain) NSString *rootURL;
