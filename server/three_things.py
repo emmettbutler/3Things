@@ -20,6 +20,7 @@ def get_app():
         (r"/users/([^\/]+)/friends/([^\/]+)", controllers_main.UserFriendController),
         (r"/users/([^\/]+)/days", controllers_main.UserDaysController),
         (r"/users/([^\/]+)/today", controllers_main.UserTodayController),
+        (r"/days/([^\/]+)/comments", controllers_main.DayCommentsController),
         (r"/days", controllers_main.DaysController),
         (r"/images/([^\/]+)", controllers_main.ImagesController)
     ])

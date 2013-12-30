@@ -95,6 +95,14 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:NO];
 }
 
+-(void)getCommentsForThing:(NSNumber *)index withDay:(NSString *)dayID
+{
+    NSString *url = [NSString stringWithFormat:@"%@/days/%@/comments?index=%d",
+                     rootURL, dayID, [index intValue]];
+    TTLog(@"Attempting to get comments for day %@ thing %d", dayID, [index intValue]);
+    [self apiConnectionWithURL:url authorized:YES];
+}
+
 -(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID
 {
     NSString *url = [NSString stringWithFormat:@"%@/users/%@/days", rootURL, userID];
@@ -206,6 +214,7 @@ TTNetManager *instance;
          // doing more than one at a time would break this.
          // To allow more than one at a time, maintain a dictionary of delegates and delegate each request to the
          // appropriate one
+         // Or, fix some tiny issues by terminating any current request every time a new one is started
          [netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
       }
      ];
@@ -280,8 +289,8 @@ TTNetManager *instance;
     @synchronized(self){
         if(self = [super init]){
             self.currentAccessToken = nil;
-            //rootURL = @"http://localhost:5000";
-            rootURL = @"http://nameless-sierra-7477.herokuapp.com";
+            rootURL = @"http://localhost:5000";
+            //rootURL = @"http://nameless-sierra-7477.herokuapp.com";
             self.rootURL = rootURL;
         }
         return self;

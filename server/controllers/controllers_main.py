@@ -274,6 +274,15 @@ class DaysController(Base3ThingsHandler):
         return history
 
 
+class DayCommentsController(Base3ThingsHandler):
+    @coroutine
+    @authenticated
+    def get(self, day_id):
+        ret = {"day_id": day_id}
+        self.set_status(200)
+        self._send_response(ret)
+
+
 class UserTodayController(Base3ThingsHandler):
     @coroutine
     @authenticated

@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTNetManager.h"
 
-@interface ThingDetailViewController : UIViewController
+@interface ThingDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TTNetManagerDelegate>
 
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic) NSDictionary *thing;
+@property (nonatomic) NSDictionary *commentData;
+@property (nonatomic) UITableView *tableView;
 
 - (id)initWithThing:(NSDictionary *)inThing;
 
