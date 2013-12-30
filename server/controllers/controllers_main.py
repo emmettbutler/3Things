@@ -279,6 +279,7 @@ class DayCommentsController(Base3ThingsHandler):
     @authenticated
     def get(self, day_id):
         ret = {"day_id": day_id}
+        print "Getting comments for thing in day %s" % day_id
         self.set_status(200)
         self._send_response(ret)
 

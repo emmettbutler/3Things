@@ -21,6 +21,7 @@
 {
     self = [super init];
     if (self) {
+        TTLog(@"Shares: %@", shares);
         self.theThings = [[NSMutableArray alloc] initWithCapacity:3];
         if (shares == nil){
             NSCalendar* myCalendar = [NSCalendar currentCalendar];
@@ -31,6 +32,7 @@
             [components setSecond: 0];
             self.date = [myCalendar dateFromComponents:components];
             self.time = [NSDate date];
+            self._id = nil;
             for (int i = 0; i < 3; i++) {
                 [self.theThings addObject:@{@"text": @"", @"localImageURL": @""}];
             }
@@ -40,6 +42,7 @@
             [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
             self.date = [dateFormatter dateFromString:shares[@"date"]];
             self.time = [dateFormatter dateFromString:shares[@"time"]];
+            self._id = shares[@"_id"];
             for (int i = 0; i < 3; i++){
                 [self.theThings addObject:shares[@"things"][i]];
             }

@@ -304,7 +304,10 @@
         UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:@(indexPath.row) andShares:self.shares];
         [[self navigationController] pushViewController:editView animated:YES];
     } else {
-        ThingDetailViewController *detailView = [[ThingDetailViewController alloc] initWithThing:self.shares.theThings[indexPath.row]];
+        NSMutableDictionary *thing = [NSMutableDictionary dictionaryWithDictionary:self.shares.theThings[indexPath.row]];
+        thing[@"index"] = @(indexPath.row);
+        thing[@"day_id"] = self.shares._id;
+        ThingDetailViewController *detailView = [[ThingDetailViewController alloc] initWithThing:thing];
         [[self navigationController] pushViewController:detailView animated:YES];
     }
 }

@@ -31,7 +31,7 @@
 	
     self.commentData = nil;
     [TTNetManager sharedInstance].netDelegate = self;
-    [[TTNetManager sharedInstance] getCommentsForThing:@(2) withDay:@"test"];
+    [[TTNetManager sharedInstance] getCommentsForThing:@(2) withDay:self.thing[@"day_id"]];
     
     self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
