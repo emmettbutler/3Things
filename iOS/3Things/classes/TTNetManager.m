@@ -114,7 +114,7 @@ TTNetManager *instance;
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     jsonDict[@"time"] = [dateFormatter stringFromDate:[NSDate date]];
     jsonDict[@"text"] = text;
-    jsonDict[@"uid"] = user.identifier;
+    jsonDict[@"uid"] = user.userID;
     
     NSError *error;
     NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDict

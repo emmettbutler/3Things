@@ -301,23 +301,25 @@ class DayCommentsController(Base3ThingsHandler):
         except:
             raise tornado.web.HTTPError(400, "Could not decode request body as JSON")
 
-        self._post_comment(sent_comment['day_id'], sent_comment['index'], sent_comment['text'], sent_comment['uid'])
+        user_id = sent_comment['uid']
+        comment_text = sent_comment['text']
+        self._post_comment(day_id, int(index), comment_text, user_id)
         ret = {"day_id": day_id, "index": index, "comment": comment_text, "user_id": user_id}
         self.set_status(200)
         self._send_response(ret)
 
     @coroutine
     def _get_comments(self, day_id, index):
-        comments = list(self.application.db.comments.find({"day_id": day_id, "index": index}))
+        comments = list(self.application.db.comments.find({"day_id": ObjectId(day_id), "index": index}))
         return comments
 
     @coroutine
     def _post_comment(self, day_id, index, comment_text, user_id):
         comment = {
-            'day_id': day_id,
+            'day_id': ObjectId(day_id),
             'index': index,
             'text': comment_text,
-            'uid': user_id
+            'uid': ObjectId(user_id)
         }
         self.application.db.comments.insert(comment)
 

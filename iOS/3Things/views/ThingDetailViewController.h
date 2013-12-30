@@ -9,12 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "TTNetManager.h"
 
-@interface ThingDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TTNetManagerDelegate>
+@interface ThingDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TTNetManagerDelegate, UITextFieldDelegate>
+{
+    float textFieldOriginalY;
+}
 
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic) NSDictionary *thing;
 @property (nonatomic) NSDictionary *commentData;
 @property (nonatomic) UITableView *tableView;
+@property (nonatomic) UIImageView *picView;
+@property (nonatomic) UITextField *commentField;
+@property (nonatomic) UITextView *text;
 
 - (id)initWithThing:(NSDictionary *)inThing;
 
