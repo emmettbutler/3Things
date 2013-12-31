@@ -149,6 +149,7 @@ class RegistrationHandler(Base3ThingsHandler):
         self.set_status(201)
         self._send_response(ret)
 
+    @coroutine
     def _send_conf_code(self, code, email, name):
         s = sendgrid.Sendgrid('emmett.butler321@gmail.com', 'emailz!', secure=True)
         body = "Hi %s! This is your Three Things confirmation code: %s" % (name, code)

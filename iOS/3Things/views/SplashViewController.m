@@ -177,6 +177,17 @@
             errViewController.view.frame = errViewController.frame;
             [errViewController didMoveToParentViewController:self];
         }
+    } else if (![self passwordsMatch]) {
+        if (!self.errViewIsShown) {
+            TTLog(@"Error: passwords don't match");
+            self.errViewIsShown = YES;
+            ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"PASSWORDS DO NOT MATCH"];
+            [self addChildViewController:errViewController];
+            [self.view addSubview:errViewController.view];
+            errViewController.errDelegate = self;
+            errViewController.view.frame = errViewController.frame;
+            [errViewController didMoveToParentViewController:self];
+        }
     } else {
         [TTNetManager sharedInstance].netDelegate = self;
         [[TTNetManager sharedInstance] registerUser:emailField.text
@@ -191,7 +202,7 @@
     TTLog(@"Response: %@", res);
     if (error == NULL) {
         if ([url.path isEqualToString:@"/register"]){
-            if([((NSHTTPURLResponse *)res) statusCode] != 304){
+            if([((NSHTTPURLResponse *)res) statusCode] != 304 && [((NSHTTPURLResponse *)res) statusCode] != 400){
                 NSError *jsonError = nil;
                 NSDictionary *json = [NSJSONSerialization
                                       JSONObjectWithData:data
@@ -209,6 +220,28 @@
                 signupCodeController.view.frame = signupCodeController.frame;
                 [signupCodeController didMoveToParentViewController:self];
                 self.didSelectImage = YES;
+            } else if ([((NSHTTPURLResponse *)res) statusCode] == 304) {
+                if (!self.errViewIsShown) {
+                    TTLog(@"Error: user with email %@ already exists", emailField.text);
+                    self.errViewIsShown = YES;
+                    ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"A USER EXISTS WITH THAT EMAIL"];
+                    [self addChildViewController:errViewController];
+                    [self.view addSubview:errViewController.view];
+                    errViewController.errDelegate = self;
+                    errViewController.view.frame = errViewController.frame;
+                    [errViewController didMoveToParentViewController:self];
+                }
+            } else if ([((NSHTTPURLResponse *)res) statusCode] == 400) {
+                if (!self.errViewIsShown) {
+                    TTLog(@"Error: 400");
+                    self.errViewIsShown = YES;
+                    ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"THERE WAS AN ERROR"];
+                    [self addChildViewController:errViewController];
+                    [self.view addSubview:errViewController.view];
+                    errViewController.errDelegate = self;
+                    errViewController.view.frame = errViewController.frame;
+                    [errViewController didMoveToParentViewController:self];
+                }
             }
         } else if([url.path isEqualToString:@"/login"]){
             if([((NSHTTPURLResponse *)res) statusCode] == 200){
@@ -275,11 +308,21 @@
     [self.presentingViewController dismissViewControllerAnimated:YES completion:^(void){}];
 }
 
+- (BOOL) passwordsMatch {
+    return [pwField.text isEqualToString:pwConfirmField.text];
+}
+
 - (BOOL) fieldsAreValid {
     if ([firstNameField.text isEqualToString:@""]){
         return NO;
     }
     if ([emailField.text isEqualToString:@""]){
+        return NO;
+    }
+    if ([pwField.text isEqualToString:@""]){
+        return NO;
+    }
+    if ([pwConfirmField.text isEqualToString:@""]){
         return NO;
     }
     return YES;
