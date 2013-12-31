@@ -14,6 +14,7 @@ import StringIO
 import tornado.web
 import tornado.gen
 from tornado.gen import Return, coroutine
+import sendgrid
 
 from utils import ThreeThingsResponse, EncryptionManager
 
@@ -143,9 +144,21 @@ class RegistrationHandler(Base3ThingsHandler):
             self.finish()
             return
         code = self._generate_confirmation_code(email)
+        self._send_conf_code(code, email, fname)
         ret = {"conf_code": code, "email": email, "name": fname}
         self.set_status(201)
         self._send_response(ret)
+
+    def _send_conf_code(self, code, email, name):
+        s = sendgrid.Sendgrid('emmett.butler321@gmail.com', 'emailz!', secure=True)
+        body = "Hi %s! This is your Three Things confirmation code: %s" % (name, code)
+        message = sendgrid.Message(
+            "noreply@threethings.com",
+            "Three Things Registration Confirmation",
+            body,
+            "<p>%s</p>" % body)
+        message.add_to(email, name)
+        s.smtp.send(message)
 
     def _validate_email(self, email):
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
