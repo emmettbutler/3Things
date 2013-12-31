@@ -282,6 +282,7 @@ class DayCommentsController(Base3ThingsHandler):
             raise tornado.web.HTTPError(400, "'index' argument not found")
 
         print "Getting comments for thing in day %s" % day_id
+        self._post_comment("0", 0, "", "0")
         comments = yield self._get_comments(day_id, int(index))
         ret = {"day_id": day_id, "index": index, "comments": comments}
         self.set_status(200)
