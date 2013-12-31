@@ -22,6 +22,7 @@
 {
     if (self = [super init]) {
         self.thing = inThing;
+        commentHeight = 40;
     }
     return self;
 }
@@ -98,6 +99,9 @@
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
         TTLog(@"json response: %@", json);
+        if (json[@"data"][@"comments"] == nil) {
+            return;
+        }
         self.commentData = json;
         [self.tableView reloadData];
     }
@@ -121,11 +125,17 @@
 {
     textField.text = @"";
     textFieldOriginalY = self.commentField.frame.origin.y;
+    pastCommentsOriginalY = self.tableView.frame.origin.y;
+    pastCommentsOriginalHeight = self.tableView.frame.size.height;
     self.picView.hidden = YES;
     self.text.hidden = YES;
     CGRect fieldFrame = self.commentField.frame;
     fieldFrame.origin.y = 300;
     self.commentField.frame = fieldFrame;
+    fieldFrame = self.tableView.frame;
+    fieldFrame.size.height = commentHeight*[self.commentData[@"data"][@"comments"] count];
+    fieldFrame.origin.y = 300-10-fieldFrame.size.height;
+    self.tableView.frame = fieldFrame;
 }
 
 - (void) textFieldDidEndEditing:(UITextField *)textField
@@ -135,6 +145,10 @@
     CGRect fieldFrame = self.commentField.frame;
     fieldFrame.origin.y = textFieldOriginalY;
     self.commentField.frame = fieldFrame;
+    fieldFrame = self.tableView.frame;
+    fieldFrame.origin.y = pastCommentsOriginalY;
+    fieldFrame.size.height = pastCommentsOriginalHeight;
+    self.tableView.frame = fieldFrame;
     textField.text = @"COMMENT...";
 }
 
@@ -143,11 +157,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.commentData[@"comments"] count];
+    return [self.commentData[@"data"][@"comments"] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 40;
+    return commentHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -156,10 +170,15 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
     }
-    //CGRect frame = cell.bounds;
+    CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     
     if (self.commentData == nil) return cell;
+    
+    UITextView *commentText = [[UITextView alloc] initWithFrame:frame];
+    commentText.text = self.commentData[@"data"][@"comments"][indexPath.row][@"text"];
+    commentText.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    [container addSubview:commentText];
     
     cell.backgroundView = container;
     cell.backgroundColor = [UIColor clearColor];

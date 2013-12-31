@@ -11,7 +11,8 @@
 
 @interface ThingDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TTNetManagerDelegate, UITextFieldDelegate>
 {
-    float textFieldOriginalY;
+    float textFieldOriginalY, pastCommentsOriginalY, pastCommentsOriginalHeight;
+    int commentHeight;
 }
 
 @property (nonatomic) CGRect screenFrame;
