@@ -228,8 +228,6 @@
     [flagView setImage:[UIImage imageNamed:image]];
     [container addSubview:flagView];
     
-    // TODO - string truncation fixes
-    
     NSString *text = self.shares.theThings[indexPath.row][@"text"];
     if ([text isEqualToString:@""]) {
         text = @"Share something...";
@@ -242,12 +240,14 @@
         }
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(40, 15, frame.size.width*.6, 68)];
-    int maxLen = 85;
-    if ([text length] > maxLen) {
-        text = [NSString stringWithFormat:@"%@...", [text substringToIndex:maxLen]];
-    }
+    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(40, 15, frame.size.width*.6, 75)];
     [thingTextView setText:text];
+    int maxHeight = thingTextView.frame.size.height - 20;
+    CGSize size = [thingTextView.text sizeWithFont:thingTextView.font constrainedToSize:CGSizeMake(thingTextView.frame.size.width, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    while (size.height > maxHeight) {
+        thingTextView.text = [NSString stringWithFormat:@"%@...", [thingTextView.text substringToIndex:[thingTextView.text length]-4]];
+        size = [thingTextView.text sizeWithFont:thingTextView.font constrainedToSize:CGSizeMake(thingTextView.frame.size.width, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    }
     thingTextView.font = [UIFont fontWithName:HEADER_FONT size:THING_TEXT_SIZE];
     thingTextView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
     thingTextView.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"555555"];
