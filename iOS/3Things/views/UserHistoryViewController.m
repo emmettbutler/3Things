@@ -261,7 +261,7 @@
     int addedImages = 0;
     
     for (int j = 0; j < 3; j++) {
-        UITextView *thingView = [[UITextView alloc] initWithFrame:CGRectMake(60, 10+(j*20), (images == 0) ? 240 : 155, 22)];
+        UITextView *thingView = [[UITextView alloc] initWithFrame:CGRectMake(60, 10+(j*23), (images == 0) ? 240 : 155, 22)];
         
         UITextView *numberView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 22)];
         numberView.text = [NSString stringWithFormat:@"%d", j+1];
@@ -275,14 +275,16 @@
         
         UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(12, 0, frame.size.width, 26)];
         text.textAlignment = NSTextAlignmentLeft;
-        text.text = [NSString stringWithFormat:@"%@", thing[@"text"]];
+        text.text = thing[@"text"];
         text.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
         text.allowsEditingTextAttributes = NO;
         text.font = [UIFont fontWithName:HEADER_FONT size:11];
         text.editable = NO;
-        int maxLen = images == 0 ? 48 : 26;
-        if ([text.text length] > maxLen) {
-            text.text = [NSString stringWithFormat:@"%@...", [text.text substringToIndex:maxLen]];
+        int maxWidth = images == 0 ? text.frame.size.width : 140;
+        CGSize size = [text.text sizeWithFont:text.font constrainedToSize:CGSizeMake(FLT_MAX, 40) lineBreakMode:NSLineBreakByWordWrapping];
+        while (size.width > maxWidth) {
+            text.text = [NSString stringWithFormat:@"%@...", [text.text substringToIndex:[text.text length]-4]];
+            size = [text.text sizeWithFont:text.font constrainedToSize:CGSizeMake(FLT_MAX, 40) lineBreakMode:NSLineBreakByWordWrapping];
         }
         [thingView addSubview:text];
         
