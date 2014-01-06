@@ -25,6 +25,7 @@
         self.thing = inThing;
         commentHeight = 40;
         commentWidth = 230;
+        commentViewMargins = 8*2 + 10;
     }
     return self;
 }
@@ -51,8 +52,9 @@
     [closeButton setBackgroundImage:[UIImage imageNamed:@"Close.png"] forState:UIControlStateNormal];
     [self.view addSubview:closeButton];
     
+    int imgSize = 270;
     NSString *imgID = self.thing[@"imageID"];
-    self.picView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 60, self.screenFrame.size.width, 300)];
+    self.picView = [[UIImageView alloc] initWithFrame:CGRectMake((self.screenFrame.size.width-imgSize)/2, 60, imgSize, imgSize)];
     [self.view addSubview:self.picView];
     if (![imgID isEqualToString:@""] && imgID != NULL){
         hasImage = YES;
@@ -61,7 +63,11 @@
                 placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     }
     
-    self.text = [[UITextView alloc] initWithFrame:CGRectMake(self.screenFrame.size.width*.05, hasImage ? 370 : 60, self.screenFrame.size.width*.9, 30+30*([self.thing[@"test"] count] % 80))];
+    CGSize textSize = [self.thing[@"text"] sizeWithFont:[UIFont fontWithName:HEADER_FONT size:13] constrainedToSize:CGSizeMake(commentWidth, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    self.text = [[UITextView alloc] initWithFrame:CGRectMake(self.screenFrame.size.width*.05,
+                                                             hasImage ? self.picView.frame.origin.y+self.picView.frame.size.height+10 : 60,
+                                                             self.screenFrame.size.width*.9,
+                                                             textSize.height)];
     self.text.textAlignment = NSTextAlignmentCenter;
     self.text.font = [UIFont fontWithName:HEADER_FONT size:13];
     self.text.editable = NO;
@@ -71,7 +77,24 @@
     [self.text setUserInteractionEnabled:NO];
     [self.view addSubview:self.text];
     
-    CGRect scrollFrame = CGRectMake(25, self.text.frame.origin.y+self.text.frame.size.height+10, self.screenFrame.size.width*.86, hasImage ? 95 : 200);
+    float fieldSizeMul = .9;
+    CGRect newCommentFieldFrame = CGRectMake(self.screenFrame.size.width*((1-fieldSizeMul)/2),
+                                             self.screenFrame.size.height-30,
+                                             self.screenFrame.size.width*fieldSizeMul,
+                                             30);
+    self.commentField = [[UITextField alloc] initWithFrame:newCommentFieldFrame];
+    self.commentField.placeholder = @"Comment...";
+    self.commentField.delegate = self;
+    self.commentField.font = [UIFont fontWithName:HEADER_FONT size:13];
+    self.commentField.returnKeyType = UIReturnKeyGo;
+    self.commentField.borderStyle = UITextBorderStyleRoundedRect;
+    self.commentField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [self.view addSubview:self.commentField];
+    
+    CGRect scrollFrame = CGRectMake(25,
+                                    self.text.frame.origin.y+self.text.frame.size.height+10,
+                                    self.screenFrame.size.width*.86,
+                                    self.commentField.frame.origin.y-10-(self.text.frame.origin.y+self.text.frame.size.height));
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
@@ -81,17 +104,6 @@
     self.tableView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
-    
-    float fieldSizeMul = .9;
-    CGRect newCommentFieldFrame = CGRectMake(self.screenFrame.size.width*((1-fieldSizeMul)/2), self.tableView.frame.origin.y+self.tableView.frame.size.height+10, self.screenFrame.size.width*fieldSizeMul, 30);
-    self.commentField = [[UITextField alloc] initWithFrame:newCommentFieldFrame];
-    self.commentField.placeholder = @"Comment...";
-    self.commentField.delegate = self;
-    self.commentField.font = [UIFont fontWithName:HEADER_FONT size:13];
-    self.commentField.returnKeyType = UIReturnKeyGo;
-    self.commentField.borderStyle = UITextBorderStyleRoundedRect;
-    self.commentField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    [self.view addSubview:self.commentField];
 }
 
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
@@ -137,7 +149,13 @@
     fieldFrame.origin.y = 300;
     self.commentField.frame = fieldFrame;
     fieldFrame = self.tableView.frame;
-    fieldFrame.size.height = commentHeight*[self.commentData[@"data"][@"comments"] count];
+    int totalHeight = 0;
+    for (int i = 0; i < [self.commentData[@"data"][@"comments"] count]; i++) {
+        NSString *text = [self.commentData[@"data"][@"comments"] objectAtIndex:i][@"text"];
+        CGSize size = [text sizeWithFont:[UIFont fontWithName:HEADER_FONT size:13] constrainedToSize:CGSizeMake(commentWidth, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+        totalHeight += size.height + commentViewMargins;
+    }
+    fieldFrame.size.height = MIN(totalHeight, 230);
     fieldFrame.origin.y = 300-10-fieldFrame.size.height;
     self.tableView.frame = fieldFrame;
 }
@@ -167,8 +185,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *text = self.commentData[@"data"][@"comments"][indexPath.row][@"text"];
     CGSize size = [text sizeWithFont:[UIFont fontWithName:HEADER_FONT size:13] constrainedToSize:CGSizeMake(commentWidth, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-    TTLog(@"comment text height: %0.2f", size.height);
-    return size.height + 8*2 + 10;  // top and bottom padding
+    return size.height + commentViewMargins;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
