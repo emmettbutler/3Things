@@ -314,8 +314,8 @@ TTNetManager *instance;
     @synchronized(self){
         if(self = [super init]){
             self.currentAccessToken = nil;
-            rootURL = @"http://localhost:5000";
-            //rootURL = @"http://three-things.herokuapp.com";
+            //rootURL = @"http://localhost:5000";
+            rootURL = @"http://three-things.herokuapp.com";
             self.rootURL = rootURL;
         }
         return self;
