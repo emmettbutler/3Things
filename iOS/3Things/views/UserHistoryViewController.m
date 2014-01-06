@@ -87,7 +87,7 @@
     text.text = [self.user name];
     //[self.view addSubview:text];
     
-    CGRect scrollFrame = CGRectMake(0, frame.size.height+5, frame.size.width, self.screenFrame.size.height-frame.size.height);
+    CGRect scrollFrame = CGRectMake(0, frame.size.height+5, frame.size.width, self.screenFrame.size.height-frame.size.height-22);
     self.tableHeight = @(scrollFrame.size.height);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
@@ -157,7 +157,7 @@
     if (self.feedData == nil) {
         return 2;
     } else {
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
         NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
         NSNumber *thisMonth = sortedKeys[section];
         NSArray *monthDays = self.feedData[thisMonth];
@@ -173,7 +173,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = [[UITableViewHeaderFooterView alloc] init];
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
     NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
     NSNumber *thisMonth = sortedKeys[section];
     
@@ -193,6 +193,7 @@
     bar.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
     [header addSubview:bar];
     header.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
+    header.userInteractionEnabled = NO;
     
     return header;
 }
@@ -214,7 +215,7 @@
     
     if (self.feedData == nil) return cell;
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
     NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
     NSNumber *thisMonth = sortedKeys[indexPath.section];
     NSArray *monthDays = self.feedData[thisMonth];
@@ -324,7 +325,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
     NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
     NSNumber *thisMonth = sortedKeys[indexPath.section];
     NSArray *monthDays = self.feedData[thisMonth];
