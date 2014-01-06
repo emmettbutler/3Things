@@ -8,6 +8,7 @@
 
 #import "ThingDetailViewController.h"
 #import "TTNetManager.h"
+#import "AppDelegate.h"
 #import "UserStore.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -23,6 +24,7 @@
     if (self = [super init]) {
         self.thing = inThing;
         commentHeight = 40;
+        commentWidth = 230;
     }
     return self;
 }
@@ -69,21 +71,23 @@
     [self.text setUserInteractionEnabled:NO];
     [self.view addSubview:self.text];
     
-    CGRect scrollFrame = CGRectMake(0, self.text.frame.origin.y+self.text.frame.size.height+10, self.screenFrame.size.width, hasImage ? 95 : 200);
+    CGRect scrollFrame = CGRectMake(25, self.text.frame.origin.y+self.text.frame.size.height+10, self.screenFrame.size.width*.86, hasImage ? 95 : 200);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.userInteractionEnabled = YES;
     self.tableView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
     
     float fieldSizeMul = .9;
-    CGRect newCommentFieldFrame = CGRectMake(self.screenFrame.size.width*((1-fieldSizeMul)/2), self.tableView.frame.origin.y+self.tableView.frame.size.height+10, self.screenFrame.size.width*fieldSizeMul, 40);
+    CGRect newCommentFieldFrame = CGRectMake(self.screenFrame.size.width*((1-fieldSizeMul)/2), self.tableView.frame.origin.y+self.tableView.frame.size.height+10, self.screenFrame.size.width*fieldSizeMul, 30);
     self.commentField = [[UITextField alloc] initWithFrame:newCommentFieldFrame];
-    self.commentField.placeholder = @"COMMENT...";
+    self.commentField.placeholder = @"Comment...";
     self.commentField.delegate = self;
+    self.commentField.font = [UIFont fontWithName:HEADER_FONT size:13];
     self.commentField.returnKeyType = UIReturnKeyGo;
     self.commentField.borderStyle = UITextBorderStyleRoundedRect;
     self.commentField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -161,7 +165,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return commentHeight;
+    NSString *text = self.commentData[@"data"][@"comments"][indexPath.row][@"text"];
+    CGSize size = [text sizeWithFont:[UIFont fontWithName:HEADER_FONT size:13] constrainedToSize:CGSizeMake(commentWidth, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    TTLog(@"comment text height: %0.2f", size.height);
+    return size.height + 8*2 + 10;  // top and bottom padding
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -175,10 +182,36 @@
     
     if (self.commentData == nil) return cell;
     
-    UITextView *commentText = [[UITextView alloc] initWithFrame:frame];
+    int imgWidth = 32;
+    UITextView *commentText = [[UITextView alloc] initWithFrame:CGRectMake(imgWidth+8, 0, commentWidth, frame.size.height-10)];
     commentText.text = self.commentData[@"data"][@"comments"][indexPath.row][@"text"];
+    CGSize size = [commentText.text sizeWithFont:[UIFont fontWithName:HEADER_FONT size:13] constrainedToSize:CGSizeMake(240, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    commentText.frame = CGRectMake(commentText.frame.origin.x, commentText.frame.origin.y, commentText.frame.size.width, size.height + 8*2);
+    commentText.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     commentText.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+    commentText.font = [UIFont fontWithName:HEADER_FONT size:13];
     [container addSubview:commentText];
+    
+    UIView *profilePicView;
+    CGRect picFrame = CGRectMake(0, 5, imgWidth, imgWidth);
+    NSString *fbid = self.commentData[@"data"][@"comments"][indexPath.row][@"user"][@"fbid"];
+    NSString *profImgID = self.commentData[@"data"][@"comments"][indexPath.row][@"user"][@"_id"];
+    if (fbid != NULL && ![fbid isEqualToString:@""]) {
+        profilePicView = [[FBProfilePictureView alloc] initWithProfileID:fbid pictureCropping:FBProfilePictureCroppingSquare];
+        profilePicView.frame = picFrame;
+    } else {
+        NSURL *url = [NSURL URLWithString:profImgID];
+        profilePicView = [[UIImageView alloc] initWithFrame:picFrame];
+        [(UIImageView *)profilePicView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [TTNetManager sharedInstance].rootURL, [url absoluteString]]]
+                                      placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    }
+    CALayer *imageLayer = profilePicView.layer;
+    [imageLayer setCornerRadius:profilePicView.frame.size.width/2];
+    [imageLayer setMasksToBounds:YES];
+    [cell addSubview:profilePicView];
+    
+    container.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    cell.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     
     cell.backgroundView = container;
     cell.backgroundColor = [UIColor clearColor];

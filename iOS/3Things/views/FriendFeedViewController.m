@@ -57,6 +57,7 @@
     [titleView addSubview:logoView];
     self.navigationItem.titleView = titleView;
     
+    UserStore *userStore = [[UserStore alloc] init];
     [TTNetManager sharedInstance].netDelegate = self;
     [[TTNetManager sharedInstance] getFriendFeedForUser:nil];
     

@@ -325,6 +325,7 @@ class DayCommentsController(Base3ThingsHandler):
     @coroutine
     def _get_comments(self, day_id, index):
         comments = list(self.application.db.comments.find({"day_id": ObjectId(day_id), "index": index}))
+        comments = [dict(comment.items() + {"user": self._user_response(comment['uid'])}.items()) for comment in comments]
         return comments
 
     @coroutine
