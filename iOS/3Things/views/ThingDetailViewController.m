@@ -79,7 +79,7 @@
     
     float fieldSizeMul = .9;
     CGRect newCommentFieldFrame = CGRectMake(self.screenFrame.size.width*((1-fieldSizeMul)/2),
-                                             self.screenFrame.size.height-30,
+                                             self.screenFrame.size.height-20,
                                              self.screenFrame.size.width*fieldSizeMul,
                                              30);
     self.commentField = [[UITextField alloc] initWithFrame:newCommentFieldFrame];
@@ -146,7 +146,7 @@
     self.picView.hidden = YES;
     self.text.hidden = YES;
     CGRect fieldFrame = self.commentField.frame;
-    fieldFrame.origin.y = 300;
+    fieldFrame.origin.y = self.screenFrame.size.height-216-fieldFrame.size.height;
     self.commentField.frame = fieldFrame;
     fieldFrame = self.tableView.frame;
     int totalHeight = 0;
@@ -155,8 +155,8 @@
         CGSize size = [text sizeWithFont:[UIFont fontWithName:HEADER_FONT size:13] constrainedToSize:CGSizeMake(commentWidth, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
         totalHeight += size.height + commentViewMargins;
     }
-    fieldFrame.size.height = MIN(totalHeight, 230);
-    fieldFrame.origin.y = 300-10-fieldFrame.size.height;
+    fieldFrame.size.height = MIN(totalHeight, self.screenFrame.size.height-216-self.commentField.frame.size.height-70);
+    fieldFrame.origin.y = self.screenFrame.size.height-self.commentField.frame.size.height-216-10-fieldFrame.size.height;
     self.tableView.frame = fieldFrame;
 }
 
@@ -171,7 +171,7 @@
     fieldFrame.origin.y = pastCommentsOriginalY;
     fieldFrame.size.height = pastCommentsOriginalHeight;
     self.tableView.frame = fieldFrame;
-    textField.text = @"COMMENT...";
+    textField.text = @"Comment...";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

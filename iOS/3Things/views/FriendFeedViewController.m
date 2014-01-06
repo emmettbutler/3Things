@@ -218,6 +218,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if(self.feedData == nil) return;
      NSMutableDictionary *dayAndUser = self.parsedFeed[indexPath.row];
     [[self navigationController] pushViewController:
      [[My3ThingsViewController alloc] initWithShareDay:dayAndUser[@"day"]
