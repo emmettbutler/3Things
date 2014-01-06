@@ -67,7 +67,7 @@
     self.text = [[UITextView alloc] initWithFrame:CGRectMake(self.screenFrame.size.width*.05,
                                                              hasImage ? self.picView.frame.origin.y+self.picView.frame.size.height+10 : 60,
                                                              self.screenFrame.size.width*.9,
-                                                             textSize.height)];
+                                                             textSize.height+8*2)];
     self.text.textAlignment = NSTextAlignmentCenter;
     self.text.font = [UIFont fontWithName:HEADER_FONT size:13];
     self.text.editable = NO;

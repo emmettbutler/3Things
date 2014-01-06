@@ -228,6 +228,8 @@
     [flagView setImage:[UIImage imageNamed:image]];
     [container addSubview:flagView];
     
+    // TODO - string truncation fixes
+    
     NSString *text = self.shares.theThings[indexPath.row][@"text"];
     if ([text isEqualToString:@""]) {
         text = @"Share something...";
