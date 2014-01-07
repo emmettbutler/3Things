@@ -459,6 +459,7 @@ class UsersController(Base3ThingsHandler):
     @coroutine
     def _user_search(self, query, user_id):
         def user_confirmed(user):
+            # this first part is only for users that were registered before confirmed became a thing
             return 'confirmed' not in user or user['confirmed'] == True
         regex = re.compile(query, re.IGNORECASE)
         cond = {"name": regex} if query else {}
