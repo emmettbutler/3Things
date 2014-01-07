@@ -233,6 +233,9 @@ TTNetManager *instance;
         [request setValue:[NSString stringWithFormat:@"bearer %@", self.currentAccessToken] forHTTPHeaderField:@"Authorization"];
     }
     
+    UIApplication* app = [UIApplication sharedApplication];
+    app.networkActivityIndicatorVisible = YES;
+    
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *error){
          // TODO - this whole delegate idea only works if there is only ever one web request happening at a time
@@ -240,6 +243,7 @@ TTNetManager *instance;
          // To allow more than one at a time, maintain a dictionary of delegates and delegate each request to the
          // appropriate one
          // Or, fix some tiny issues by terminating any current request every time a new one is started
+         app.networkActivityIndicatorVisible = NO;
          [netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
       }
      ];
@@ -303,8 +307,12 @@ TTNetManager *instance;
     NSString *postLength = [NSString stringWithFormat:@"%d", [body length]];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     
+    UIApplication* app = [UIApplication sharedApplication];
+    app.networkActivityIndicatorVisible = YES;
+    
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *error){
+         app.networkActivityIndicatorVisible = NO;
          [self.netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
      }
      ];
