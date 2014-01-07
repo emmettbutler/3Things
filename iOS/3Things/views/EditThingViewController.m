@@ -166,6 +166,7 @@
 
 - (void)nextWasTouched {
     if (self.textIsBlank) return;
+    if (!self.isViewLoaded) return;
     [self registerCurrentThing];
     
     [[self navigationController] pushViewController:
@@ -174,6 +175,7 @@
 }
 
 - (void)saveWasTouched {
+    if (!self.isViewLoaded) return;
     [self registerCurrentThing];
     [self savePartialDay];
     [[self navigationController] pushViewController:
@@ -181,6 +183,7 @@
 }
 
 - (void)shareWasTouched {
+    if (!self.isViewLoaded) return;
     if (self.textIsBlank) return;
     [self registerCurrentThing];
     [self saveDay];
@@ -279,10 +282,6 @@
         TTLog(@"added thing %d with text %@", i, thing.text);
         [item addThingsObject:thing];
     }
-    if (completedThings == 3){
-        [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
     item.date = [dayStore getDateOnly];
     item.time = [NSDate date];
     UserStore *userStore = [[UserStore alloc] init];
@@ -310,8 +309,6 @@
     item.date = [dayStore getDateOnly];
     item.time = [NSDate date];
     item.user = [userStore getAuthenticatedUser];
-    [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     [dayStore saveChanges];
 }
 

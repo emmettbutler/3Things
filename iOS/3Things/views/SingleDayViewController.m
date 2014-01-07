@@ -48,8 +48,12 @@
     if (self) {
         self.isCurrent = [isCurrent boolValue];
         self.isEdited = NO;
-        self.completedThings = @(self.isCurrent ? 0 : 3);
         self.shares = shares;
+        for (int i = 0; i < 3; i++) {
+            if (![self.shares.theThings[i][@"text"] isEqualToString:@""]) {
+                self.completedThings = @([self.completedThings intValue] + 1);
+            }
+        }
         self.user = user;
         if (self.user == nil) {
             TTLog(@"Getting authenticated user");
@@ -231,14 +235,6 @@
     NSString *text = self.shares.theThings[indexPath.row][@"text"];
     if ([text isEqualToString:@""]) {
         text = @"Share something...";
-    } else {
-        self.completedThings = @([self.completedThings intValue] + 1);
-        if([self.completedThings intValue] == 3) {
-            [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
-        } else {
-            [[NSUserDefaults standardUserDefaults] setObject:@(NO) forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
-        }
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(40, 15, frame.size.width*.6, 75)];
     [thingTextView setText:text];
@@ -301,6 +297,7 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (!self.isViewLoaded) return;
     if (((ErrorThrowingViewController *)self.parentViewController).errViewIsShown) return;
     if (self.isCurrent) {
         UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:@(indexPath.row) andShares:self.shares];

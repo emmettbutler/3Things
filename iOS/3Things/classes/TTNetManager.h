@@ -35,7 +35,7 @@
 id <TTNetManagerDelegate> netDelegate;
 
 typedef enum _kStorage {
-    kAccessToken, kDayComplete, kAuthUserID
+    kAccessToken, kAuthUserID
 } kStorage;
 
 @interface TTNetManager : NSObject <NSURLConnectionDelegate>

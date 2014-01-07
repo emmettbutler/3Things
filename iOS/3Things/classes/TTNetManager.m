@@ -26,7 +26,6 @@ TTNetManager *instance;
 {
     self.currentAccessToken = NULL;
     [[NSUserDefaults standardUserDefaults] setObject:NULL forKey:[NSString stringWithFormat:@"%d", kAccessToken]];
-    [[NSUserDefaults standardUserDefaults] setObject:NULL forKey:[NSString stringWithFormat:@"%d", kDayComplete]];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

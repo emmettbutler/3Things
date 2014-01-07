@@ -280,7 +280,7 @@
         text.allowsEditingTextAttributes = NO;
         text.font = [UIFont fontWithName:HEADER_FONT size:11];
         text.editable = NO;
-        int maxWidth = images == 0 ? text.frame.size.width : 140;
+        int maxWidth = images == 0 ? 200 : 140;
         CGSize size = [text.text sizeWithFont:text.font constrainedToSize:CGSizeMake(FLT_MAX, 40) lineBreakMode:NSLineBreakByWordWrapping];
         while (size.width > maxWidth) {
             text.text = [NSString stringWithFormat:@"%@...", [text.text substringToIndex:[text.text length]-4]];
@@ -327,6 +327,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if (!self.isViewLoaded) return;
+    
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
     NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
     NSNumber *thisMonth = sortedKeys[indexPath.section];
@@ -344,11 +346,13 @@
 }
 
 - (void)reviewWasTouched {
+    if (!self.isViewLoaded) return;
     TTLog(@"User history screen got review callback");
     [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:self.user] animated:YES];
 }
 
 - (void)friendsWasTouched {
+    if (!self.isViewLoaded) return;
     TTLog(@"User history screen got friends callback");
     [[self navigationController] pushViewController:[[FriendFeedViewController alloc] init] animated:YES];
 }

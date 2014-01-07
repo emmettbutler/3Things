@@ -70,7 +70,7 @@
     int unameFieldY = 280;
     UITextView *unameText = [[UITextView alloc] initWithFrame:CGRectMake(screenFrame.size.width/2-textFieldWidth/2, unameFieldY-24, 70, 30)];
     unameText.textAlignment = NSTextAlignmentLeft;
-    unameText.text = @"USERNAME";
+    unameText.text = @"EMAIL";
     unameText.font = [UIFont fontWithName:HEADER_FONT size:9];
     unameText.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
     unameText.backgroundColor = self.view.backgroundColor;
@@ -206,12 +206,7 @@
                                   andUserID:uid];
         [self setModalPresentationStyle:UIModalPresentationPageSheet];
         UIViewController *viewController;
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kDayComplete]] boolValue] == YES) {
-            viewController = [[FriendFeedViewController alloc] init];
-        } else {
-            UserStore *userStore = [[UserStore alloc] init];
-            viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]];
-        }
+        viewController = [[FriendFeedViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
         [self presentViewController:navController animated:YES completion:NULL];
     }

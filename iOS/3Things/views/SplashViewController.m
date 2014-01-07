@@ -277,11 +277,7 @@
     if (self.profLocalImageURL != nil && [userStore getAuthenticatedUser] != NULL){
         TTLog(@"Current access token: %@", [[TTNetManager sharedInstance] currentAccessToken]);
         UIViewController *viewController;
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kDayComplete]] boolValue] == YES) {
-            viewController = [[FriendFeedViewController alloc] init];
-        } else {
-            viewController = [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]];
-        }
+        viewController = [[FriendFeedViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
         [self presentViewController:navController animated:YES completion:NULL];
     }

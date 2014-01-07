@@ -22,6 +22,18 @@
 
 @implementation FriendFeedViewController
 
+- (id)init {
+    if(self = [super init]) {
+        [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                              [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR],
+                                                              UITextAttributeTextColor,
+                                                              [UIFont fontWithName:HEADER_FONT size:14.0],
+                                                              UITextAttributeFont,
+                                                              nil] forState:UIControlStateNormal];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -34,12 +46,6 @@
     self.navigationController.navigationBarHidden = NO;
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"LOGOUT" style:UIBarButtonItemStylePlain target:self action:@selector(logoutWasTouched)];
-    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                          [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR],
-                                                          UITextAttributeTextColor,
-                                                          [UIFont fontWithName:HEADER_FONT size:14.0],
-                                                          UITextAttributeFont,
-                                                          nil] forState:UIControlStateNormal];
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
 	CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
@@ -57,7 +63,6 @@
     [titleView addSubview:logoView];
     self.navigationItem.titleView = titleView;
     
-    UserStore *userStore = [[UserStore alloc] init];
     [TTNetManager sharedInstance].netDelegate = self;
     [[TTNetManager sharedInstance] getFriendFeedForUser:nil];
     
@@ -143,6 +148,7 @@
 
 -(void)logoutWasTouched
 {
+    if (!self.isViewLoaded) return;
     [FBSession.activeSession closeAndClearTokenInformation];
     [[TTNetManager sharedInstance] logoutToken];
     [[self navigationController] pushViewController:[[LoginTypePickerViewController alloc] init] animated:YES];
@@ -218,6 +224,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if (!self.isViewLoaded) return;
     if(self.feedData == nil) return;
      NSMutableDictionary *dayAndUser = self.parsedFeed[indexPath.row];
     [[self navigationController] pushViewController:
@@ -228,17 +235,20 @@
 }
 
 -(void) reviewWasTouched {
+    if (!self.isViewLoaded) return;
     UserStore *userStore = [[UserStore alloc] init];
     [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]] animated:YES];
 }
 
 -(void) friendsWasTouched {
+    if (!self.isViewLoaded) return;
     if (inSearch){
         [[self navigationController] pushViewController:[[FriendFeedViewController alloc] init] animated:YES];
     }
 }
 
 -(void) calendarWasTouched {
+    if (!self.isViewLoaded) return;
     [[self navigationController] pushViewController:[[UserHistoryViewController alloc] init] animated:YES];
 }
 
