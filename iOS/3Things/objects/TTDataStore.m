@@ -17,7 +17,7 @@
     
     if (self)
     {
-        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate]; //Get reference to App Delegate
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate]; //Get reference to App Delegate
         context = [appDelegate managedObjectContext]; //Save the pointer to the shared context
         model = [appDelegate managedObjectModel];
     }

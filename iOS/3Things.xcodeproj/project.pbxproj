@@ -23,6 +23,7 @@
 		AA2FFBD21833B26200B9865A /* FriendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2FFBD11833B26200B9865A /* FriendSearchViewController.m */; };
 		AA33AFD2183EC3490004DF3D /* ShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AA33AFD1183EC3490004DF3D /* ShareDay.m */; };
 		AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E13661803579B00D65980 /* BottomNavViewController.m */; };
+		AA5D259E187CA153009A0FF5 /* 3T_Search Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5D259D187CA153009A0FF5 /* 3T_Search Arrow.png */; };
 		AA79308E183C043E006B4213 /* Compose_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA79308C183C043E006B4213 /* Compose_Icon.png */; };
 		AA79308F183C043E006B4213 /* Compose_Icon_depressed.png in Resources */ = {isa = PBXBuildFile; fileRef = AA79308D183C043E006B4213 /* Compose_Icon_depressed.png */; };
 		AA793098183C05E6006B4213 /* Three_Things_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = AA793090183C05E6006B4213 /* Three_Things_logo.png */; };
@@ -96,6 +97,7 @@
 		AA33AFD1183EC3490004DF3D /* ShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDay.m; sourceTree = "<group>"; };
 		AA4E13651803579B00D65980 /* BottomNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomNavViewController.h; sourceTree = "<group>"; };
 		AA4E13661803579B00D65980 /* BottomNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomNavViewController.m; sourceTree = "<group>"; };
+		AA5D259D187CA153009A0FF5 /* 3T_Search Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3T_Search Arrow.png"; sourceTree = "<group>"; };
 		AA79308C183C043E006B4213 /* Compose_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Compose_Icon.png; path = assets/Compose_Icon.png; sourceTree = "<group>"; };
 		AA79308D183C043E006B4213 /* Compose_Icon_depressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Compose_Icon_depressed.png; path = assets/Compose_Icon_depressed.png; sourceTree = "<group>"; };
 		AA793090183C05E6006B4213 /* Three_Things_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Three_Things_logo.png; path = assets/Three_Things_logo.png; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 		AAF28C5617DAA90A0067FD79 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AA5D259D187CA153009A0FF5 /* 3T_Search Arrow.png */,
 				AAF213E6185903EA00E0FC71 /* Cal_Icon_depressed.png */,
 				AAF213E7185903EA00E0FC71 /* Cal_Icon.png */,
 				AA793090183C05E6006B4213 /* Three_Things_logo.png */,
@@ -380,6 +383,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA5D259E187CA153009A0FF5 /* 3T_Search Arrow.png in Resources */,
 				AAF213EB185903F300E0FC71 /* Facebook_logo_white.png in Resources */,
 				AA79309E183C05E6006B4213 /* Close.png in Resources */,
 				AA79308F183C043E006B4213 /* Compose_Icon_depressed.png in Resources */,

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "TTNetManager.h"
 
-
 @protocol FriendFeedViewControllerDelegate;
 
 @class FriendSearchViewController;
@@ -20,7 +19,10 @@
 
 id <FriendSearchViewControllerDelegate> searchDelegate;
 
-@interface FriendSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TTNetManagerDelegate, FriendFeedViewControllerDelegate>
+@interface FriendSearchViewController : UIViewController <UITableViewDataSource,
+                                                          UITableViewDelegate,
+                                                          TTNetManagerDelegate,
+                                                          FriendFeedViewControllerDelegate>
 {
     int lastSearchTime;
 }

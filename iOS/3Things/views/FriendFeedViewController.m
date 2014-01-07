@@ -58,13 +58,16 @@
     frame.size = CGSizeMake(screenFrame.size.width, 60);
     
     UIView *titleView = [[UIView alloc] init];
-    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -20, 120, 40)];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-55, -20, 105, 35)];
     [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
+    UIImageView *arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(-16, 7, 31, 11)];
+    [arrowView setImage:[UIImage imageNamed:@"3T_Search Arrow.png"]];
+    [titleView addSubview:arrowView];
     [titleView addSubview:logoView];
     self.navigationItem.titleView = titleView;
     
     [TTNetManager sharedInstance].netDelegate = self;
-    [[TTNetManager sharedInstance] getFriendFeedForUser:nil];
+    [[TTNetManager sharedInstance] getFriendFeed];
     
     int searchBoxHeight = 50;
     CGRect scrollFrame = CGRectMake(11, 0, frame.size.width*.9, screenFrame.size.height-35);
