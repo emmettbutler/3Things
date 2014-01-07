@@ -183,6 +183,7 @@ class RegistrationHandler(Base3ThingsHandler):
             'email': identifier,
             'name': fname,
             'password': encrypted,
+            'confirmed': False,
             'friends': []})
         raise Return(True)
 
@@ -246,9 +247,10 @@ class LoginHandler(Base3ThingsHandler):
                 )
 
                 user = dict(user.items() + {'profileImageID': image}.items())
-                self.application.db.users.update(
-                    {'email': email}, user
-                )
+            user = dict(user.items() + {'confirmed': True}.items())
+            self.application.db.users.update(
+                {'email': email}, user
+            )
             raise Return(user)
         except StopIteration:
             raise Return(None)
@@ -456,13 +458,15 @@ class UsersController(Base3ThingsHandler):
 
     @coroutine
     def _user_search(self, query, user_id):
+        def user_confirmed(user):
+            return 'confirmed' not in user or user['confirmed'] == True
         regex = re.compile(query, re.IGNORECASE)
         cond = {"name": regex} if query else {}
         users = list(self.application.db.users.find(cond).limit(20))
         thisuser = list(self.application.db.users.find({"_id": ObjectId(user_id)}))[0]
         ret = []
         for user in users:
-            if user['_id'] not in thisuser['friends']:
+            if user_confirmed(user) and user['_id'] not in thisuser['friends']:
                 ret.append({
                     'name': user['name'],
                     '_id': user['_id'],
