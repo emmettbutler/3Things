@@ -30,10 +30,11 @@
     [super viewDidLoad];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
+    self.screenFrame = screenRect;
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.view.layer.cornerRadius = BUTTON_CORNER_RADIUS;
-    float width = 240, height = 140;
+    float width = 240, height = 160;
     self.frame = CGRectMake((screenRect.size.width/2)-width/2, (screenRect.size.height/2)-height/2, width, height);
     
     smoke = [[UIView alloc] initWithFrame:screenRect];
@@ -45,7 +46,7 @@
                action:@selector(confirmWasTouched)
      forControlEvents:UIControlEventTouchDown];
     [button setTitle:@"CHOOSE PROFILE PHOTO" forState:UIControlStateNormal];
-    button.frame = CGRectMake(0, screenRect.size.height/6, self.frame.size.width, 40.0);
+    button.frame = CGRectMake(0, 80, self.frame.size.width, 30.0);
     button.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:button];
@@ -82,26 +83,38 @@
     [(SplashViewController*)self.parentViewController continueWasTouched];
 }
 
+- (void)removeSmoke {
+    [self.view removeFromSuperview];
+    [self.parentViewController.view addSubview:self.view];
+}
+
 - (void)confirmWasTouched {
     if (![self codeIsValid]) {
         TTLog(@"Invalid signup code");
         return;
     }
     [self.view endEditing:YES];
-    PhotoPromptViewController *promptViewController = [[PhotoPromptViewController alloc] init];
-    promptViewController.promptDelegate = (SplashViewController*)self.parentViewController;
-    [self.parentViewController addChildViewController:promptViewController];
-    [self.parentViewController.view addSubview:promptViewController.view];
-    promptViewController.view.frame = CGRectMake(0, self.frame.size.height+180, self.frame.size.width+20, 200);
-    [promptViewController didMoveToParentViewController:self];
+    
+    [smoke removeFromSuperview];
+    [self.parentViewController.view addSubview:smoke];
     
     UIButton *button2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button2 addTarget:self
                 action:@selector(continueWasTouched)
       forControlEvents:UIControlEventTouchDown];
-    [button2 setTitle:@"Continue" forState:UIControlStateNormal];
-    button2.frame = CGRectMake(50, self.frame.size.height/6+100, 160.0, 40.0);
+    [button2 setTitle:@"CONTINUE" forState:UIControlStateNormal];
+    button2.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
+    button2.titleLabel.textAlignment = NSTextAlignmentCenter;
+    button2.frame = CGRectMake(0, 110, self.frame.size.width, 30.0);
     [self.view addSubview:button2];
+    [button2 setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
+    
+    PhotoPromptViewController *promptViewController = [[PhotoPromptViewController alloc] init];
+    promptViewController.promptDelegate = (SplashViewController*)self.parentViewController;
+    [self.parentViewController addChildViewController:promptViewController];
+    [self.parentViewController.view addSubview:promptViewController.view];
+    promptViewController.view.frame = CGRectMake(0, self.screenFrame.size.height-200, self.screenFrame.size.width, 200);
+    [promptViewController didMoveToParentViewController:self];
 }
 
 - (BOOL)codeIsValid {

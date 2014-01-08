@@ -80,6 +80,7 @@
 
 - (void)cancelWasTouched
 {
+    [self.promptDelegate cancelWasTouched];
     [self willMoveToParentViewController:nil];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];

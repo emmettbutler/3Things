@@ -263,10 +263,10 @@
     }
 }
 
-- (void)photoWasSelected:(UIImage *)selectedImage {
-}
+- (void)photoWasSelected:(UIImage *)selectedImage {}
 - (void)photoWasSaved:(NSURL *)savedPhotoURL {
     TTLog(@"got image url: %@", savedPhotoURL);
+    [signupCodeController removeSmoke];
     self.profLocalImageURL = [savedPhotoURL absoluteString];
     [TTNetManager sharedInstance].netDelegate = self;
     [[TTNetManager sharedInstance] loginUser:self.userEmail withPassword:self.userPassword andImage:self.profLocalImageURL];
@@ -302,6 +302,10 @@
 -(void)backWasTouched
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:^(void){}];
+}
+
+-(void)cancelWasTouched {
+    [self backWasTouched];
 }
 
 - (BOOL) passwordsMatch {

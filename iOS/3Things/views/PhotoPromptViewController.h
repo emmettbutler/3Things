@@ -13,6 +13,7 @@
 @optional
 - (void) photoWasSelected:(UIImage *)selectedImage;
 - (void) photoWasSaved:(NSURL *)savedPhotoURL;
+- (void) cancelWasTouched;
 @end
 
 id <PhotoPromptViewControllerDelegate> promptDelegate;

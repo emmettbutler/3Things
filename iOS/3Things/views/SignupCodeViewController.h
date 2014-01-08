@@ -18,8 +18,10 @@
 
 - (BOOL)codeIsValid;
 - (id)initWithConfirmationCode:(NSString *)confCode;
+-(void)removeSmoke;
 
 @property (nonatomic) CGRect frame;
 @property (nonatomic) BOOL photoPromptIsHidden;
+@property (nonatomic) CGRect screenFrame;
 
 @end
