@@ -214,7 +214,7 @@
     [container addSubview:commentText];
     
     UIView *profilePicView;
-    CGRect picFrame = CGRectMake(0, 5, imgWidth, imgWidth);
+    CGRect picFrame = CGRectMake(0, 0, imgWidth, imgWidth);
     NSString *fbid = self.commentData[@"data"][@"comments"][indexPath.row][@"user"][@"fbid"];
     NSString *profImgID = self.commentData[@"data"][@"comments"][indexPath.row][@"user"][@"_id"];
     if (fbid != NULL && ![fbid isEqualToString:@""]) {

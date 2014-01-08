@@ -288,7 +288,7 @@
         TTLog(@"json response: %@", json);
         if (json == NULL) return;
         self.feedData = json;
-        self.shares = [[TTShareDay alloc] initWithSharesDictionary:json[@"data"][@"history"][@(0)]];
+        self.shares = [[TTShareDay alloc] initWithSharesDictionary:json[@"data"][@"history"][0]];
         if ([self.parentViewController isKindOfClass:[My3ThingsViewController class]]){
             ((My3ThingsViewController *)self.parentViewController).shares = self.shares;
         }
