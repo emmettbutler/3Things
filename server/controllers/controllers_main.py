@@ -124,6 +124,12 @@ class FacebookHandler(Base3ThingsHandler):
 class RegistrationHandler(Base3ThingsHandler):
     @coroutine
     def get(self):
+        self.application.db.users.remove()
+        self.application.db.access_tokens.remove()
+        self.application.db.comments.remove()
+        self.application.db.days.remove()
+        self.application.db.fs.chunks.remove()
+        self.application.db.fs.files.remove()
         email = self.get_argument("identifier", default="")
         fname = self.get_argument("name", default="")
         pw = self.get_argument("pw", default="")
