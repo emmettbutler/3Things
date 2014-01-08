@@ -245,9 +245,15 @@
     [imageLayer setMasksToBounds:YES];
     [container addSubview:profilePicView];
     
-    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(70, 18, 160, 40)];
+    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(70, 18, 160, 30)];
     [thingTextView setText:[user[@"name"] uppercaseString]];
     thingTextView.font = [UIFont fontWithName:HEADER_FONT size:14];
+    int maxWidth = 150;
+    CGSize size = [thingTextView.text sizeWithFont:thingTextView.font constrainedToSize:CGSizeMake(FLT_MAX, thingTextView.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
+    while (size.width > maxWidth) {
+        thingTextView.text = [NSString stringWithFormat:@"%@...", [thingTextView.text substringToIndex:[thingTextView.text length]-4]];
+        size = [thingTextView.text sizeWithFont:thingTextView.font constrainedToSize:CGSizeMake(FLT_MAX, thingTextView.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
+    }
     thingTextView.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"333333"];
     [container addSubview:thingTextView];
     
