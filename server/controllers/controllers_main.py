@@ -105,6 +105,7 @@ class FacebookHandler(Base3ThingsHandler):
         self.application.db.users.insert({
             'fbid': identifier,
             'name': name,
+            'confirmed': True,
             'friends': []})
         raise Return(True)
 
