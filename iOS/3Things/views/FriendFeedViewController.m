@@ -240,19 +240,31 @@
 -(void) reviewWasTouched {
     if (!self.isViewLoaded) return;
     UserStore *userStore = [[UserStore alloc] init];
-    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]] animated:YES];
+    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
+    [viewControllers removeLastObject];
+    [viewControllers addObject:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]]];
+    [[self navigationController] setViewControllers:viewControllers animated:YES];
+    //[[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]] animated:YES];
 }
 
 -(void) friendsWasTouched {
     if (!self.isViewLoaded) return;
     if (inSearch){
-        [[self navigationController] pushViewController:[[FriendFeedViewController alloc] init] animated:YES];
+        NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
+        [viewControllers removeLastObject];
+        [viewControllers addObject:[[FriendFeedViewController alloc] init]];
+        [[self navigationController] setViewControllers:viewControllers animated:YES];
+        //[[self navigationController] pushViewController:[[FriendFeedViewController alloc] init] animated:YES];
     }
 }
 
 -(void) calendarWasTouched {
     if (!self.isViewLoaded) return;
-    [[self navigationController] pushViewController:[[UserHistoryViewController alloc] init] animated:YES];
+    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
+    [viewControllers removeLastObject];
+    [viewControllers addObject:[[UserHistoryViewController alloc] init]];
+    [[self navigationController] setViewControllers:viewControllers animated:YES];
+    //[[self navigationController] pushViewController:[[UserHistoryViewController alloc] init] animated:YES];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -298,6 +310,12 @@
 
 -(void)tableTouchesEnded:(NSSet *)touches
 {
+}
+
+-(void) didReceiveMemoryWarning {
+    NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
+    [viewControllers addObject:self];
+    [[self navigationController] setViewControllers:viewControllers animated:YES];
 }
 
 @end
