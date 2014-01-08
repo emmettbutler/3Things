@@ -240,18 +240,21 @@
 -(void) reviewWasTouched {
     if (!self.isViewLoaded) return;
     UserStore *userStore = [[UserStore alloc] init];
+    [[self navigationController] popViewControllerAnimated:NO];
     [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]] animated:YES];
 }
 
 -(void) friendsWasTouched {
     if (!self.isViewLoaded) return;
     if (inSearch){
+        [[self navigationController] popViewControllerAnimated:NO];
         [[self navigationController] pushViewController:[[FriendFeedViewController alloc] init] animated:YES];
     }
 }
 
 -(void) calendarWasTouched {
     if (!self.isViewLoaded) return;
+    [[self navigationController] popViewControllerAnimated:NO];
     [[self navigationController] pushViewController:[[UserHistoryViewController alloc] init] animated:YES];
 }
 

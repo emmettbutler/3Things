@@ -348,12 +348,14 @@
 - (void)reviewWasTouched {
     if (!self.isViewLoaded) return;
     TTLog(@"User history screen got review callback");
+    [[self navigationController] popViewControllerAnimated:NO];
     [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:self.user] animated:YES];
 }
 
 - (void)friendsWasTouched {
     if (!self.isViewLoaded) return;
     TTLog(@"User history screen got friends callback");
+    [[self navigationController] popViewControllerAnimated:NO];
     [[self navigationController] pushViewController:[[FriendFeedViewController alloc] init] animated:YES];
 }
 
