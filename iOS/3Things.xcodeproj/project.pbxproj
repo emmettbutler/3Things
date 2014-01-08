@@ -52,6 +52,9 @@
 		AABB2F111800A43600EEA446 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABB2F101800A43600EEA446 /* CoreData.framework */; };
 		AABB2F141800ADA000EEA446 /* 3Things.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AABB2F121800ADA000EEA446 /* 3Things.xcdatamodeld */; };
 		AABB2F1D1800B0F600EEA446 /* ShareDayStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2F1C1800B0F600EEA446 /* ShareDayStore.m */; };
+		AAE33B2B187E05BF0009CB25 /* icon_retina.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE33B2A187E05BF0009CB25 /* icon_retina.png */; };
+		AAE33B2E187E061F0009CB25 /* icon_old_retina.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE33B2C187E061F0009CB25 /* icon_old_retina.png */; };
+		AAE33B2F187E061F0009CB25 /* icon_nonretina.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE33B2D187E061F0009CB25 /* icon_nonretina.png */; };
 		AAF213E8185903EA00E0FC71 /* Cal_Icon_depressed.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF213E6185903EA00E0FC71 /* Cal_Icon_depressed.png */; };
 		AAF213E9185903EA00E0FC71 /* Cal_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF213E7185903EA00E0FC71 /* Cal_Icon.png */; };
 		AAF213EB185903F300E0FC71 /* Facebook_logo_white.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF213EA185903F300E0FC71 /* Facebook_logo_white.png */; };
@@ -140,6 +143,9 @@
 		AABB2F131800ADA000EEA446 /* 3Things.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 3Things.xcdatamodel; sourceTree = "<group>"; };
 		AABB2F1B1800B0F600EEA446 /* ShareDayStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDayStore.h; sourceTree = "<group>"; };
 		AABB2F1C1800B0F600EEA446 /* ShareDayStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDayStore.m; sourceTree = "<group>"; };
+		AAE33B2A187E05BF0009CB25 /* icon_retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_retina.png; path = assets/icon_retina.png; sourceTree = "<group>"; };
+		AAE33B2C187E061F0009CB25 /* icon_old_retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_old_retina.png; path = assets/icon_old_retina.png; sourceTree = "<group>"; };
+		AAE33B2D187E061F0009CB25 /* icon_nonretina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_nonretina.png; path = assets/icon_nonretina.png; sourceTree = "<group>"; };
 		AAF213E6185903EA00E0FC71 /* Cal_Icon_depressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cal_Icon_depressed.png; path = "../../../../../../Dropbox/3Things/Design Assests/Cal_Icon/Cal_Icon_depressed.png"; sourceTree = "<group>"; };
 		AAF213E7185903EA00E0FC71 /* Cal_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cal_Icon.png; path = "../../../../../../Dropbox/3Things/Design Assests/Cal_Icon/Cal_Icon.png"; sourceTree = "<group>"; };
 		AAF213EA185903F300E0FC71 /* Facebook_logo_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Facebook_logo_white.png; path = "../../../../../../Dropbox/3Things/Design Assests/Facebook Logo/Facebook_logo_white.png"; sourceTree = "<group>"; };
@@ -306,6 +312,9 @@
 		AAF28C5617DAA90A0067FD79 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AAE33B2C187E061F0009CB25 /* icon_old_retina.png */,
+				AAE33B2D187E061F0009CB25 /* icon_nonretina.png */,
+				AAE33B2A187E05BF0009CB25 /* icon_retina.png */,
 				AA5D259D187CA153009A0FF5 /* 3T_Search Arrow.png */,
 				AAF213E6185903EA00E0FC71 /* Cal_Icon_depressed.png */,
 				AAF213E7185903EA00E0FC71 /* Cal_Icon.png */,
@@ -384,18 +393,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA5D259E187CA153009A0FF5 /* 3T_Search Arrow.png in Resources */,
+				AAE33B2F187E061F0009CB25 /* icon_nonretina.png in Resources */,
 				AAF213EB185903F300E0FC71 /* Facebook_logo_white.png in Resources */,
 				AA79309E183C05E6006B4213 /* Close.png in Resources */,
 				AA79308F183C043E006B4213 /* Compose_Icon_depressed.png in Resources */,
 				AA79309A183C05E6006B4213 /* Friends_bottom_Menu_depressed.png in Resources */,
 				AAF28C5A17DAA90A0067FD79 /* InfoPlist.strings in Resources */,
 				AA79308E183C043E006B4213 /* Compose_Icon.png in Resources */,
+				AAE33B2E187E061F0009CB25 /* icon_old_retina.png in Resources */,
 				AAF28C6217DAA90A0067FD79 /* Default.png in Resources */,
 				AA793098183C05E6006B4213 /* Three_Things_logo.png in Resources */,
 				AAF213E9185903EA00E0FC71 /* Cal_Icon.png in Resources */,
 				AA79309F183C05E6006B4213 /* Camera.png in Resources */,
 				AA793099183C05E6006B4213 /* Friends_bottom_Menu.png in Resources */,
 				AAF28C6417DAA90A0067FD79 /* Default@2x.png in Resources */,
+				AAE33B2B187E05BF0009CB25 /* icon_retina.png in Resources */,
 				AA79309C183C05E6006B4213 /* Flag_2.png in Resources */,
 				AA09109F1801CC2D00F9D8B8 /* placeholder.png in Resources */,
 				AAF28C6617DAA90A0067FD79 /* Default-568h@2x.png in Resources */,

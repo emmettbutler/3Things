@@ -8,6 +8,18 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>icon_nonretina</string>
+				<string>icon_old_retina</string>
+				<string>icon_retina</string>
+			</array>
+		</dict>
+	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>com.3things.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -20,18 +32,6 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
-	<key>FacebookAppID</key>
-	<string>245901608911206</string>
-	<key>FacebookDisplayName</key>
-	<string>Three Things</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -40,6 +40,18 @@
 				<string>fb245901608911206</string>
 			</array>
 		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>FacebookAppID</key>
+	<string>245901608911206</string>
+	<key>FacebookDisplayName</key>
+	<string>Three Things</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
