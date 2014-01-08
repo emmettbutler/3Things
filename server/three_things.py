@@ -25,8 +25,8 @@ def get_app():
         (r"/images/([^\/]+)", controllers_main.ImagesController)
     ])
     MONGO_URL = os.environ.get('MONGOHQ_URL')
-    print "MONGO URL: %s" % MONGO_URL
     if MONGO_URL:
+        MONGO_URL = "mongodb://heroku:dataz!@paulo.mongohq.com:10084/app19646012"
         print "trying to connect..."
         application.dbclient = MongoClient(MONGO_URL)
         print "connected"
