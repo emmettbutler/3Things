@@ -95,7 +95,7 @@
         if ([dayStore getToday] == NULL) {
             UserStore *userStore = [[UserStore alloc] init];
             [TTNetManager sharedInstance].netDelegate = self;
-            [[TTNetManager sharedInstance] getTodayForUser:[userStore getAuthenticatedUser]];
+            //[[TTNetManager sharedInstance] getTodayForUser:[userStore getAuthenticatedUser]];
         }
     }
     
