@@ -156,7 +156,7 @@
 }
 
 - (void)cancelWasTouched {
-    [[self navigationController] popViewControllerAnimated:YES];
+    //[[self navigationController] popViewControllerAnimated:YES];
 }
 
 -(void)removeImageWasTouched {
