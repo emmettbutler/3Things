@@ -185,8 +185,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.feedData == nil){
-        return 2;
+    if (self.feedData == nil || [self.feedData[@"data"][@"history"] count] == 0){
+        return 1;
     } else {
         return [self.feedData[@"data"][@"history"] count];
     }
@@ -205,16 +205,27 @@
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     
-    if (self.feedData == nil) return cell;
-    
-    NSMutableDictionary *dayAndUser = self.parsedFeed[indexPath.row];
-    SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:dayAndUser[@"day"] andIsCurrent:@(NO) andUser:dayAndUser[@"user"]];
-    [self addChildViewController:dayView];
-    [container addSubview:dayView.view];
-    dayView.view.frame = CGRectMake(0, 0, dayView.frame.size.width, frame.size.height);
-    [dayView didMoveToParentViewController:self];
-    
-    [container addSubview:dayView.view];
+    if (self.feedData == nil || [self.feedData[@"data"][@"history"] count] == 0) {
+        UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, frame.size.width, 100)];
+        emptyView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
+        UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 100)];
+        text.text = @"THERE ARE NO POSTS TO DISPLAY\nTOUCH BELOW TO POST";
+        [emptyView addSubview:text];
+        text.textAlignment = NSTextAlignmentCenter;
+        text.font = [UIFont fontWithName:HEADER_FONT size:14];
+        text.backgroundColor = emptyView.backgroundColor;
+        text.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+        [container addSubview:emptyView];
+    } else {
+        NSMutableDictionary *dayAndUser = self.parsedFeed[indexPath.row];
+        SingleDayViewController *dayView = [[SingleDayViewController alloc] initWithShareDay:dayAndUser[@"day"] andIsCurrent:@(NO) andUser:dayAndUser[@"user"]];
+        [self addChildViewController:dayView];
+        [container addSubview:dayView.view];
+        dayView.view.frame = CGRectMake(0, 0, dayView.frame.size.width, frame.size.height);
+        [dayView didMoveToParentViewController:self];
+        
+        [container addSubview:dayView.view];
+    }
     
     container.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     
