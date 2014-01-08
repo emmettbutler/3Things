@@ -175,7 +175,7 @@ class RegistrationHandler(Base3ThingsHandler):
 
     @coroutine
     def _register_user(self, identifier, fname, pw, callback=None):
-        existing_users = self.application.db.users.find({'email': identifier})
+        existing_users = self.application.db.users.find({'email': identifier, 'confirmed': True})
         if existing_users.count() != 0:
             raise Return(False)
         encrypted = self._set_password(pw)
