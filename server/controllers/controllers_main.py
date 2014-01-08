@@ -445,11 +445,15 @@ class UserDaysController(Base3ThingsHandler):
             thing['imageID'] = images[i]
 
         record = {'user': self.cur_user['_id'], 'date': date_only}
-        self.application.db.days.remove(record)
-        record['time'] = date
+        existing_day = list(self.application.db.days.find(record))
 
-        record = dict(record.items() + sent_day.items())
-        days = self.application.db.days.insert(record)
+        if len(existing_day) > 0:
+            update_fields = dict({'time': date}.items() + sent_day.items())
+            days = self.application.db.days.update(record, dict(update_fields.items() + record.items()))
+        else:
+            record['time'] = date
+            record = dict(record.items() + sent_day.items())
+            days = self.application.db.days.insert(record)
         raise Return(days)
 
 
