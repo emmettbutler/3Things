@@ -31,21 +31,41 @@
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
-    self.view.backgroundColor = [UIColor colorWithRed:.3 green:.3 blue:.3 alpha:1];
-    self.frame = CGRectMake((screenRect.size.width/2)-150, (screenRect.size.height/2)-100, 300, 200);
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    float width = 240, height = 140;
+    self.frame = CGRectMake((screenRect.size.width/2)-width/2, (screenRect.size.height/2)-height/2, width, height);
+    
+    smoke = [[UIView alloc] initWithFrame:screenRect];
+    smoke.backgroundColor = [UIColor colorWithWhite:0 alpha:.7];
+    [self.parentViewController.view addSubview:smoke];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button addTarget:self
                action:@selector(confirmWasTouched)
      forControlEvents:UIControlEventTouchDown];
-    [button setTitle:@"Choose profile photo" forState:UIControlStateNormal];
-    button.frame = CGRectMake(50, screenRect.size.height/6, 160.0, 40.0);
+    [button setTitle:@"CHOOSE PROFILE PHOTO" forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, screenRect.size.height/6, self.frame.size.width, 40.0);
+    button.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
+    button.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:button];
+    [button setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
     
-    CGRect codeFieldFrame = CGRectMake(50.0f, screenRect.size.height/6-50, 160.0f, 31.0f);
+    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, self.frame.size.width, 60)];
+    text.textAlignment = NSTextAlignmentCenter;
+    text.text = @"ENTER YOUR CONFIRMATION CODE";
+    text.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    text.font = [UIFont fontWithName:HEADER_FONT size:12];
+    text.backgroundColor = self.view.backgroundColor;
+    text.editable = NO;
+    [self.view addSubview:text];
+    
+    float fieldWidth = 160;
+    CGRect codeFieldFrame = CGRectMake(self.frame.size.width/2-fieldWidth/2, screenRect.size.height/6-50, fieldWidth, 31.0f);
     codeField = [[UITextField alloc] initWithFrame:codeFieldFrame];
     codeField.placeholder = @"######";
     codeField.delegate = self;
+    codeField.font = [UIFont fontWithName:HEADER_FONT size:12];
     codeField.returnKeyType = UIReturnKeyGo;
     codeField.autocorrectionType = UITextAutocorrectionTypeNo;
     codeField.borderStyle = UITextBorderStyleRoundedRect;

@@ -201,6 +201,8 @@
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     if (self.commentData == nil) return cell;
     
     int imgWidth = 32;

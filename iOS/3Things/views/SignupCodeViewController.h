@@ -12,6 +12,7 @@
 @interface SignupCodeViewController : UIViewController <PhotoPromptViewControllerDelegate, UITextFieldDelegate>
 {
     UITextField *codeField;
+    UIView *smoke;
     NSString *confirmationCode;
 }
 

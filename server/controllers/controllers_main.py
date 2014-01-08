@@ -178,6 +178,11 @@ class RegistrationHandler(Base3ThingsHandler):
         existing_users = self.application.db.users.find({'email': identifier, 'confirmed': True})
         if existing_users.count() != 0:
             raise Return(False)
+        for user in list(existing_users):
+            # if we're deleting confirmed users here, that's a big problem
+            assert user['confirmed'] is False
+        # remove all existing users that share this identifer (they should all be unconfirmed)
+        self.application.db.users.remove({'email': identifier})
         encrypted = self._set_password(pw)
         self.application.db.users.insert({
             'email': identifier,
