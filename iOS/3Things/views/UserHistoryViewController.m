@@ -367,11 +367,11 @@
 - (void)reviewWasTouched {
     if (!self.isViewLoaded) return;
     TTLog(@"User history screen got review callback");
-    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
+    /*NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
     [viewControllers removeLastObject];
     [viewControllers addObject:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:self.user]];
-    [[self navigationController] setViewControllers:viewControllers animated:YES];
-    //[[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:self.user] animated:YES];
+    [[self navigationController] setViewControllers:viewControllers animated:YES];*/
+    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:self.user] animated:YES];
 }
 
 - (void)friendsWasTouched {

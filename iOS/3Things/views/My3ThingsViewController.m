@@ -94,7 +94,6 @@
 	[navBar setFrame:frame];
 	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 	[navBar setItems:@[self.navigationItem]];
-    self.navigationItem.hidesBackButton = YES;
 	[self.view addSubview:navBar];
     
 	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
@@ -138,11 +137,10 @@
         shareButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
         [self.view addSubview:shareButton];
         [shareButton setTitleColor:[UIColor colorWithWhite:1 alpha:1] forState:UIControlStateNormal];
-    } else {
-        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
-        [[self navigationItem] setLeftBarButtonItem:button];
-        [[UIBarButtonItem appearance] setTintColor:[[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR]];
     }
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backWasTouched)];
+    [[self navigationItem] setLeftBarButtonItem:button];
+    [[UIBarButtonItem appearance] setTintColor:[[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR]];
 }
 
 - (void)backWasTouched {

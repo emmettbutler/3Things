@@ -251,11 +251,11 @@
 -(void) reviewWasTouched {
     if (!self.isViewLoaded) return;
     UserStore *userStore = [[UserStore alloc] init];
-    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
+    /*NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
     [viewControllers removeLastObject];
     [viewControllers addObject:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]]];
-    [[self navigationController] setViewControllers:viewControllers animated:YES];
-    //[[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]] animated:YES];
+    [[self navigationController] setViewControllers:viewControllers animated:YES];*/
+    [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]] animated:YES];
 }
 
 -(void) friendsWasTouched {
