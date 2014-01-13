@@ -76,6 +76,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.userInteractionEnabled = YES;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
