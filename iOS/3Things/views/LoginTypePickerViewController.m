@@ -209,6 +209,17 @@
         viewController = [[FriendFeedViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
         [self presentViewController:navController animated:YES completion:NULL];
+    } else if ([((NSHTTPURLResponse *)res) statusCode] == 403) {
+        if (!self.errViewIsShown) {
+            TTLog(@"Error: Incorrect login info");
+            self.errViewIsShown = YES;
+            ErrorPromptViewController *errViewController = [[ErrorPromptViewController alloc] initWithPromptText:@"EMAIL OR PASSWORD IS INCORRECT"];
+            [self addChildViewController:errViewController];
+            [self.view addSubview:errViewController.view];
+            errViewController.errDelegate = self;
+            errViewController.view.frame = errViewController.frame;
+            [errViewController didMoveToParentViewController:self];
+        }
     }
 }
 
