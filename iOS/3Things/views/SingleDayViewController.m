@@ -130,19 +130,22 @@
     
     UIView *topBarView = [[UIView alloc] initWithFrame:CGRectMake(10, 15, headFrame.size.width, 30)];
     topBarView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
-    UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(10, 3, 80, 30)];
+    UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(0, 3, 80, 30)];
     dayOfWeekView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
     [dateFormatter setDateFormat:@"EEEE"];
     NSString *dayOfWeek = [dateFormatter stringFromDate:self.shares.time];
     dayOfWeekView.text = [dayOfWeek uppercaseString];
+    dayOfWeekView.textAlignment = NSTextAlignmentLeft;
+    dayOfWeekView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     dayOfWeekView.font = [UIFont fontWithName:HEADER_FONT size:THING_TEXT_SIZE-2];
     dayOfWeekView.textColor = [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR];
     [topBarView addSubview:dayOfWeekView];
     UITextView *dayOfMonthView = [[UITextView alloc] initWithFrame:CGRectMake(175, 3, 100, 30)];
     dayOfMonthView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     dayOfMonthView.font = [UIFont fontWithName:HEADER_FONT size:THING_TEXT_SIZE-2];
+    dayOfMonthView.textAlignment = NSTextAlignmentRight;
     dayOfMonthView.textColor = [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR];
     [dateFormatter setDateFormat:@"MMMM dd"];
     NSString *dayOfMonth = [dateFormatter stringFromDate:self.shares.time];
