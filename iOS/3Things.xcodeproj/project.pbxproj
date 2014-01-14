@@ -22,6 +22,8 @@
 		AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */; };
 		AA2FFBD21833B26200B9865A /* FriendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2FFBD11833B26200B9865A /* FriendSearchViewController.m */; };
 		AA33AFD2183EC3490004DF3D /* ShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AA33AFD1183EC3490004DF3D /* ShareDay.m */; };
+		AA42DB7318855D3200EA244C /* TTTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA42DB7218855D3200EA244C /* TTTableView.m */; };
+		AA42DB7618855E9D00EA244C /* TTCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA42DB7518855E9D00EA244C /* TTCollectionView.m */; };
 		AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E13661803579B00D65980 /* BottomNavViewController.m */; };
 		AA5D259E187CA153009A0FF5 /* 3T_Search Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5D259D187CA153009A0FF5 /* 3T_Search Arrow.png */; };
 		AA79308E183C043E006B4213 /* Compose_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA79308C183C043E006B4213 /* Compose_Icon.png */; };
@@ -35,7 +37,7 @@
 		AA79309E183C05E6006B4213 /* Close.png in Resources */ = {isa = PBXBuildFile; fileRef = AA793096183C05E6006B4213 /* Close.png */; };
 		AA79309F183C05E6006B4213 /* Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = AA793097183C05E6006B4213 /* Camera.png */; };
 		AA7930A2183C07B0006B4213 /* TTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7930A1183C07B0006B4213 /* TTButton.m */; };
-		AA7930A5183C55AC006B4213 /* TTTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7930A4183C55AC006B4213 /* TTTableView.m */; };
+		AA7930A5183C55AC006B4213 /* TTView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7930A4183C55AC006B4213 /* TTView.m */; };
 		AA7E5503183188F500D7DE8C /* SingleDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7E5502183188F500D7DE8C /* SingleDayViewController.m */; };
 		AA98E1C4182851E80045F827 /* TTNetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA98E1C3182851E80045F827 /* TTNetManager.m */; };
 		AA9A8535180331D00071FD38 /* ThingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9A8534180331D00071FD38 /* ThingDetailViewController.m */; };
@@ -98,6 +100,10 @@
 		AA2FFBD11833B26200B9865A /* FriendSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendSearchViewController.m; sourceTree = "<group>"; };
 		AA33AFD0183EC3490004DF3D /* ShareDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDay.h; sourceTree = "<group>"; };
 		AA33AFD1183EC3490004DF3D /* ShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDay.m; sourceTree = "<group>"; };
+		AA42DB7118855D3200EA244C /* TTTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTTableView.h; path = 3Things/classes/TTTableView.h; sourceTree = SOURCE_ROOT; };
+		AA42DB7218855D3200EA244C /* TTTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTTableView.m; path = 3Things/classes/TTTableView.m; sourceTree = SOURCE_ROOT; };
+		AA42DB7418855E9D00EA244C /* TTCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCollectionView.h; sourceTree = "<group>"; };
+		AA42DB7518855E9D00EA244C /* TTCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTCollectionView.m; sourceTree = "<group>"; };
 		AA4E13651803579B00D65980 /* BottomNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomNavViewController.h; sourceTree = "<group>"; };
 		AA4E13661803579B00D65980 /* BottomNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomNavViewController.m; sourceTree = "<group>"; };
 		AA5D259D187CA153009A0FF5 /* 3T_Search Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3T_Search Arrow.png"; sourceTree = "<group>"; };
@@ -113,8 +119,8 @@
 		AA793097183C05E6006B4213 /* Camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Camera.png; path = assets/Camera.png; sourceTree = "<group>"; };
 		AA7930A0183C07B0006B4213 /* TTButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTButton.h; sourceTree = "<group>"; };
 		AA7930A1183C07B0006B4213 /* TTButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTButton.m; sourceTree = "<group>"; };
-		AA7930A3183C55AC006B4213 /* TTTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTableView.h; sourceTree = "<group>"; };
-		AA7930A4183C55AC006B4213 /* TTTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTableView.m; sourceTree = "<group>"; };
+		AA7930A3183C55AC006B4213 /* TTView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTView.h; sourceTree = "<group>"; };
+		AA7930A4183C55AC006B4213 /* TTView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTView.m; sourceTree = "<group>"; };
 		AA7E5501183188F500D7DE8C /* SingleDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleDayViewController.h; sourceTree = "<group>"; };
 		AA7E5502183188F500D7DE8C /* SingleDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleDayViewController.m; sourceTree = "<group>"; };
 		AA98E1C2182851E80045F827 /* TTNetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetManager.h; sourceTree = "<group>"; };
@@ -197,8 +203,12 @@
 				AA083D9B183AD4E0005D5B24 /* TTDate.m */,
 				AA7930A0183C07B0006B4213 /* TTButton.h */,
 				AA7930A1183C07B0006B4213 /* TTButton.m */,
-				AA7930A3183C55AC006B4213 /* TTTableView.h */,
-				AA7930A4183C55AC006B4213 /* TTTableView.m */,
+				AA7930A3183C55AC006B4213 /* TTView.h */,
+				AA7930A4183C55AC006B4213 /* TTView.m */,
+				AA42DB7118855D3200EA244C /* TTTableView.h */,
+				AA42DB7218855D3200EA244C /* TTTableView.m */,
+				AA42DB7418855E9D00EA244C /* TTCollectionView.h */,
+				AA42DB7518855E9D00EA244C /* TTCollectionView.m */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -432,8 +442,9 @@
 				AA083D9C183AD4E0005D5B24 /* TTDate.m in Sources */,
 				AABB2ECB18007A3500EEA446 /* UserHistoryViewController.m in Sources */,
 				AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */,
-				AA7930A5183C55AC006B4213 /* TTTableView.m in Sources */,
+				AA7930A5183C55AC006B4213 /* TTView.m in Sources */,
 				AAF28C6017DAA90A0067FD79 /* AppDelegate.m in Sources */,
+				AA42DB7318855D3200EA244C /* TTTableView.m in Sources */,
 				AABB2EC018006FD600EEA446 /* FriendFeedViewController.m in Sources */,
 				AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */,
 				AA33AFD2183EC3490004DF3D /* ShareDay.m in Sources */,
@@ -451,6 +462,7 @@
 				AA7930A2183C07B0006B4213 /* TTButton.m in Sources */,
 				AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */,
 				AA2FFBD21833B26200B9865A /* FriendSearchViewController.m in Sources */,
+				AA42DB7618855E9D00EA244C /* TTCollectionView.m in Sources */,
 				AA1E52DD182AE669000EBBBA /* Thing.m in Sources */,
 				AA0910AC1801EC2500F9D8B8 /* TTDataStore.m in Sources */,
 				AABB2EC318006FD600EEA446 /* My3ThingsViewController.m in Sources */,

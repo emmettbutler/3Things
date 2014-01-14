@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BottomNavViewController.h"
 #import "TTNetManager.h"
-#import "TTTableView.h"
+#import "TTView.h"
 #import "FriendSearchViewController.h"
 
 @class FriendFeedViewController;

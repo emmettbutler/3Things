@@ -1,31 +1,26 @@
 //
-//  TTView.m
+//  TTTableView.m
 //  3Things
 //
-//  Created by Emmett Butler on 11/19/13.
-//  Copyright (c) 2013 Emmett Butler. All rights reserved.
+//  Created by Emmett Butler on 1/14/14.
+//  Copyright (c) 2014 Emmett Butler. All rights reserved.
 //
 
 #import "TTTableView.h"
+#import "TTNetManager.h"
+#import "TTCollectionView.h"
 
-@implementation TTView
+@implementation TTTableView
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    [self.nextResponder touchesBegan:touches withEvent:event];
-    [self.touchDelegate tableTouchesBegan:touches];
-}
+// to re-enable feed element selection at daily granularity, comment this method and set the tableview's allowsSelection to YES
 
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesMoved:touches withEvent:event];
-    [self.nextResponder touchesMoved:touches withEvent:event];
-    [self.touchDelegate tableTouchesMoved:touches];
-}
-
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesMoved:touches withEvent:event];
-    [self.nextResponder touchesMoved:touches withEvent:event];
-    [self.touchDelegate tableTouchesEnded:touches];
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    TTLog(@"Touch in custom table");
+    UITouch *touch = [touches anyObject];
+    TTCollectionView *collectionView = (TTCollectionView*)(((UIView*)((UIView*)touch.view.superview.subviews[0]).subviews[0]).subviews[2]);
+    [collectionView touchesEnded:touches withEvent:event];
+    //[self.nextResponder touchesEnded:touches withEvent:event];
 }
 
 @end

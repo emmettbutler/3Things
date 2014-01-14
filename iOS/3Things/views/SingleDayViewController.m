@@ -18,6 +18,7 @@
 #import "My3ThingsViewController.h"
 #import "ErrorThrowingViewController.h"
 #import "TTDate.h"
+#import "TTCollectionView.h"
 #import "EditThingViewController.h"
 
 @interface SingleDayViewController ()
@@ -93,8 +94,8 @@
     if (!self.isCurrent && !self.isEdited){
         ShareDayStore *dayStore = [[ShareDayStore alloc] init];
         if ([dayStore getToday] == NULL) {
-            UserStore *userStore = [[UserStore alloc] init];
-            [TTNetManager sharedInstance].netDelegate = self;
+            //UserStore *userStore = [[UserStore alloc] init];
+            //[TTNetManager sharedInstance].netDelegate = self;
             //[[TTNetManager sharedInstance] getTodayForUser:[userStore getAuthenticatedUser]];
         }
     }
@@ -116,14 +117,17 @@
     CGRect collectionFrame = CGRectMake(0, 100, scrollFrame.size.width+20, scrollFrame.size.height-20);
     [flow setItemSize:CGSizeMake(collectionFrame.size.width-20, (collectionFrame.size.height)/3)];
     [flow setMinimumLineSpacing:1];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:collectionFrame collectionViewLayout:flow];
+    self.collectionView = [[TTCollectionView alloc] initWithFrame:collectionFrame collectionViewLayout:flow];
     self.collectionView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.scrollEnabled = NO;
+    self.collectionView.userInteractionEnabled = YES;
+    self.collectionView.allowsSelection = YES;
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"MyReuseIdentifier"];
     [self.collectionView reloadData];
     [self.view addSubview:self.collectionView];
+    [self.collectionView becomeFirstResponder];
     
     CGRect headFrame = CGRectMake(10, 0, 0, 0);
     headFrame.size = CGSizeMake(myFrame.size.width*width, 60);
@@ -233,6 +237,7 @@
             break;
     }
     [flagView setImage:[UIImage imageNamed:image]];
+    flagView.tag = FLAG_TAG;
     [container addSubview:flagView];
     
     NSString *text = self.shares.theThings[indexPath.row][@"text"];
@@ -311,8 +316,10 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    TTLog(@"Selected item in collection view. IndexPath: %@", indexPath);
     if (!self.isViewLoaded) return;
-    if (((ErrorThrowingViewController *)self.parentViewController).errViewIsShown) return;
+    if ([self.parentViewController isKindOfClass:[ErrorThrowingViewController class]] &&
+        ((ErrorThrowingViewController *)self.parentViewController).errViewIsShown) return;
     if (self.isCurrent) {
         UIViewController *editView = [[EditThingViewController alloc] initWithThingIndex:@(indexPath.row) andShares:self.shares];
         [[self navigationController] pushViewController:editView animated:YES];
@@ -328,6 +335,7 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"Touch started in singleDay");
+    //[self.nextResponder touchesBegan:touches withEvent:event];
 }
 
 @end
