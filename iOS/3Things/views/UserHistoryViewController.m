@@ -121,7 +121,7 @@
                               error:&jsonError];
         TTLog(@"json response: %@", json);
         // please forgive me for the following
-        if (json == NULL) {
+        if (json == NULL || [json[@"data"][@"history"] count] == 0) {
             [self.tableView reloadData];
             return;  // hack
         }
@@ -159,7 +159,7 @@
     if (self.feedData == nil) {
         return 1;
     } else {
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
         NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
         NSNumber *thisMonth = sortedKeys[section];
         NSArray *monthDays = self.feedData[thisMonth];
@@ -176,7 +176,7 @@
     UITableViewHeaderFooterView *header = [[UITableViewHeaderFooterView alloc] init];
     
     if (self.feedData != nil) {
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
         NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
         NSNumber *thisMonth = sortedKeys[section];
         
@@ -232,7 +232,7 @@
         text.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
         [container addSubview:emptyView];
     } else {
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
         NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
         NSNumber *thisMonth = sortedKeys[indexPath.section];
         NSArray *monthDays = self.feedData[thisMonth];
@@ -350,11 +350,11 @@
     
     if (!self.isViewLoaded) return;
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
     NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
     NSNumber *thisMonth = sortedKeys[indexPath.section];
     NSArray *monthDays = self.feedData[thisMonth];
-    NSDictionary *day = monthDays[indexPath.row];
+    NSDictionary *day = monthDays[[monthDays count]-1 - indexPath.row];
     
     [[self navigationController] pushViewController:
      [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] initWithSharesDictionary:day]
