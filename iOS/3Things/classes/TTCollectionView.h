@@ -1,5 +1,5 @@
 //
-//  TTTableView.h
+//  TTCollectionView.h
 //  3Things
 //
 //  Created by Emmett Butler on 1/14/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TTTableView : UITableView
+@interface TTCollectionView : UICollectionView
 
 @end

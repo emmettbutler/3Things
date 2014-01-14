@@ -15,6 +15,7 @@
 #import "My3ThingsViewController.h"
 #import "LoginTypePickerViewController.h"
 #import "BackgroundLayer.h"
+#import "TTTableView.h"
 
 @interface FriendFeedViewController ()
 
@@ -71,11 +72,13 @@
     
     int searchBoxHeight = 50;
     CGRect scrollFrame = CGRectMake(11, 0, frame.size.width*.9, screenFrame.size.height-35);
-    self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
+    self.tableView = [[TTTableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.userInteractionEnabled = YES;
+    // to re-enable feed element selection at daily granularity, change the following property to YES and uncomment touchesEnded in TTTableView
+    self.tableView.allowsSelection = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.tableView reloadData];
@@ -232,7 +235,7 @@
     
     cell.backgroundView = container;
     cell.backgroundColor = [UIColor clearColor];
-    cell.selectedBackgroundView = [[UIView alloc] init];
+    //cell.selectedBackgroundView = [[UIView alloc] init];
     return cell;
 }
 
@@ -281,7 +284,8 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"Touch outside of table");
+    TTLog(@"Touch outside of table");
+    [self.nextResponder touchesBegan:touches withEvent:event];
 }
 
 -(void)tableTouchesBegan:(NSSet *)touches
