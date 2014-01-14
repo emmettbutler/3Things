@@ -243,9 +243,9 @@
         [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *date = [formatter2 dateFromString:day[@"date"]];
         
-        int width = 50;
+        int width = 55;
         UIView *dateView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, frame.size.width, 20)];
-        UITextView *dayOfMonthView = [[UITextView alloc] initWithFrame:CGRectMake(2, 0, width, 50)];
+        UITextView *dayOfMonthView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, width, 50)];
         NSDateFormatter *dayOfMonthFormatter = [[NSDateFormatter alloc] init];
         [dayOfMonthFormatter setDateFormat:@"d"];
         [dayOfMonthFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
@@ -256,7 +256,7 @@
         dayOfMonthView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
         dayOfMonthView.editable = NO;
         [dateView addSubview:dayOfMonthView];
-        UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(2, 50, width, 25)];
+        UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(0, 50, width, 25)];
         dayOfWeekView.textAlignment = NSTextAlignmentLeft;
         NSDateFormatter *dayOfWeekFormatter = [[NSDateFormatter alloc] init];
         [dayOfWeekFormatter setDateFormat:@"ccc"];
