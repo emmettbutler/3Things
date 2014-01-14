@@ -91,8 +91,9 @@
             }
             [[TTNetManager sharedInstance] getRegisteredFacebookFriends:[userStore getAuthenticatedUser] withFriendIDs:friendIDs andQuery:@""];
         }];
+    } else {
+        [[TTNetManager sharedInstance] friendSearch:@"" forUser:[userStore getAuthenticatedUser]];
     }
-    [[TTNetManager sharedInstance] friendSearch:@"" forUser:[userStore getAuthenticatedUser]];
 }
 
 - (NSDictionary*)parseURLParams:(NSString *)query {
