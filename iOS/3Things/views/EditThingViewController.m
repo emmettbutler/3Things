@@ -26,7 +26,6 @@
 {
     self = [super init];
     if (self) {
-        // TODO - thing detail view versus thing edit view - when to go to each?
         self.shares = shares;
         self.thingIndex = thingIndex;
         self.firstEdit = YES;
@@ -265,7 +264,6 @@
         item = [dayStore createShareDay];
     }
     int completedThings = 0;
-    // TODO - should this exclude empty Things? (@"")
     for (int i = 0; i < 3; i++){
         Thing *toRemove = NULL;
         for (Thing* oldThing in item.things){

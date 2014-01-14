@@ -139,6 +139,7 @@
         [formatter3 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         [formatter3 setTimeZone:[NSTimeZone defaultTimeZone]];
         
+        // TODO - this data layout breaks ordering when there are two entries from the same month and different years
         for (int i = 0; i < [data count]; i++){
             NSMutableDictionary *day = data[i];
             NSDate *date = [formatter2 dateFromString:day[@"date"]];
