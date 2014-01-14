@@ -252,12 +252,12 @@
     thingTextView.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"555555"];
     [container addSubview:thingTextView];
     
-    if (!self.isCurrent) {
+    int count = [self.shares.commentCount[indexPath.row] intValue];
+    if (!self.isCurrent && count != 0) {
         UITextView *commentCountView = [[UITextView alloc] initWithFrame:CGRectMake(40, 70, 100, 30)];
         commentCountView.font = [UIFont fontWithName:SCRIPT_FONT size:13];
         commentCountView.userInteractionEnabled = NO;
         commentCountView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
-        int count = [self.shares.commentCount[indexPath.row] intValue];
         commentCountView.text = [NSString stringWithFormat:@"%d comment%@", count, count == 1 ? @"" : @"s"];
         commentCountView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
         [container addSubview:commentCountView];
