@@ -102,7 +102,7 @@
     searchBox.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:searchBox];
     
-    navViewController = [[BottomNavViewController alloc] init];
+    navViewController = [[BottomNavViewController alloc] initWithScreen:kFriendsScreen];
     navViewController.navDelegate = self;
     [self addChildViewController:navViewController];
     [self.view addSubview:navViewController.view];

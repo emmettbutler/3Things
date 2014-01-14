@@ -19,9 +19,16 @@
 
 id <BottomNavViewControllerDelegate> navDelegate;
 
+typedef enum _kScreen {
+    kCalendarScreen, kFriendsScreen
+} kScreen;
+
 @interface BottomNavViewController : UIViewController
 
+-(id)initWithScreen:(kScreen)screen;
+
 @property (nonatomic) CGRect frame;
+@property (nonatomic) kScreen currentScreen;
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic, assign) id <BottomNavViewControllerDelegate> navDelegate;
 

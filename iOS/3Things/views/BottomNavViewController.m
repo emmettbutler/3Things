@@ -16,6 +16,14 @@
 @implementation BottomNavViewController
 @synthesize navDelegate;
 
+-(id)initWithScreen:(kScreen)screen
+{
+    if (self = [super init]){
+        self.currentScreen = screen;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,7 +55,11 @@
              forControlEvents:UIControlEventTouchUpInside];
     [friendsButton setTitle:@"FRIENDS" forState:UIControlStateNormal];
     friendsButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE];
-    [friendsButton setTintColor:[[TTNetManager sharedInstance] colorWithHexString:@"FFFFFF"]];
+    NSString *color = @"FFFFFF";
+    if (self.currentScreen == kFriendsScreen) {
+        color = @"888888";
+    }
+    [friendsButton setTintColor:[[TTNetManager sharedInstance] colorWithHexString:color]];
     friendsButton.frame = CGRectMake(205, totalHeight-visibleHeight, 100, 60);
     [self.view addSubview:friendsButton];
     
@@ -56,8 +68,11 @@
                       action:@selector(calendarWasTouched)
             forControlEvents:UIControlEventTouchUpInside];
     [calendarButton setTitle:@"CALENDAR" forState:UIControlStateNormal];
-    calendarButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE];
-    [calendarButton setTintColor:[[TTNetManager sharedInstance] colorWithHexString:@"FFFFFF"]];
+    calendarButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE];color = @"FFFFFF";
+    if (self.currentScreen == kCalendarScreen) {
+        color = @"888888";
+    }
+    [calendarButton setTintColor:[[TTNetManager sharedInstance] colorWithHexString:color]];
     calendarButton.frame = CGRectMake(10, totalHeight-visibleHeight, 100, 60);
     [self.view addSubview:calendarButton];
 }

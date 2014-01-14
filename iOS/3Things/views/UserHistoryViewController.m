@@ -97,7 +97,7 @@
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
     
-    BottomNavViewController *navViewController = [[BottomNavViewController alloc] init];
+    BottomNavViewController *navViewController = [[BottomNavViewController alloc] initWithScreen:kCalendarScreen];
     navViewController.navDelegate = self;
     [self addChildViewController:navViewController];
     [self.view addSubview:navViewController.view];
