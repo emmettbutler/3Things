@@ -81,10 +81,10 @@
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
     
-    touchView = [[TTView alloc] initWithFrame:CGRectMake(scrollFrame.origin.x, scrollFrame.origin.y+50, scrollFrame.size.width, 70)];
+    touchView = [[TTView alloc] initWithFrame:CGRectMake(scrollFrame.origin.x, scrollFrame.origin.y+20, scrollFrame.size.width, 90)];
     touchView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     touchView.touchDelegate = self;
-    [self.view addSubview:touchView];
+    [self.navigationController.navigationBar.viewForBaselineLayout.superview addSubview:touchView];
     
     CGRect searchFieldFrame = CGRectMake(0, 65, screenFrame.size.width, searchBoxHeight-5);
     searchBox = [[UITextField alloc] initWithFrame:searchFieldFrame];
@@ -251,6 +251,7 @@
 
 -(void) reviewWasTouched {
     if (!self.isViewLoaded) return;
+    [touchView removeFromSuperview];
     UserStore *userStore = [[UserStore alloc] init];
     /*NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
     [viewControllers removeLastObject];
@@ -262,6 +263,7 @@
 -(void) friendsWasTouched {
     if (!self.isViewLoaded) return;
     if (inSearch){
+        [touchView removeFromSuperview];
         NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
         [viewControllers removeLastObject];
         [viewControllers addObject:[[FriendFeedViewController alloc] init]];
@@ -272,6 +274,7 @@
 
 -(void) calendarWasTouched {
     if (!self.isViewLoaded) return;
+    [touchView removeFromSuperview];
     NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
     [viewControllers removeLastObject];
     [viewControllers addObject:[[UserHistoryViewController alloc] init]];
