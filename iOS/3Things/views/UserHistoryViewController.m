@@ -133,18 +133,17 @@
         [formatter2 setTimeZone:[NSTimeZone defaultTimeZone]];
         [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
-        [formatter1 setDateFormat:@"MM"];
+        [formatter1 setDateFormat:@"MM-yyyy"];
         [formatter1 setTimeZone:[NSTimeZone defaultTimeZone]];
         
         for (int i = 0; i < [data count]; i++){
             NSDictionary *day = data[i];
             NSDate *date = [formatter2 dateFromString:day[@"date"]];
             NSString *monthString = [formatter1 stringFromDate:date];
-            NSNumber *month = @([monthString intValue]);
-            if (self.feedData[month] == nil) {
-                [self.feedData setObject:[[NSMutableArray alloc] init] forKey:month];
+            if (self.feedData[monthString] == nil) {
+                [self.feedData setObject:[[NSMutableArray alloc] init] forKey:monthString];
             }
-            [self.feedData[month] addObject:day];
+            [self.feedData[monthString] addObject:day];
         }
         
         [self.tableView reloadData];
@@ -237,7 +236,7 @@
         NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
         NSNumber *thisMonth = sortedKeys[indexPath.section];
         NSArray *monthDays = self.feedData[thisMonth];
-        NSDictionary *day = monthDays[indexPath.row];
+        NSDictionary *day = monthDays[[monthDays count]-1 - indexPath.row];
         
         NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
         [formatter2 setTimeZone:[NSTimeZone defaultTimeZone]];
