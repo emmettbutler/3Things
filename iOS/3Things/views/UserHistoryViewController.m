@@ -243,18 +243,20 @@
         [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *date = [formatter2 dateFromString:day[@"date"]];
         
+        int width = 50;
         UIView *dateView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, frame.size.width, 20)];
-        UITextView *dayOfMonthView = [[UITextView alloc] initWithFrame:CGRectMake(3, 0, 70, 90)];
+        UITextView *dayOfMonthView = [[UITextView alloc] initWithFrame:CGRectMake(2, 0, width, 50)];
         NSDateFormatter *dayOfMonthFormatter = [[NSDateFormatter alloc] init];
         [dayOfMonthFormatter setDateFormat:@"d"];
         [dayOfMonthFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
         dayOfMonthView.text = [dayOfMonthFormatter stringFromDate:date];
         dayOfMonthView.font = [UIFont fontWithName:HEADER_FONT size:34];
-        dayOfMonthView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+        dayOfMonthView.textAlignment = NSTextAlignmentCenter;
+        dayOfMonthView.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0];
         dayOfMonthView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
         dayOfMonthView.editable = NO;
         [dateView addSubview:dayOfMonthView];
-        UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(8, 50, 40, 25)];
+        UITextView *dayOfWeekView = [[UITextView alloc] initWithFrame:CGRectMake(2, 50, width, 25)];
         dayOfWeekView.textAlignment = NSTextAlignmentLeft;
         NSDateFormatter *dayOfWeekFormatter = [[NSDateFormatter alloc] init];
         [dayOfWeekFormatter setDateFormat:@"ccc"];
@@ -262,6 +264,7 @@
         dayOfWeekView.text = [[dayOfWeekFormatter stringFromDate:date] uppercaseString];
         dayOfWeekView.font = [UIFont fontWithName:HEADER_FONT size:13];
         dayOfWeekView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+        dayOfWeekView.textAlignment = NSTextAlignmentCenter;
         dayOfWeekView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
         dayOfWeekView.editable = NO;
         [dateView addSubview:dayOfWeekView];
