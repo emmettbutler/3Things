@@ -135,14 +135,18 @@
         NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
         [formatter1 setDateFormat:@"MM-yyyy"];
         [formatter1 setTimeZone:[NSTimeZone defaultTimeZone]];
+        NSDateFormatter *formatter3 = [[NSDateFormatter alloc] init];
+        [formatter3 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [formatter3 setTimeZone:[NSTimeZone defaultTimeZone]];
         
         for (int i = 0; i < [data count]; i++){
-            NSDictionary *day = data[i];
+            NSMutableDictionary *day = data[i];
             NSDate *date = [formatter2 dateFromString:day[@"date"]];
             NSString *monthString = [formatter1 stringFromDate:date];
             if (self.feedData[monthString] == nil) {
                 [self.feedData setObject:[[NSMutableArray alloc] init] forKey:monthString];
             }
+            [day setObject:[formatter3 stringFromDate:date] forKey:@"year"];
             [self.feedData[monthString] addObject:day];
         }
         
