@@ -16,6 +16,7 @@
 @property (nonatomic) NSDate *time;
 @property (nonatomic) User *user;
 @property (nonatomic) NSString *_id;
+@property (nonatomic) NSArray *commentCount;
 @property (nonatomic) NSMutableArray *theThings;
 
 + (TTShareDay *)shareDayWithShareObject:(ShareDay *)shares;

@@ -293,6 +293,10 @@ class DaysController(Base3ThingsHandler):
         history = list(self.application.db.days.find(cond).limit(20).sort("date", -1))
         for item in history:
             item['user'] = self._user_response(item['user'])
+            comments = list(self.application.db.comments.find({"day_id": item['_id']}))
+            item['comments_count'] = []
+            for i in range(0,3):
+                item['comments_count'].append(len([a for a in comments if a['index'] == i]))
         return history
 
 

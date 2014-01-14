@@ -43,6 +43,7 @@
             self.date = [dateFormatter dateFromString:shares[@"date"]];
             self.time = [dateFormatter dateFromString:shares[@"time"]];
             self._id = shares[@"_id"];
+            self.commentCount = shares[@"comments_count"];
             for (int i = 0; i < 3; i++){
                 [self.theThings addObject:shares[@"things"][i]];
             }

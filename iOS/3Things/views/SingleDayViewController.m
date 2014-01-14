@@ -239,7 +239,7 @@
     if ([text isEqualToString:@""]) {
         text = @"Share something...";
     }
-    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(40, 15, frame.size.width*.6, 75)];
+    UITextView *thingTextView = [[UITextView alloc] initWithFrame:CGRectMake(40, 5, frame.size.width*.6, 75)];
     [thingTextView setText:text];
     int maxHeight = thingTextView.frame.size.height - 20;
     CGSize size = [thingTextView.text sizeWithFont:thingTextView.font constrainedToSize:CGSizeMake(thingTextView.frame.size.width, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
@@ -251,6 +251,15 @@
     thingTextView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
     thingTextView.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"555555"];
     [container addSubview:thingTextView];
+    
+    UITextView *commentCountView = [[UITextView alloc] initWithFrame:CGRectMake(40, 70, 100, 30)];
+    commentCountView.font = [UIFont fontWithName:SCRIPT_FONT size:13];
+    commentCountView.userInteractionEnabled = NO;
+    commentCountView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
+    int count = [self.shares.commentCount[indexPath.row] intValue];
+    commentCountView.text = [NSString stringWithFormat:@"%d comment%@", count, count == 1 ? @"" : @"s"];
+    commentCountView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+    [container addSubview:commentCountView];
     
     int imgSize = 55;
     UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(210, 20, imgSize, imgSize)];
