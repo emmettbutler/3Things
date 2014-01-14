@@ -98,9 +98,10 @@
     [imgButton addTarget:self
                action:@selector(imgButtonWasTouched)
      forControlEvents:UIControlEventTouchDown];
-    imgButton.frame = CGRectMake(screenFrame.size.width*.05, buttonY, 40, buttonHeight);
+    imgButton.frame = CGRectMake(screenFrame.size.width*.05, buttonY, 45, buttonHeight);
     imgButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_COLOR];
     [imgButton setBackgroundImage:[UIImage imageNamed:@"Camera.png"] forState:UIControlStateNormal];
+    [imgButton setContentMode:UIViewContentModeScaleAspectFit];
     imgButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     [self.view addSubview:imgButton];
     
