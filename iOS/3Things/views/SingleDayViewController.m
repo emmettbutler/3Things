@@ -234,6 +234,7 @@
             break;
     }
     [flagView setImage:[UIImage imageNamed:image]];
+    flagView.tag = FLAG_TAG;
     [container addSubview:flagView];
     
     NSString *text = self.shares.theThings[indexPath.row][@"text"];

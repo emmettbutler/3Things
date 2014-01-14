@@ -25,6 +25,7 @@
 #define THING_TEXT_SIZE 12
 #define BUTTON_CORNER_RADIUS 3
 #define KEYBOARD_HEIGHT 216
+#define FLAG_TAG 598347
 
 @class TTNetManager;
 @protocol TTNetManagerDelegate <NSObject>

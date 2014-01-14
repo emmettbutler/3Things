@@ -17,9 +17,20 @@
      * Manually route touches to the appropriate collectionviewcell in a single day view
      */
     UITouch *touch = [touches anyObject];
-    UIView *view = ((UIView*)((UIView*)touch.view.superview.subviews[0]).subviews[0]).subviews[2];
+    UIView *firstSubview = ((UIView*)touch.view.superview.subviews[0]);
+    NSArray *subviews = firstSubview.subviews;
+    UIView *view;
+    if (((UIView *)subviews[0]).tag == FLAG_TAG) {
+        TTLog(@"Touch view first subview is flag");
+        // this view is not inside a tableview
+        view = touch.view.superview.superview;
+    } else {
+        UIView *secondSubview = firstSubview.subviews[0];
+        view = secondSubview.subviews[2];
+    }
     if ([view isKindOfClass:[TTCollectionView class]]) {
-        TTCollectionView *collection = (TTCollectionView*)((UIView*)((UIView*)touch.view.superview.subviews[0]).subviews[0]).subviews[2];
+        TTLog(@"View is a TTCollectionView");
+        TTCollectionView *collection = (TTCollectionView*)view;
         NSArray *subviews = collection.subviews;
         int i;
         for (i = 0; i < 3; i++) {
