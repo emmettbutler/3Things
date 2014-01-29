@@ -15,7 +15,6 @@
 		AA0910AC1801EC2500F9D8B8 /* TTDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A51801EC2500F9D8B8 /* TTDataStore.m */; };
 		AA0910AD1801EC2500F9D8B8 /* ThingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0910A71801EC2500F9D8B8 /* ThingStore.m */; };
 		AA0910B21801EEFB00F9D8B8 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */; };
-		AA1A9280185659B40066F159 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1A927F185659B40066F159 /* FacebookSDK.framework */; };
 		AA1A9283185685CB0066F159 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1A9282185685CB0066F159 /* User.m */; };
 		AA1E52DD182AE669000EBBBA /* Thing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52DC182AE669000EBBBA /* Thing.m */; };
 		AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */; };
@@ -38,6 +37,10 @@
 		AA79309F183C05E6006B4213 /* Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = AA793097183C05E6006B4213 /* Camera.png */; };
 		AA7930A2183C07B0006B4213 /* TTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7930A1183C07B0006B4213 /* TTButton.m */; };
 		AA7930A5183C55AC006B4213 /* TTView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7930A4183C55AC006B4213 /* TTView.m */; };
+		AA7C37A918988526004A283D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA7C37A818988526004A283D /* FacebookSDK.framework */; };
+		AA7C37AD18988598004A283D /* Cal_Icon_depressed.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7C37AA18988598004A283D /* Cal_Icon_depressed.png */; };
+		AA7C37AE18988598004A283D /* Cal_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7C37AB18988598004A283D /* Cal_Icon.png */; };
+		AA7C37AF18988598004A283D /* Facebook_logo_white.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7C37AC18988598004A283D /* Facebook_logo_white.png */; };
 		AA7E5503183188F500D7DE8C /* SingleDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7E5502183188F500D7DE8C /* SingleDayViewController.m */; };
 		AA98E1C4182851E80045F827 /* TTNetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA98E1C3182851E80045F827 /* TTNetManager.m */; };
 		AA9A8535180331D00071FD38 /* ThingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9A8534180331D00071FD38 /* ThingDetailViewController.m */; };
@@ -57,9 +60,6 @@
 		AAE33B2B187E05BF0009CB25 /* icon_retina.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE33B2A187E05BF0009CB25 /* icon_retina.png */; };
 		AAE33B2E187E061F0009CB25 /* icon_old_retina.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE33B2C187E061F0009CB25 /* icon_old_retina.png */; };
 		AAE33B2F187E061F0009CB25 /* icon_nonretina.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE33B2D187E061F0009CB25 /* icon_nonretina.png */; };
-		AAF213E8185903EA00E0FC71 /* Cal_Icon_depressed.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF213E6185903EA00E0FC71 /* Cal_Icon_depressed.png */; };
-		AAF213E9185903EA00E0FC71 /* Cal_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF213E7185903EA00E0FC71 /* Cal_Icon.png */; };
-		AAF213EB185903F300E0FC71 /* Facebook_logo_white.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF213EA185903F300E0FC71 /* Facebook_logo_white.png */; };
 		AAF28C5017DAA90A0067FD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C4F17DAA90A0067FD79 /* UIKit.framework */; };
 		AAF28C5217DAA90A0067FD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C5117DAA90A0067FD79 /* Foundation.framework */; };
 		AAF28C5417DAA90A0067FD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C5317DAA90A0067FD79 /* CoreGraphics.framework */; };
@@ -87,7 +87,6 @@
 		AA0910A81801EC2500F9D8B8 /* ThingStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThingStore.h; sourceTree = "<group>"; };
 		AA0910AF1801EDAF00F9D8B8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		AA1A927F185659B40066F159 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		AA1A9281185685CB0066F159 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		AA1A9282185685CB0066F159 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		AA1E52DB182AE669000EBBBA /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thing.h; sourceTree = "<group>"; };
@@ -121,6 +120,10 @@
 		AA7930A1183C07B0006B4213 /* TTButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTButton.m; sourceTree = "<group>"; };
 		AA7930A3183C55AC006B4213 /* TTView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTView.h; sourceTree = "<group>"; };
 		AA7930A4183C55AC006B4213 /* TTView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTView.m; sourceTree = "<group>"; };
+		AA7C37A818988526004A283D /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		AA7C37AA18988598004A283D /* Cal_Icon_depressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cal_Icon_depressed.png; path = assets/Cal_Icon_depressed.png; sourceTree = "<group>"; };
+		AA7C37AB18988598004A283D /* Cal_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cal_Icon.png; path = assets/Cal_Icon.png; sourceTree = "<group>"; };
+		AA7C37AC18988598004A283D /* Facebook_logo_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Facebook_logo_white.png; path = assets/Facebook_logo_white.png; sourceTree = "<group>"; };
 		AA7E5501183188F500D7DE8C /* SingleDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleDayViewController.h; sourceTree = "<group>"; };
 		AA7E5502183188F500D7DE8C /* SingleDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleDayViewController.m; sourceTree = "<group>"; };
 		AA98E1C2182851E80045F827 /* TTNetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNetManager.h; sourceTree = "<group>"; };
@@ -152,9 +155,6 @@
 		AAE33B2A187E05BF0009CB25 /* icon_retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_retina.png; path = assets/icon_retina.png; sourceTree = "<group>"; };
 		AAE33B2C187E061F0009CB25 /* icon_old_retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_old_retina.png; path = assets/icon_old_retina.png; sourceTree = "<group>"; };
 		AAE33B2D187E061F0009CB25 /* icon_nonretina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_nonretina.png; path = assets/icon_nonretina.png; sourceTree = "<group>"; };
-		AAF213E6185903EA00E0FC71 /* Cal_Icon_depressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cal_Icon_depressed.png; path = "../../../../../../Dropbox/3Things/Design Assests/Cal_Icon/Cal_Icon_depressed.png"; sourceTree = "<group>"; };
-		AAF213E7185903EA00E0FC71 /* Cal_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cal_Icon.png; path = "../../../../../../Dropbox/3Things/Design Assests/Cal_Icon/Cal_Icon.png"; sourceTree = "<group>"; };
-		AAF213EA185903F300E0FC71 /* Facebook_logo_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Facebook_logo_white.png; path = "../../../../../../Dropbox/3Things/Design Assests/Facebook Logo/Facebook_logo_white.png"; sourceTree = "<group>"; };
 		AAF28C4C17DAA90A0067FD79 /* 3Things.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Things.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF28C4F17DAA90A0067FD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AAF28C5117DAA90A0067FD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -177,12 +177,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA7C37A918988526004A283D /* FacebookSDK.framework in Frameworks */,
 				AAB0A17A183A9BF4006A8B29 /* QuartzCore.framework in Frameworks */,
 				AA0910B21801EEFB00F9D8B8 /* AssetsLibrary.framework in Frameworks */,
 				AA09109D1801CB9300F9D8B8 /* ImageIO.framework in Frameworks */,
 				AABB2F111800A43600EEA446 /* CoreData.framework in Frameworks */,
 				AAF28C5017DAA90A0067FD79 /* UIKit.framework in Frameworks */,
-				AA1A9280185659B40066F159 /* FacebookSDK.framework in Frameworks */,
 				AABAA1F018144437004547EE /* SDWebImage.framework in Frameworks */,
 				AAF28C5217DAA90A0067FD79 /* Foundation.framework in Frameworks */,
 				AAF28C5417DAA90A0067FD79 /* CoreGraphics.framework in Frameworks */,
@@ -291,7 +291,7 @@
 		AAF28C4E17DAA90A0067FD79 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AA1A927F185659B40066F159 /* FacebookSDK.framework */,
+				AA7C37A818988526004A283D /* FacebookSDK.framework */,
 				AAB0A179183A9BF4006A8B29 /* QuartzCore.framework */,
 				AABAA1EF18144437004547EE /* SDWebImage.framework */,
 				AA0910B11801EEFB00F9D8B8 /* AssetsLibrary.framework */,
@@ -322,14 +322,14 @@
 		AAF28C5617DAA90A0067FD79 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AA7C37AA18988598004A283D /* Cal_Icon_depressed.png */,
+				AA7C37AB18988598004A283D /* Cal_Icon.png */,
+				AA7C37AC18988598004A283D /* Facebook_logo_white.png */,
 				AAE33B2C187E061F0009CB25 /* icon_old_retina.png */,
 				AAE33B2D187E061F0009CB25 /* icon_nonretina.png */,
 				AAE33B2A187E05BF0009CB25 /* icon_retina.png */,
 				AA5D259D187CA153009A0FF5 /* 3T_Search Arrow.png */,
-				AAF213E6185903EA00E0FC71 /* Cal_Icon_depressed.png */,
-				AAF213E7185903EA00E0FC71 /* Cal_Icon.png */,
 				AA793090183C05E6006B4213 /* Three_Things_logo.png */,
-				AAF213EA185903F300E0FC71 /* Facebook_logo_white.png */,
 				AA793091183C05E6006B4213 /* Friends_bottom_Menu.png */,
 				AA793092183C05E6006B4213 /* Friends_bottom_Menu_depressed.png */,
 				AA793093183C05E6006B4213 /* Flag_3.png */,
@@ -404,17 +404,17 @@
 			files = (
 				AA5D259E187CA153009A0FF5 /* 3T_Search Arrow.png in Resources */,
 				AAE33B2F187E061F0009CB25 /* icon_nonretina.png in Resources */,
-				AAF213EB185903F300E0FC71 /* Facebook_logo_white.png in Resources */,
 				AA79309E183C05E6006B4213 /* Close.png in Resources */,
 				AA79308F183C043E006B4213 /* Compose_Icon_depressed.png in Resources */,
 				AA79309A183C05E6006B4213 /* Friends_bottom_Menu_depressed.png in Resources */,
 				AAF28C5A17DAA90A0067FD79 /* InfoPlist.strings in Resources */,
 				AA79308E183C043E006B4213 /* Compose_Icon.png in Resources */,
+				AA7C37AE18988598004A283D /* Cal_Icon.png in Resources */,
 				AAE33B2E187E061F0009CB25 /* icon_old_retina.png in Resources */,
 				AAF28C6217DAA90A0067FD79 /* Default.png in Resources */,
 				AA793098183C05E6006B4213 /* Three_Things_logo.png in Resources */,
-				AAF213E9185903EA00E0FC71 /* Cal_Icon.png in Resources */,
 				AA79309F183C05E6006B4213 /* Camera.png in Resources */,
+				AA7C37AF18988598004A283D /* Facebook_logo_white.png in Resources */,
 				AA793099183C05E6006B4213 /* Friends_bottom_Menu.png in Resources */,
 				AAF28C6417DAA90A0067FD79 /* Default@2x.png in Resources */,
 				AAE33B2B187E05BF0009CB25 /* icon_retina.png in Resources */,
@@ -423,7 +423,7 @@
 				AAF28C6617DAA90A0067FD79 /* Default-568h@2x.png in Resources */,
 				AA79309D183C05E6006B4213 /* Flag_1.png in Resources */,
 				AA79309B183C05E6006B4213 /* Flag_3.png in Resources */,
-				AAF213E8185903EA00E0FC71 /* Cal_Icon_depressed.png in Resources */,
+				AA7C37AD18988598004A283D /* Cal_Icon_depressed.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +547,7 @@
 					/Users/emmettbutler/Downloads,
 					/Users/emmettbutler/Documents/Programming/iOS/3Things,
 					/Users/emmettbutler/Documents/Programming/iOS/3Things/iOS,
+					/Users/emmettbutler/git/3Things/iOS,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "3Things/3Things-Prefix.pch";
@@ -566,6 +567,7 @@
 					/Users/emmettbutler/Downloads,
 					/Users/emmettbutler/Documents/Programming/iOS/3Things,
 					/Users/emmettbutler/Documents/Programming/iOS/3Things/iOS,
+					/Users/emmettbutler/git/3Things/iOS,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "3Things/3Things-Prefix.pch";
