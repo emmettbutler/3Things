@@ -61,9 +61,6 @@
     UIView *titleView = [[UIView alloc] init];
     UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-55, -20, 105, 35)];
     [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
-    UIImageView *arrowView = [[UIImageView alloc] initWithFrame:CGRectMake(-16, 7, 31, 11)];
-    [arrowView setImage:[UIImage imageNamed:@"3T_Search Arrow.png"]];
-    [titleView addSubview:arrowView];
     [titleView addSubview:logoView];
     self.navigationItem.titleView = titleView;
     
@@ -83,11 +80,6 @@
     self.tableView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
     [self.tableView reloadData];
     [self.view addSubview:self.tableView];
-    
-    touchView = [[TTView alloc] initWithFrame:CGRectMake(scrollFrame.origin.x, scrollFrame.origin.y+20, scrollFrame.size.width, 90)];
-    touchView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
-    touchView.touchDelegate = self;
-    [self.navigationController.navigationBar.viewForBaselineLayout.superview addSubview:touchView];
     
     CGRect searchFieldFrame = CGRectMake(0, 65, screenFrame.size.width, searchBoxHeight-5);
     searchBox = [[UITextField alloc] initWithFrame:searchFieldFrame];
@@ -111,6 +103,10 @@
     [self.view addSubview:navViewController.view];
     navViewController.view.frame = navViewController.frame;
     [navViewController didMoveToParentViewController:self];
+    
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Friends" style:UIBarButtonItemStyleBordered target:self action:@selector(friendSearchWasTouched)];
+    [[self navigationItem] setLeftBarButtonItem:button];
+    [[UIBarButtonItem appearance] setTintColor:[[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR]];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
@@ -145,10 +141,7 @@
     [searchBox endEditing:YES];
     searchBox.text = @"";
     CGRect frame = self.tableView.frame;
-    CGRect touchFrame = touchView.frame;
     frame.origin.y = oldY;
-    touchFrame.origin.y = oldY+50;
-    touchView.frame = touchFrame;
     searchBox.hidden = YES;
     self.tableView.frame = frame;
 }
@@ -254,7 +247,6 @@
 
 -(void) reviewWasTouched {
     if (!self.isViewLoaded) return;
-    [touchView removeFromSuperview];
     UserStore *userStore = [[UserStore alloc] init];
     /*NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
     [viewControllers removeLastObject];
@@ -266,7 +258,6 @@
 -(void) friendsWasTouched {
     if (!self.isViewLoaded) return;
     if (inSearch){
-        [touchView removeFromSuperview];
         NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
         [viewControllers removeLastObject];
         [viewControllers addObject:[[FriendFeedViewController alloc] init]];
@@ -277,7 +268,6 @@
 
 -(void) calendarWasTouched {
     if (!self.isViewLoaded) return;
-    [touchView removeFromSuperview];
     NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
     [viewControllers removeLastObject];
     [viewControllers addObject:[[UserHistoryViewController alloc] init]];
@@ -291,39 +281,18 @@
     [self.nextResponder touchesBegan:touches withEvent:event];
 }
 
--(void)tableTouchesBegan:(NSSet *)touches
+-(void)friendSearchWasTouched
 {
-    UITouch *touch = [touches anyObject];
-    CGPoint touchLocation = [touch locationInView:self.view];
-    NSLog(@"Touch in table");
-    if (touchLocation.y < self.tableView.frame.origin.y+90){
-        dragging = YES;
-        touchLastY = touchLocation.y;
-        if(searchBox.hidden){
-            oldY = self.tableView.frame.origin.y;
-        }
-    }
-}
-
--(void)tableTouchesMoved:(NSSet *)touches
-{
-    UITouch *touch = [touches anyObject];
-    CGPoint touchLocation = [touch locationInView:self.view];
-    if(dragging){
-        CGRect frame = self.tableView.frame;
-        CGRect touchFrame = touchView.frame;
-        if (searchBox.hidden && touchLastY < touchLocation.y){
-            searchBox.hidden = NO;
-            frame.origin.y = 50;
-            touchFrame.origin.y = 110;
-            touchView.frame = touchFrame;
-            self.tableView.frame = frame;
-            // that right there is a hack
-            [self textFieldDidBeginEditing:searchBox];
-        } else if (searchBox.hidden == NO  && touchLastY > touchLocation.y) {
-            
-        }
-        dragging = NO;
+    CGRect frame = self.tableView.frame;
+    if (searchBox.hidden){
+        searchBox.hidden = NO;
+        frame.origin.y = 50;
+        self.tableView.frame = frame;
+        // that right there is a hack
+        [self textFieldDidBeginEditing:searchBox];
+    } else if (searchBox.hidden == NO) {
+        searchBox.hidden = YES;
+        [self friendsWasTouched];
     }
 }
 
