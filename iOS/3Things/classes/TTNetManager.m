@@ -9,6 +9,7 @@
 #import "TTNetManager.h"
 #import "TTImage.h"
 #import <AssetsLibrary/ALAsset.h>
+#import <AssetsLibrary/ALAssetRepresentation.h>
 
 @implementation TTNetManager
 @synthesize netDelegate;
@@ -156,8 +157,15 @@ TTNetManager *instance;
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
             [library assetForURL:[NSURL URLWithString:img] resultBlock:^(ALAsset *asset )
             {
-                UIImage *theImage = [UIImage imageWithCGImage:[asset aspectRatioThumbnail]];
-                theImage = [self imageByCropping:theImage toSize:CGSizeMake(IMG_DETAIL_SIZE, IMG_DETAIL_SIZE)];
+                ALAssetRepresentation *assetRep = [asset defaultRepresentation];
+                UIImage *theImage = [UIImage imageWithCGImage:[assetRep fullScreenImage] scale:1 orientation:UIImageOrientationUp];
+                CGSize size = CGSizeMake(theImage.size.width, theImage.size.height);
+                if (size.height < size.width) {
+                    size.width = size.height;
+                } else if (size.height > size.width) {
+                    size.height = size.width;
+                }
+                theImage = [self imageByCropping:theImage toSize:size];
                 theImage = [theImage trimmedImage];
                 if (theImage != NULL) {
                     [images insertObject:theImage atIndex:index];
@@ -281,6 +289,7 @@ TTNetManager *instance;
     NSMutableData *postData = [NSMutableData data];
     [postData appendData:[requestString dataUsingEncoding:NSUTF8StringEncoding]];
     
+    [request setTimeoutInterval:90];
     [request setHTTPMethod:@"POST"];
     
     NSString *boundary = @"-----------------------------asidugyasd87gya9sd87ygah9s7ygha", *FileParamConstant = filename;
