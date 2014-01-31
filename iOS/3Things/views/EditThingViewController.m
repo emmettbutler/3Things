@@ -120,7 +120,7 @@
     [nextButton addTarget:self
                    action:(self.thingIndex.intValue != 2) ? @selector(nextWasTouched) : @selector(shareWasTouched)
         forControlEvents:UIControlEventTouchDown];
-    [nextButton setTitle:(self.thingIndex.intValue != 2) ? @"NEXT" : @"SHARE" forState:UIControlStateNormal];
+    [nextButton setTitle:(self.thingIndex.intValue != 2) ? @"NEXT" : @"REVIEW" forState:UIControlStateNormal];
     nextButton.frame = CGRectMake(screenFrame.size.width*.795, buttonY, 50, buttonHeight);
     nextButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:BUTTON_TEXT_SIZE];
     nextButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_COLOR];
@@ -193,7 +193,7 @@
     [self saveDay];
     
     [[self navigationController] pushViewController:
-     [[UserHistoryViewController alloc] init] animated:YES];
+     [[My3ThingsViewController alloc] initWithShareDay:self.shares andIsEdited:@(YES)] animated:YES];
 }
 
 - (void)imgButtonWasTouched {
@@ -294,8 +294,6 @@
 
 - (void)saveDay{
     UserStore *userStore = [[UserStore alloc] init];
-    [TTNetManager sharedInstance].netDelegate = self;
-    [[TTNetManager sharedInstance] postShareDay:self.shares forUser:[[userStore getAuthenticatedUser] userID]];
     ShareDayStore *dayStore = [[ShareDayStore alloc] init];
     ShareDay *item = [dayStore getToday];
     if (item == NULL){
