@@ -4,7 +4,7 @@ import re
 import random
 import hashlib
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil.parser import parse
 from bson.objectid import ObjectId
 from bson.binary import Binary
@@ -364,7 +364,6 @@ class UserTodayController(Base3ThingsHandler):
 
     @coroutine
     def _get_user_today(self, user_id):
-        # TODO - this probably needs to be timezone-aware (must take timezone as a parameter?)
         date = datetime.combine(datetime.utcnow(), datetime.min.time())
         history = self.application.db.days.find({'date': date, 'user': ObjectId(user_id)})
         if history.count() == 0:
@@ -411,21 +410,7 @@ class UserDaysController(Base3ThingsHandler):
 
         date_time = parse(sent_day['time'])
 
-        images = ["", "", ""]
-        if 'thingimage' in self.request.files:
-            for image in self.request.files['thingimage']:
-                ctype = image["content_type"]
-                fs = GridFS(self.application.db)
-                images.insert(
-                    int(image['filename'].split('.')[0]),
-                    fs.put(
-                        image['body'],
-                        content_type=ctype,
-                        filename=image["filename"]
-                    )
-                )
-
-        day = yield self._insert_day(date_time, sent_day, images)
+        day = yield self._insert_day(date_time, sent_day)
 
         self.finish()
 
@@ -442,7 +427,7 @@ class UserDaysController(Base3ThingsHandler):
         raise Return(history)
 
     @coroutine
-    def _insert_day(self, date, sent_day, images):
+    def _insert_day(self, date, sent_day):
         if len(sent_day['things']) < 3:
             raise tornado.web.HTTPError(400, "Missing some Things")
         updating_day = True
@@ -450,11 +435,27 @@ class UserDaysController(Base3ThingsHandler):
         date_only = datetime.combine(date, datetime.min.time())
         date_only.replace(tzinfo=date.tzinfo)
 
-        for i,thing in enumerate(sent_day['things']):
-            thing['imageID'] = images[i]
-
         record = {'user': self.cur_user['_id'], 'date': date_only}
         existing_day = list(self.application.db.days.find(record))
+
+        fs = GridFS(self.application.db)
+        for thing in existing_day[0]['things']:
+            fs.delete(thing['imageID'])
+        images = ["", "", ""]
+        if 'thingimage' in self.request.files:
+            for image in self.request.files['thingimage']:
+                ctype = image["content_type"]
+                images.insert(
+                    int(image['filename'].split('.')[0]),
+                    fs.put(
+                        image['body'],
+                        content_type=ctype,
+                        filename=image["filename"]
+                    )
+                )
+
+        for i,thing in enumerate(sent_day['things']):
+            thing['imageID'] = images[i]
 
         if len(existing_day) > 0:
             update_fields = dict({'time': date}.items() + sent_day.items())
