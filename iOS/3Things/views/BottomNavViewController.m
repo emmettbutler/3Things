@@ -53,7 +53,7 @@
     [friendsButton addTarget:self
                        action:@selector(friendsWasTouched)
              forControlEvents:UIControlEventTouchUpInside];
-    [friendsButton setTitle:@"FRIENDS" forState:UIControlStateNormal];
+    [friendsButton setTitle:@"FEED" forState:UIControlStateNormal];
     friendsButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE];
     NSString *color = @"FFFFFF";
     if (self.currentScreen == kFriendsScreen) {
