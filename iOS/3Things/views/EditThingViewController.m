@@ -88,7 +88,7 @@
     [closeButton addTarget:self action:@selector(closeWasTouched) forControlEvents:UIControlEventTouchDown];
     closeButton.frame = CGRectMake(textFieldFrame.origin.x+textFieldFrame.size.width-(closeButtonMargin+closeButtonSize), textFieldFrame.origin.y+closeButtonMargin, closeButtonSize, closeButtonSize);
     [closeButton setBackgroundImage:[UIImage imageNamed:@"Close.png"] forState:UIControlStateNormal];
-    [self.view addSubview:closeButton];
+    //[self.view addSubview:closeButton];
     
     float buttonY = textFieldFrame.origin.y+textFieldFrame.size.height+18;
     float buttonHeight = 32;
@@ -153,6 +153,10 @@
              TTLog(@"Error loading thing image");
          }];
     }
+    
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(closeWasTouched)];
+    [[self navigationItem] setLeftBarButtonItem:button];
+    [[UIBarButtonItem appearance] setTintColor:[[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR]];
 }
 
 - (void)cancelWasTouched {
@@ -345,7 +349,13 @@
 }
 
 - (void) closeWasTouched {
-    [[self navigationController] popViewControllerAnimated:YES];
+    //[[self navigationController] popViewControllerAnimated:YES];
+    for (UIViewController *controller in self.navigationController.viewControllers) {
+        if ([controller isKindOfClass:[My3ThingsViewController class]]) {
+            [self.navigationController popToViewController:controller animated:YES];
+            break;
+        }
+    }
 }
 
 @end
