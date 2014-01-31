@@ -38,7 +38,9 @@
 {
     [super viewDidLoad];
 	
-    self.commentData = nil;
+    self.commentData = [[NSMutableDictionary alloc] init];
+    self.commentData[@"data"] = [[NSMutableDictionary alloc] init];
+    self.commentData[@"data"][@"comments"] = [[NSMutableArray alloc] init];
     [TTNetManager sharedInstance].netDelegate = self;
     [[TTNetManager sharedInstance] getCommentsForThing:self.thing[@"index"] withDay:self.thing[@"day_id"]];
     
@@ -129,15 +131,33 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    UserStore *userStore = [[UserStore alloc] init];
     if (![textField.text isEqualToString:@""]) {
-        UserStore *userStore = [[UserStore alloc] init];
         TTLog(@"Field returned. Submitting comment.");
         [[TTNetManager sharedInstance] postCommentForThing:self.thing[@"index"]
                                                    withDay:self.thing[@"day_id"]
                                                    andUser:[userStore getAuthenticatedUser]
                                                    andText:textField.text];
+        NSMutableDictionary *newComment = [[NSMutableDictionary alloc] init];
+        newComment[@"day_id"] = self.thing[@"day_id"];
+        newComment[@"index"] = self.thing[@"index"];
+        newComment[@"text"] = textField.text;
+        newComment[@"uid"] = [[userStore getAuthenticatedUser] userID];
+        newComment[@"user"] = [[NSMutableDictionary alloc] init];
+        User *user = [userStore getAuthenticatedUser];
+        newComment[@"user"][@"_id"] = [user userID];
+        newComment[@"user"][@"fbid"] = [user facebookID];
+        newComment[@"user"][@"name"] = [user name];
+        if ([user profileImageURL] != NULL) {
+            newComment[@"user"][@"profileImageID"] = [user profileImageURL];
+        }
+        [self.commentData[@"data"][@"comments"] addObject:newComment];
+        [self.tableView reloadData];
     }
     [self.commentField endEditing:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        //[[TTNetManager sharedInstance] getCommentsForThing:self.thing[@"index"] withDay:self.thing[@"day_id"]];
+    });
     return YES;
 }
 

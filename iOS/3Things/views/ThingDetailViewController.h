@@ -17,7 +17,7 @@
 
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic) NSDictionary *thing;
-@property (nonatomic) NSDictionary *commentData;
+@property (nonatomic) NSMutableDictionary *commentData;
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic) UIImageView *picView;
 @property (nonatomic) UITextField *commentField;
