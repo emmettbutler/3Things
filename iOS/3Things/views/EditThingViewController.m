@@ -7,6 +7,7 @@
 //
 
 #import "EditThingViewController.h"
+#import "FriendFeedViewController.h"
 #import "UserHistoryViewController.h"
 #import "My3ThingsViewController.h"
 #import "ThingStore.h"
@@ -183,7 +184,7 @@
     [self registerCurrentThing];
     [self savePartialDay];
     [[self navigationController] pushViewController:
-     [[My3ThingsViewController alloc] initWithShareDay:self.shares andIsEdited:@(YES)] animated:YES];
+     [[FriendFeedViewController alloc] init] animated:YES];
 }
 
 - (void)shareWasTouched {
