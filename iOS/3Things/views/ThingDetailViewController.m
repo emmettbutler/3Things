@@ -56,9 +56,9 @@
     [closeButton setBackgroundImage:[UIImage imageNamed:@"Close.png"] forState:UIControlStateNormal];
     [self.view addSubview:closeButton];
     
-    int imgSize = 270;
+    
     NSString *imgID = self.thing[@"imageID"];
-    self.picView = [[UIImageView alloc] initWithFrame:CGRectMake((self.screenFrame.size.width-imgSize)/2, 60, imgSize, imgSize)];
+    self.picView = [[UIImageView alloc] initWithFrame:CGRectMake((self.screenFrame.size.width-IMG_DETAIL_SIZE)/2, 60, IMG_DETAIL_SIZE, IMG_DETAIL_SIZE)];
     [self.view addSubview:self.picView];
     if (![imgID isEqualToString:@""] && imgID != NULL){
         hasImage = YES;

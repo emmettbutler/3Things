@@ -26,6 +26,7 @@
 #define BUTTON_CORNER_RADIUS 3
 #define KEYBOARD_HEIGHT 216
 #define FLAG_TAG 598347
+#define IMG_DETAIL_SIZE 270
 
 @class TTNetManager;
 @protocol TTNetManagerDelegate <NSObject>

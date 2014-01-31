@@ -7,6 +7,7 @@
 //
 
 #import "TTNetManager.h"
+#import "TTImage.h"
 #import <AssetsLibrary/ALAsset.h>
 
 @implementation TTNetManager
@@ -155,7 +156,9 @@ TTNetManager *instance;
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
             [library assetForURL:[NSURL URLWithString:img] resultBlock:^(ALAsset *asset )
             {
-                UIImage *theImage = [UIImage imageWithCGImage:[asset thumbnail]];
+                UIImage *theImage = [UIImage imageWithCGImage:[asset aspectRatioThumbnail]];
+                theImage = [self imageByCropping:theImage toSize:CGSizeMake(IMG_DETAIL_SIZE, IMG_DETAIL_SIZE)];
+                theImage = [theImage trimmedImage];
                 if (theImage != NULL) {
                     [images insertObject:theImage atIndex:index];
                 } else {
@@ -171,6 +174,20 @@ TTNetManager *instance;
             }];
         }
     }
+}
+
+- (UIImage *)imageByCropping:(UIImage *)image toSize:(CGSize)size
+{
+    double x = (image.size.width - size.width) / 2.0;
+    double y = (image.size.height - size.height) / 2.0;
+    
+    CGRect cropRect = CGRectMake(x, y, size.height, size.width);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+    
+    UIImage *cropped = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    
+    return cropped;
 }
 
 -(void)getTodayForUser:(User *)user
@@ -284,7 +301,7 @@ TTNetManager *instance;
     if (images != nil) {
         for (UIImage *image in images) {
             if (image != (UIImage *)[NSNull null]){
-                NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+                NSData *imageData = UIImageJPEGRepresentation(image, .9);
                 if (imageData) {
                     addedImage = YES;
                     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
