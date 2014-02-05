@@ -60,6 +60,9 @@
 		AAE33B2B187E05BF0009CB25 /* icon_retina.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE33B2A187E05BF0009CB25 /* icon_retina.png */; };
 		AAE33B2E187E061F0009CB25 /* icon_old_retina.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE33B2C187E061F0009CB25 /* icon_old_retina.png */; };
 		AAE33B2F187E061F0009CB25 /* icon_nonretina.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE33B2D187E061F0009CB25 /* icon_nonretina.png */; };
+		AAEC506E18A1C0F600C4A1D1 /* Add Friend Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AAEC506B18A1C0F600C4A1D1 /* Add Friend Icon.png */; };
+		AAEC506F18A1C0F600C4A1D1 /* Backarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AAEC506C18A1C0F600C4A1D1 /* Backarrow.png */; };
+		AAEC507018A1C0F600C4A1D1 /* ProgressWheel.png in Resources */ = {isa = PBXBuildFile; fileRef = AAEC506D18A1C0F600C4A1D1 /* ProgressWheel.png */; };
 		AAF28C5017DAA90A0067FD79 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C4F17DAA90A0067FD79 /* UIKit.framework */; };
 		AAF28C5217DAA90A0067FD79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C5117DAA90A0067FD79 /* Foundation.framework */; };
 		AAF28C5417DAA90A0067FD79 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF28C5317DAA90A0067FD79 /* CoreGraphics.framework */; };
@@ -156,6 +159,9 @@
 		AAE33B2A187E05BF0009CB25 /* icon_retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_retina.png; path = assets/icon_retina.png; sourceTree = "<group>"; };
 		AAE33B2C187E061F0009CB25 /* icon_old_retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_old_retina.png; path = assets/icon_old_retina.png; sourceTree = "<group>"; };
 		AAE33B2D187E061F0009CB25 /* icon_nonretina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_nonretina.png; path = assets/icon_nonretina.png; sourceTree = "<group>"; };
+		AAEC506B18A1C0F600C4A1D1 /* Add Friend Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Add Friend Icon.png"; path = "assets/Add Friend Icon.png"; sourceTree = "<group>"; };
+		AAEC506C18A1C0F600C4A1D1 /* Backarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Backarrow.png; path = assets/Backarrow.png; sourceTree = "<group>"; };
+		AAEC506D18A1C0F600C4A1D1 /* ProgressWheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ProgressWheel.png; path = assets/ProgressWheel.png; sourceTree = "<group>"; };
 		AAF28C4C17DAA90A0067FD79 /* 3Things.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3Things.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF28C4F17DAA90A0067FD79 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AAF28C5117DAA90A0067FD79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -327,6 +333,9 @@
 		AAF28C5617DAA90A0067FD79 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AAEC506B18A1C0F600C4A1D1 /* Add Friend Icon.png */,
+				AAEC506C18A1C0F600C4A1D1 /* Backarrow.png */,
+				AAEC506D18A1C0F600C4A1D1 /* ProgressWheel.png */,
 				AA7C37AA18988598004A283D /* Cal_Icon_depressed.png */,
 				AA7C37AB18988598004A283D /* Cal_Icon.png */,
 				AA7C37AC18988598004A283D /* Facebook_logo_white.png */,
@@ -411,8 +420,10 @@
 				AAE33B2F187E061F0009CB25 /* icon_nonretina.png in Resources */,
 				AA79309E183C05E6006B4213 /* Close.png in Resources */,
 				AA79308F183C043E006B4213 /* Compose_Icon_depressed.png in Resources */,
+				AAEC506F18A1C0F600C4A1D1 /* Backarrow.png in Resources */,
 				AA79309A183C05E6006B4213 /* Friends_bottom_Menu_depressed.png in Resources */,
 				AAF28C5A17DAA90A0067FD79 /* InfoPlist.strings in Resources */,
+				AAEC506E18A1C0F600C4A1D1 /* Add Friend Icon.png in Resources */,
 				AA79308E183C043E006B4213 /* Compose_Icon.png in Resources */,
 				AA7C37AE18988598004A283D /* Cal_Icon.png in Resources */,
 				AAE33B2E187E061F0009CB25 /* icon_old_retina.png in Resources */,
@@ -421,6 +432,7 @@
 				AA79309F183C05E6006B4213 /* Camera.png in Resources */,
 				AA7C37AF18988598004A283D /* Facebook_logo_white.png in Resources */,
 				AA793099183C05E6006B4213 /* Friends_bottom_Menu.png in Resources */,
+				AAEC507018A1C0F600C4A1D1 /* ProgressWheel.png in Resources */,
 				AAF28C6417DAA90A0067FD79 /* Default@2x.png in Resources */,
 				AAE33B2B187E05BF0009CB25 /* icon_retina.png in Resources */,
 				AA79309C183C05E6006B4213 /* Flag_2.png in Resources */,

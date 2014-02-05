@@ -63,6 +63,13 @@
     [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
     [titleView addSubview:logoView];
     self.navigationItem.titleView = titleView;
+    UIImage *friendImage = [UIImage imageNamed:@"Add Friend Icon.png"];
+    UIButton *friend = [UIButton buttonWithType:UIButtonTypeCustom];
+    [friend addTarget:self action:@selector(friendSearchWasTouched) forControlEvents:UIControlEventTouchUpInside];
+    friend.bounds = CGRectMake(0, 0, friendImage.size.width*.3, friendImage.size.height*.3);
+    [friend setImage:friendImage forState:UIControlStateNormal];
+    UIBarButtonItem *friendBtn = [[UIBarButtonItem alloc] initWithCustomView:friend];
+    [[self navigationItem] setLeftBarButtonItem:friendBtn];
     
     [TTNetManager sharedInstance].netDelegate = self;
     [[TTNetManager sharedInstance] getFriendFeed];
@@ -103,10 +110,6 @@
     [self.view addSubview:navViewController.view];
     navViewController.view.frame = navViewController.frame;
     [navViewController didMoveToParentViewController:self];
-    
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Friends" style:UIBarButtonItemStyleBordered target:self action:@selector(friendSearchWasTouched)];
-    [[self navigationItem] setLeftBarButtonItem:button];
-    [[UIBarButtonItem appearance] setTintColor:[[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR]];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
