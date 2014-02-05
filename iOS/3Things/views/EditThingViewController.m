@@ -57,6 +57,13 @@
     [self.view.layer insertSublayer:bgLayer atIndex:0];
     
     self.navigationItem.hidesBackButton = YES;
+    UIImage *backImage = [UIImage imageNamed:@"Backarrow.png"];
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back addTarget:self action:@selector(closeWasTouched) forControlEvents:UIControlEventTouchUpInside];
+    back.bounds = CGRectMake(0, 0, backImage.size.width*.3, backImage.size.height*.3);
+    [back setImage:backImage forState:UIControlStateNormal];
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithCustomView:back];
+    [[self navigationItem] setLeftBarButtonItem:backBtn];
     [[self navigationItem] setTitle:[NSString stringWithFormat:@"SHARE YOUR %@ THING", [self getNumberWord]]];
     self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     
@@ -154,10 +161,6 @@
              TTLog(@"Error loading thing image");
          }];
     }
-    
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(closeWasTouched)];
-    [[self navigationItem] setLeftBarButtonItem:button];
-    [[UIBarButtonItem appearance] setTintColor:[[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR]];
 }
 
 - (void)cancelWasTouched {
