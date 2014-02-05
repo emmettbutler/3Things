@@ -226,10 +226,10 @@
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     if (self.feedData == nil) {
-        UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, frame.size.width, 100)];
+        UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 100, frame.size.width, 100)];
         emptyView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
         UIImageView *spinner = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ProgressWheel.png"]];
-        spinner.frame = CGRectMake(emptyView.frame.size.width/2-100/2-15, 0, 100, 100);
+        spinner.frame = CGRectMake(emptyView.frame.size.width/2-100/2, 0, 100, 100);
         CABasicAnimation *rotation;  // http://stackoverflow.com/a/12112975/735204
         rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
         rotation.fromValue = [NSNumber numberWithFloat:0];
