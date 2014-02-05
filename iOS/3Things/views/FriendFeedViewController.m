@@ -208,13 +208,16 @@
     if (self.feedData == nil || [self.feedData[@"data"][@"history"] count] == 0) {
         UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, frame.size.width, 100)];
         emptyView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
-        UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 100)];
-        text.text = @"THERE ARE NO POSTS TO DISPLAY\nTOUCH BELOW TO POST";
-        [emptyView addSubview:text];
-        text.textAlignment = NSTextAlignmentCenter;
-        text.font = [UIFont fontWithName:HEADER_FONT size:14];
-        text.backgroundColor = emptyView.backgroundColor;
-        text.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+        UIImageView *spinner = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ProgressWheel.png"]];
+        spinner.frame = CGRectMake(emptyView.frame.size.width/2-100/2-15, 0, 100, 100);
+        CABasicAnimation *rotation;  // http://stackoverflow.com/a/12112975/735204
+        rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        rotation.fromValue = [NSNumber numberWithFloat:0];
+        rotation.toValue = [NSNumber numberWithFloat:(2*M_PI)];
+        rotation.duration = 1.7;
+        rotation.repeatCount = HUGE_VALF;
+        [spinner.layer addAnimation:rotation forKey:@"Spin"];
+        [emptyView addSubview:spinner];
         [container addSubview:emptyView];
     } else {
         NSMutableDictionary *dayAndUser = self.parsedFeed[indexPath.row];
