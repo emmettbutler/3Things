@@ -58,6 +58,7 @@
 		AABB2F111800A43600EEA446 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABB2F101800A43600EEA446 /* CoreData.framework */; };
 		AABB2F141800ADA000EEA446 /* 3Things.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AABB2F121800ADA000EEA446 /* 3Things.xcdatamodeld */; };
 		AABB2F1D1800B0F600EEA446 /* ShareDayStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2F1C1800B0F600EEA446 /* ShareDayStore.m */; };
+		AAD3C61F18A31B7600C5C388 /* TTNavControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD3C61E18A31B7600C5C388 /* TTNavControllerDelegate.m */; };
 		AAE33B2B187E05BF0009CB25 /* icon_retina.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE33B2A187E05BF0009CB25 /* icon_retina.png */; };
 		AAE33B2E187E061F0009CB25 /* icon_old_retina.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE33B2C187E061F0009CB25 /* icon_old_retina.png */; };
 		AAE33B2F187E061F0009CB25 /* icon_nonretina.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE33B2D187E061F0009CB25 /* icon_nonretina.png */; };
@@ -158,6 +159,8 @@
 		AABB2F131800ADA000EEA446 /* 3Things.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 3Things.xcdatamodel; sourceTree = "<group>"; };
 		AABB2F1B1800B0F600EEA446 /* ShareDayStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDayStore.h; sourceTree = "<group>"; };
 		AABB2F1C1800B0F600EEA446 /* ShareDayStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDayStore.m; sourceTree = "<group>"; };
+		AAD3C61D18A31B7600C5C388 /* TTNavControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNavControllerDelegate.h; sourceTree = "<group>"; };
+		AAD3C61E18A31B7600C5C388 /* TTNavControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNavControllerDelegate.m; sourceTree = "<group>"; };
 		AAE33B2A187E05BF0009CB25 /* icon_retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_retina.png; path = assets/icon_retina.png; sourceTree = "<group>"; };
 		AAE33B2C187E061F0009CB25 /* icon_old_retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_old_retina.png; path = assets/icon_old_retina.png; sourceTree = "<group>"; };
 		AAE33B2D187E061F0009CB25 /* icon_nonretina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_nonretina.png; path = assets/icon_nonretina.png; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 				AA42DB7218855D3200EA244C /* TTTableView.m */,
 				AA42DB7418855E9D00EA244C /* TTCollectionView.h */,
 				AA42DB7518855E9D00EA244C /* TTCollectionView.m */,
+				AAD3C61D18A31B7600C5C388 /* TTNavControllerDelegate.h */,
+				AAD3C61E18A31B7600C5C388 /* TTNavControllerDelegate.m */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -479,6 +484,7 @@
 				AA1A9283185685CB0066F159 /* User.m in Sources */,
 				AA7E5503183188F500D7DE8C /* SingleDayViewController.m in Sources */,
 				AAF46B43180C97A300FE79A9 /* LoginTypePickerViewController.m in Sources */,
+				AAD3C61F18A31B7600C5C388 /* TTNavControllerDelegate.m in Sources */,
 				AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */,
 				AA7930A2183C07B0006B4213 /* TTButton.m in Sources */,
 				AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */,

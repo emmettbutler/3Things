@@ -147,6 +147,7 @@
     frame.origin.y = oldY;
     searchBox.hidden = YES;
     self.tableView.frame = frame;
+    [TTNetManager sharedInstance].netDelegate = nil;
 }
 
 -(void)logoutWasTouched
@@ -294,7 +295,7 @@
         searchBox.hidden = NO;
         frame.origin.y = 50;
         self.tableView.frame = frame;
-        // that right there is a hack
+        [TTNetManager sharedInstance].netDelegate = nil;
         [self textFieldDidBeginEditing:searchBox];
     } else if (searchBox.hidden == NO) {
         searchBox.hidden = YES;

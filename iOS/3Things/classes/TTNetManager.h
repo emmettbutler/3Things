@@ -43,6 +43,7 @@ typedef enum _kStorage {
 @interface TTNetManager : NSObject <NSURLConnectionDelegate>
 {
     NSString *rootURL;
+    id <TTNetManagerDelegate> originatingViewController;
 }
 
 +(TTNetManager *)sharedInstance;

@@ -259,6 +259,8 @@ TTNetManager *instance;
     UIApplication* app = [UIApplication sharedApplication];
     app.networkActivityIndicatorVisible = YES;
     
+    originatingViewController = self.netDelegate;
+    
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *error){
          // TODO - this whole delegate idea only works if there is only ever one web request happening at a time
@@ -267,7 +269,9 @@ TTNetManager *instance;
          // appropriate one
          // Or, fix some tiny issues by terminating any current request every time a new one is started
          app.networkActivityIndicatorVisible = NO;
-         [netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
+         if (self.netDelegate != nil && originatingViewController == self.netDelegate) {
+             [netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
+         }
       }
      ];
 }
@@ -337,7 +341,9 @@ TTNetManager *instance;
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *error){
          app.networkActivityIndicatorVisible = NO;
-         [self.netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
+         if (self.netDelegate != nil && originatingViewController == self.netDelegate) {
+             [self.netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
+         }
      }
      ];
 }
