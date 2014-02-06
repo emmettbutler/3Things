@@ -143,18 +143,7 @@
         [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
          {
              TTLog(@"Thing image loaded successfully");
-             int imgWidth = 40;
-             
-             picView = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-             [picView addTarget:self
-                         action:@selector(removeImageWasTouched)
-               forControlEvents:UIControlEventTouchUpInside];
-             picView.frame = CGRectMake(70, textFieldFrame.origin.y+textFieldFrame.size.height+8, imgWidth, imgWidth);
-             [picView setBackgroundImage:[UIImage imageWithCGImage:[asset thumbnail]] forState:UIControlStateNormal];
-             CALayer *imageLayer = picView.layer;
-             [imageLayer setCornerRadius:picView.frame.size.width/2];
-             [imageLayer setMasksToBounds:YES];
-             [self.view addSubview:picView];
+             [self photoWasSelected:[UIImage imageWithCGImage:[asset thumbnail]]];
          }
                 failureBlock:^(NSError *error )
          {
@@ -213,16 +202,22 @@
 
 - (void)photoWasSelected:(UIImage *)selectedImage {
     TTLog(@"got image: %@", selectedImage);
-    int imgWidth = 40;
-    picView = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    int imgWidth = 40, iconMargin = 5;
+    
+    picView = [[TTButton alloc] init];
     [picView addTarget:self
                 action:@selector(removeImageWasTouched)
       forControlEvents:UIControlEventTouchUpInside];
-    picView.frame = CGRectMake(70, textFieldFrame.origin.y+textFieldFrame.size.height+8, imgWidth, imgWidth);
-    [picView setBackgroundImage:selectedImage forState:UIControlStateNormal];
-    CALayer *imageLayer = picView.layer;
-    [imageLayer setCornerRadius:picView.frame.size.width/2];
+    [picView setFrame:CGRectMake(70, textFieldFrame.origin.y+textFieldFrame.size.height+8, imgWidth+iconMargin, imgWidth+iconMargin)];
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(iconMargin, iconMargin, imgWidth, imgWidth)];
+    [imgView setImage:selectedImage];
+    CALayer *imageLayer = imgView.layer;
+    [imageLayer setCornerRadius:imgView.frame.size.width/2];
     [imageLayer setMasksToBounds:YES];
+    [picView addSubview:imgView];
+    UIImageView *closeIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CloseIcon_Pictures.png"]];
+    closeIcon.frame = CGRectMake(imgWidth-20/2, 0, 20, 20);
+    [picView addSubview:closeIcon];
     [self.view addSubview:picView];
 }
 - (void)photoWasSaved:(NSURL *)savedPhotoURL {
