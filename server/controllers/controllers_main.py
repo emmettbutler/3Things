@@ -439,8 +439,9 @@ class UserDaysController(Base3ThingsHandler):
         existing_day = list(self.application.db.days.find(record))
 
         fs = GridFS(self.application.db)
-        for thing in existing_day[0]['things']:
-            fs.delete(thing['imageID'])
+        if len(existing_day) > 0:
+            for thing in existing_day[0]['things']:
+                fs.delete(thing['imageID'])
         images = ["", "", ""]
         if 'thingimage' in self.request.files:
             for image in self.request.files['thingimage']:
