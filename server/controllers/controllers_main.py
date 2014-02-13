@@ -418,8 +418,9 @@ class UserDaysController(UserHistoryController):
 
         if "things" not in sent_day:
             raise tornado.web.HTTPError(400, "Invalid JSON document")
-        if len(sent_day['things']) != 3:
-            raise tornado.web.HTTPError(400, "Invalid JSON document")
+        published = True
+        if 0 <= len(sent_day['things']) < 3:
+            published = False
         for thing in sent_day['things']:
             if 'text' not in thing:
                 raise tornado.web.HTTPError(400, "Invalid JSON document")
@@ -428,12 +429,12 @@ class UserDaysController(UserHistoryController):
 
         date_time = parse(sent_day['time'])
 
-        day = yield self._insert_day(date_time, sent_day)
+        day = yield self._insert_day(date_time, sent_day, published=published)
 
         self.finish()
 
     @coroutine
-    def _insert_day(self, date, sent_day):
+    def _insert_day(self, date, sent_day, published=True):
         if len(sent_day['things']) < 3:
             raise tornado.web.HTTPError(400, "Missing some Things")
         updating_day = True
@@ -441,7 +442,11 @@ class UserDaysController(UserHistoryController):
         date_only = datetime.combine(date, datetime.min.time())
         date_only.replace(tzinfo=date.tzinfo)
 
-        record = {'user': self.cur_user['_id'], 'date': date_only}
+        record = {
+            'user': self.cur_user['_id'],
+            'date': date_only,
+            'published': published
+        }
         existing_day = list(self.application.db.days.find(record))
 
         fs = GridFS(self.application.db)

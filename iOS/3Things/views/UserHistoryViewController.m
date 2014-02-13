@@ -114,7 +114,8 @@
     if (error == NULL) {
         TTLog(@"Data received: %@", url);
         UserStore *userStore = [[UserStore alloc] init];
-        if ([[url absoluteString] rangeOfString:[NSString stringWithFormat:@"%@/users/%@/days", [TTNetManager sharedInstance].rootURL, [userStore getAuthenticatedUser].userID]].location == NSNotFound) {
+        if ([[url absoluteString] rangeOfString:
+             [NSString stringWithFormat:@"%@/users/%@/days", [TTNetManager sharedInstance].rootURL, [userStore getAuthenticatedUser].userID]].location == NSNotFound) {
             return;
         }
         NSError *jsonError = nil;

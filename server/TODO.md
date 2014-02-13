@@ -11,9 +11,9 @@ Unfinished posts
 - [x] only return posts in feed where published=True
 - [x] only return posts in calendar where published=True
 - [x] new server endpoint for unpublished calendar view
-- [ ] new TTNetManager interface for this endpoint
-- [ ] only return posts in new calendar where published=False
+- [x] new TTNetManager interface for this endpoint
 - [ ] save completed posts with published=True
+- [ ] only return posts in new calendar where published=False
 - [ ] post unfinished days from review button to web
 - [ ] store unfinished days with published=False
 - [ ] separate calendar view for unfinished posts
