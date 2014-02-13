@@ -13,8 +13,8 @@ Unfinished posts
 - [x] new server endpoint for unpublished calendar view
 - [x] new TTNetManager interface for this endpoint
 - [x] save completed posts with published=True
-- [ ] post unfinished days from review button to web
-- [ ] "Share" button should say "save" for unfinished posts
+- [x] post unfinished days from review button to web
+- [x] "Share" button should say "save" for unfinished posts
 - [ ] separate calendar view for unfinished posts
 - [ ] only return posts in new calendar where published=False
 - [ ] touch an unfinished post in this view to edit it

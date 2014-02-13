@@ -440,15 +440,13 @@ class UserDaysController(UserHistoryController):
     def _insert_day(self, date, sent_day, published=True):
         if len(sent_day['things']) < 3:
             raise tornado.web.HTTPError(400, "Missing some Things")
-        updating_day = True
 
         date_only = datetime.combine(date, datetime.min.time())
         date_only.replace(tzinfo=date.tzinfo)
 
         record = {
             'user': self.cur_user['_id'],
-            'date': date_only,
-            'published': published
+            'date': date_only
         }
         existing_day = list(self.application.db.days.find(record))
 
@@ -473,10 +471,11 @@ class UserDaysController(UserHistoryController):
             thing['imageID'] = images[i]
 
         if len(existing_day) > 0:
-            update_fields = dict({'time': date}.items() + sent_day.items())
+            update_fields = dict({'time': date, 'published': published}.items() + sent_day.items())
             days = self.application.db.days.update(record, dict(update_fields.items() + record.items()))
         else:
             record['time'] = date
+            record['published'] = published
             record = dict(record.items() + sent_day.items())
             days = self.application.db.days.insert(record)
         raise Return(days)

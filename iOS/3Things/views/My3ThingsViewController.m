@@ -120,13 +120,13 @@
         [shareButton addTarget:self
                         action:@selector(shareWasTouched)
               forControlEvents:UIControlEventTouchDown];
-        [shareButton setTitle:@"SHARE" forState:UIControlStateNormal];
         shareButton.frame = CGRectMake(self.screenFrame.size.width*((1-buttonSizeMul)/2), buttonY, self.screenFrame.size.width*buttonSizeMul, 40.0);
         TTLog(@"Completed things: %d", [self.dayView.completedThings intValue]);
+        shareButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
         if([self.dayView.completedThings intValue] != 3){
-            shareButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"BBBBBB"];
+            [shareButton setTitle:@"SAVE" forState:UIControlStateNormal];
         } else {
-            shareButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+            [shareButton setTitle:@"SHARE" forState:UIControlStateNormal];
         }
         shareButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
         shareButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:12];
