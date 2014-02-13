@@ -110,11 +110,11 @@
 
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
 {
-    TTLog(@"Data received: %@", url);
+    TTLog(@"Error: %@", error);
     if (error == NULL) {
+        TTLog(@"Data received: %@", url);
         UserStore *userStore = [[UserStore alloc] init];
-        if (![[url absoluteString] isEqualToString:
-              [NSString stringWithFormat:@"%@/users/%@/days", [TTNetManager sharedInstance].rootURL, [userStore getAuthenticatedUser].userID]]) {
+        if ([[url absoluteString] rangeOfString:[NSString stringWithFormat:@"%@/users/%@/days", [TTNetManager sharedInstance].rootURL, [userStore getAuthenticatedUser].userID]].location == NSNotFound) {
             return;
         }
         NSError *jsonError = nil;
