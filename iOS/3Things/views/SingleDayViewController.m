@@ -27,11 +27,6 @@
 
 @implementation SingleDayViewController
 
-- (id)initWithIsCurrent:(NSNumber *)isCurrent {
-    UserStore *userStore = [[UserStore alloc] init];
-    return [self initWithShareDay:NULL andIsCurrent:isCurrent andUser:[userStore getAuthenticatedUser]];
-}
-
 - (id)initWithShareDay:(TTShareDay *)shares {
     UserStore *userStore = [[UserStore alloc] init];
     return [self initWithShareDay:shares andIsCurrent:@(NO) andUser:[userStore getAuthenticatedUser]];

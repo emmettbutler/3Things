@@ -284,7 +284,7 @@
         TTLog(@"added thing %d with text %@", i, thing.text);
         [item addThingsObject:thing];
     }
-    item.date = [dayStore getDateOnly];
+    item.date = self.shares.date;
     item.time = [NSDate date];
     UserStore *userStore = [[UserStore alloc] init];
     item.user = [userStore getAuthenticatedUser];
@@ -306,7 +306,7 @@
     for (int i = 0; i < 3; i++){
         [item addThingsObject:[self saveThingWithIndex:@(i)]];
     }
-    item.date = [dayStore getDateOnly];
+    item.date = self.shares.date;
     item.time = [NSDate date];
     item.user = [userStore getAuthenticatedUser];
     [dayStore saveChanges];

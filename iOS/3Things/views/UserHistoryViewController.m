@@ -17,6 +17,8 @@
 #import "FriendFeedViewController.h"
 #import "TTNetManager.h"
 
+#define SORT_ASCENDING YES
+
 @implementation UserHistoryViewController
 
 - (void)viewDidLoad
@@ -25,6 +27,7 @@
     [super viewDidLoad];
     
     self.feedData = nil;
+    self.multipleYears = NO;
     self.navigationController.navigationBarHidden = NO;
     
     ShareDayStore *store = [[ShareDayStore alloc] init];
@@ -125,34 +128,43 @@
             [self.tableView reloadData];
             return;  // hack
         }
-        NSMutableArray *data = json[@"data"][@"history"];
+        NSMutableArray *history = json[@"data"][@"history"];
         
         self.feedData = [[NSMutableDictionary alloc] init];
         
         NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
         [formatter2 setTimeZone:[NSTimeZone defaultTimeZone]];
         [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        // this formatter creates strings of the form yyyyMM (eg 201302 == February 2013)
+        // this is a hack to force the sortedArrayUsingDescriptor method to sort the list of these
+        // strings in what amounts to chronological order.
         NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
-        [formatter1 setDateFormat:@"MM-yyyy"];
+        [formatter1 setDateFormat:@"yyyyMM"];
         [formatter1 setTimeZone:[NSTimeZone defaultTimeZone]];
-        NSDateFormatter *formatter3 = [[NSDateFormatter alloc] init];
-        [formatter3 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        [formatter3 setTimeZone:[NSTimeZone defaultTimeZone]];
         
-        // TODO - this data layout breaks ordering when there are two entries from the same month and different years
-        for (int i = 0; i < [data count]; i++){
-            NSMutableDictionary *day = data[i];
+        NSDate *startDate = [formatter2 dateFromString:history[0][@"date"]];
+        for (int i = 0; i < [history count]; i++){
+            NSMutableDictionary *day = history[i];
             NSDate *date = [formatter2 dateFromString:day[@"date"]];
+            NSTimeInterval interval = [date timeIntervalSinceDate:startDate];
+            if (interval / 86400 >= 364) {  // check for a span of >1 year. this works since the list we receive here is sorted chronologically
+                self.multipleYears = YES;
+            }
             NSString *monthString = [formatter1 stringFromDate:date];
             if (self.feedData[monthString] == nil) {
                 [self.feedData setObject:[[NSMutableArray alloc] init] forKey:monthString];
             }
-            [day setObject:[formatter3 stringFromDate:date] forKey:@"year"];
             [self.feedData[monthString] addObject:day];
         }
         
         [self.tableView reloadData];
     }
+}
+
+- (NSNumber *)getMonthNumberForSectionIndex:(NSInteger)section {
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:SORT_ASCENDING];
+    NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
+    return sortedKeys[section];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -164,9 +176,7 @@
     if (self.feedData == nil) {
         return 1;
     } else {
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-        NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
-        NSNumber *thisMonth = sortedKeys[section];
+        NSNumber *thisMonth = [self getMonthNumberForSectionIndex:section];
         NSArray *monthDays = self.feedData[thisMonth];
         return [monthDays count];
     }
@@ -181,12 +191,17 @@
     UITableViewHeaderFooterView *header = [[UITableViewHeaderFooterView alloc] init];
     
     if (self.feedData != nil) {
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-        NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
-        NSNumber *thisMonth = sortedKeys[section];
+        NSNumber *thisMonth = [self getMonthNumberForSectionIndex:section];
         
         NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
-        NSString *monthName = [formatter2 monthSymbols][[thisMonth intValue] - 1];
+        // here, we extract the year and month from a six-digit number, where the 4 most significant digits are the year
+        // and the two least significant digits are the month of that year
+        int monthNumber = [thisMonth intValue] % 100;
+        int yearNumber = ([thisMonth intValue] - monthNumber) / 100;
+        NSString *monthName = [formatter2 monthSymbols][monthNumber - 1];
+        if (self.multipleYears) {  // if the dates we received span more than a year, include years in the headers
+            monthName = [monthName stringByAppendingString:[NSString stringWithFormat:@" %d", yearNumber]];
+        }
         
         UITextView *monthNameView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.screenFrame.size.width, 23)];
         monthNameView.text = [monthName uppercaseString];
@@ -240,11 +255,9 @@
         [emptyView addSubview:spinner];
         [container addSubview:emptyView];
     } else {
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-        NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
-        NSNumber *thisMonth = sortedKeys[indexPath.section];
+        NSNumber *thisMonth = [self getMonthNumberForSectionIndex:indexPath.section];
         NSArray *monthDays = self.feedData[thisMonth];
-        NSDictionary *day = monthDays[[monthDays count]-1 - indexPath.row];
+        NSDictionary *day = monthDays[indexPath.row];
         
         NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
         [formatter2 setTimeZone:[NSTimeZone defaultTimeZone]];
@@ -358,9 +371,8 @@
     
     if (!self.isViewLoaded) return;
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-    NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
-    NSNumber *thisMonth = sortedKeys[indexPath.section];
+    // if (the selected day is complete) do this:
+    NSNumber *thisMonth = [self getMonthNumberForSectionIndex:indexPath.section];
     NSArray *monthDays = self.feedData[thisMonth];
     NSDictionary *day = monthDays[[monthDays count]-1 - indexPath.row];
     
@@ -368,6 +380,11 @@
      [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] initWithSharesDictionary:day]
                                           andIsCurrent:@(NO) andUser:self.user]
       animated:YES];
+    // else if (the selected day is incomplete)
+    // if (there is a partial day available?)
+    // shares = new TTShareDay with this day (incomplete, with correct date)
+    // else shares = new TTShareDay with no posts and today's date
+    // [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:day andIsCurrent:@(YES) andUser:self.user] animated:YES];
 }
 
 - (void)backWasTouched {
@@ -377,10 +394,6 @@
 - (void)reviewWasTouched {
     if (!self.isViewLoaded) return;
     TTLog(@"User history screen got review callback");
-    /*NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
-    [viewControllers removeLastObject];
-    [viewControllers addObject:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:self.user]];
-    [[self navigationController] setViewControllers:viewControllers animated:YES];*/
     [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:self.user] animated:YES];
 }
 
@@ -391,7 +404,6 @@
     [viewControllers removeLastObject];
     [viewControllers addObject:[[FriendFeedViewController alloc] init]];
     [[self navigationController] setViewControllers:viewControllers animated:YES];
-    //[[self navigationController] pushViewController:[[FriendFeedViewController alloc] init] animated:YES];
 }
 
 -(void) calendarWasTouched {

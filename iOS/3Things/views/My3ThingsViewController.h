@@ -20,7 +20,6 @@ typedef void (^ALAssetsLibraryAccessFailureBlock)(NSError *error);
 
 @interface My3ThingsViewController : ErrorThrowingViewController <ErrorPromptViewControllerDelegate>
 
-- (id)initWithIsCurrent:(NSNumber *)isCurrent;
 - (id)initWithShareDay:(TTShareDay *)shares;
 - (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user;
 - (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user andIsEdited:(NSNumber *)isEdited;

@@ -8,13 +8,13 @@ from datetime import datetime, timedelta
 from dateutil.parser import parse
 from bson.objectid import ObjectId
 from bson.binary import Binary
-from gridfs import GridFS
 import StringIO
 
+from gridfs import GridFS
+import sendgrid
 import tornado.web
 import tornado.gen
 from tornado.gen import Return, coroutine
-import sendgrid
 
 from utils import ThreeThingsResponse, EncryptionManager
 
@@ -278,7 +278,6 @@ class DaysController(Base3ThingsHandler):
     @authenticated
     def get(self):
         history = yield self._get_friend_feed(self.cur_user['_id'])
-        print "Sending friend feed for user %s" % self.cur_user['_id']
         ret = {"history": history}
         self.set_status(200)
         self._send_response(ret)
@@ -378,6 +377,7 @@ class UserDaysController(Base3ThingsHandler):
         history = yield self._get_user_history(user_id)
         for item in history:
             item.pop('user')
+        history = sorted(history, key=lambda a: a['date'])
         ret = {"history": history, "user": user_id}
         self.set_status(200)
         self._send_response(ret)
