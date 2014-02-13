@@ -5,3 +5,20 @@
 - [x] images for things
 - [x] get user info
 - [x] get user history
+
+Unfinished posts
+- [x] give all old posts a "published" flag, set to true
+- [x] only return posts in feed where published=True
+- [x] only return posts in calendar where published=True
+- [ ] new server endpoint for unpublished calendar view
+- [ ] only return posts in new calendar where published=False
+- [ ] save completed posts with published=True
+- [ ] post unfinished days from review button to web
+- [ ] store unfinished days with published=False
+- [ ] separate calendar view for unfinished posts
+- [ ] subclass UserHistoryViewController for the new screen (or make a common parent class)
+- [ ] touch an unfinished post in this view to edit it
+- [ ] post unfinished days from unfinished post view to web
+- [ ] touch an empty post in this view to edit it
+- [ ] post unfinished days from empty post view to web
+- [ ] UI polish on unpublished calendar view
