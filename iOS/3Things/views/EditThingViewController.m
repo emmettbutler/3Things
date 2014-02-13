@@ -84,11 +84,6 @@
     [_textField becomeFirstResponder];
     [_textField setFont:[UIFont systemFontOfSize:15]];
     [_textField setText:self.thingText];
-    if ([self.thingText isEqualToString:@""]){
-        self.textIsBlank = YES;
-    } else {
-        self.textIsBlank = NO;
-    }
     [self.view addSubview:_textField];
     
     int closeButtonSize = 30, closeButtonMargin = 5;
@@ -124,6 +119,12 @@
     saveButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     [self.view addSubview:saveButton];
     
+    self.textIsBlank = YES;
+    TTLog(@"Text: %@", _textField.text);
+    if (![_textField.text isEqualToString:@""] && ![_textField.text isEqualToString:@"Share something..."]){
+        self.textIsBlank = NO;
+    }
+    
     nextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [nextButton addTarget:self
                    action:(self.thingIndex.intValue != 2) ? @selector(nextWasTouched) : @selector(shareWasTouched)
@@ -134,7 +135,8 @@
     nextButton.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_COLOR];
     nextButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     [self.view addSubview:nextButton];
-    [nextButton setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
+    [self toggleNextButton];
+
     
     NSString *imgURL = self.shares.theThings[[self.thingIndex intValue]][@"localImageURL"];
     self.thingLocalImageURL = imgURL;
@@ -175,6 +177,11 @@
     if (!self.isViewLoaded) return;
     [self registerCurrentThing];
     [self savePartialDay];
+    
+    UserStore *userStore = [[UserStore alloc] init];
+    [TTNetManager sharedInstance].netDelegate = (id<TTNetManagerDelegate>)self;
+    [[TTNetManager sharedInstance] postShareDay:self.shares forUser:[[userStore getAuthenticatedUser] userID] completedThings:[NSNumber numberWithInt:self.thingIndex.intValue+1]];
+
     [[self navigationController] pushViewController:
      [[FriendFeedViewController alloc] init] animated:YES];
 }
@@ -332,9 +339,9 @@
 
 -(void)toggleNextButton{
     if (self.textIsBlank) {
-        nextButton.titleLabel.textColor = [UIColor colorWithWhite:1 alpha:1];
+        [nextButton setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:@"FFFFFF"] forState:UIControlStateNormal];
     } else {
-        nextButton.titleLabel.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+        [nextButton setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
     }
 }
 
