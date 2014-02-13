@@ -122,7 +122,7 @@
                               JSONObjectWithData:data
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
-        TTLog(@"json response: %@", json);
+
         // please forgive me for the following
         if (json == NULL || [json[@"data"][@"history"] count] == 0) {
             [self.tableView reloadData];

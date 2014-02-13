@@ -166,7 +166,7 @@
                               JSONObjectWithData:data
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
-        TTLog(@"json response: %@", json);
+
         self.feedData = json;
         for (int i = 0; i < [self.feedData[@"data"][@"history"] count]; i++){
             NSMutableDictionary *dayAndUser = [[NSMutableDictionary alloc] init];

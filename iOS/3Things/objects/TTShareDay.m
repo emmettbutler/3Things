@@ -21,7 +21,7 @@
 {
     self = [super init];
     if (self) {
-        TTLog(@"Shares: %@", shares);
+        //TTLog(@"Shares: %@", shares);
         self.theThings = [[NSMutableArray alloc] initWithCapacity:3];
         if (shares == nil){
             NSCalendar* myCalendar = [NSCalendar currentCalendar];

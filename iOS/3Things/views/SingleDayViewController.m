@@ -56,9 +56,8 @@
             UserStore *userStore = [[UserStore alloc] init];
             self.user = [userStore getAuthenticatedUser];
         } else {
-            TTLog(@"User: %@", self.user);
+            //TTLog(@"User: %@", self.user);
         }
-        TTLog(@"Entering single day view: %@", self.shares.theThings);
     }
     return self;
 }
@@ -299,8 +298,9 @@
                               JSONObjectWithData:data
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
-        TTLog(@"json response: %@", json);
+        
         if (json == NULL) return;
+        TTLog(@"Data received from web");
         self.feedData = json;
         self.shares = [[TTShareDay alloc] initWithSharesDictionary:json[@"data"][@"history"][0]];
         if ([self.parentViewController isKindOfClass:[My3ThingsViewController class]]){
