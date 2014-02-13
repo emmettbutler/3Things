@@ -151,9 +151,9 @@
 - (void)shareWasTouched {
     if (!self.isViewLoaded) return;
     UserStore *userStore = [[UserStore alloc] init];
-    if ([self.dayView.completedThings intValue] == 3) {
+    if ([self.dayView.completedThings intValue] <= 3 && [self.dayView.completedThings intValue] > 0) {
         [TTNetManager sharedInstance].netDelegate = (id<TTNetManagerDelegate>)self;
-        [[TTNetManager sharedInstance] postShareDay:self.shares forUser:[[userStore getAuthenticatedUser] userID]];
+        [[TTNetManager sharedInstance] postShareDay:self.shares forUser:[[userStore getAuthenticatedUser] userID] completedThings:self.dayView.completedThings];
         [[self navigationController] pushViewController:
          [[UserHistoryViewController alloc] init] animated:YES];
     } else {

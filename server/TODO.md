@@ -12,13 +12,16 @@ Unfinished posts
 - [x] only return posts in calendar where published=True
 - [x] new server endpoint for unpublished calendar view
 - [x] new TTNetManager interface for this endpoint
-- [ ] save completed posts with published=True
-- [ ] only return posts in new calendar where published=False
+- [x] save completed posts with published=True
 - [ ] post unfinished days from review button to web
-- [ ] store unfinished days with published=False
+- [ ] "Share" button should say "save" for unfinished posts
 - [ ] separate calendar view for unfinished posts
+- [ ] only return posts in new calendar where published=False
 - [ ] touch an unfinished post in this view to edit it
 - [ ] post unfinished days from unfinished post view to web
 - [ ] touch an empty post in this view to edit it
 - [ ] post unfinished days from empty post view to web
 - [ ] UI polish on unpublished calendar view
+
+- [ ] some new posts appear after older ones in the friends feed
+- [ ] splash screen

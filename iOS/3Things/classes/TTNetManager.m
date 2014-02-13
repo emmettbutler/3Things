@@ -129,7 +129,7 @@ TTNetManager *instance;
     }
 }
 
--(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID
+-(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID completedThings:(NSNumber *)completedThings
 {
     NSString *url = [NSString stringWithFormat:@"%@/users/%@/days", rootURL, userID];
     TTLog(@"Attempting to post day to URL %@", url);
@@ -172,7 +172,7 @@ TTNetManager *instance;
                 } else {
                     [images insertObject:[NSNull null] atIndex:index];
                 }
-                if (index == 2){
+                if (index == [completedThings intValue] - 1){
                     [self apiConnectionWithURL:url andData:jsonString andImages:images authorized:YES fileName:@"thingimage" jsonFilename:@"day"];
                 }
             }
