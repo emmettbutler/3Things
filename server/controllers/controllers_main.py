@@ -370,10 +370,28 @@ class UserTodayController(Base3ThingsHandler):
         raise Return(list(history))
 
 
-class UserDaysController(Base3ThingsHandler):
+class UserHistoryController(Base3ThingsHandler):
+    @coroutine
+    def _get_user_history(self, user_id, published=True):
+        history = list(self.application.db.days.find({
+            'user': ObjectId(user_id),
+            'published': published
+        }).sort("date", -1))
+        if len(history) == 0:
+            raise tornado.web.HTTPError(404, "No history found for user %s" % user_id)
+        for item in history:
+            comments = list(self.application.db.comments.find({"day_id": item['_id']}))
+            item['comments_count'] = []
+            for i in range(0,3):
+                item['comments_count'].append(len([a for a in comments if a['index'] == i]))
+        raise Return(history)
+
+
+class UserDaysController(UserHistoryController):
     @coroutine
     @authenticated
     def get(self, user_id):
+        published = bool(int(self.get_argument('published', default='1')))
         history = yield self._get_user_history(user_id)
         for item in history:
             item.pop('user')
@@ -413,21 +431,6 @@ class UserDaysController(Base3ThingsHandler):
         day = yield self._insert_day(date_time, sent_day)
 
         self.finish()
-
-    @coroutine
-    def _get_user_history(self, user_id):
-        history = list(self.application.db.days.find({
-            'user': ObjectId(user_id),
-            'published': True
-        }).sort("date", -1))
-        if len(history) == 0:
-            raise tornado.web.HTTPError(404, "No history found for user %s" % user_id)
-        for item in history:
-            comments = list(self.application.db.comments.find({"day_id": item['_id']}))
-            item['comments_count'] = []
-            for i in range(0,3):
-                item['comments_count'].append(len([a for a in comments if a['index'] == i]))
-        raise Return(history)
 
     @coroutine
     def _insert_day(self, date, sent_day):

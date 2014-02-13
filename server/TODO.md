@@ -16,7 +16,6 @@ Unfinished posts
 - [ ] post unfinished days from review button to web
 - [ ] store unfinished days with published=False
 - [ ] separate calendar view for unfinished posts
-- [ ] subclass UserHistoryViewController for the new screen (or make a common parent class)
 - [ ] touch an unfinished post in this view to edit it
 - [ ] post unfinished days from unfinished post view to web
 - [ ] touch an empty post in this view to edit it
