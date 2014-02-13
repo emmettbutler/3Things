@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSArray *userHistory;
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic, retain) User *user;
+@property (nonatomic) UISegmentedControl *segmentControl;
 @property (nonatomic) BOOL multipleYears;
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic, retain) NSMutableDictionary *feedData;
