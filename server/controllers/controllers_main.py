@@ -392,7 +392,8 @@ class UserDaysController(UserHistoryController):
     @authenticated
     def get(self, user_id):
         published = bool(int(self.get_argument('published', default='1')))
-        history = yield self._get_user_history(user_id)
+        print "Published: " + published
+        history = yield self._get_user_history(user_id, published=published)
         for item in history:
             item.pop('user')
         history = sorted(history, key=lambda a: a['date'])

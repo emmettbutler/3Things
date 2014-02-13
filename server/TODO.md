@@ -10,7 +10,8 @@ Unfinished posts
 - [x] give all old posts a "published" flag, set to true
 - [x] only return posts in feed where published=True
 - [x] only return posts in calendar where published=True
-- [ ] new server endpoint for unpublished calendar view
+- [x] new server endpoint for unpublished calendar view
+- [ ] new TTNetManager interface for this endpoint
 - [ ] only return posts in new calendar where published=False
 - [ ] save completed posts with published=True
 - [ ] post unfinished days from review button to web

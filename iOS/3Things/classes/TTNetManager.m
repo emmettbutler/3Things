@@ -205,9 +205,9 @@ TTNetManager *instance;
     [self apiConnectionWithURL:url authorized:YES];
 }
 
--(void)getHistoryForUser:(NSString *)userID
+-(void)getHistoryForUser:(NSString *)userID published:(BOOL)published
 {
-    NSString *url = [NSString stringWithFormat:@"%@/users/%@/days", rootURL, userID];
+    NSString *url = [NSString stringWithFormat:@"%@/users/%@/days?published=%d", rootURL, userID, published];
     TTLog(@"Attempting to get history for user %@", userID);
     [self apiConnectionWithURL:url authorized:YES];
 }

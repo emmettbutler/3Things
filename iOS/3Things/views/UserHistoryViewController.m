@@ -36,7 +36,7 @@
     self.userHistory = [store allItemsForUser:self.user];
     
     [TTNetManager sharedInstance].netDelegate = self;
-    [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID];
+    [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:YES];
 	
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
