@@ -16,8 +16,8 @@ Unfinished posts
 - [x] post unfinished days from review button to web
 - [x] "Share" button should say "save" for unfinished posts
 - [x] post unfinished days on edit screen "save" button
-- [ ] allow client to send separate timestamp and day values
 - [x] add switch above user history scroll view
+- [ ] allow client to send separate timestamp and day values
 - [ ] separate calendar view for unfinished posts
 - [ ] only return posts in new calendar where published=False
 - [ ] touch an unfinished post in this view to edit it
@@ -26,5 +26,12 @@ Unfinished posts
 - [ ] post unfinished days from empty post view to web
 - [ ] UI polish on unpublished calendar view
 
+Bugs
 - [ ] some new posts appear after older ones in the friends feed
 - [ ] splash screen
+- [ ] off-center loading spinner on feed
+- [ ] show updated comment counts on day view immediately after commenting
+- [ ] nav button active colors
+- [ ] hide status bar?
+- [ ] show new post in calendar immediately upon posting
+- [ ] stop edit screen back arrow from moving around
