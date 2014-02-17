@@ -180,7 +180,7 @@
     
     UserStore *userStore = [[UserStore alloc] init];
     [TTNetManager sharedInstance].netDelegate = (id<TTNetManagerDelegate>)self;
-    [[TTNetManager sharedInstance] postShareDay:self.shares forUser:[[userStore getAuthenticatedUser] userID] completedThings:[NSNumber numberWithInt:self.thingIndex.intValue+1]];
+    [[TTNetManager sharedInstance] postShareDay:self.shares forUser:[[userStore getAuthenticatedUser] userID] completedThings:[NSNumber numberWithInt:self.thingIndex.intValue+1] published:NO];
 
     [[self navigationController] pushViewController:
      [[FriendFeedViewController alloc] init] animated:YES];
