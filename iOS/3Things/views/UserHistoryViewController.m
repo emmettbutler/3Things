@@ -184,6 +184,16 @@
             [self.feedData[monthString] addObject:day];
         }
         
+        if ([[url absoluteString] rangeOfString:@"published=1"].location == NSNotFound) {  // unpublished
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            NSDateComponents *oneDay = [[NSDateComponents alloc] init];
+            [oneDay setDay: 1];
+            for (NSDate *date = startDate; [date compare:[NSDate date]] <= 0; date = [calendar dateByAddingComponents:oneDay toDate:date options:0] ) {
+                TTLog( @"%@ in [%@,%@]", date, startDate, [NSDate date]);
+                
+            }
+        }
+        
         [self.tableView reloadData];
     }
 }
