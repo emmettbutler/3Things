@@ -403,14 +403,16 @@
     NSDictionary *day = monthDays[indexPath.row];
     
     if (self.segmentControl.selectedSegmentIndex == PUBLISHED_POSTS_SCREEN) {
-        
+        [[self navigationController] pushViewController:
+         [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] initWithSharesDictionary:day]
+                                              andIsCurrent:@(NO) andUser:self.user]
+                                               animated:YES];
     } else if (self.segmentControl.selectedSegmentIndex == UNPUBLISHED_POSTS_SCREEN) {
-
+        [[self navigationController] pushViewController:
+         [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] initWithSharesDictionary:day]
+                                              andIsCurrent:@(YES) andUser:self.user andIsEdited:@(YES)]
+                                               animated:YES];
     }
-    [[self navigationController] pushViewController:
-     [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] initWithSharesDictionary:day]
-                                          andIsCurrent:@(NO) andUser:self.user]
-                                           animated:YES];
 }
 
 - (void)backWasTouched {

@@ -39,7 +39,7 @@
         } else {
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
-            [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             self.date = [dateFormatter dateFromString:shares[@"date"]];
             self.time = [dateFormatter dateFromString:shares[@"time"]];
             self._id = shares[@"_id"];

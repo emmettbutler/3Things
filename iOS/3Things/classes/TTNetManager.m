@@ -142,7 +142,11 @@ TTNetManager *instance;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+    NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
+    [dateFormatter2 setTimeZone:[NSTimeZone defaultTimeZone]];
+    [dateFormatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     [jsonDict setObject:[dateFormatter stringFromDate:[NSDate date]] forKey:@"time"];
+    [jsonDict setObject:[dateFormatter2 stringFromDate:shares.date] forKey:@"date"];
     [jsonDict setObject:shares.theThings forKey:@"things"];
     if ([completedThings intValue] == 3) {
         [jsonDict setObject:[NSNumber numberWithBool:published] forKey:@"published"];
