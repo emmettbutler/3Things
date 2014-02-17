@@ -57,7 +57,7 @@
     friendsButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE];
     NSString *color = @"FFFFFF";
     if (self.currentScreen == kFriendsScreen) {
-        color = @"888888";
+        color = BUTTON_TEXT_BLUE_COLOR;
     }
     [friendsButton setTintColor:[[TTNetManager sharedInstance] colorWithHexString:color]];
     friendsButton.frame = CGRectMake(205, totalHeight-visibleHeight, 100, 60);
@@ -68,9 +68,10 @@
                       action:@selector(calendarWasTouched)
             forControlEvents:UIControlEventTouchUpInside];
     [calendarButton setTitle:@"CALENDAR" forState:UIControlStateNormal];
-    calendarButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE];color = @"FFFFFF";
+    calendarButton.titleLabel.font = [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE];
+    color = @"FFFFFF";
     if (self.currentScreen == kCalendarScreen) {
-        color = @"888888";
+        color = BUTTON_TEXT_BLUE_COLOR;
     }
     [calendarButton setTintColor:[[TTNetManager sharedInstance] colorWithHexString:color]];
     calendarButton.frame = CGRectMake(10, totalHeight-visibleHeight, 100, 60);

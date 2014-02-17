@@ -31,7 +31,7 @@ Bugs
 - [ ] splash screen
 - [ ] off-center loading spinner on feed
 - [ ] show updated comment counts on day view immediately after commenting
-- [ ] nav button active colors
+- [x] nav button active colors
 - [ ] hide status bar?
 - [ ] show new post in calendar immediately upon posting
 - [ ] stop edit screen back arrow from moving around
