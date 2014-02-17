@@ -161,6 +161,10 @@
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
 {
     if (error == NULL) {
+        if ([[url absoluteString] rangeOfString:[NSString stringWithFormat:@"%@/days", [TTNetManager sharedInstance].rootURL]].location == NSNotFound) {
+            return;
+        }
+
         NSError *jsonError = nil;
         NSDictionary *json = [NSJSONSerialization
                               JSONObjectWithData:data
