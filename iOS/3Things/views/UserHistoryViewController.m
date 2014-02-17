@@ -122,6 +122,14 @@
 
 -(void)didSelectSegment {
     TTLog(@"Selected: %d", self.segmentControl.selectedSegmentIndex);
+    [TTNetManager sharedInstance].netDelegate = self;
+    if (self.segmentControl.selectedSegmentIndex == 0) {
+        [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:YES];
+    } else if (self.segmentControl.selectedSegmentIndex == 1) {
+        [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:NO];
+    }
+    self.feedData = nil;
+    [self.tableView reloadData];
 }
 
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
