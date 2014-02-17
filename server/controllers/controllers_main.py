@@ -482,6 +482,8 @@ class UserDaysController(UserHistoryController):
             record['time'] = time
             record['published'] = published
             record = dict(record.items() + sent_day.items())
+            if type(record['date']) != datetime:
+                record['date'] = parse(record['date'])
             days = self.application.db.days.insert(record)
             print "inserted record: {}".format(record)
         raise Return(days)
