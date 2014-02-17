@@ -63,6 +63,7 @@ typedef enum _kStorage {
 -(void)getFriendFeed;
 -(void)getTodayForUser:(User *)user;
 -(void)getHistoryForUser:(NSString *)userID published:(BOOL)published;
+-(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID completedThings:(NSNumber *)completedThings published:(BOOL)published;
 -(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID completedThings:(NSNumber *)completedThings;
 -(void)friendSearch:(NSString *)query forUser:(User *)user;
 -(void)addFriend:(NSString *)friendID forUser:(User *)user;

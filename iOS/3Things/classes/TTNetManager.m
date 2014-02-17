@@ -129,7 +129,11 @@ TTNetManager *instance;
     }
 }
 
--(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID completedThings:(NSNumber *)completedThings
+-(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID completedThings:(NSNumber *)completedThings {
+    [self postShareDay:shares forUser:userID completedThings:completedThings published:YES];
+}
+
+-(void)postShareDay:(TTShareDay *)shares forUser:(NSString *)userID completedThings:(NSNumber *)completedThings published:(BOOL)published
 {
     NSString *url = [NSString stringWithFormat:@"%@/users/%@/days", rootURL, userID];
     TTLog(@"Attempting to post day to URL %@", url);
@@ -140,6 +144,9 @@ TTNetManager *instance;
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     [jsonDict setObject:[dateFormatter stringFromDate:[NSDate date]] forKey:@"time"];
     [jsonDict setObject:shares.theThings forKey:@"things"];
+    if ([completedThings intValue] == 3) {
+        [jsonDict setObject:[NSNumber numberWithBool:published] forKey:@"published"];
+    }
     
     NSError *error;
     NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDict

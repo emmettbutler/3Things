@@ -426,7 +426,7 @@ class UserDaysController(UserHistoryController):
         if 'time' not in sent_day:
             raise tornado.web.HTTPError(400, "Invalid JSON document")
 
-        published = True
+        published = sent_day['published'] if 'published' in sent_day else True
         if 0 <= len([a for a in sent_day['things'] if a['text']]) < 3:
             published = False
 
