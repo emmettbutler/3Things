@@ -98,7 +98,7 @@
     CGRect scrollFrame = CGRectMake(frame.size.width*.05, frame.size.height+mainButtonHeight+40, frame.size.width*.9, self.screenFrame.size.height-frame.size.height-mainButtonHeight-80);
     self.tableHeight = @(scrollFrame.size.height);
     
-    self.dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:@(self.isCurrent) andUser:self.user andIsEdited:@(self.isEdited)];
+    self.dayView = [[SingleDayViewController alloc] initWithShareDay:self.shares andIsCurrent:@(self.isCurrent) andUser:self.user];
     [self addChildViewController:self.dayView];
     [self.view addSubview:self.dayView.view];
     self.dayView.view.frame = CGRectMake(9, 65, self.dayView.frame.size.width, self.dayView.frame.size.height);

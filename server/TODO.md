@@ -17,9 +17,8 @@ Unfinished posts
 - [x] "Share" button should say "save" for unfinished posts
 - [x] post unfinished days on edit screen "save" button
 - [x] add switch above user history scroll view
+- [x] only return posts in new calendar where published=False
 - [ ] allow client to send separate timestamp and day values
-- [ ] separate calendar view for unfinished posts
-- [ ] only return posts in new calendar where published=False
 - [ ] touch an unfinished post in this view to edit it
 - [ ] post unfinished days from unfinished post view to web
 - [ ] touch an empty post in this view to edit it

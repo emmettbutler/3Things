@@ -16,12 +16,10 @@
 
 - (id)initWithShareDay:(TTShareDay *)shares;
 - (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user;
-- (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user andIsEdited:(NSNumber *)isEdited;
 
 @property (nonatomic) CGRect frame;
 @property (nonatomic, retain) TTShareDay *shares;
 @property (nonatomic) BOOL isCurrent;
-@property (nonatomic) BOOL isEdited;
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic) NSDictionary *feedData;
 @property (nonatomic, retain) NSNumber *tableHeight;

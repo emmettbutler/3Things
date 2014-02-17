@@ -32,18 +32,11 @@
     return [self initWithShareDay:shares andIsCurrent:@(NO) andUser:[userStore getAuthenticatedUser]];
 }
 
-- (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user andIsEdited:(NSNumber *)isEdited {
-    self = [self initWithShareDay:shares andIsCurrent:isCurrent andUser:user];
-    self.isEdited = [isEdited boolValue];
-    return self;
-}
-
 -(id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user
 {
     self = [super init];
     if (self) {
         self.isCurrent = [isCurrent boolValue];
-        self.isEdited = NO;
         self.shares = shares;
         for (int i = 0; i < 3; i++) {
             if (![self.shares.theThings[i][@"text"] isEqualToString:@""]) {
@@ -74,25 +67,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    /*[[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(sessionStateChanged:)
-     name:FBSessionStateChangedNotification
-     object:nil];
-    */
-     
+
     self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"000000" opacity:0];
-    
-    TTLog(@"current: %d, edited: %d", self.isCurrent, self.isEdited);
-    if (!self.isCurrent && !self.isEdited){
-        ShareDayStore *dayStore = [[ShareDayStore alloc] init];
-        if ([dayStore getToday] == NULL) {
-            //UserStore *userStore = [[UserStore alloc] init];
-            //[TTNetManager sharedInstance].netDelegate = self;
-            //[[TTNetManager sharedInstance] getTodayForUser:[userStore getAuthenticatedUser]];
-        }
-    }
     
     float width = .97;
     CGRect myFrame = CGRectMake(10, 70, 290, 420);

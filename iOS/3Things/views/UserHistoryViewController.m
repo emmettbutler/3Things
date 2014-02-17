@@ -17,6 +17,8 @@
 #import "FriendFeedViewController.h"
 #import "TTNetManager.h"
 
+#define PUBLISHED_POSTS_SCREEN 0
+#define UNPUBLISHED_POSTS_SCREEN 1
 #define SORT_ASCENDING YES
 
 @implementation UserHistoryViewController
@@ -123,9 +125,9 @@
 -(void)didSelectSegment {
     TTLog(@"Selected: %d", self.segmentControl.selectedSegmentIndex);
     [TTNetManager sharedInstance].netDelegate = self;
-    if (self.segmentControl.selectedSegmentIndex == 0) {
+    if (self.segmentControl.selectedSegmentIndex == PUBLISHED_POSTS_SCREEN) {
         [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:YES];
-    } else if (self.segmentControl.selectedSegmentIndex == 1) {
+    } else if (self.segmentControl.selectedSegmentIndex == UNPUBLISHED_POSTS_SCREEN) {
         [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:NO];
     }
     self.feedData = nil;
@@ -396,20 +398,19 @@
     
     if (!self.isViewLoaded) return;
     
-    // if (the selected day is complete) do this:
     NSNumber *thisMonth = [self getMonthNumberForSectionIndex:indexPath.section];
     NSArray *monthDays = self.feedData[thisMonth];
     NSDictionary *day = monthDays[indexPath.row];
     
+    if (self.segmentControl.selectedSegmentIndex == PUBLISHED_POSTS_SCREEN) {
+        
+    } else if (self.segmentControl.selectedSegmentIndex == UNPUBLISHED_POSTS_SCREEN) {
+
+    }
     [[self navigationController] pushViewController:
      [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] initWithSharesDictionary:day]
                                           andIsCurrent:@(NO) andUser:self.user]
-      animated:YES];
-    // else if (the selected day is incomplete)
-    // if (there is a partial day available?)
-    // shares = new TTShareDay with this day (incomplete, with correct date)
-    // else shares = new TTShareDay with no posts and today's date
-    // [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:day andIsCurrent:@(YES) andUser:self.user] animated:YES];
+                                           animated:YES];
 }
 
 - (void)backWasTouched {
