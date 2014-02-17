@@ -109,7 +109,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
     [dateFormatter setDateFormat:@"EEEE"];
-    NSString *dayOfWeek = [dateFormatter stringFromDate:self.shares.time];
+    NSString *dayOfWeek = [dateFormatter stringFromDate:self.shares.date];
     dayOfWeekView.text = [dayOfWeek uppercaseString];
     dayOfWeekView.textAlignment = NSTextAlignmentLeft;
     dayOfWeekView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
@@ -122,7 +122,7 @@
     dayOfMonthView.textAlignment = NSTextAlignmentRight;
     dayOfMonthView.textColor = [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR];
     [dateFormatter setDateFormat:@"MMMM dd"];
-    NSString *dayOfMonth = [dateFormatter stringFromDate:self.shares.time];
+    NSString *dayOfMonth = [dateFormatter stringFromDate:self.shares.date];
     dayOfMonthView.text = [NSString stringWithFormat:@"%@", [dayOfMonth uppercaseString]];
     [topBarView addSubview:dayOfMonthView];
     [self.view addSubview:topBarView];
