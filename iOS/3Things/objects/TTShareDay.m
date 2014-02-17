@@ -40,8 +40,11 @@
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
+            [dateFormatter2 setTimeZone:[NSTimeZone defaultTimeZone]];
+            [dateFormatter2 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
             self.date = [dateFormatter dateFromString:shares[@"date"]];
-            self.time = [dateFormatter dateFromString:shares[@"time"]];
+            self.time = [dateFormatter2 dateFromString:shares[@"time"]];
             self._id = shares[@"_id"];
             self.commentCount = shares[@"comments_count"];
             for (int i = 0; i < 3; i++){

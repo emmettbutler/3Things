@@ -21,9 +21,9 @@ Unfinished posts
 - [x] allow client to send separate timestamp and day values
 - [x] touch an unfinished post in this view to edit it
 - [x] post unfinished days from unfinished post view to web
-- [ ] touch an empty post in this view to edit it
-- [ ] post unfinished days from empty post view to web
-- [ ] exclude published days from the unpublished feed
+- [x] touch an empty post in this view to edit it
+- [x] post unfinished days from empty post view to web
+- [ ] exclude days with published posts from the unpublished feed (currently they appear as empty days)
 - [ ] UI polish on unpublished calendar view
 
 Bugs
@@ -36,4 +36,4 @@ Bugs
 - [ ] show new post in calendar immediately upon posting
 - [ ] stop edit screen back arrow from moving around
 - [ ] loading spinner is infinite when user has no posts
-- [ ] friend feed date view says null
+- [x] friend feed date view says null

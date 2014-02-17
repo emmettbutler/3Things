@@ -173,6 +173,7 @@
 
         self.feedData = json;
         for (int i = 0; i < [self.feedData[@"data"][@"history"] count]; i++){
+            TTLog(@"day: %@", self.feedData[@"data"][@"history"][i]);
             NSMutableDictionary *dayAndUser = [[NSMutableDictionary alloc] init];
             TTShareDay *shareDay = [[TTShareDay alloc] initWithSharesDictionary:self.feedData[@"data"][@"history"][i]];
             [dayAndUser setObject:shareDay forKey:@"day"];

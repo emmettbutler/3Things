@@ -137,6 +137,7 @@
     
     if (!self.isCurrent){
         UITextView *timeAgo = [[UITextView alloc] initWithFrame:CGRectMake(0, 80, self.frame.size.width, 30)];
+        TTLog(@"time: %@", self.shares.time);
         NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:[self.shares.time timeIntervalSince1970]];
         timeAgo.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
         timeAgo.font = [UIFont fontWithName:SCRIPT_FONT size:11];
