@@ -171,6 +171,7 @@
         
         NSDate *startDate = [formatter2 dateFromString:history[0][@"date"]];
         
+        TTLog(@"data: %@", json);
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *oneDay = [[NSDateComponents alloc] init];
         [oneDay setDay: 1];
@@ -178,26 +179,38 @@
         for (NSDate *date = startDate; [date compare:[NSDate date]] <= 0; date = [calendar dateByAddingComponents:oneDay toDate:date options:0] ) {
             NSMutableDictionary *day = nil;
             NSString *monthString = [formatter1 stringFromDate:date];
-            if (i < [history count]){
-                NSDate *foundDate = [formatter2 dateFromString:history[i][@"date"]];
-                unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
-                NSDateComponents* comp1 = [calendar components:unitFlags fromDate:foundDate];
-                NSDateComponents* comp2 = [calendar components:unitFlags fromDate:date];
-                if([comp1 day] == [comp2 day] && [comp1 month] == [comp2 month] && [comp1 year] == [comp2 year]){
-                    day = history[i];
-                    NSTimeInterval interval = [foundDate timeIntervalSinceDate:startDate];
-                    if (interval / 86400 >= 364) {  // check for a span of >1 year. this works since the list we receive here is sorted chronologically
-                        self.multipleYears = YES;
-                    }
-                    if (self.feedData[monthString] == nil) {
-                        [self.feedData setObject:[[NSMutableArray alloc] init] forKey:monthString];
-                    }
-                    [self.feedData[monthString] addObject:day];
-                    i++;
+            NSDate *foundDate = [formatter2 dateFromString:history[i][@"date"]];
+            unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+            NSDateComponents* comp1 = [calendar components:unitFlags fromDate:foundDate];
+            NSDateComponents* comp2 = [calendar components:unitFlags fromDate:date];
+            BOOL hasDayForDate = [comp1 day] == [comp2 day] && [comp1 month] == [comp2 month] && [comp1 year] == [comp2 year];
+            if(hasDayForDate){
+                day = history[i];
+                if (self.feedData[monthString] == nil) {
+                    [self.feedData setObject:[[NSMutableArray alloc] init] forKey:monthString];
                 }
+                [self.feedData[monthString] addObject:day];
+                i = i < [history count] - 1 ? i + 1 : i;
             }
-            if ([[url absoluteString] rangeOfString:@"published=0"].location != NSNotFound) {  // unpublished
+            if ([[url absoluteString] rangeOfString:@"published=0"].location != NSNotFound && !hasDayForDate) {  // unpublished
                 // make a new empty day with date, put it in
+                NSMutableDictionary *emptyDay = [[NSMutableDictionary alloc] init];
+                emptyDay[@"date"] = [formatter2 stringFromDate:date];
+                emptyDay[@"time"] = [formatter2 stringFromDate:date];
+                emptyDay[@"published"] = @(0);
+                emptyDay[@"things"] = [[NSMutableArray alloc] init];
+                for (int j = 0; j < 3; j++) {
+                    NSMutableDictionary *emptyThing = [[NSMutableDictionary alloc] init];
+                    emptyThing[@"imageID"] = @"";
+                    emptyThing[@"localImageURL"] = @"";
+                    emptyThing[@"text"] = @"";
+                    [emptyDay[@"things"] addObject:emptyThing];
+                }
+                [self.feedData[monthString] addObject:emptyDay];
+            }
+            NSTimeInterval interval = [date timeIntervalSinceDate:startDate];
+            if (interval / 86400 >= 364) {  // check for a span of >1 year. this works since the list we receive here is sorted chronologically
+                self.multipleYears = YES;
             }
         }
         

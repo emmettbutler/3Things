@@ -23,6 +23,7 @@ Unfinished posts
 - [x] post unfinished days from unfinished post view to web
 - [ ] touch an empty post in this view to edit it
 - [ ] post unfinished days from empty post view to web
+- [ ] exclude published days from the unpublished feed
 - [ ] UI polish on unpublished calendar view
 
 Bugs
