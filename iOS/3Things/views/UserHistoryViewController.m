@@ -391,7 +391,7 @@
     // if (the selected day is complete) do this:
     NSNumber *thisMonth = [self getMonthNumberForSectionIndex:indexPath.section];
     NSArray *monthDays = self.feedData[thisMonth];
-    NSDictionary *day = monthDays[[monthDays count]-1 - indexPath.row];
+    NSDictionary *day = monthDays[indexPath.row];
     
     [[self navigationController] pushViewController:
      [[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] initWithSharesDictionary:day]
