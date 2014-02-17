@@ -34,3 +34,4 @@ Bugs
 - [ ] hide status bar?
 - [ ] show new post in calendar immediately upon posting
 - [ ] stop edit screen back arrow from moving around
+- [ ] friend feed date view says null
