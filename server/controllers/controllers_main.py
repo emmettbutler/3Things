@@ -411,7 +411,6 @@ class UserDaysController(UserHistoryController):
         day_json = self.request.files['day'][0]['body']
 
         try:
-            print "Decoding request body\n%s" % day_json
             sent_day = json.loads(day_json)
         except:
             raise tornado.web.HTTPError(400, "Could not decode request body as JSON")
@@ -472,13 +471,19 @@ class UserDaysController(UserHistoryController):
             thing['imageID'] = images[i]
 
         if len(existing_day) > 0:
-            update_fields = dict({'time': time, 'published': published}.items() + sent_day.items())
-            days = self.application.db.days.update(record, dict(update_fields.items() + record.items()))
+            update_fields = dict({
+                'time': time,
+                'published': published
+            }.items() + sent_day.items())
+            updated = dict(update_fields.items() + record.items())
+            days = self.application.db.days.update(record, updated)
+            print "updated record: {}".format(updated)
         else:
             record['time'] = time
             record['published'] = published
             record = dict(record.items() + sent_day.items())
             days = self.application.db.days.insert(record)
+            print "inserted record: {}".format(record)
         raise Return(days)
 
 
