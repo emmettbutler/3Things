@@ -291,9 +291,18 @@
     
     CGRect frame = cell.bounds;
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
-    if (self.feedData == nil) {
-        UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 100, frame.size.width, 100)];
-        emptyView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
+    UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 100, frame.size.width, 100)];
+    emptyView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
+    if([self.feedData count] == 0) {
+        UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 100)];
+        text.text = @"THERE ARE NO POSTS TO DISPLAY\nTOUCH BELOW TO POST";
+        [emptyView addSubview:text];
+        text.textAlignment = NSTextAlignmentCenter;
+        text.font = [UIFont fontWithName:HEADER_FONT size:14];
+        text.backgroundColor = emptyView.backgroundColor;
+        text.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+        [container addSubview:emptyView];
+    } else if (self.feedData == nil) {
         UIImageView *spinner = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ProgressWheel.png"]];
         spinner.frame = CGRectMake(emptyView.frame.size.width/2-100/2, 0, 100, 100);
         CABasicAnimation *rotation;  // http://stackoverflow.com/a/12112975/735204
