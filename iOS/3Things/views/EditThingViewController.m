@@ -48,12 +48,13 @@
 	
     self.navigationController.navigationBarHidden = NO;
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
-    screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
+    screenFrame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     CGRect frame = CGRectMake(0, 0, 0, 0);
     frame.size = CGSizeMake(screenFrame.size.width, 60);
+    self.view.bounds = CGRectMake(0, 20, self.view.bounds.size.width, self.view.bounds.size.height+20);
     
     CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
-    bgLayer.frame = CGRectMake(0, frame.size.height, self.view.bounds.size.width, self.view.bounds.size.height-KEYBOARD_HEIGHT-frame.size.height);
+    bgLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-KEYBOARD_HEIGHT);
     [self.view.layer insertSublayer:bgLayer atIndex:0];
     
     self.navigationItem.hidesBackButton = YES;
@@ -74,7 +75,7 @@
     
 	[self.view addSubview:navBar];
     
-    textFieldFrame = CGRectMake(screenFrame.size.width*.05, frame.size.height+20, screenFrame.size.width*.9, screenFrame.size.height-KEYBOARD_HEIGHT-frame.size.height-60);
+    textFieldFrame = CGRectMake(screenFrame.size.width*.05, 80, screenFrame.size.width*.9, screenFrame.size.height-KEYBOARD_HEIGHT-frame.size.height-60);
     _textField = [[UITextView alloc] initWithFrame:textFieldFrame];
     _textField.textAlignment = NSTextAlignmentLeft;
     _textField.editable = YES;

@@ -33,11 +33,12 @@ Unfinished posts
 
 Bugs
 - [ ] some new posts appear after older ones in the friends feed
-- [ ] splash screen
+- [x] splash screen
 - [ ] off-center loading spinner on feed
 - [ ] show updated comment counts on day view immediately after commenting
 - [x] nav button active colors
 - [ ] hide status bar?
+- [ ] horizontally align top bar elements in feed
 - [ ] show new post in calendar immediately upon posting
 - [ ] stop edit screen back arrow from moving around
 - [ ] loading spinner is infinite when user has no posts

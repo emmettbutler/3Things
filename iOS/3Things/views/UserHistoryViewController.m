@@ -29,6 +29,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
+    self.view.bounds = CGRectMake(0, 20, self.view.bounds.size.width, self.view.bounds.size.height+20);
     
     self.feedData = nil;
     self.multipleYears = NO;
@@ -45,7 +46,7 @@
     self.navigationItem.hidesBackButton = YES;
     
     UIView *titleView = [[UIView alloc] init];
-    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -24, 120, 40)];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -18, 120, 40)];
     [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
     [titleView addSubview:logoView];
     self.navigationItem.titleView = titleView;
@@ -60,37 +61,6 @@
 	[navBar setItems:@[self.navigationItem]];
     
 	[self.view addSubview:navBar];
-    
-    float topSectionHeight = 120;
-    
-    int imgWidth = 60;
-    NSURL *url = [NSURL URLWithString:[self.user profileImageURL]];
-    UIImageView *profilePicView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width/2-imgWidth/2, frame.size.height+30, imgWidth, 70)];
-    if (![[url absoluteString] isEqualToString:@""]) {
-        TTLog(@"Searching for local image");
-        NSString *imgURL = [self.user profileImageLocalURL];
-        if (![imgURL isEqualToString:@""]){
-            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-            [library assetForURL:[NSURL URLWithString:imgURL] resultBlock:^(ALAsset *asset )
-             {
-                 TTLog(@"profile pic retrieved from %@", imgURL);
-                 profilePicView.image = [UIImage imageWithCGImage:[asset thumbnail]];
-             }
-                    failureBlock:^(NSError *error )
-             {
-                 TTLog(@"Error loading asset");
-             }];
-        }
-    } else {
-        [profilePicView setImageWithURL:url
-                       placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
-    }
-    //[self.view addSubview:profilePicView];
-    
-    UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, frame.size.height+(topSectionHeight-30), frame.size.width, frame.size.height)];
-    text.textAlignment = NSTextAlignmentCenter;
-    text.text = [self.user name];
-    //[self.view addSubview:text];
     
     self.segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"COMPLETED", @"MISSED"]];
     self.segmentControl.frame = CGRectMake(frame.size.width/2-100, frame.size.height+15, 200, 30);
@@ -118,7 +88,9 @@
     navViewController.navDelegate = self;
     [self addChildViewController:navViewController];
     [self.view addSubview:navViewController.view];
-    navViewController.view.frame = navViewController.frame;
+    CGRect sframe = navViewController.frame;
+    sframe.origin.y += 20;
+    navViewController.view.frame = sframe;
     [navViewController didMoveToParentViewController:self];
 }
 

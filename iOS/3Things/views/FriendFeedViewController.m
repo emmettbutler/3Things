@@ -49,7 +49,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"LOGOUT" style:UIBarButtonItemStylePlain target:self action:@selector(logoutWasTouched)];
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
-	CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
+	CGRect screenFrame = CGRectMake(0, 20, self.view.bounds.size.width, self.view.bounds.size.height);
     
     CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
     bgLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-50);
