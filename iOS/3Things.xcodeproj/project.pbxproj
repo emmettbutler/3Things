@@ -19,6 +19,8 @@
 		AA1E52DD182AE669000EBBBA /* Thing.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1E52DC182AE669000EBBBA /* Thing.m */; };
 		AA230A021809BA620025BCF5 /* ErrorPromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */; };
 		AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */; };
+		AA2FAE2A18B5C0CB0079AA7C /* IntroMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2FAE2918B5C0CB0079AA7C /* IntroMessageViewController.m */; };
+		AA2FAE2C18B5C4550079AA7C /* IntroScreen_without_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2FAE2B18B5C4550079AA7C /* IntroScreen_without_Background.png */; };
 		AA2FFBD21833B26200B9865A /* FriendSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2FFBD11833B26200B9865A /* FriendSearchViewController.m */; };
 		AA3389CA18A302F80023D308 /* CloseIcon_Pictures.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3389C918A302F80023D308 /* CloseIcon_Pictures.png */; };
 		AA33AFD2183EC3490004DF3D /* ShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AA33AFD1183EC3490004DF3D /* ShareDay.m */; };
@@ -101,6 +103,9 @@
 		AA230A011809BA620025BCF5 /* ErrorPromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorPromptViewController.h; sourceTree = "<group>"; };
 		AA230A031809BB0D0025BCF5 /* ErrorThrowingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorThrowingViewController.h; sourceTree = "<group>"; };
 		AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorThrowingViewController.m; sourceTree = "<group>"; };
+		AA2FAE2818B5C0CB0079AA7C /* IntroMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroMessageViewController.h; sourceTree = "<group>"; };
+		AA2FAE2918B5C0CB0079AA7C /* IntroMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroMessageViewController.m; sourceTree = "<group>"; };
+		AA2FAE2B18B5C4550079AA7C /* IntroScreen_without_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IntroScreen_without_Background.png; path = assets/IntroScreen_without_Background.png; sourceTree = "<group>"; };
 		AA2FFBD01833B26200B9865A /* FriendSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendSearchViewController.h; sourceTree = "<group>"; };
 		AA2FFBD11833B26200B9865A /* FriendSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendSearchViewController.m; sourceTree = "<group>"; };
 		AA3389C918A302F80023D308 /* CloseIcon_Pictures.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloseIcon_Pictures.png; path = assets/CloseIcon_Pictures.png; sourceTree = "<group>"; };
@@ -236,6 +241,8 @@
 			children = (
 				AA230A011809BA620025BCF5 /* ErrorPromptViewController.h */,
 				AA230A001809BA620025BCF5 /* ErrorPromptViewController.m */,
+				AA2FAE2818B5C0CB0079AA7C /* IntroMessageViewController.h */,
+				AA2FAE2918B5C0CB0079AA7C /* IntroMessageViewController.m */,
 				AABB2EAD18006FD600EEA446 /* FriendFeedViewController.h */,
 				AABB2EAE18006FD600EEA446 /* FriendFeedViewController.m */,
 				AABB2EC918007A3500EEA446 /* UserHistoryViewController.h */,
@@ -340,6 +347,7 @@
 		AAF28C5617DAA90A0067FD79 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AA2FAE2B18B5C4550079AA7C /* IntroScreen_without_Background.png */,
 				AA3389C918A302F80023D308 /* CloseIcon_Pictures.png */,
 				AAEC506B18A1C0F600C4A1D1 /* Add Friend Icon.png */,
 				AAEC506C18A1C0F600C4A1D1 /* Backarrow.png */,
@@ -434,6 +442,7 @@
 				AAEC506E18A1C0F600C4A1D1 /* Add Friend Icon.png in Resources */,
 				AA79308E183C043E006B4213 /* Compose_Icon.png in Resources */,
 				AA7C37AE18988598004A283D /* Cal_Icon.png in Resources */,
+				AA2FAE2C18B5C4550079AA7C /* IntroScreen_without_Background.png in Resources */,
 				AAE33B2E187E061F0009CB25 /* icon_old_retina.png in Resources */,
 				AAF28C6217DAA90A0067FD79 /* Default.png in Resources */,
 				AA3389CA18A302F80023D308 /* CloseIcon_Pictures.png in Resources */,
@@ -489,6 +498,7 @@
 				AA7930A2183C07B0006B4213 /* TTButton.m in Sources */,
 				AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */,
 				AA2FFBD21833B26200B9865A /* FriendSearchViewController.m in Sources */,
+				AA2FAE2A18B5C0CB0079AA7C /* IntroMessageViewController.m in Sources */,
 				AA42DB7618855E9D00EA244C /* TTCollectionView.m in Sources */,
 				AA1E52DD182AE669000EBBBA /* Thing.m in Sources */,
 				AA0910AC1801EC2500F9D8B8 /* TTDataStore.m in Sources */,

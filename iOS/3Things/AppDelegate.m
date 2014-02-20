@@ -13,6 +13,7 @@
 #import "UserStore.h"
 #import "User.h"
 #import "TTNetManager.h"
+#import "IntroMessageViewController.h"
 
 //NSString *const SCSessionStateChangedNotification = @"com.facebook.ThreeThings:FBSessionStateChangedNotification";
 
@@ -41,25 +42,8 @@
                                                             UITextAttributeTextColor: [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR],
                                                             UITextAttributeFont: [UIFont fontWithName:HEADER_FONT size:HEADER_FONT_SIZE]
                                                             }];
-
-    NSString *storedToken = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"%d", kAccessToken]];
-    TTLog(@"Stored token: %@", storedToken);
-    if (storedToken != NULL ||
-     FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-            TTLog(@"Facebook session found");
-        }
-        // get the stored access token from defauls, put it in TTNetManager's memory, re-save it
-        [[TTNetManager sharedInstance] loginToken:[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kAccessToken]]];
-        self.viewController = [[FriendFeedViewController alloc] init];
-        UIViewController *viewController = self.viewController;
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        self.window.rootViewController = navController;
-    } else {
-        self.viewController = [[LoginTypePickerViewController alloc] init];
-        self.window.rootViewController = self.viewController;
-    }
     
+    self.window.rootViewController = [[IntroMessageViewController alloc] init];
     [self.window makeKeyAndVisible];
     return YES;
 }

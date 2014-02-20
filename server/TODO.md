@@ -24,6 +24,11 @@ Unfinished posts
 - [x] touch an empty post in this view to edit it
 - [x] post unfinished days from empty post view to web
 - [ ] exclude days with published posts from the unpublished feed (currently they appear as empty days)
+    when the client requests unpublished posts, include published (don't show
+    these on the client, but use them to determine which blank days to show?)
+    when client requests published, show only published
+    when client requests unpublished, show *all*. client should perform
+    filtering??
 - [ ] UI polish on unpublished calendar view
 
 Bugs
@@ -37,3 +42,4 @@ Bugs
 - [ ] stop edit screen back arrow from moving around
 - [ ] loading spinner is infinite when user has no posts
 - [x] friend feed date view says null
+- [ ] typo and resize on intro quote
