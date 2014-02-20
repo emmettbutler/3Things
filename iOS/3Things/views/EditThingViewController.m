@@ -71,13 +71,13 @@
 	[navBar setFrame:frame];
 	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 	[navBar setItems:@[self.navigationItem]];
-    
-	[self.view addSubview:navBar];
+    [self.view addSubview:navBar];
     
     textFieldFrame = CGRectMake(screenFrame.size.width*.05, frame.size.height+20, screenFrame.size.width*.9, screenFrame.size.height-KEYBOARD_HEIGHT-frame.size.height-60);
     _textField = [[UITextView alloc] initWithFrame:textFieldFrame];
     _textField.textAlignment = NSTextAlignmentLeft;
     _textField.editable = YES;
+    _textField.textContainerInset = UIEdgeInsetsZero;
     _textField.delegate = self;
     _textField.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"555555"];
     _textField.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eaeaea"];

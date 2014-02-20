@@ -32,7 +32,6 @@
     
     self.feedData = nil;
     self.multipleYears = NO;
-    self.navigationController.navigationBarHidden = NO;
     
     ShareDayStore *store = [[ShareDayStore alloc] init];
     UserStore *userStore = [[UserStore alloc] init];
@@ -42,24 +41,19 @@
     [TTNetManager sharedInstance].netDelegate = self;
     [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:YES];
     
+    self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
+    self.navigationController.navigationBarHidden = NO;
     self.navigationItem.hidesBackButton = YES;
     
     UIView *titleView = [[UIView alloc] init];
-    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-65, -24, 120, 40)];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-55, -20, 105, 35)];
     [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
     [titleView addSubview:logoView];
     self.navigationItem.titleView = titleView;
     
-	self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
-    
-	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:self.screenFrame];
+    self.screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
 	CGRect frame = CGRectMake(0, 0, 0, 0);
     frame.size = CGSizeMake(self.screenFrame.size.width, 60);
-	[navBar setFrame:frame];
-	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-	[navBar setItems:@[self.navigationItem]];
-    
-	[self.view addSubview:navBar];
     
     float topSectionHeight = 120;
     

@@ -32,14 +32,15 @@ Unfinished posts
 - [ ] UI polish on unpublished calendar view
 
 Bugs
+- [x] splash screen
+- [x] nav button active colors
+- [x] friend feed date view says null
+- [x] hide status bar?
 - [ ] some new posts appear after older ones in the friends feed
-- [ ] splash screen
 - [ ] off-center loading spinner on feed
 - [ ] show updated comment counts on day view immediately after commenting
-- [x] nav button active colors
-- [ ] hide status bar?
+- [ ] horizontally align nav elements on feed
 - [ ] show new post in calendar immediately upon posting
 - [ ] stop edit screen back arrow from moving around
 - [ ] loading spinner is infinite when user has no posts
-- [x] friend feed date view says null
 - [ ] typo and resize on intro quote
