@@ -293,7 +293,7 @@
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
     UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 100, frame.size.width, 100)];
     emptyView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
-    if([self.feedData count] == 0) {
+    if(self.feedData != nil && [self.feedData count] == 0) {
         UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 100)];
         text.text = @"THERE ARE NO POSTS TO DISPLAY\nTOUCH BELOW TO POST";
         [emptyView addSubview:text];
