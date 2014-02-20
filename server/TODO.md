@@ -37,10 +37,10 @@ Bugs
 - [x] friend feed date view says null
 - [x] hide status bar?
 - [x] stop edit screen back arrow from moving around
-- [ ] some new posts appear after older ones in the friends feed
-- [ ] off-center loading spinner on feed
-- [ ] show updated comment counts on day view immediately after commenting
-- [ ] horizontally align nav elements on feed
-- [ ] show new post in calendar immediately upon posting
-- [ ] loading spinner is infinite when user has no posts
+- [x] loading spinner is infinite when user has no posts
 - [ ] typo and resize on intro quote
+- [ ] off-center loading spinner on feed
+- [ ] horizontally align nav elements on feed
+- [ ] some new posts appear after older ones in the friends feed
+- [ ] show updated comment counts on day view immediately after commenting
+- [ ] show new post in calendar immediately upon posting
