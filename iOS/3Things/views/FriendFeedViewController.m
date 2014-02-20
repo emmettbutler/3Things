@@ -182,6 +182,9 @@
             [dayAndUser setObject:user forKey:@"user"];
             [self.parsedFeed addObject:dayAndUser];
         }
+        self.parsedFeed = [NSMutableArray arrayWithArray:[self.parsedFeed sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *a, NSDictionary *b) {
+            return [((TTShareDay *)b[@"day"]).time compare:((TTShareDay *)a[@"day"]).time];
+        }]];
         [self.tableView reloadData];
     }
 }
