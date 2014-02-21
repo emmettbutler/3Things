@@ -74,11 +74,11 @@
     _textField.delegate = self;
     _textField.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"555555"];
     _textField.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eaeaea"];
-    [_textField becomeFirstResponder];
-    [_textField setFont:[UIFont systemFontOfSize:15]];
+    _textField.font = [UIFont systemFontOfSize:15];
     _textField.text = self.thingText;
     _textField.textContainerInset = UIEdgeInsetsZero;
     _textField.contentInset = UIEdgeInsetsMake(-60,0,0,0);
+    [_textField becomeFirstResponder];
     [self.view addSubview:_textField];
     
     float buttonY = textFieldFrame.origin.y+textFieldFrame.size.height+18;
