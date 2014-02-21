@@ -67,31 +67,19 @@
     [[self navigationItem] setTitle:[NSString stringWithFormat:@"SHARE YOUR %@ THING", [self getNumberWord]]];
     self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     
-	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:screenFrame];
-	[navBar setFrame:frame];
-	[navBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-	[navBar setItems:@[self.navigationItem]];
-    [self.view addSubview:navBar];
-    
     textFieldFrame = CGRectMake(screenFrame.size.width*.05, frame.size.height+20, screenFrame.size.width*.9, screenFrame.size.height-KEYBOARD_HEIGHT-frame.size.height-60);
     _textField = [[UITextView alloc] initWithFrame:textFieldFrame];
     _textField.textAlignment = NSTextAlignmentLeft;
     _textField.editable = YES;
-    _textField.textContainerInset = UIEdgeInsetsZero;
     _textField.delegate = self;
     _textField.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"555555"];
     _textField.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"eaeaea"];
     [_textField becomeFirstResponder];
     [_textField setFont:[UIFont systemFontOfSize:15]];
-    [_textField setText:self.thingText];
+    _textField.text = self.thingText;
+    _textField.textContainerInset = UIEdgeInsetsZero;
+    _textField.contentInset = UIEdgeInsetsMake(-60,0,0,0);
     [self.view addSubview:_textField];
-    
-    int closeButtonSize = 30, closeButtonMargin = 5;
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [closeButton addTarget:self action:@selector(closeWasTouched) forControlEvents:UIControlEventTouchDown];
-    closeButton.frame = CGRectMake(textFieldFrame.origin.x+textFieldFrame.size.width-(closeButtonMargin+closeButtonSize), textFieldFrame.origin.y+closeButtonMargin, closeButtonSize, closeButtonSize);
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"Close.png"] forState:UIControlStateNormal];
-    //[self.view addSubview:closeButton];
     
     float buttonY = textFieldFrame.origin.y+textFieldFrame.size.height+18;
     float buttonHeight = 32;
