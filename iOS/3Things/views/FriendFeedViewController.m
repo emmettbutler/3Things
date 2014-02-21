@@ -59,14 +59,14 @@
     frame.size = CGSizeMake(screenFrame.size.width, 60);
     
     UIView *titleView = [[UIView alloc] init];
-    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-55, -20, 105, 35)];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-43, -10, 84, 28)];
     [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
     [titleView addSubview:logoView];
     self.navigationItem.titleView = titleView;
     UIImage *friendImage = [UIImage imageNamed:@"Add Friend Icon.png"];
     UIButton *friend = [UIButton buttonWithType:UIButtonTypeCustom];
     [friend addTarget:self action:@selector(friendSearchWasTouched) forControlEvents:UIControlEventTouchUpInside];
-    friend.bounds = CGRectMake(0, 0, friendImage.size.width*.3, friendImage.size.height*.3);
+    friend.bounds = CGRectMake(0, 0, friendImage.size.width*.26, friendImage.size.height*.26);
     [friend setImage:friendImage forState:UIControlStateNormal];
     UIBarButtonItem *friendBtn = [[UIBarButtonItem alloc] initWithCustomView:friend];
     [[self navigationItem] setLeftBarButtonItem:friendBtn];

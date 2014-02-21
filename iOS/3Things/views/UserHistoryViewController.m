@@ -46,7 +46,7 @@
     self.navigationItem.hidesBackButton = YES;
     
     UIView *titleView = [[UIView alloc] init];
-    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-55, -20, 105, 35)];
+    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-45, -15, 84, 28)];
     [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
     [titleView addSubview:logoView];
     self.navigationItem.titleView = titleView;
