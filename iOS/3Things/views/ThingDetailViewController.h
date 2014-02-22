@@ -9,12 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "TTNetManager.h"
 
+@class ThingDetailViewController;
+@protocol ThingDetailViewControllerDelegate <NSObject>
+@optional
+- (void)willPopToViewController;
+@end
+
+id <ThingDetailViewControllerDelegate> popDelegate;
+
 @interface ThingDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TTNetManagerDelegate, UITextFieldDelegate>
 {
     float textFieldOriginalY, pastCommentsOriginalY, pastCommentsOriginalHeight;
     int commentHeight, commentWidth, commentViewMargins;
 }
 
+@property (nonatomic, assign) id <ThingDetailViewControllerDelegate> popDelegate;
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic) NSDictionary *thing;
 @property (nonatomic) NSMutableDictionary *commentData;

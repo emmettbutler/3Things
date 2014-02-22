@@ -14,7 +14,6 @@
 #import "TTNetManager.h"
 #import "AppDelegate.h"
 #import "Thing.h"
-#import "ThingDetailViewController.h"
 #import "My3ThingsViewController.h"
 #import "ErrorThrowingViewController.h"
 #import "TTDate.h"
@@ -304,6 +303,7 @@
         thing[@"index"] = @(indexPath.row);
         thing[@"day_id"] = self.shares._id;
         ThingDetailViewController *detailView = [[ThingDetailViewController alloc] initWithThing:thing];
+        detailView.popDelegate = self;
         [[self navigationController] pushViewController:detailView animated:YES];
     }
 }

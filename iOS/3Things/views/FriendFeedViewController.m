@@ -40,7 +40,7 @@
     TTLog(@"Appearing...");
     if (didLoad) {
         // unload the view as a heavy-handed way to clear the tableview reuse cache so new data shows up in sub-subviews
-        self.view = nil;  // lol
+        //self.view = nil;  // lol
         TTLog(@"Reloading... %0.2f %0.2f %0.2f %0.2f", self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height);
         //scrollFrame = CGRectMake(0, 65, 0, 0);
         [TTNetManager sharedInstance].netDelegate = self;

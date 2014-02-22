@@ -10,9 +10,10 @@
 #import "TTShareDay.h"
 #import "User.h"
 #import "TTNetManager.h"
+#import "ThingDetailViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface SingleDayViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, TTNetManagerDelegate>
+@interface SingleDayViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, TTNetManagerDelegate, ThingDetailViewControllerDelegate>
 
 - (id)initWithShareDay:(TTShareDay *)shares;
 - (id)initWithShareDay:(TTShareDay *)shares andIsCurrent:(NSNumber *)isCurrent andUser:(User *)user;
