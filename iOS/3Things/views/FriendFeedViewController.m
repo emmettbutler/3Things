@@ -41,8 +41,8 @@
     if (didLoad) {
         // unload the view as a heavy-handed way to clear the tableview reuse cache so new data shows up in sub-subviews
         self.view = nil;  // lol
-        TTLog(@"Reloading...");
-        scrollFrame = CGRectMake(0, 65, 0, 0);
+        TTLog(@"Reloading... %0.2f %0.2f %0.2f %0.2f", self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height);
+        //scrollFrame = CGRectMake(0, 65, 0, 0);
         [TTNetManager sharedInstance].netDelegate = self;
         [[TTNetManager sharedInstance] getFriendFeed];
     }
@@ -69,9 +69,6 @@
     bgLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-50);
     [self.view.layer insertSublayer:bgLayer atIndex:0];
     
-	CGRect frame = CGRectMake(0, 0, 0, 0);
-    frame.size = CGSizeMake(screenFrame.size.width, 60);
-    
     UIView *titleView = [[UIView alloc] init];
     UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(-43, -10, 84, 28)];
     [logoView setImage:[UIImage imageNamed:@"Three_Things_logo.png"]];
@@ -86,18 +83,7 @@
     [[self navigationItem] setLeftBarButtonItem:friendBtn];
     
     int searchBoxHeight = 50;
-    scrollFrame = CGRectMake(11, scrollFrame.origin.y, frame.size.width*.9, screenFrame.size.height-35-scrollFrame.origin.y);
-    self.tableView = [[TTTableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
-    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.userInteractionEnabled = YES;
-    // to re-enable feed element selection at daily granularity, change the following property to YES and uncomment touchesEnded in TTTableView
-    self.tableView.allowsSelection = NO;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
-    [self.tableView reloadData];
-    [self.view addSubview:self.tableView];
+    [self addTableView];
     
     CGRect searchFieldFrame = CGRectMake(0, 65, screenFrame.size.width, searchBoxHeight-5);
     searchBox = [[UITextField alloc] initWithFrame:searchFieldFrame];
@@ -123,6 +109,23 @@
     [navViewController didMoveToParentViewController:self];
     
     didLoad = YES;
+}
+
+- (void) addTableView {
+    CGRect frame = CGRectMake(0, 0, 0, 0);
+    frame.size = CGSizeMake(screenFrame.size.width, 60);
+    scrollFrame = CGRectMake(11, scrollFrame.origin.y, frame.size.width*.9, screenFrame.size.height-35-scrollFrame.origin.y);
+    self.tableView = [[TTTableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.userInteractionEnabled = YES;
+    // to re-enable feed element selection at daily granularity, change the following property to YES and uncomment touchesEnded in TTTableView
+    self.tableView.allowsSelection = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"FF0000" opacity:0];
+    [self.tableView reloadData];
+    [self.view addSubview:self.tableView];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
