@@ -430,7 +430,7 @@ class UserDaysController(UserHistoryController):
             published = False
 
         time = parse(sent_day['time'])
-        date = parse(sent_day['date'])
+        date = parse(sent_day['date'] if 'date' in sent_day else sent_day['time'])
 
         day = yield self._insert_day(date, time, sent_day, published=published)
 
