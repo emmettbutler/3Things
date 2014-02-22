@@ -12,7 +12,7 @@
 @class ThingDetailViewController;
 @protocol ThingDetailViewControllerDelegate <NSObject>
 @optional
-- (void)willPopToViewController;
+- (void)willPopToViewController:(NSNumber *)thingIndex;
 @end
 
 id <ThingDetailViewControllerDelegate> popDelegate;

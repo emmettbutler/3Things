@@ -45,5 +45,5 @@ Bugs
 - [ ] off-center loading spinner on feed
 - [ ] horizontally align find friends button
 - [x] show updated comment counts on feed view immediately after commenting
-- [ ] show updated comment counts on day view immediately after commenting
+- [x] show updated comment counts on day view immediately after commenting
 - [x] show new post in calendar immediately upon posting

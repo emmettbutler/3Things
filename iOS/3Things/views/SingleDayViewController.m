@@ -171,6 +171,12 @@
     [self.view addSubview:profilePicView];
 }
 
+-(void) willPopToViewController:(NSNumber *)thingIndex {
+    NSNumber *commentNumber = self.shares.commentCount[[thingIndex intValue]];
+    self.shares.commentCount[[thingIndex intValue]] = [NSNumber numberWithInt:[commentNumber intValue]+1];
+    [self.collectionView reloadData];
+}
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
     return 1;
 }

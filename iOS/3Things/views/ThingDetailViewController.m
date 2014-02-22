@@ -141,12 +141,8 @@
                                                    andUser:[userStore getAuthenticatedUser]
                                                    andText:textField.text];
         if (self.popDelegate != nil) {
-            // TODO - put this in the delegate method instead of here
             NSNumber *index = self.thing[@"index"];
-            NSNumber *commentNumber = ((SingleDayViewController *)self.popDelegate).shares.commentCount[[index intValue]];
-            ((SingleDayViewController *)self.popDelegate).shares.commentCount[[index intValue]] = [NSNumber numberWithInt:[commentNumber intValue]+1];
-            [((SingleDayViewController *)self.popDelegate).collectionView reloadData];
-            TTLog(@"Self.popdelegate: %@", ((SingleDayViewController *)self.popDelegate).shares.commentCount);
+            [self.popDelegate willPopToViewController:index];
         }
         NSMutableDictionary *newComment = [[NSMutableDictionary alloc] init];
         newComment[@"day_id"] = self.thing[@"day_id"];
