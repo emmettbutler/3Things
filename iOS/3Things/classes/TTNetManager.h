@@ -31,7 +31,7 @@
 @class TTNetManager;
 @protocol TTNetManagerDelegate <NSObject>
 @optional
--(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url;
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url andMethod:(NSString *)httpMethod;
 @end
 
 id <TTNetManagerDelegate> netDelegate;

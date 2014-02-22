@@ -23,7 +23,7 @@
 
 @implementation FriendFeedViewController
 
-- (id)init {
+- (id)init{
     if(self = [super init]) {
         [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                               [[TTNetManager sharedInstance] colorWithHexString:HEADER_TEXT_COLOR],
@@ -158,7 +158,7 @@
     [[self navigationController] pushViewController:[[LoginTypePickerViewController alloc] init] animated:YES];
 }
 
--(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url andMethod:(NSString *)httpMethod
 {
     if (error == NULL) {
         if ([[url absoluteString] rangeOfString:[NSString stringWithFormat:@"%@/days", [TTNetManager sharedInstance].rootURL]].location == NSNotFound) {

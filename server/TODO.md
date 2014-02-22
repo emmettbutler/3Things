@@ -23,6 +23,8 @@ Unfinished posts
 - [x] post unfinished days from unfinished post view to web
 - [x] touch an empty post in this view to edit it
 - [x] post unfinished days from empty post view to web
+- [ ] show all unfinished days in unpublished feed (currently only later ones
+    appear
 - [ ] exclude days with published posts from the unpublished feed (currently they appear as empty days)
     when the client requests unpublished posts, include published (don't show
     these on the client, but use them to determine which blank days to show?)

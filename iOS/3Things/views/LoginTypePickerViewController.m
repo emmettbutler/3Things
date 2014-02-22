@@ -188,7 +188,7 @@
     return NO;
 }
 
--(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url {
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url andMethod:(NSString *)httpMethod {
     if([((NSHTTPURLResponse *)res) statusCode] == 200){
         NSError *jsonError = nil;
         NSDictionary *json = [NSJSONSerialization

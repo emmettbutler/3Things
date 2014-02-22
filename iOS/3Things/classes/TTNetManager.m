@@ -281,7 +281,7 @@ TTNetManager *instance;
          // Or, fix some tiny issues by terminating any current request every time a new one is started
          app.networkActivityIndicatorVisible = NO;
          if (self.netDelegate != nil && originatingViewController == self.netDelegate) {
-             [netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
+             [netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url] andMethod:httpMethod];
          }
       }
      ];
@@ -353,7 +353,7 @@ TTNetManager *instance;
      ^(NSURLResponse *response, NSData *data, NSError *error){
          app.networkActivityIndicatorVisible = NO;
          if (self.netDelegate != nil && originatingViewController == self.netDelegate) {
-             [self.netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url]];
+             [self.netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url] andMethod:@"POST"];
          }
      }
      ];

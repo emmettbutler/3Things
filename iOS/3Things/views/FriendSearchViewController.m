@@ -164,7 +164,7 @@
     }];
 }
 
--(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url {
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url andMethod:(NSString *)httpMethod {
     if (error == NULL) {
         UserStore *userStore = [[UserStore alloc] init];
         TTLog(@"Data received from %@", url);

@@ -128,15 +128,18 @@
     [self.tableView reloadData];
 }
 
--(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url andMethod:(NSString *)httpMethod
 {
-    TTLog(@"Error: %@", error);
     if (error == NULL) {
         TTLog(@"Data received: %@", url);
         UserStore *userStore = [[UserStore alloc] init];
         if ([[url absoluteString] rangeOfString:
              [NSString stringWithFormat:@"%@/users/%@/days", [TTNetManager sharedInstance].rootURL, [userStore getAuthenticatedUser].userID]].location == NSNotFound) {
             return;
+        } else if ([httpMethod isEqualToString:@"POST"]) {
+            TTLog(@"Reloading...");
+            [TTNetManager sharedInstance].netDelegate = self;
+            [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:YES];
         }
         NSError *jsonError = nil;
         NSDictionary *json = [NSJSONSerialization
@@ -149,6 +152,7 @@
             [self.tableView reloadData];
             return;  // hack
         }
+            
         NSMutableArray *history = json[@"data"][@"history"];
         
         self.feedData = [[NSMutableDictionary alloc] init];
@@ -165,7 +169,6 @@
         
         NSDate *startDate = [formatter2 dateFromString:history[0][@"date"]];
         
-        TTLog(@"data: %@", json);
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *oneDay = [[NSDateComponents alloc] init];
         [oneDay setDay: 1];
@@ -209,6 +212,8 @@
         }
         
         [self.tableView reloadData];
+    } else {
+        TTLog(@"Error: %@", error);
     }
 }
 

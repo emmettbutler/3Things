@@ -112,7 +112,7 @@
     [self.view addSubview:self.tableView];
 }
 
--(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url
+-(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url andMethod:(NSString *)httpMethod
 {
     if (error == NULL) {
         NSError *jsonError = nil;
