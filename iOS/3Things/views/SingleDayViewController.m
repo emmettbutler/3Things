@@ -27,6 +27,12 @@
 
 @implementation SingleDayViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    TTLog(@"Appearing...");
+    [self.collectionView reloadData];
+}
+
 - (id)initWithShareDay:(TTShareDay *)shares {
     UserStore *userStore = [[UserStore alloc] init];
     return [self initWithShareDay:shares andIsCurrent:@(NO) andUser:[userStore getAuthenticatedUser]];
@@ -137,7 +143,6 @@
     
     if (!self.isCurrent){
         UITextView *timeAgo = [[UITextView alloc] initWithFrame:CGRectMake(0, 80, self.frame.size.width, 30)];
-        TTLog(@"time: %@", self.shares.time);
         NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:[self.shares.time timeIntervalSince1970]];
         timeAgo.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
         timeAgo.font = [UIFont fontWithName:SCRIPT_FONT size:11];
@@ -151,7 +156,6 @@
     
     UIView *profilePicView;
     CGRect picFrame = CGRectMake(myFrame.size.width/2-imgWidth/2, 5, imgWidth, imgWidth);
-    TTLog(@"user facebook ID: %@", [self.user facebookID]);
     if ([self.user facebookID] != NULL && ![[self.user facebookID] isEqualToString:@""]) {
         profilePicView = [[FBProfilePictureView alloc] initWithProfileID:[self.user facebookID] pictureCropping:FBProfilePictureCroppingSquare];
         profilePicView.frame = picFrame;

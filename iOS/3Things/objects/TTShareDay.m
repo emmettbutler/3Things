@@ -50,7 +50,6 @@
             for (int i = 0; i < 3; i++){
                 [self.theThings addObject:shares[@"things"][i]];
             }
-            TTLog(@"Constructed day from dictionary");
         }
     }
     return self;

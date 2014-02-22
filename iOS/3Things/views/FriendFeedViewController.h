@@ -30,7 +30,8 @@ id <FriendFeedViewControllerDelegate> feedDelegate;
 {
     UITextField *searchBox;
     TTView *touchView;
-    BOOL dragging, inSearch;
+    BOOL dragging, inSearch, didLoad;
+    CGRect scrollFrame, screenFrame;
     float oldY, touchLastY;
     BottomNavViewController *navViewController;
 }

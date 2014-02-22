@@ -31,8 +31,22 @@
                                                               [UIFont fontWithName:HEADER_FONT size:14.0],
                                                               UITextAttributeFont,
                                                               nil] forState:UIControlStateNormal];
+        didLoad = NO;
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    TTLog(@"Appearing...");
+    if (didLoad) {
+        // unload the view as a heavy-handed way to clear the tableview reuse cache so new data shows up in sub-subviews
+        self.view = nil;  // lol
+        TTLog(@"Reloading...");
+        scrollFrame = CGRectMake(0, 65, 0, 0);
+        [TTNetManager sharedInstance].netDelegate = self;
+        [[TTNetManager sharedInstance] getFriendFeed];
+    }
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidLoad
@@ -49,7 +63,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"LOGOUT" style:UIBarButtonItemStylePlain target:self action:@selector(logoutWasTouched)];
     self.view.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     
-	CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
+	screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
     
     CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
     bgLayer.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-50);
@@ -71,11 +85,8 @@
     UIBarButtonItem *friendBtn = [[UIBarButtonItem alloc] initWithCustomView:friend];
     [[self navigationItem] setLeftBarButtonItem:friendBtn];
     
-    [TTNetManager sharedInstance].netDelegate = self;
-    [[TTNetManager sharedInstance] getFriendFeed];
-    
     int searchBoxHeight = 50;
-    CGRect scrollFrame = CGRectMake(11, 0, frame.size.width*.9, screenFrame.size.height-35);
+    scrollFrame = CGRectMake(11, scrollFrame.origin.y, frame.size.width*.9, screenFrame.size.height-35-scrollFrame.origin.y);
     self.tableView = [[TTTableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
@@ -110,6 +121,8 @@
     [self.view addSubview:navViewController.view];
     navViewController.view.frame = navViewController.frame;
     [navViewController didMoveToParentViewController:self];
+    
+    didLoad = YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
@@ -161,6 +174,12 @@
 -(void)dataWasReceived:(NSURLResponse *)res withData:(NSData *)data andError:(NSError *)error andOriginURL:(NSURL *)url andMethod:(NSString *)httpMethod
 {
     if (error == NULL) {
+        if ([[url absoluteString] rangeOfString:@"/comment"].location != NSNotFound) {
+            TTLog(@"Reloading...");
+            [TTNetManager sharedInstance].netDelegate = self;
+            [[TTNetManager sharedInstance] getFriendFeed];
+            return;
+        }
         if ([[url absoluteString] rangeOfString:[NSString stringWithFormat:@"%@/days", [TTNetManager sharedInstance].rootURL]].location == NSNotFound) {
             return;
         }
@@ -171,9 +190,9 @@
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
 
+        TTLog(@"Got feed data");
         self.feedData = json;
         for (int i = 0; i < [self.feedData[@"data"][@"history"] count]; i++){
-            TTLog(@"day: %@", self.feedData[@"data"][@"history"][i]);
             NSMutableDictionary *dayAndUser = [[NSMutableDictionary alloc] init];
             TTShareDay *shareDay = [[TTShareDay alloc] initWithSharesDictionary:self.feedData[@"data"][@"history"][i]];
             [dayAndUser setObject:shareDay forKey:@"day"];
@@ -209,7 +228,7 @@
     static NSString *MyIdentifier = @"MyReuseIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:MyIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
     }
     CGRect frame = CGRectMake(0, 0, 320, 44);
     UIView* container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.backgroundView.bounds.size.width, cell.backgroundView.bounds.size.height)];
@@ -244,7 +263,6 @@
         [container addSubview:dayView.view];
         dayView.view.frame = CGRectMake(0, 0, dayView.frame.size.width, frame.size.height);
         [dayView didMoveToParentViewController:self];
-        
         [container addSubview:dayView.view];
     }
     
@@ -252,7 +270,6 @@
     
     cell.backgroundView = container;
     cell.backgroundColor = [UIColor clearColor];
-    //cell.selectedBackgroundView = [[UIView alloc] init];
     return cell;
 }
 
@@ -272,10 +289,6 @@
 -(void) reviewWasTouched {
     if (!self.isViewLoaded) return;
     UserStore *userStore = [[UserStore alloc] init];
-    /*NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
-    [viewControllers removeLastObject];
-    [viewControllers addObject:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]]];
-    [[self navigationController] setViewControllers:viewControllers animated:YES];*/
     [[self navigationController] pushViewController:[[My3ThingsViewController alloc] initWithShareDay:[[TTShareDay alloc] init] andIsCurrent:@(YES) andUser:[userStore getAuthenticatedUser]] animated:YES];
 }
 
@@ -286,7 +299,6 @@
         [viewControllers removeLastObject];
         [viewControllers addObject:[[FriendFeedViewController alloc] init]];
         [[self navigationController] setViewControllers:viewControllers animated:YES];
-        //[[self navigationController] pushViewController:[[FriendFeedViewController alloc] init] animated:YES];
     }
 }
 
@@ -296,7 +308,6 @@
     [viewControllers removeLastObject];
     [viewControllers addObject:[[UserHistoryViewController alloc] init]];
     [[self navigationController] setViewControllers:viewControllers animated:YES];
-    //[[self navigationController] pushViewController:[[UserHistoryViewController alloc] init] animated:YES];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
