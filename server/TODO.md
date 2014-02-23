@@ -23,14 +23,10 @@ Unfinished posts
 - [x] post unfinished days from unfinished post view to web
 - [x] touch an empty post in this view to edit it
 - [x] post unfinished days from empty post view to web
-- [ ] show all unfinished days in unpublished feed (currently only later ones
-    appear
-- [ ] exclude days with published posts from the unpublished feed (currently they appear as empty days)
-    when the client requests unpublished posts, include published (don't show
-    these on the client, but use them to determine which blank days to show?)
-    when client requests published, show only published
-    when client requests unpublished, show *all*. client should perform
-    filtering??
+- [x] show all unfinished days in unpublished feed (currently only later ones appear
+- [x] exclude days with published posts from the unpublished feed
+- [ ] after posting, cal view should jump to the posted day
+- [ ] edit icon on empty historical days in cal view
 - [ ] UI polish on unpublished calendar view
 
 Bugs
@@ -41,6 +37,7 @@ Bugs
 - [x] stop edit screen back arrow from moving around
 - [x] loading spinner is infinite when user has no posts
 - [x] some new posts appear after older ones in the friends feed
+- [ ] splash screen should only appear when not logged in??
 - [ ] typo and resize on intro quote
 - [ ] off-center loading spinner on feed
 - [ ] horizontally align find friends button

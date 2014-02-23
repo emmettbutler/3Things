@@ -155,7 +155,7 @@
         [TTNetManager sharedInstance].netDelegate = (id<TTNetManagerDelegate>)self;
         [[TTNetManager sharedInstance] postShareDay:self.shares forUser:[[userStore getAuthenticatedUser] userID] completedThings:self.dayView.completedThings];
         [[self navigationController] pushViewController:
-         [[UserHistoryViewController alloc] init] animated:YES];
+         [[UserHistoryViewController alloc] initWithPostedDay:self.shares] animated:YES];
     } else {
         /*if (!self.errViewIsShown){
             self.errViewIsShown = YES;

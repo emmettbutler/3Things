@@ -16,6 +16,9 @@
                                                          BottomNavViewControllerDelegate,
                                                          TTNetManagerDelegate>
 
+-(id)initWithPostedDay:(TTShareDay *)postedDay;
+
+@property (nonatomic) TTShareDay *postedDay;
 @property (nonatomic, retain) NSArray *userHistory;
 @property (nonatomic) CGRect screenFrame;
 @property (nonatomic, retain) User *user;

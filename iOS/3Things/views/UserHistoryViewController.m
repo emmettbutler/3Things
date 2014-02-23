@@ -23,6 +23,13 @@
 
 @implementation UserHistoryViewController
 
+-(id)initWithPostedDay:(TTShareDay *)postedDay {
+    if (self = [super init]) {
+        self.postedDay = postedDay;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     TTLog(@"entered userhistory controller");
@@ -95,7 +102,6 @@
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
                                                            forKey:NSFontAttributeName];
     [self.segmentControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
-    self.segmentControl.layer.cornerRadius = 20;
     [self.view addSubview:self.segmentControl];
     
     CGRect scrollFrame = CGRectMake(0, frame.size.height+5+50, frame.size.width, self.screenFrame.size.height-frame.size.height-22-50);
@@ -125,6 +131,7 @@
         [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:NO];
     }
     self.feedData = nil;
+    self.postedDay = nil;
     [self.tableView reloadData];
 }
 
@@ -170,6 +177,7 @@
         NSDate *startDate = [formatter2 dateFromString:history[0][@"date"]];
         
         NSCalendar *calendar = [NSCalendar currentCalendar];
+        unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
         NSDateComponents *oneDay = [[NSDateComponents alloc] init];
         [oneDay setDay: 1];
         int i = 0;
@@ -177,7 +185,6 @@
             NSMutableDictionary *day = nil;
             NSString *monthString = [formatter1 stringFromDate:date];
             NSDate *foundDate = [formatter2 dateFromString:history[i][@"date"]];
-            unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
             NSDateComponents* comp1 = [calendar components:unitFlags fromDate:foundDate];
             NSDateComponents* comp2 = [calendar components:unitFlags fromDate:date];
             BOOL hasDayForDate = [comp1 day] == [comp2 day] && [comp1 month] == [comp2 month] && [comp1 year] == [comp2 year];
@@ -218,6 +225,15 @@
         }
         
         [self.tableView reloadData];
+        if (self.postedDay) {
+            NSDateComponents* components = [calendar components:unitFlags fromDate:[self.postedDay date]];
+            NSNumber *month = [NSNumber numberWithInt:[[formatter1 stringFromDate:[self.postedDay date]] intValue]];
+            NSInteger row = [self getRowIndexForDay:[NSNumber numberWithInteger:[components day]]
+                                            inMonth:month];
+            NSInteger section = [self getSectionIndexForMonthNumber:month];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        }
     } else {
         TTLog(@"Error: %@", error);
     }
@@ -226,7 +242,39 @@
 - (NSNumber *)getMonthNumberForSectionIndex:(NSInteger)section {
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:SORT_ASCENDING];
     NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
-    return sortedKeys[section];
+    if (section >= 0) {
+        return sortedKeys[section];
+    }
+    return 0;
+}
+
+- (NSInteger)getSectionIndexForMonthNumber:(NSNumber *)month {
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:SORT_ASCENDING];
+    NSArray *sortedKeys = [[self.feedData allKeys] sortedArrayUsingDescriptors:@[sort]];
+    for (int i = 0; i < [sortedKeys count]; i++) {
+        if ([sortedKeys[i] intValue] == [month intValue]) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+- (NSInteger)getRowIndexForDay:(NSNumber *)day inMonth:(NSNumber *)month {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+    [formatter2 setTimeZone:[NSTimeZone defaultTimeZone]];
+    [formatter2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSNumber *thisMonth = [self getMonthNumberForSectionIndex:[self getSectionIndexForMonthNumber:month]];
+    NSArray *monthDays = self.feedData[thisMonth];
+    for (int i = 0; i < [monthDays count]; i ++) {
+        NSDate *date = [formatter2 dateFromString:monthDays[i][@"date"]];
+        NSDateComponents* components = [calendar components:unitFlags fromDate:date];
+        if ([[NSNumber numberWithInteger:[components day]] intValue] == [day intValue]) {
+            return i;
+        }
+    }
+    return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
