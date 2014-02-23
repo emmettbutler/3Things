@@ -373,10 +373,10 @@ class UserTodayController(Base3ThingsHandler):
 class UserHistoryController(Base3ThingsHandler):
     @coroutine
     def _get_user_history(self, user_id, published=True):
-        history = list(self.application.db.days.find({
-            'user': ObjectId(user_id),
-            'published': published
-        }).sort("date", -1))
+        crit = {'user': ObjectId(user_id)}
+        if published:
+            crit['published'] = published
+        history = list(self.application.db.days.find(crit).sort("date", -1))
         if len(history) == 0:
             raise tornado.web.HTTPError(404, "No history found for user %s" % user_id)
         for item in history:
