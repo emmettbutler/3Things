@@ -289,7 +289,7 @@ class DaysController(Base3ThingsHandler):
             raise tornado.web.HTTPError(400, "User %s not found" % for_user)
         friends = user[0]['friends'] if 'friends' in user[0] else []
         cond = {'user': {"$in": friends + [for_user]}, 'published': True}
-        history = list(self.application.db.days.find(cond).limit(20).sort("date", -1))
+        history = list(self.application.db.days.find(cond).limit(20).sort("time", -1))
         for item in history:
             item['user'] = self._user_response(item['user'])
             comments = list(self.application.db.comments.find({"day_id": item['_id']}))
