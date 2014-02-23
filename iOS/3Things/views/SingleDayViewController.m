@@ -237,7 +237,10 @@
     thingTextView.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"555555"];
     [container addSubview:thingTextView];
     
-    int count = [self.shares.commentCount[indexPath.row] intValue];
+    int count = 0;
+    if (self.shares.commentCount && [self.shares.commentCount count] >= indexPath.row + 1) {
+        count = [self.shares.commentCount[indexPath.row] intValue];
+    }
     if (!self.isCurrent && count != 0) {
         UITextView *commentCountView = [[UITextView alloc] initWithFrame:CGRectMake(40, 70, 100, 30)];
         commentCountView.font = [UIFont fontWithName:SCRIPT_FONT size:13];
