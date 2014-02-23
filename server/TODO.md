@@ -25,7 +25,7 @@ Unfinished posts
 - [x] post unfinished days from empty post view to web
 - [x] show all unfinished days in unpublished feed (currently only later ones appear
 - [x] exclude days with published posts from the unpublished feed
-- [ ] after posting, cal view should jump to the posted day
+- [x] after posting, cal view should jump to the posted day
 - [ ] edit icon on empty historical days in cal view
 - [ ] UI polish on unpublished calendar view
 
