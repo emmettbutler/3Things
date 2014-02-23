@@ -181,15 +181,18 @@
             NSDateComponents* comp1 = [calendar components:unitFlags fromDate:foundDate];
             NSDateComponents* comp2 = [calendar components:unitFlags fromDate:date];
             BOOL hasDayForDate = [comp1 day] == [comp2 day] && [comp1 month] == [comp2 month] && [comp1 year] == [comp2 year];
+            BOOL requestedUnpublished = [[url absoluteString] rangeOfString:@"published=0"].location != NSNotFound;
             if(hasDayForDate){
                 day = history[i];
                 if (self.feedData[monthString] == nil) {
                     [self.feedData setObject:[[NSMutableArray alloc] init] forKey:monthString];
                 }
-                [self.feedData[monthString] addObject:day];
+                if ([day[@"published"] intValue] == 0 || !requestedUnpublished) {
+                    [self.feedData[monthString] addObject:day];
+                }
                 i = i < [history count] - 1 ? i + 1 : i;
             }
-            if ([[url absoluteString] rangeOfString:@"published=0"].location != NSNotFound && !hasDayForDate) {  // unpublished
+            if (requestedUnpublished && !hasDayForDate) {  // unpublished
                 // make a new empty day with date, put it in
                 NSMutableDictionary *emptyDay = [[NSMutableDictionary alloc] init];
                 emptyDay[@"date"] = [formatter2 stringFromDate:date];
@@ -202,6 +205,9 @@
                     emptyThing[@"localImageURL"] = @"";
                     emptyThing[@"text"] = @"";
                     [emptyDay[@"things"] addObject:emptyThing];
+                }
+                if (self.feedData[monthString] == nil) {
+                    [self.feedData setObject:[[NSMutableArray alloc] init] forKey:monthString];
                 }
                 [self.feedData[monthString] addObject:emptyDay];
             }
