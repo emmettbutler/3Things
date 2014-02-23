@@ -43,8 +43,6 @@
         //self.view = nil;  // lol
         TTLog(@"Reloading... %0.2f %0.2f %0.2f %0.2f", self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height);
         //scrollFrame = CGRectMake(0, 65, 0, 0);
-        [TTNetManager sharedInstance].netDelegate = self;
-        [[TTNetManager sharedInstance] getFriendFeed];
     }
     [super viewWillAppear:animated];
 }
@@ -56,6 +54,9 @@
     inSearch = NO;
     self.feedData = nil;
     self.parsedFeed = [[NSMutableArray alloc] init];
+    
+    [TTNetManager sharedInstance].netDelegate = self;
+    [[TTNetManager sharedInstance] getFriendFeed];
 	
     self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     self.navigationController.navigationBarHidden = NO;
