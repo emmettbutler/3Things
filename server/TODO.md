@@ -26,8 +26,7 @@ Unfinished posts
 - [x] show all unfinished days in unpublished feed (currently only later ones appear
 - [x] exclude days with published posts from the unpublished feed
 - [x] after posting, cal view should jump to the posted day
-- [ ] edit icon on empty historical days in cal view
-- [ ] UI polish on unpublished calendar view
+- [x] edit icon on empty historical days in cal view
 
 Bugs
 - [x] splash screen
@@ -37,10 +36,8 @@ Bugs
 - [x] stop edit screen back arrow from moving around
 - [x] loading spinner is infinite when user has no posts
 - [x] some new posts appear after older ones in the friends feed
-- [ ] splash screen should only appear when not logged in??
-- [ ] typo and resize on intro quote
+- [x] typo and resize on intro quote
 - [ ] off-center loading spinner on feed
-- [ ] horizontally align find friends button
 - [x] show updated comment counts on feed view immediately after commenting
 - [x] show updated comment counts on day view immediately after commenting
 - [x] show new post in calendar immediately upon posting

@@ -363,7 +363,7 @@
         [container addSubview:emptyView];
     } else if (self.feedData == nil) {
         UIImageView *spinner = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ProgressWheel.png"]];
-        spinner.frame = CGRectMake(emptyView.frame.size.width/2-100/2, 0, 100, 100);
+        spinner.frame = CGRectMake(emptyView.frame.size.width/2-100/2, 20, 100, 100);
         CABasicAnimation *rotation;  // http://stackoverflow.com/a/12112975/735204
         rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
         rotation.fromValue = [NSNumber numberWithFloat:0];
