@@ -26,6 +26,7 @@
 		AA33AFD2183EC3490004DF3D /* ShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AA33AFD1183EC3490004DF3D /* ShareDay.m */; };
 		AA42DB7318855D3200EA244C /* TTTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA42DB7218855D3200EA244C /* TTTableView.m */; };
 		AA42DB7618855E9D00EA244C /* TTCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA42DB7518855E9D00EA244C /* TTCollectionView.m */; };
+		AA45FC3C18BC231500320289 /* Post In Progress Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA45FC3B18BC231500320289 /* Post In Progress Icon.png */; };
 		AA4E13671803579B00D65980 /* BottomNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E13661803579B00D65980 /* BottomNavViewController.m */; };
 		AA5D259E187CA153009A0FF5 /* 3T_Search Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5D259D187CA153009A0FF5 /* 3T_Search Arrow.png */; };
 		AA79308E183C043E006B4213 /* Compose_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA79308C183C043E006B4213 /* Compose_Icon.png */; };
@@ -115,6 +116,7 @@
 		AA42DB7218855D3200EA244C /* TTTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTTableView.m; path = 3Things/classes/TTTableView.m; sourceTree = SOURCE_ROOT; };
 		AA42DB7418855E9D00EA244C /* TTCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCollectionView.h; sourceTree = "<group>"; };
 		AA42DB7518855E9D00EA244C /* TTCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTCollectionView.m; sourceTree = "<group>"; };
+		AA45FC3B18BC231500320289 /* Post In Progress Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Post In Progress Icon.png"; path = "assets/Post In Progress Icon.png"; sourceTree = "<group>"; };
 		AA4E13651803579B00D65980 /* BottomNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomNavViewController.h; sourceTree = "<group>"; };
 		AA4E13661803579B00D65980 /* BottomNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomNavViewController.m; sourceTree = "<group>"; };
 		AA5D259D187CA153009A0FF5 /* 3T_Search Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3T_Search Arrow.png"; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 		AAF28C5617DAA90A0067FD79 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AA45FC3B18BC231500320289 /* Post In Progress Icon.png */,
 				AA2FAE2B18B5C4550079AA7C /* IntroScreen_without_Background.png */,
 				AA3389C918A302F80023D308 /* CloseIcon_Pictures.png */,
 				AAEC506B18A1C0F600C4A1D1 /* Add Friend Icon.png */,
@@ -455,6 +458,7 @@
 				AAE33B2B187E05BF0009CB25 /* icon_retina.png in Resources */,
 				AA79309C183C05E6006B4213 /* Flag_2.png in Resources */,
 				AA09109F1801CC2D00F9D8B8 /* placeholder.png in Resources */,
+				AA45FC3C18BC231500320289 /* Post In Progress Icon.png in Resources */,
 				AAF28C6617DAA90A0067FD79 /* Default-568h@2x.png in Resources */,
 				AA79309D183C05E6006B4213 /* Flag_1.png in Resources */,
 				AA79309B183C05E6006B4213 /* Flag_3.png in Resources */,

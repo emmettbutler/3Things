@@ -418,66 +418,76 @@
                 images++;
             }
         }
-        int addedImages = 0;
+        int addedImages = 0, addedThings = 0;
         
         for (int j = 0; j < 3; j++) {
             UITextView *thingView = [[UITextView alloc] initWithFrame:CGRectMake(60, 10+(j*23), (images == 0) ? 240 : 155, 22)];
             
-            UITextView *numberView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 22)];
-            numberView.text = [NSString stringWithFormat:@"%d", j+1];
-            numberView.editable = NO;
-            numberView.font = [UIFont fontWithName:HEADER_FONT size:11];
-            numberView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
-            numberView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
-            [thingView addSubview:numberView];
-            
             NSDictionary *thing = day[@"things"][j];
             
-            UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(12, 0, frame.size.width, 26)];
-            text.textAlignment = NSTextAlignmentLeft;
-            text.text = thing[@"text"];
-            text.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
-            text.allowsEditingTextAttributes = NO;
-            text.font = [UIFont fontWithName:HEADER_FONT size:11];
-            text.editable = NO;
-            int maxWidth = images == 0 ? 200 : 140;
-            CGSize size = [text.text sizeWithFont:text.font constrainedToSize:CGSizeMake(FLT_MAX, 40) lineBreakMode:NSLineBreakByWordWrapping];
-            while (size.width > maxWidth) {
-                text.text = [NSString stringWithFormat:@"%@...", [text.text substringToIndex:[text.text length]-4]];
-                size = [text.text sizeWithFont:text.font constrainedToSize:CGSizeMake(FLT_MAX, 40) lineBreakMode:NSLineBreakByWordWrapping];
-            }
-            [thingView addSubview:text];
-            
-            [container addSubview:thingView];
-            
-            int picTop = 20, picLeft = 225, picHeight = 60, picWidthSmall = 60, picWidthTiny = 30;
-            
-            NSString *imgID = thing[@"imageID"];
-            if (![imgID isEqualToString:@""] && imgID != NULL){
-                UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(picLeft, picTop, picWidthSmall, picHeight)];
-                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [[TTNetManager sharedInstance] rootURL], imgID]];
-                [picView setImageWithURL:url
-                        placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
-                if (images == 1) {
-                    
-                } else if(images == 2) {
-                    if (addedImages == 0) {
-                        picView.frame = CGRectMake(picLeft, picTop, picWidthSmall, picWidthSmall);
-                    } else if (addedImages == 1) {
-                        picView.frame = CGRectMake(picLeft+picWidthSmall+1, picTop, picWidthTiny, picWidthTiny);
-                    }
-                } else if(images == 3) {
-                    if (j == 0) {
-                        picView.frame = CGRectMake(picLeft, picTop, picWidthSmall, picWidthSmall);
-                    } else if (j == 1) {
-                        picView.frame = CGRectMake(picLeft+picWidthSmall+1, picTop, picWidthTiny, picWidthTiny);
-                    } else if (j == 2) {
-                        picView.frame = CGRectMake(picLeft+picWidthSmall+1, picTop+picWidthTiny, picWidthTiny, picWidthTiny);
-                    }
+            if (![thing[@"text"] isEqualToString:@""]) {
+                UITextView *numberView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 22)];
+                numberView.text = [NSString stringWithFormat:@"%d", j+1];
+                numberView.editable = NO;
+                numberView.font = [UIFont fontWithName:HEADER_FONT size:11];
+                numberView.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
+                numberView.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
+                [thingView addSubview:numberView];
+                
+                addedThings += 1;
+                
+                UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(12, 0, frame.size.width, 26)];
+                text.textAlignment = NSTextAlignmentLeft;
+                text.text = thing[@"text"];
+                text.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
+                text.allowsEditingTextAttributes = NO;
+                text.font = [UIFont fontWithName:HEADER_FONT size:11];
+                text.editable = NO;
+                int maxWidth = images == 0 ? 200 : 140;
+                CGSize size = [text.text sizeWithFont:text.font constrainedToSize:CGSizeMake(FLT_MAX, 40) lineBreakMode:NSLineBreakByWordWrapping];
+                while (size.width > maxWidth) {
+                    text.text = [NSString stringWithFormat:@"%@...", [text.text substringToIndex:[text.text length]-4]];
+                    size = [text.text sizeWithFont:text.font constrainedToSize:CGSizeMake(FLT_MAX, 40) lineBreakMode:NSLineBreakByWordWrapping];
                 }
-                addedImages += 1;
-                [container addSubview:picView];
+                [thingView addSubview:text];
+                
+                [container addSubview:thingView];
+                
+                int picTop = 20, picLeft = 225, picHeight = 60, picWidthSmall = 60, picWidthTiny = 30;
+                
+                NSString *imgID = thing[@"imageID"];
+                if (![imgID isEqualToString:@""] && imgID != NULL){
+                    UIImageView *picView = [[UIImageView alloc] initWithFrame:CGRectMake(picLeft, picTop, picWidthSmall, picHeight)];
+                    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/images/%@", [[TTNetManager sharedInstance] rootURL], imgID]];
+                    [picView setImageWithURL:url
+                            placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+                    if (images == 1) {
+                        
+                    } else if(images == 2) {
+                        if (addedImages == 0) {
+                            picView.frame = CGRectMake(picLeft, picTop, picWidthSmall, picWidthSmall);
+                        } else if (addedImages == 1) {
+                            picView.frame = CGRectMake(picLeft+picWidthSmall+1, picTop, picWidthTiny, picWidthTiny);
+                        }
+                    } else if(images == 3) {
+                        if (j == 0) {
+                            picView.frame = CGRectMake(picLeft, picTop, picWidthSmall, picWidthSmall);
+                        } else if (j == 1) {
+                            picView.frame = CGRectMake(picLeft+picWidthSmall+1, picTop, picWidthTiny, picWidthTiny);
+                        } else if (j == 2) {
+                            picView.frame = CGRectMake(picLeft+picWidthSmall+1, picTop+picWidthTiny, picWidthTiny, picWidthTiny);
+                        }
+                    }
+                    addedImages += 1;
+                    [container addSubview:picView];
+                }
             }
+        }
+        
+        if (addedThings == 0) {
+            UIImageView *composeIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Post In Progress Icon.png"]];
+            composeIcon.frame = CGRectMake(60, 30, 40, 40);
+            [container addSubview:composeIcon];
         }
     }
     container.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_LIGHT_GRAY];
