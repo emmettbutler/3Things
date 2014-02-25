@@ -94,7 +94,7 @@
     //[self.view addSubview:text];
     
     self.segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"COMPLETED", @"MISSED"]];
-    self.segmentControl.frame = CGRectMake(frame.size.width/2-100, frame.size.height+15, 200, 30);
+    self.segmentControl.frame = CGRectMake(frame.size.width/2-100, frame.size.height+17, 200, 25);
     [self.segmentControl addTarget:self action:@selector(didSelectSegment) forControlEvents:UIControlEventValueChanged];
     self.segmentControl.selectedSegmentIndex = 0;
     self.segmentControl.tintColor = [[TTNetManager sharedInstance] colorWithHexString:@"326766"];
@@ -104,7 +104,7 @@
     [self.segmentControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
     [self.view addSubview:self.segmentControl];
     
-    CGRect scrollFrame = CGRectMake(0, frame.size.height+5+50, frame.size.width, self.screenFrame.size.height-frame.size.height-22-50);
+    CGRect scrollFrame = CGRectMake(0, frame.size.height+5+50, frame.size.width, self.screenFrame.size.height-frame.size.height-95);
     self.tableHeight = @(scrollFrame.size.height);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
