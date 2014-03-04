@@ -225,15 +225,20 @@
         }
         
         [self.tableView reloadData];
+        NSIndexPath *indexPath;
         if (self.postedDay) {
             NSDateComponents* components = [calendar components:unitFlags fromDate:[self.postedDay date]];
             NSNumber *month = [NSNumber numberWithInt:[[formatter1 stringFromDate:[self.postedDay date]] intValue]];
             NSInteger row = [self getRowIndexForDay:[NSNumber numberWithInteger:[components day]]
                                             inMonth:month];
             NSInteger section = [self getSectionIndexForMonthNumber:month];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
-            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+            indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+        } else {
+            NSInteger sections = [self numberOfSectionsInTableView:self.tableView];
+            NSInteger rowsInSection = [self tableView:self.tableView numberOfRowsInSection:sections-1];
+            indexPath = [NSIndexPath indexPathForRow:rowsInSection-1 inSection:sections-1];
         }
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     } else {
         TTLog(@"Error: %@", error);
     }
