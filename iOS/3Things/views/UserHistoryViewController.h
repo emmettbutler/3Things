@@ -17,6 +17,7 @@
                                                          TTNetManagerDelegate>
 
 -(id)initWithPostedDay:(TTShareDay *)postedDay;
+-(id)initWithPostedDay:(TTShareDay *)postedDay andMissed:(BOOL)missed;
 
 @property (nonatomic) TTShareDay *postedDay;
 @property (nonatomic, retain) NSArray *userHistory;
@@ -24,6 +25,7 @@
 @property (nonatomic, retain) User *user;
 @property (nonatomic) UISegmentedControl *segmentControl;
 @property (nonatomic) BOOL multipleYears;
+@property (nonatomic) BOOL startOnMissed;
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic, retain) NSMutableDictionary *feedData;
 @property (nonatomic, retain) NSNumber *tableHeight;

@@ -42,6 +42,13 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    TTLog(@"view will appear");
+    _textField.delegate = self;
+    [_textField becomeFirstResponder];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -171,7 +178,7 @@
     [[TTNetManager sharedInstance] postShareDay:self.shares forUser:[[userStore getAuthenticatedUser] userID] completedThings:[NSNumber numberWithInt:self.thingIndex.intValue+1] published:NO];
 
     [[self navigationController] pushViewController:
-     [[FriendFeedViewController alloc] init] animated:YES];
+     [[UserHistoryViewController alloc] initWithPostedDay:self.shares andMissed:YES] animated:YES];
 }
 
 - (void)shareWasTouched {
@@ -341,13 +348,13 @@
 }
 
 - (void) closeWasTouched {
-    //[[self navigationController] popViewControllerAnimated:YES];
-    for (UIViewController *controller in self.navigationController.viewControllers) {
+    [[self navigationController] popViewControllerAnimated:YES];
+    /*for (UIViewController *controller in self.navigationController.viewControllers) {
         if ([controller isKindOfClass:[My3ThingsViewController class]]) {
             [self.navigationController popToViewController:controller animated:YES];
             break;
         }
-    }
+    }*/
 }
 
 @end

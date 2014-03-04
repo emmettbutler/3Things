@@ -23,9 +23,15 @@
 
 @implementation UserHistoryViewController
 
--(id)initWithPostedDay:(TTShareDay *)postedDay {
+-(id)initWithPostedDay:(TTShareDay *)postedDay
+{
+    return [self initWithPostedDay:postedDay andMissed:NO];
+}
+
+-(id)initWithPostedDay:(TTShareDay *)postedDay andMissed:(BOOL)missed {
     if (self = [super init]) {
         self.postedDay = postedDay;
+        self.startOnMissed = missed;
     }
     return self;
 }
@@ -46,7 +52,11 @@
     self.userHistory = [store allItemsForUser:self.user];
     
     [TTNetManager sharedInstance].netDelegate = self;
-    [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:YES];
+    if (self.startOnMissed) {
+        [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:NO];
+    } else {
+        [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:YES];
+    }
     
     self.navigationController.navigationBar.barTintColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     self.navigationController.navigationBarHidden = NO;
@@ -96,7 +106,7 @@
     self.segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"COMPLETED", @"MISSED"]];
     self.segmentControl.frame = CGRectMake(frame.size.width/2-100, frame.size.height+17, 200, 25);
     [self.segmentControl addTarget:self action:@selector(didSelectSegment) forControlEvents:UIControlEventValueChanged];
-    self.segmentControl.selectedSegmentIndex = 0;
+    self.segmentControl.selectedSegmentIndex = self.startOnMissed ? UNPUBLISHED_POSTS_SCREEN : PUBLISHED_POSTS_SCREEN;
     self.segmentControl.tintColor = [[TTNetManager sharedInstance] colorWithHexString:@"326766"];
     UIFont *font = [UIFont fontWithName:HEADER_FONT size:13];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
@@ -146,7 +156,11 @@
         } else if ([httpMethod isEqualToString:@"POST"]) {
             TTLog(@"Reloading...");
             [TTNetManager sharedInstance].netDelegate = self;
-            [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:YES];
+            if (self.startOnMissed) {
+                [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:NO];
+            } else {
+                [[TTNetManager sharedInstance] getHistoryForUser:self.user.userID published:YES];
+            }
         }
         NSError *jsonError = nil;
         NSDictionary *json = [NSJSONSerialization
