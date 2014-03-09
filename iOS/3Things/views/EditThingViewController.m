@@ -31,7 +31,7 @@
         self.thingIndex = thingIndex;
         self.firstEdit = YES;
         self.thingText = @"Share something...";
-        self.photoPromptIsHidden = NO;
+        self.photoPromptIsShown = NO;
         NSString *text;
         if (![self.shares.theThings[[thingIndex intValue]][@"text"] isEqualToString:@""]){
             text = shares.theThings[[thingIndex intValue]][@"text"];
@@ -46,6 +46,11 @@
 {
     TTLog(@"view will appear");
     _textField.delegate = self;
+    [_textField becomeFirstResponder];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [_textField becomeFirstResponder];
 }
 
@@ -199,7 +204,7 @@
     [self.view addSubview:promptViewController.view];
     promptViewController.view.frame = CGRectMake(0, screenFrame.size.height-180, screenFrame.size.width, 200);
     [promptViewController didMoveToParentViewController:self];
-    self.photoPromptIsHidden = YES;
+    self.photoPromptIsShown= YES;
 }
 
 - (void)photoWasSelected:(UIImage *)selectedImage {
@@ -235,17 +240,13 @@
 }
 
 - (void)viewWillLayoutSubviews {
-    if (self.photoPromptIsHidden) {
-        self.photoPromptIsHidden = NO;
-    } else {
-        self.photoPromptIsHidden = YES;
-    }
+    TTLog(@"photo prompt: %d", self.photoPromptIsShown);
+    self.photoPromptIsShown = NO;
 }
 
 - (void)viewDidLayoutSubviews {
-    if (self.photoPromptIsHidden) {
-        [_textField becomeFirstResponder];
-    }
+    TTLog(@"In didlayout: photoprompt: %d", self.photoPromptIsShown);
+    [_textField becomeFirstResponder];
 }
 
 - (NSString *)getNumberWord
@@ -348,13 +349,20 @@
 }
 
 - (void) closeWasTouched {
-    [[self navigationController] popViewControllerAnimated:YES];
-    /*for (UIViewController *controller in self.navigationController.viewControllers) {
-        if ([controller isKindOfClass:[My3ThingsViewController class]]) {
-            [self.navigationController popToViewController:controller animated:YES];
-            break;
+    TTLog(@"Closing: Thing index: %@", self.thingIndex);
+    UIViewController *prevController = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2];
+    if ([self.thingIndex intValue] == 0) {
+        for (UIViewController *controller in self.navigationController.viewControllers) {
+            if ([controller isKindOfClass:[My3ThingsViewController class]]) {
+                [self.navigationController popToViewController:controller animated:YES];
+                break;
+            }
         }
-    }*/
+    } else {
+        [[self navigationController] pushViewController:
+         [[EditThingViewController alloc] initWithThingIndex:
+          @(self.thingIndex.intValue - 1) andShares:self.shares] animated:YES];
+    }
 }
 
 @end

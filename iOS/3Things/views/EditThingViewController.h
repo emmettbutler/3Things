@@ -33,6 +33,6 @@
 @property (nonatomic) BOOL textIsBlank;
 @property (nonatomic) NSString *thingLocalImageURL;
 @property (nonatomic) BOOL firstEdit;
-@property (nonatomic) BOOL photoPromptIsHidden;
+@property (nonatomic) BOOL photoPromptIsShown;
 
 @end
