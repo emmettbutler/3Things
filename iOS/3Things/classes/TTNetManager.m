@@ -31,17 +31,6 @@ TTNetManager *instance;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(void)registerUser:(NSString *)email withName:(NSString *)uname andPassword:(NSString *)pw andPasswordConf:(NSString *)pwConf
-{
-    uname = [self urlEncodeString:uname];
-    pw = [self urlEncodeString:pw];
-    pwConf = [self urlEncodeString:pwConf];
-    NSString *url = [NSString stringWithFormat:@"%@/register?identifier=%@&name=%@&pw=%@&pwc=%@",
-                      rootURL, email, uname, pw, pwConf];
-    TTLog(@"Attempting to register user with URL: '%@'", url);
-    [self apiConnectionWithURL:url authorized:NO];
-}
-
 -(void)registerUserWithFacebookID:(NSString *)facebookID andName:(NSString *)name
 {
     name = [self urlEncodeString:name];
@@ -50,42 +39,6 @@ TTNetManager *instance;
                      rootURL, facebookID, name];
     TTLog(@"Attempting to register Facebook user with URL: '%@'", url);
     [self apiConnectionWithURL:url authorized:NO];
-}
-
--(void)loginUser:(NSString *)email withPassword:(NSString *)pw andImage:(NSString *)imageURL
-{
-    NSString *url = [NSString stringWithFormat:@"%@/login", rootURL];
-    NSError *error;
-    NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
-    
-    [jsonDict setObject:email forKey:@"email"];
-    [jsonDict setObject:pw forKey:@"pw"];
-    
-    NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDict
-                                                   options:NSJSONWritingPrettyPrinted
-                                                     error:&error];
-    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    NSMutableArray *images = [[NSMutableArray alloc] init];
-    
-    if (imageURL == nil) {
-        TTLog(@"Attempting to login user with URL: '%@'", url);
-        [self apiConnectionWithURL:url andData:jsonString andImages:nil authorized:NO fileName:@"userpic" jsonFilename:@"login"];
-        return;
-    }
-    
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [library assetForURL:[NSURL URLWithString:imageURL] resultBlock:^(ALAsset *asset )
-     {
-         UIImage *theImage = [UIImage imageWithCGImage:[asset thumbnail]];
-         [images addObject:theImage];
-         TTLog(@"Attempting to login user with URL: '%@'", url);
-         [self apiConnectionWithURL:url andData:jsonString andImages:images authorized:NO fileName:@"userpic" jsonFilename:@"login"];
-     }
-            failureBlock:^(NSError *error )
-     {
-         TTLog(@"Error loading asset");
-     }];
 }
 
 -(void)friendSearch:(NSString *)query forUser:(User *)user

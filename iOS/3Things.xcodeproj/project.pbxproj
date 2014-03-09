@@ -54,8 +54,6 @@
 		AABB2EC018006FD600EEA446 /* FriendFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EAE18006FD600EEA446 /* FriendFeedViewController.m */; };
 		AABB2EC118006FD600EEA446 /* EditThingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB018006FD600EEA446 /* EditThingViewController.m */; };
 		AABB2EC318006FD600EEA446 /* My3ThingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB418006FD600EEA446 /* My3ThingsViewController.m */; };
-		AABB2EC418006FD600EEA446 /* SignupCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB618006FD600EEA446 /* SignupCodeViewController.m */; };
-		AABB2EC518006FD600EEA446 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EB818006FD600EEA446 /* SplashViewController.m */; };
 		AABB2EC618006FD600EEA446 /* TTShareDay.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2EBB18006FD600EEA446 /* TTShareDay.m */; };
 		AABB2ECB18007A3500EEA446 /* UserHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABB2ECA18007A3500EEA446 /* UserHistoryViewController.m */; };
 		AABB2F111800A43600EEA446 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABB2F101800A43600EEA446 /* CoreData.framework */; };
@@ -154,10 +152,6 @@
 		AABB2EB018006FD600EEA446 /* EditThingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditThingViewController.m; sourceTree = "<group>"; };
 		AABB2EB318006FD600EEA446 /* My3ThingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = My3ThingsViewController.h; sourceTree = "<group>"; };
 		AABB2EB418006FD600EEA446 /* My3ThingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = My3ThingsViewController.m; sourceTree = "<group>"; };
-		AABB2EB518006FD600EEA446 /* SignupCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupCodeViewController.h; sourceTree = "<group>"; };
-		AABB2EB618006FD600EEA446 /* SignupCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupCodeViewController.m; sourceTree = "<group>"; };
-		AABB2EB718006FD600EEA446 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
-		AABB2EB818006FD600EEA446 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		AABB2EBA18006FD600EEA446 /* TTShareDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTShareDay.h; sourceTree = "<group>"; };
 		AABB2EBB18006FD600EEA446 /* TTShareDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTShareDay.m; sourceTree = "<group>"; };
 		AABB2EC918007A3500EEA446 /* UserHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHistoryViewController.h; sourceTree = "<group>"; };
@@ -263,10 +257,6 @@
 				AA7E5502183188F500D7DE8C /* SingleDayViewController.m */,
 				AA230A031809BB0D0025BCF5 /* ErrorThrowingViewController.h */,
 				AA230A041809BB0D0025BCF5 /* ErrorThrowingViewController.m */,
-				AABB2EB518006FD600EEA446 /* SignupCodeViewController.h */,
-				AABB2EB618006FD600EEA446 /* SignupCodeViewController.m */,
-				AABB2EB718006FD600EEA446 /* SplashViewController.h */,
-				AABB2EB818006FD600EEA446 /* SplashViewController.m */,
 				AAF46B41180C97A200FE79A9 /* LoginTypePickerViewController.h */,
 				AAF46B42180C97A300FE79A9 /* LoginTypePickerViewController.m */,
 				AA2FFBD01833B26200B9865A /* FriendSearchViewController.h */,
@@ -488,9 +478,7 @@
 				AA230A051809BB0D0025BCF5 /* ErrorThrowingViewController.m in Sources */,
 				AA33AFD2183EC3490004DF3D /* ShareDay.m in Sources */,
 				AA98E1C4182851E80045F827 /* TTNetManager.m in Sources */,
-				AABB2EC518006FD600EEA446 /* SplashViewController.m in Sources */,
 				AABB2F1D1800B0F600EEA446 /* ShareDayStore.m in Sources */,
-				AABB2EC418006FD600EEA446 /* SignupCodeViewController.m in Sources */,
 				AA0910621801BDA100F9D8B8 /* UserStore.m in Sources */,
 				AA0910A21801D2C700F9D8B8 /* PhotoPromptViewController.m in Sources */,
 				AABB2F141800ADA000EEA446 /* 3Things.xcdatamodeld in Sources */,
