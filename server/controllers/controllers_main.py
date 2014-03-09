@@ -419,12 +419,16 @@ class UserFriendController(Base3ThingsHandler):
         self.set_status(200)
         self.finish()
 
-    # TODO - friending should be a two-way relationship??
     @coroutine
     def _add_friend_for_user(self, user_id, friend_id):
         user = self.application.db.users.update(
             {'_id': ObjectId(user_id)},
             {"$addToSet": {"friends": ObjectId(friend_id)}}
+        )
+        # "automatic follow back"
+        friended_user = self.application.db.users.update(
+            {'_id': ObjectId(friend_id)},
+            {"$addToSet": {"friends": ObjectId(user_id)}}
         )
 
     @coroutine
