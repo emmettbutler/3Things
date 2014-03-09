@@ -33,7 +33,8 @@
     [self.view addSubview:bgButton];
     
     UIImageView *quoteImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IntroScreen_without_Background.png"]];
-    quoteImg.frame = CGRectMake(self.screenFrame.size.width*.05, 100, self.screenFrame.size.width*.9, self.screenFrame.size.width*1.1);
+    float height = self.screenFrame.size.width*1.1;
+    quoteImg.frame = CGRectMake(self.screenFrame.size.width*.05, self.screenFrame.size.height/2-height/2, self.screenFrame.size.width*.9, height);
     [self.view addSubview:quoteImg];
 }
 
