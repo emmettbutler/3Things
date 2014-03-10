@@ -198,11 +198,6 @@
         default:
             break;
     }
-    
-    /*[[NSNotificationCenter defaultCenter]
-     postNotificationName:SCSessionStateChangedNotification
-     object:session];
-    */
      
     if (error) {
         UIAlertView *alertView = [[UIAlertView alloc]
