@@ -155,7 +155,7 @@
 }
 
 - (void)cancelWasTouched {
-    //[[self navigationController] popViewControllerAnimated:YES];
+    [self.textField becomeFirstResponder];
 }
 
 -(void)removeImageWasTouched {
@@ -237,16 +237,6 @@
         textView.text = @"";
         self.firstEdit = NO;
     }
-}
-
-- (void)viewWillLayoutSubviews {
-    TTLog(@"photo prompt: %d", self.photoPromptIsShown);
-    self.photoPromptIsShown = NO;
-}
-
-- (void)viewDidLayoutSubviews {
-    TTLog(@"In didlayout: photoprompt: %d", self.photoPromptIsShown);
-    [_textField becomeFirstResponder];
 }
 
 - (NSString *)getNumberWord
