@@ -71,6 +71,7 @@ typedef enum _kStorage {
 
 @property (nonatomic, retain) NSString *currentAccessToken;
 @property (nonatomic, retain) NSString *rootURL;
+@property (nonatomic) NSURLConnection *currentConnection;
 @property (nonatomic, assign) id <TTNetManagerDelegate> netDelegate;
 
 @end

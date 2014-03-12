@@ -550,7 +550,15 @@
     if (!self.isViewLoaded) return;
     TTLog(@"User history screen got friends callback");
     NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:[[self navigationController] viewControllers]];
-    [viewControllers removeLastObject];
+    NSMutableArray *toRemove = [[NSMutableArray alloc] init];
+    for (UIViewController *controller in self.navigationController.viewControllers) {
+        if ([viewControllers indexOfObject:controller] > 8) {
+            [toRemove addObject:controller];
+        }
+    }
+    for (UIViewController *controller in toRemove) {
+        [viewControllers removeObject:controller];
+    }
     [viewControllers addObject:[[FriendFeedViewController alloc] init]];
     [[self navigationController] setViewControllers:viewControllers animated:YES];
 }
