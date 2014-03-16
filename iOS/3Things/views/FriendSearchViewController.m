@@ -170,12 +170,12 @@
         UserStore *userStore = [[UserStore alloc] init];
         TTLog(@"Data received from %@", url);
         NSError *jsonError = nil;
-        NSDictionary *json = [NSJSONSerialization
+        NSMutableDictionary *json = [NSJSONSerialization
                               JSONObjectWithData:data
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
         TTLog(@"json response: %@", json);
-        for (NSDictionary *user in (NSArray *)json[@"data"]){
+        for (NSMutableDictionary *user in (NSArray *)json[@"data"]){
             BOOL found = NO;
             NSString *thisUserID = user[@"_id"];
             for (NSDictionary *existingUser in self.friendData){
@@ -277,14 +277,16 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    TTLog(@"Selected search item %d", indexPath.row);
-    
     UserStore *userStore = [[UserStore alloc] init];
-    NSDictionary *user = self.friendData[indexPath.row];
+    NSMutableDictionary *user = self.friendData[indexPath.row];
     if ([user[@"friends"] intValue] == 0) {
         [[TTNetManager sharedInstance] addFriend:user[@"_id"] forUser:[userStore getAuthenticatedUser]];
+        user[@"friends"] = @(1);
+    } else if ([user[@"friends"] intValue] == 1) {
+        [[TTNetManager sharedInstance] removeFriend:user[@"_id"] forUser:[userStore getAuthenticatedUser]];
+        user[@"friends"] = @(0);
     }
-    [searchDelegate dismissSearchWasTouched];
+    [tableView reloadData];
 }
 
 @end
