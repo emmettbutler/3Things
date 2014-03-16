@@ -79,18 +79,21 @@
                                                         FBSessionState state, NSError *error) {
                                     }];
         }
-        FBRequest* friendsRequest = [FBRequest requestForMyFriends];
-        [friendsRequest startWithCompletionHandler: ^(FBRequestConnection *connection,
-                                                      NSDictionary* result,
-                                                      NSError *error) {
-            NSArray* friends = result[@"data"];
-            NSMutableArray *friendIDs = [[NSMutableArray alloc] init];
-            TTLog(@"friends count: %d, error %@", [friends count], error);
-            for (NSDictionary<FBGraphUser>* friend in friends) {
-                [friendIDs addObject:friend.id];
-            }
-            [[TTNetManager sharedInstance] getRegisteredFacebookFriends:[userStore getAuthenticatedUser] withFriendIDs:friendIDs andQuery:@""];
-        }];
+        if ([TTNetManager sharedInstance].cachedFriendIDs == nil) {
+            FBRequest* friendsRequest = [FBRequest requestForMyFriends];
+            [friendsRequest startWithCompletionHandler: ^(FBRequestConnection *connection,
+                                                          NSDictionary* result,
+                                                          NSError *error) {
+                NSArray* friends = result[@"data"];
+                NSMutableArray *friendIDs = [[NSMutableArray alloc] init];
+                for (NSDictionary<FBGraphUser>* friend in friends) {
+                    [friendIDs addObject:friend.id];
+                }
+                [[TTNetManager sharedInstance] getRegisteredFacebookFriends:[userStore getAuthenticatedUser] withFriendIDs:friendIDs andQuery:@""];
+            }];
+        } else {
+            [[TTNetManager sharedInstance] getRegisteredFacebookFriends:[userStore getAuthenticatedUser] withFriendIDs:[TTNetManager sharedInstance].cachedFriendIDs andQuery:@""];
+        }
     }
 }
 

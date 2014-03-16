@@ -304,8 +304,8 @@
         [TTNetManager sharedInstance].netDelegate = nil;
         [self searchWasActivated];
     } else {
-        inSearch = NO;
         [self friendsWasTouched];
+        inSearch = NO;
     }
 }
 

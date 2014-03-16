@@ -198,6 +198,7 @@ TTNetManager *instance;
 
 -(void)getRegisteredFacebookFriends:(User *)user withFriendIDs:(NSArray *)friendIDs andQuery:(NSString *)query
 {
+    self.cachedFriendIDs = friendIDs;
     NSMutableDictionary *jsonDict = [[NSMutableDictionary alloc] init];
     NSError *error;
     [jsonDict setObject:friendIDs forKey:@"friends"];
@@ -323,6 +324,7 @@ TTNetManager *instance;
             self.currentAccessToken = nil;
             //rootURL = @"http://localhost:5000";
             rootURL = @"http://three-things.herokuapp.com";
+            self.cachedFriendIDs = nil;
             self.rootURL = rootURL;
         }
         return self;
