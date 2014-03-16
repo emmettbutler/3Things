@@ -441,7 +441,7 @@ class UserFriendController(Base3ThingsHandler):
 
 class FacebookFriendFindController(Base3ThingsHandler):
     @authenticated
-    def post(self, user_id, query):
+    def post(self, user_id):
         friend_ids = self.request.files['jsondata'][0]['body']
         if not friend_ids:
             raise tornado.web.HTTPError(400, "Missing friend_ids parameter")
@@ -454,9 +454,12 @@ class FacebookFriendFindController(Base3ThingsHandler):
             raise tornado.web.HTTPError(400, "User '%s' not found" % user_id)
         thisuser = thisuser[0]
         for friend in friend_ids:
-            user = self._user_response(facebook_id=friend, query=query)
-            if user and user['_id'] not in thisuser['friends']:
-                ret.append(user)
+            user = self._user_response(facebook_id=friend)
+            if user:
+                userdict = dict({
+                    'friends': user['_id'] in thisuser['friends']
+                }.items() + user.items())
+                ret.append(userdict)
         self.set_status(200)
         self._send_response(ret)
 

@@ -28,7 +28,6 @@ id <FriendFeedViewControllerDelegate> feedDelegate;
                                                         FriendSearchViewControllerDelegate,
                                                         TTViewTouchDelegate>
 {
-    UITextField *searchBox;
     TTView *touchView;
     BOOL dragging, inSearch, didLoad;
     CGRect scrollFrame, screenFrame;

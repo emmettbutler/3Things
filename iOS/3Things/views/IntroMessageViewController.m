@@ -47,11 +47,15 @@
         if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
             TTLog(@"Facebook session found");
         }
-        // get the stored access token from defauls, put it in TTNetManager's memory, re-save it
-        [[TTNetManager sharedInstance] loginToken:[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kAccessToken]]];
-        self.viewController = [[FriendFeedViewController alloc] init];
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
-        [self presentViewController:navController animated:YES completion:NULL];
+        if (FBSession.activeSession.state != FBSessionStateClosed) {
+            // get the stored access token from defauls, put it in TTNetManager's memory, re-save it
+            [[TTNetManager sharedInstance] loginToken:[[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%d", kAccessToken]]];
+            self.viewController = [[FriendFeedViewController alloc] init];
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+            [self presentViewController:navController animated:YES completion:NULL];
+        } else {
+            [self presentViewController:[[LoginTypePickerViewController alloc] init] animated:YES completion:NULL];
+        }
     } else {
         [self presentViewController:[[LoginTypePickerViewController alloc] init] animated:YES completion:NULL];
     }

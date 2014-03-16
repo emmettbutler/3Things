@@ -205,7 +205,7 @@ TTNetManager *instance;
                                                    options:NSJSONWritingPrettyPrinted
                                                      error:&error];
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSString *url = [NSString stringWithFormat:@"%@/users/%@/friends/facebook/%@", rootURL, user.userID, query];
+    NSString *url = [NSString stringWithFormat:@"%@/users/%@/friends/facebook/search", rootURL, user.userID];
     TTLog(@"Attempting to retrieve registered facebook friends for user %@", user.userID);
     [self apiConnectionWithURL:url andData:jsonString authorized:YES];
 }
@@ -302,14 +302,19 @@ TTNetManager *instance;
     UIApplication* app = [UIApplication sharedApplication];
     app.networkActivityIndicatorVisible = YES;
     
+    originatingViewController = self.netDelegate;
+    
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *error){
          app.networkActivityIndicatorVisible = NO;
+         TTLog(@"got here");
          if (self.netDelegate != nil && originatingViewController == self.netDelegate) {
+             TTLog(@"Got through callback trap");
              [self.netDelegate dataWasReceived:response withData:data andError:error andOriginURL:[NSURL URLWithString:url] andMethod:@"POST"];
          }
      }
      ];
+    TTLog(@"initiated request");
 }
 
 -(id)init{

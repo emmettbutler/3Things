@@ -83,24 +83,7 @@
     UIBarButtonItem *friendBtn = [[UIBarButtonItem alloc] initWithCustomView:friend];
     [[self navigationItem] setLeftBarButtonItem:friendBtn];
     
-    int searchBoxHeight = 50;
     [self addTableView];
-    
-    CGRect searchFieldFrame = CGRectMake(0, 65, screenFrame.size.width, searchBoxHeight-5);
-    searchBox = [[UITextField alloc] initWithFrame:searchFieldFrame];
-    searchBox.placeholder = @"Search";
-    searchBox.delegate = self;
-    searchBox.font = [UIFont fontWithName:SCRIPT_FONT size:15];
-    searchBox.borderStyle = UITextBorderStyleRoundedRect;
-    searchBox.clearButtonMode = UITextFieldViewModeWhileEditing;
-    [searchBox addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    searchBox.hidden = YES;
-    searchBox.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:@"dddddd"];
-    searchBox.layer.masksToBounds = YES;
-    searchBox.layer.borderColor = [[[TTNetManager sharedInstance] colorWithHexString:@"ababab"] CGColor];
-    searchBox.layer.borderWidth = 4;
-    searchBox.returnKeyType = UIReturnKeyDone;
-    [self.view addSubview:searchBox];
     
     navViewController = [[BottomNavViewController alloc] initWithScreen:kFriendsScreen];
     navViewController.navDelegate = self;
@@ -129,13 +112,7 @@
     [self.view addSubview:self.tableView];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    //[self dismissSearchWasTouched];
-    [searchBox endEditing:YES];
-    return YES;
-}
-
--(void)textFieldDidBeginEditing:(UITextField *)textField {
+-(void)searchWasActivated {
     inSearch = YES;
     [navViewController.view removeFromSuperview];
     self.searchViewController = [[FriendSearchViewController alloc] init];
@@ -158,11 +135,8 @@
     [self.searchViewController.inviteView removeFromSuperview];
     [self.searchViewController.tableView removeFromSuperview];
     [self.searchView removeFromSuperview];
-    [searchBox endEditing:YES];
-    searchBox.text = @"";
     CGRect frame = self.tableView.frame;
     frame.origin.y = oldY;
-    searchBox.hidden = YES;
     self.tableView.frame = frame;
     [TTNetManager sharedInstance].netDelegate = nil;
 }
@@ -323,14 +297,14 @@
 -(void)friendSearchWasTouched
 {
     CGRect frame = self.tableView.frame;
-    if (searchBox.hidden){
-        searchBox.hidden = NO;
+    if (!inSearch){
+        inSearch = YES;
         frame.origin.y = 50;
         self.tableView.frame = frame;
         [TTNetManager sharedInstance].netDelegate = nil;
-        [self textFieldDidBeginEditing:searchBox];
-    } else if (searchBox.hidden == NO) {
-        searchBox.hidden = YES;
+        [self searchWasActivated];
+    } else {
+        inSearch = NO;
         [self friendsWasTouched];
     }
 }

@@ -14,7 +14,7 @@ def get_app():
         (r"/users", controllers_main.UsersController),
         (r"/users/([^\/]+)", controllers_main.UserController),
         (r"/users/([^\/]+)/friends", controllers_main.UserFriendsController),
-        (r"/users/([^\/]+)/friends/facebook/([^\/]+)", controllers_main.FacebookFriendFindController),
+        (r"/users/([^\/]+)/friends/facebook/search", controllers_main.FacebookFriendFindController),
         (r"/users/([^\/]+)/friends/([^\/]+)", controllers_main.UserFriendController),
         (r"/users/([^\/]+)/days", controllers_main.UserDaysController),
         (r"/users/([^\/]+)/today", controllers_main.UserTodayController),
@@ -22,9 +22,10 @@ def get_app():
         (r"/days", controllers_main.DaysController),
         (r"/images/([^\/]+)", controllers_main.ImagesController)
     ])
+    PROD_MONGO_URL = "mongodb://heroku:dataz!@paulo.mongohq.com:10084/app19646012"
     MONGO_URL = os.environ.get('MONGOHQ_URL')
     if MONGO_URL:
-        MONGO_URL = "mongodb://heroku:dataz!@paulo.mongohq.com:10084/app19646012"
+        MONGO_URL = PROD_MONGO_URL
         print "trying to connect..."
         application.dbclient = MongoClient(MONGO_URL)
         print "connected"

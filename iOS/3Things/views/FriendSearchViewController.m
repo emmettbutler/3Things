@@ -29,12 +29,12 @@
     self.friendData = [[NSMutableArray alloc] init];
     
     CGRect screenFrame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height-20);
-    CGRect popupFrame = CGRectMake(0, 110, screenFrame.size.width, screenFrame.size.height);
+    CGRect popupFrame = CGRectMake(0, 60, screenFrame.size.width, screenFrame.size.height);
     self.frame = popupFrame;
     
     [TTNetManager sharedInstance].netDelegate = self;
     
-    CGRect inviteFrame = CGRectMake(0, self.frame.size.height-300, self.frame.size.width, 300);
+    CGRect inviteFrame = CGRectMake(0, self.frame.size.height-250, self.frame.size.width, 300);
     self.inviteView = [[UIView alloc] initWithFrame:inviteFrame];
     CAGradientLayer *bgLayer = [BackgroundLayer greyGradient];
     bgLayer.frame = inviteFrame;
@@ -60,7 +60,7 @@
     [inviteButton setTitleColor:[[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR] forState:UIControlStateNormal];
     [self.view addSubview:self.inviteView];
     
-    CGRect scrollFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height-270);
+    CGRect scrollFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height-220);
     self.tableView = [[UITableView alloc] initWithFrame:scrollFrame style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.tableView.delegate = self;
@@ -91,8 +91,6 @@
             }
             [[TTNetManager sharedInstance] getRegisteredFacebookFriends:[userStore getAuthenticatedUser] withFriendIDs:friendIDs andQuery:@""];
         }];
-    } else {
-        [[TTNetManager sharedInstance] friendSearch:@"" forUser:[userStore getAuthenticatedUser]];
     }
 }
 
@@ -194,6 +192,8 @@
             }
         }
         [self.tableView reloadData];
+    } else {
+        TTLog(@"Friend search error: %@", error);
     }
 }
 
@@ -258,8 +258,13 @@
     thingTextView.textColor = [[TTNetManager sharedInstance] colorWithHexString:@"333333"];
     [container addSubview:thingTextView];
     
-    UITextView *followText = [[UITextView alloc] initWithFrame:CGRectMake(230, 15, 100, 40)];
-    [followText setText:@"FOLLOW"];
+    UITextView *followText = [[UITextView alloc] initWithFrame:CGRectMake(210, 18, 100, 40)];
+    if ([user[@"friends"] intValue] == 1) {
+        [followText setText:@"FOLLOWING"];
+    } else if ([user[@"friends"] intValue] == 0){
+        [followText setText:@"ADD"];
+    }
+    followText.textAlignment = NSTextAlignmentCenter;
     followText.font = [UIFont fontWithName:HEADER_FONT size:14];
     followText.textColor = [[TTNetManager sharedInstance] colorWithHexString:BUTTON_TEXT_BLUE_COLOR];
     [container addSubview:followText];
@@ -273,8 +278,9 @@
     
     UserStore *userStore = [[UserStore alloc] init];
     NSDictionary *user = self.friendData[indexPath.row];
-    [[TTNetManager sharedInstance] addFriend:user[@"_id"] forUser:[userStore getAuthenticatedUser]];
-    
+    if ([user[@"friends"] intValue] == 0) {
+        [[TTNetManager sharedInstance] addFriend:user[@"_id"] forUser:[userStore getAuthenticatedUser]];
+    }
     [searchDelegate dismissSearchWasTouched];
 }
 
