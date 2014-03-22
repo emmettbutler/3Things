@@ -437,6 +437,11 @@ class UserFriendController(Base3ThingsHandler):
             {'_id': ObjectId(user_id)},
             {"$pull": {"friends": ObjectId(friend_id)}}
         )
+        # "automatic unfollow back"
+        unfriended_user = self.application.db.users.update(
+            {'_id': ObjectId(friend_id)},
+            {"$pull": {"friends": ObjectId(user_id)}}
+        )
 
 
 class FacebookFriendFindController(Base3ThingsHandler):
