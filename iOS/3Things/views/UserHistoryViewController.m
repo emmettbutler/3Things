@@ -249,8 +249,8 @@
             indexPath = [NSIndexPath indexPathForRow:row inSection:section];
         } else {
             NSInteger sections = [self numberOfSectionsInTableView:self.tableView];
-            NSInteger rowsInSection = [self tableView:self.tableView numberOfRowsInSection:sections-1];
-            indexPath = [NSIndexPath indexPathForRow:rowsInSection-1 inSection:sections-1];
+            NSInteger rowsInSection = [self tableView:self.tableView numberOfRowsInSection:MAX(sections-1, 0)];
+            indexPath = [NSIndexPath indexPathForRow:MAX(rowsInSection-1, 0) inSection:MAX(sections-1, 0)];
         }
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     } else {

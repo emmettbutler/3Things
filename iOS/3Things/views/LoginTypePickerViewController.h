@@ -12,6 +12,7 @@
 
 @interface LoginTypePickerViewController : ErrorThrowingViewController
 {
+    BOOL touchLock;
 }
 
 @end

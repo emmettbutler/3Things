@@ -18,9 +18,13 @@
 {
     TTLog(@"Touch in custom table");
     UITouch *touch = [touches anyObject];
-    TTCollectionView *collectionView = (TTCollectionView*)(((UIView*)((UIView*)touch.view.superview.subviews[0]).subviews[0]).subviews[2]);
-    [collectionView touchesEnded:touches withEvent:event];
-    //[self.nextResponder touchesEnded:touches withEvent:event];
+    UIView *sister = (UIView*)touch.view.superview.subviews[0];
+    UIView *neice = (UIView*)sister.subviews[0];
+    if (neice != NULL && [neice.subviews count] >= 3) {
+        TTLog(@"subviews: %d", [neice.subviews count]);
+        TTCollectionView *collectionView = neice.subviews[2];
+        [collectionView touchesEnded:touches withEvent:event];
+    }
 }
 
 @end

@@ -22,7 +22,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+
+	touchLock = NO;
+    
     self.navigationController.navigationBarHidden = YES;
     self.view.backgroundColor = [[TTNetManager sharedInstance] colorWithHexString:COLOR_YELLOW];
     
@@ -58,8 +60,11 @@
 
 - (void)doFBLogin:(id)sender
 {
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate openSession];
+    if (!touchLock) {
+        touchLock = YES;
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate openSession];
+    }
 }
 
 -(BOOL)shouldShowNavBar {
