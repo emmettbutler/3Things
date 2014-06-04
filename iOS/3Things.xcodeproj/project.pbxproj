@@ -751,7 +751,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "3Things/3Things-Prefix.pch";
 				INFOPLIST_FILE = "3Things/3Things-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SDWebImage.framework/Versions/A",
@@ -761,7 +761,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "352292B7-F1DF-4FBC-8FE2-C85AEAE04D74";
+				PROVISIONING_PROFILE = "D6315C09-6FBB-4E07-BAC7-4B3A9A1D409B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -780,7 +780,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "3Things/3Things-Prefix.pch";
 				INFOPLIST_FILE = "3Things/3Things-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SDWebImage.framework/Versions/A",
@@ -790,7 +790,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D6315C09-6FBB-4E07-BAC7-4B3A9A1D409B";
+				PROVISIONING_PROFILE = "BA8AD08E-20DD-42A7-9CDA-1BFF32162975";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -167,9 +167,15 @@
                               JSONObjectWithData:data
                               options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves
                               error:&jsonError];
-
+        
+        if ([(NSHTTPURLResponse *)res statusCode] == 404) {
+            self.feedData = [[NSMutableDictionary alloc] init];
+            [self.tableView reloadData];
+            return;
+        }
+        
         // please forgive me for the following
-        if (json == NULL || [json[@"data"][@"history"] count] == 0) {
+        if (json == NULL) {
             [self.tableView reloadData];
             return;  // hack
         }
@@ -297,12 +303,12 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.feedData == nil) return 1;
+    if (self.feedData == nil || [self.feedData count] == 0) return 1;
     return [[self.feedData allKeys] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.feedData == nil) {
+    if (self.feedData == nil || [self.feedData count] == 0) {
         return 1;
     } else {
         NSNumber *thisMonth = [self getMonthNumberForSectionIndex:section];
@@ -319,7 +325,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = [[UITableViewHeaderFooterView alloc] init];
     
-    if (self.feedData != nil) {
+    if (self.feedData != nil && [self.feedData count] != 0) {
         NSNumber *thisMonth = [self getMonthNumberForSectionIndex:section];
         
         NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
@@ -353,7 +359,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.feedData == nil) {
+    if(self.feedData == nil || [self.feedData count] == 0) {
         return 400;
     } else {
         return 100;
